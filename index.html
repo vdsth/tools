@@ -410,6 +410,34 @@ button.tr-hoofd { border-color: var(--a); color: var(--a); font-weight: 600; }
 button.pa-pdf { border-color: var(--a); color: var(--a); font-weight: 600; }
 button.pa-pdf:disabled { opacity: .5; cursor: default; }
 @media (max-width: 520px) { nav.klassen .tegel .sub { display: none; } }
+.doek.ya-doek { aspect-ratio: auto; height: 400px; }
+@media (max-width: 600px) { .doek.ya-doek { height: 300px; } }
+.ya-rij { display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 900px) { .ya-rij { grid-template-columns: 1fr 1fr; } }
+.doek.ya-pool { aspect-ratio: 1 / 1; max-height: 460px; }
+.ya-onder { display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 1200px) { .ya-onder { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); } }
+.ya-h2 { margin: 0 0 8px; font-size: 1.1rem; }
+.ya-tabwrap { overflow-x: auto; }
+.ya-tab { width: 100%; border-collapse: collapse; font: 400 .9rem var(--f-mono); }
+.ya-tab th, .ya-tab td { text-align: right; padding: 5px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.ya-tab th:first-child, .ya-tab td:first-child { text-align: left; }
+.ya-tab th { font: 600 .82rem var(--f-body); color: var(--muted); white-space: normal; vertical-align: bottom; }
+.ya-soort { color: var(--muted); font: 400 .8rem var(--f-body); }
+.ya-res { display: flex; flex-direction: column; gap: 6px; }
+.ya-res > div { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; border-bottom: 1px solid var(--line); }
+.ya-res > div span { color: var(--muted); }
+.ya-res > div b { font: 600 1rem var(--f-mono); color: var(--a); white-space: nowrap; }
+.ya-ber h3 { margin: 14px 0 6px; font: 600 1rem var(--f-display); color: var(--a); }
+.ya-ber .pa-f b { color: var(--a); }
+.ya-uitlegvink { margin-top: 14px; }
+#ya-uitlegtekst p { max-width: 80ch; line-height: 1.55; color: var(--fg); }
+.ya-kR { color: var(--meet); } .ya-kA { color: var(--a); } .ya-kD { color: var(--b); }
+.doek.ya-3d { aspect-ratio: auto; height: 520px; touch-action: none; cursor: grab; }
+.doek.ya-3d:active { cursor: grabbing; }
+@media (max-width: 600px) { .doek.ya-3d { height: 380px; } }
+.ya-terug { position: absolute; top: 6px; right: 6px; padding: 4px 10px; font-size: .85rem; }
+.ya-vlakuitleg { margin: -4px 0 0; max-width: none; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
@@ -555,6 +583,7 @@ const APPLETS = [
   },
   {
     id: 'trek',
+    verborgen: true,   // voorlopig niet zichtbaar voor leerlingen; verwijder deze regel om de tool terug te tonen
     titel: 'De trekproef van staal',
     vak: 'Mechanica',
     klassen: ['5TWE'],
@@ -580,6 +609,21 @@ const APPLETS = [
       <path d="M150 64 L182 64 Q180 34 166 6 Q152 34 150 64 Z" fill="none" stroke="var(--b)" stroke-width="2"/>
       <path d="M140 64 V6" stroke="var(--a)" stroke-width="1.5"/><path d="M150 68 H182" stroke="var(--a)" stroke-width="1.5"/></svg>`,
     render: renderPara
+  },
+  {
+    id: 'yagi',
+    titel: 'Ontwerp van een Yagi-Uda-antenne',
+    vak: 'CanSat',
+    klassen: ['Engineering'],
+    beschrijving: 'Kies de ontvangfrequentie en het aantal elementen. Je krijgt een tekening op schaal met alle afmetingen en een simulatie van het stralingspatroon, de winst en de voor-achterverhouding.',
+    thumb: `<svg viewBox="0 0 240 70" aria-hidden="true">
+      <rect x="14" y="33" width="110" height="4" fill="var(--axis)"/>
+      <line x1="20" y1="8" x2="20" y2="62" stroke="var(--meet)" stroke-width="3"/>
+      <line x1="44" y1="10" x2="44" y2="31" stroke="var(--a)" stroke-width="3"/><line x1="44" y1="39" x2="44" y2="60" stroke="var(--a)" stroke-width="3"/>
+      <line x1="62" y1="13" x2="62" y2="57" stroke="var(--b)" stroke-width="3"/><line x1="88" y1="14" x2="88" y2="56" stroke="var(--b)" stroke-width="3"/><line x1="116" y1="15" x2="116" y2="55" stroke="var(--b)" stroke-width="3"/>
+      <path d="M150 35 C170 5 225 15 232 35 C225 55 170 65 150 35 Z" fill="none" stroke="var(--b)" stroke-width="2"/>
+      <path d="M150 35 C146 30 141 30 140 35 C141 40 146 40 150 35 Z" fill="none" stroke="var(--b)" stroke-width="1.5"/></svg>`,
+    render: renderYagi
   }
 ];
 
@@ -603,7 +647,7 @@ function route() {
   if (opruimen) { opruimen(); opruimen = null; }
   const h = decodeURIComponent(location.hash.slice(1));
   const klas = KLASSEN.find(k => k.id.toLowerCase() === h.toLowerCase());
-  const applet = APPLETS.find(a => a.id === h);
+  const applet = APPLETS.find(a => a.id === h && !a.verborgen);
 
   if (applet) {
     const k = (laatsteKlas && applet.klassen.includes(laatsteKlas)) ? laatsteKlas : applet.klassen[0];
@@ -620,7 +664,7 @@ function route() {
   if (klas) {
     laatsteKlas = klas.id;
     tekenNav(klas.id);
-    const lijst = APPLETS.filter(a => a.klassen.includes(klas.id));
+    const lijst = APPLETS.filter(a => a.klassen.includes(klas.id) && !a.verborgen);
     inhoud.innerHTML = `
       <h1>${klas.naam}</h1>
       ${lijst.length ? `<div class="lijst">${lijst.map(a => `
@@ -1212,8 +1256,6 @@ function renderEVB(root) {
       uitleg: 'Auto <b>A</b> vertrekt vanuit stilstand aan een verkeerslicht en versnelt met 3 m/s². Welke vorm heeft elk van de drie grafieken?' },
     { id: 'remt', naam: 'Een auto remt', A: { s0: 0, v0: 20, a: -2, t1: 0 }, B: NUL, aanB: false,
       uitleg: 'Auto <b>A</b> rijdt 20 m/s (72 km/h) en remt met een vertraging van 2 m/s². Na hoeveel seconden staat hij stil en hoe lang is de remweg?' },
-    { id: 'fietser', naam: 'Fietser rijdt constant en versnelt daarna', A: { s0: 0, v0: 5, a: 1, t1: 4 }, B: NUL, aanB: false,
-      uitleg: 'Fietser <b>A</b> rijdt eerst 4 s lang constant 5 m/s en versnelt daarna met 1 m/s². Zoek in elke grafiek het moment waarop de versnelling begint.' },
     { id: 'inhalen', naam: 'Een versnellende auto haalt een andere auto in', A: { s0: 15, v0: 10, a: 0, t1: 0 }, B: { s0: 0, v0: 0, a: 3, t1: 0 }, aanB: true,
       uitleg: 'Auto <b>A</b> rijdt constant 10 m/s en is 15 m vóór auto <b>B</b> op het moment dat B vanuit stilstand vertrekt met 3 m/s². Wanneer en waar haalt B auto A in?' },
     { id: 'helling', naam: 'Een bal rolt een helling op en terug', A: { s0: 0, v0: 8, a: -2, t1: 0 }, B: NUL, aanB: false,
@@ -1239,8 +1281,7 @@ function renderEVB(root) {
   const groepCtrls = k => `
         ${ctrl(k + 's0', 'Beginpositie s<sub>0</sub>', -SMAX, SMAX, 1, 'm')}
         ${ctrl(k + 'v0', 'Beginsnelheid v<sub>0</sub>', -VMAX, VMAX, 0.5, 'm/s')}
-        ${ctrl(k + 'a', 'Versnelling a', -AMAX, AMAX, 0.1, 'm/s²')}
-        ${ctrl(k + 't1', 'Versnellen vanaf t<sub>1</sub>', 0, T, 0.5, 's')}`;
+        ${ctrl(k + 'a', 'Versnelling a', -AMAX, AMAX, 0.1, 'm/s²')}`;
   const legende = `<span class="legende"><span><i class="ln"></i>A</span><span class="lb"><i class="ln b"></i>B</span></span>`;
 
   root.innerHTML = `
@@ -1335,7 +1376,7 @@ function renderEVB(root) {
       s0: koppel(k + 's0', obj, 's0', -SMAX, SMAX),
       v0: koppel(k + 'v0', obj, 'v0', -VMAX, VMAX),
       a: koppel(k + 'a', obj, 'a', -AMAX, AMAX),
-      t1: koppel(k + 't1', obj, 't1', 0, T)
+      t1: v => { obj.t1 = 0; }
     };
   });
   const zetT = koppel('t', st, 't', 0, T);
@@ -1345,7 +1386,7 @@ function renderEVB(root) {
   function zetAanB(aan) {
     st.aanB = aan; vinkB.checked = aan;
     $('gb').classList.toggle('uit-b', !aan);
-    ['s0', 'v0', 'a', 't1'].forEach(x => { $('b' + x).disabled = !aan; $('b' + x + 'n').disabled = !aan; });
+    ['s0', 'v0', 'a'].forEach(x => { $('b' + x).disabled = !aan; $('b' + x + 'n').disabled = !aan; });
     root.querySelectorAll('.lb').forEach(el => { el.hidden = !aan; });
     $('kb').hidden = !aan; $('km').hidden = !aan;
     $('doekb').style.height = aan ? '210px' : '140px';
@@ -3156,11 +3197,8 @@ function renderReac(root) {
   };
   const st = {
     type: 'steun', L: 5, xA: 0, xB: 5, kant: 'links', rond: 'A', opl: false,
-    loads: [
-      { id: 1, soort: 'F', dir: 'dr', F: 10, a: 60, x: 1.5 },
-      { id: 2, soort: 'q', qdir: 1, q: 4, s: 2.5, e: 5 }
-    ],
-    volg: 3
+    loads: [],
+    volg: 1
   };
 
   const ctrl = (id, label, min, max, step, eenh) => `
@@ -3217,7 +3255,7 @@ function renderReac(root) {
           <div class="doek rk-doek"><canvas id="rk-c1" role="img" aria-label="Ligger met opleggingen en belastingen"></canvas></div>
         </div>
         <div class="paneel graf">
-          <div class="kop"><h2>Lichaam vrijmaken</h2>
+          <div class="kop"><h2>1. Lichaam vrijmaken</h2>
             <span class="legende"><span><i class="ln" style="border-color:var(--fg)"></i>belasting</span><span><i class="ln" style="border-color:var(--a)"></i>vervangkracht</span><span><i class="ln" style="border-color:var(--meet)"></i>reactiekracht</span></span></div>
           <div class="doek rk-doek rk-doek2"><canvas id="rk-c2" role="img" aria-label="Vrijgemaakte ligger met alle krachten"></canvas></div>
         </div>
@@ -3621,6 +3659,7 @@ function renderReac(root) {
     $('voor').innerHTML = voor.length ? voor.join('') : '<p class="note">Er zijn geen verdeelde belastingen of schuine krachten. Er is dus niets vooraf te berekenen.</p>';
 
     /* 4. Evenwichtsvergelijkingen */
+    if (!st.loads.length) { $('voor').innerHTML = '<p class="note">Voeg eerst een puntkracht of een verdeelde belasting toe.</p>'; $('ev').innerHTML = '<div class="leeg">Voeg eerst een belasting toe. Daarna verschijnen hier de evenwichtsvergelijkingen.</div>'; $('res').innerHTML = ''; return; }
     if (res.fout) { $('ev').innerHTML = `<div class="leeg">${res.fout}</div>`; $('res').innerHTML = ''; return; }
     const term = (v, txt, eerste = false) => {
       const neg = v < 0;
@@ -4290,7 +4329,7 @@ function renderTrek(root) {
    ============================================================ */
 function renderPara(root) {
   const G = 9.81, RHO = 1.225, NST = 10;
-  const st = { m: 350, v: 8, cd: 0.75, n: 8, gat: false, dg: 5, naad: true, t: 2 };
+  const st = { m: 350, v: 8, cd: 0.75, n: 8, gat: false, dg: 5, naad: false, t: 1, zoomO: false, zo: 1.5, zoomG: false, zg: 1.5 };
 
   // vaste decimalen met komma
   const f = (x, d = 2) => (Object.is(x, -0) ? 0 : x).toLocaleString('nl-BE', { minimumFractionDigits: d, maximumFractionDigits: d }).replace('-', '−');
@@ -4354,13 +4393,20 @@ function renderPara(root) {
           <div id="pa-gatin">${ctrl('dg', 'Diameter van het gat d<sub>gat</sub>', 1, 20, 0.5, 'cm')}</div>
         </div>
         <div class="groep">
-          <div class="gkop"><label class="vink"><input type="checkbox" id="pa-naad">Naadtoeslag tekenen</label></div>
-          <div id="pa-naadin">${ctrl('t', 'Naadtoeslag', 0.5, 3, 0.5, 'cm')}</div>
+          <div class="gkop">Naden en zomen</div>
+          <label class="vink"><input type="checkbox" id="pa-naad">Naadtoeslag zijkanten</label>
+          <div id="pa-naadin">${ctrl('t', 'Breedte (om de gores aan elkaar te naaien)', 0.5, 3, 0.5, 'cm')}</div>
+          <label class="vink"><input type="checkbox" id="pa-zoomO">Zoom onderaan</label>
+          <div id="pa-zoomOin">${ctrl('zo', 'Breedte van de zoom onderaan', 0.5, 3, 0.5, 'cm')}</div>
+          <div id="pa-zoomGblok">
+            <label class="vink"><input type="checkbox" id="pa-zoomG">Zoom rond het gat</label>
+            <div id="pa-zoomGin">${ctrl('zg', 'Breedte van de zoom rond het gat', 0.5, 3, 0.5, 'cm')}</div>
+          </div>
         </div>
         <div class="groep">
           <div class="gkop">Exporteren</div>
-          <div class="knoppen"><button class="knop pa-pdf" type="button" id="pa-pdf">⤓ Exporteer als pdf</button></div>
-          <p class="uitleg klein" id="pa-pdfmeld">Het pdf bevat de berekeningen en de gore op ware grootte (1:1), om af te drukken en uit te knippen.</p>
+          <div class="knoppen"><button class="knop pa-pdf" type="button" id="pa-pdf">⤓ Exporteer als pdf</button><button class="knop pa-pdf" type="button" id="pa-dxf">⤓ Gore als dxf</button></div>
+          <p class="uitleg klein" id="pa-pdfmeld">Het pdf bevat de berekeningen en de gore op ware grootte (1:1), om af te drukken en uit te knippen. Het dxf-bestand (in mm) bevat de snijlijn (met naadtoeslag en zomen) en de naadlijn, bv. voor een lasersnijder.</p>
         </div>
       </div>
     </div>
@@ -4383,10 +4429,13 @@ function renderPara(root) {
     r.value = n.value = st[key];
   }
   koppel('m', 'm', 100, 1000); koppel('v', 'v', 3, 15); koppel('cd', 'cd', 0.4, 1.2);
-  koppel('n', 'n', 4, 16); koppel('dg', 'dg', 1, 20); koppel('t', 't', 0.5, 3);
+  koppel('n', 'n', 4, 16); koppel('dg', 'dg', 1, 20); koppel('t', 't', 0.5, 3); koppel('zo', 'zo', 0.5, 3); koppel('zg', 'zg', 0.5, 3);
   $('gat').checked = st.gat; $('naad').checked = st.naad;
   $('gat').addEventListener('change', () => { st.gat = $('gat').checked; alles(); });
   $('naad').addEventListener('change', () => { st.naad = $('naad').checked; alles(); });
+  $('zoomO').checked = st.zoomO; $('zoomG').checked = st.zoomG;
+  $('zoomO').addEventListener('change', () => { st.zoomO = $('zoomO').checked; alles(); });
+  $('zoomG').addEventListener('change', () => { st.zoomG = $('zoomG').checked; alles(); });
 
   /* ---------- berekening ---------- */
   function bereken() {
@@ -4405,7 +4454,7 @@ function renderPara(root) {
     const bw = y => b0 * Math.cos(y / Rc);
     const stations = [];
     for (let k = 0; k <= NST; k++) { const y = h * k / NST; stations.push({ k, y, b: bw(y) }); }
-    return { m, n, Fz, A, dg, Ag, At, R, a, ok, th, Rc, ac, h, b0, bt, bw, stations, t: st.naad ? st.t : 0, hoek: 360 / n };
+    return { m, n, Fz, A, dg, Ag, At, R, a, ok, th, Rc, ac, h, b0, bt, bw, stations, ts: st.naad ? st.t : 0, tb: st.zoomO ? st.zo : 0, tg: (st.gat && st.zoomG) ? st.zg : 0, hoek: 360 / n };
   }
 
   /* ---------- berekeningen als opmaaktekst (zelfde bron voor scherm en pdf) ----------
@@ -4448,7 +4497,11 @@ function renderPara(root) {
       fo(`hoogte (kwart van de omtrek): h = π · R / 2 = π · ${f(g.Rc, 1)} / 2 = **${f(g.h, 1)} cm**`);
     }
     fo('breedte op hoogte y: b(y) = b · cos(y / R)   (y / R in radialen)');
-    if (g.t) tx(`Naadtoeslag: teken rondom ${f(g.t, 1)} cm extra stof bij om te stikken.`);
+    const extra = [];
+    if (g.ts) extra.push(`${f(g.ts, 1)} cm naadtoeslag langs de zijkanten (om de gores aan elkaar te naaien)`);
+    if (g.tb) extra.push(`${f(g.tb, 1)} cm zoom aan de onderrand`);
+    if (g.tg) extra.push(`${f(g.tg, 1)} cm zoom rond het gat`);
+    if (extra.length) tx('Teken extra stof bij: ' + extra.join(', ') + '.');
     return L;
   }
 
@@ -4491,18 +4544,45 @@ function renderPara(root) {
     for (let i = 0; i <= N; i++) { const y = g.h * i / N; p.push({ x: g.bw(y) / 2, y }); }
     return p;
   }
-  function naadRand(g, t, N = 120) {    // contour met naadtoeslag (in cm), gesloten veelhoek
-    const r = [];
+  function heeftExtra(g) { return g.ts > 0 || g.tb > 0 || g.tg > 0; }
+  // snijlijn: gore met naadtoeslag langs de zijkanten, zoom onderaan en (met gat) zoom bovenaan; in cm
+  function naadRand(g, N = 120) {
+    const ts = g.ts, tb = g.tb, k = Math.PI / g.n;
+    let r = [];
     for (let i = 0; i <= N; i++) {
       const y = g.h * i / N, x = g.bw(y) / 2;
-      const dxdy = -(Math.PI / g.n) * Math.sin(y / g.Rc);
-      const nn = Math.hypot(1, dxdy);
-      r.push({ x: x + t / nn, y: y - t * dxdy / nn });
+      const dxdy = -k * Math.sin(y / g.Rc), nn = Math.hypot(1, dxdy);
+      r.push({ x: x + ts / nn, y: y - ts * dxdy / nn });
     }
-    const top = r[r.length - 1];
-    const pts = [{ x: -(g.b0 / 2 + t), y: -t }, { x: g.b0 / 2 + t, y: -t }, ...r, { x: top.x, y: g.h + t }, { x: -top.x, y: g.h + t }];
-    for (let i = r.length - 1; i >= 0; i--) pts.push({ x: -r[i].x, y: r[i].y });
+    const hellingTop = -k * Math.sin(g.h / g.Rc);   // dx/dy van de rand bovenaan
+    let top;
+    if (g.bt > 0) {                                   // met gat: bovenrand op h + zoom
+      const yt = g.h + g.tg;
+      const bin = r.filter(p => p.y <= yt + 1e-9);
+      const laatste = bin[bin.length - 1];
+      if (bin.length < r.length) {                    // snijden op yt
+        const nxt = r[bin.length], u = (yt - laatste.y) / (nxt.y - laatste.y);
+        bin.push({ x: laatste.x + u * (nxt.x - laatste.x), y: yt });
+      } else if (laatste.y < yt - 1e-9) {             // verlengen langs de rand
+        bin.push({ x: laatste.x + hellingTop * (yt - laatste.y), y: yt });
+      }
+      r = bin; const e = r[r.length - 1];
+      top = [{ x: -e.x, y: e.y }];
+    } else {                                          // zonder gat: zijranden lopen samen in de top
+      const e = r[r.length - 1];
+      if (e.x > 1e-9) r.push({ x: 0, y: e.y + e.x / Math.max(1e-6, -hellingTop) });
+      top = [];
+    }
+    const x0 = r[0].x;
+    const pts = [{ x: -x0, y: -tb }, { x: x0, y: -tb }, ...r, ...top];
+    for (let i = r.length - 1; i >= 0; i--) if (r[i].x > 1e-9 || g.bt > 0) { if (!(g.bt > 0 && i === r.length - 1)) pts.push({ x: -r[i].x, y: r[i].y }); }
     return pts;
+  }
+  function grenzen(g) {                               // omhullende van de snijlijn (cm)
+    const pts = heeftExtra(g) ? naadRand(g) : [...rand(g), { x: -g.b0 / 2, y: 0 }];
+    let xm = 0, y0 = 0, y1 = g.h;
+    pts.forEach(p => { xm = Math.max(xm, Math.abs(p.x)); y0 = Math.min(y0, p.y); y1 = Math.max(y1, p.y); });
+    return { xm, y0, y1 };
   }
   function maatPijl(ctx, x1, y1, x2, y2, kleur, lw) {
     ctx.strokeStyle = kleur; ctx.fillStyle = kleur; ctx.lineWidth = lw; ctx.setLineDash([]);
@@ -4522,8 +4602,9 @@ function renderPara(root) {
     const X = x => o.ox + x * o.k, Y = y => o.oy - y * o.k;
     const C = o.C, lw = o.lw || 1;
     // naadtoeslag
-    if (g.t) {
-      ctx.beginPath(); naadRand(g, g.t).forEach((p, i) => i ? ctx.lineTo(X(p.x), Y(p.y)) : ctx.moveTo(X(p.x), Y(p.y))); ctx.closePath();
+    const Gr = grenzen(g);
+    if (heeftExtra(g)) {
+      ctx.beginPath(); naadRand(g).forEach((p, i) => i ? ctx.lineTo(X(p.x), Y(p.y)) : ctx.moveTo(X(p.x), Y(p.y))); ctx.closePath();
       ctx.setLineDash([6 * lw, 4 * lw]); ctx.strokeStyle = C.naad; ctx.lineWidth = 1.2 * lw; ctx.stroke(); ctx.setLineDash([]);
     }
     // gore zelf
@@ -4547,15 +4628,15 @@ function renderPara(root) {
           const kort = `b = ${f(s.b, 1)} cm`;
           ctx.fillStyle = C.tekst;
           if (ctx.measureText(kort).width < s.b * o.k - 8) { ctx.textAlign = 'center'; ctx.fillText(kort, X(0), Y(s.y) - o.fs * 0.6); }
-          else { ctx.textAlign = 'left'; ctx.fillText(kort, X(s.b / 2 + g.t) + 8, Y(s.y)); }
+          else { ctx.textAlign = 'left'; ctx.fillText(kort, X(s.b / 2 + g.ts) + 8, Y(s.y)); }
         }
       } else {
         ctx.textAlign = 'left'; ctx.fillStyle = C.zacht2;
-        ctx.fillText(`b = ${f(s.b, 1)}`, X(s.b / 2 + g.t) + 10, Y(s.y));
+        ctx.fillText(`b = ${f(s.b, 1)}`, X(s.b / 2 + g.ts) + 10, Y(s.y));
       }
     });
     // maat h (links)
-    const xh = X(-(g.b0 / 2 + g.t)) - 26 * lw;
+    const xh = X(-Gr.xm) - 26 * lw;
     ctx.strokeStyle = C.zacht; ctx.lineWidth = lw;
     ctx.beginPath(); ctx.moveTo(X(-g.b0 / 2) - 4, Y(0)); ctx.lineTo(xh - 6 * lw, Y(0));
     const xt = g.bt ? -g.bt / 2 : 0; ctx.moveTo(X(xt) - 4, Y(g.h)); ctx.lineTo(xh - 6 * lw, Y(g.h)); ctx.stroke();
@@ -4564,7 +4645,7 @@ function renderPara(root) {
     ctx.textAlign = 'center'; ctx.textBaseline = 'bottom'; ctx.fillStyle = C.maat; ctx.font = `600 ${o.fs}px ${o.mono}`;
     ctx.fillText(`h = ${f(g.h, 1)} cm`, 0, 0); ctx.restore();
     // maat b (onder)
-    const yb = Y(-g.t) + 22 * lw;
+    const yb = Y(Gr.y0) + 22 * lw;
     ctx.strokeStyle = C.zacht; ctx.lineWidth = lw;
     ctx.beginPath(); ctx.moveTo(X(-g.b0 / 2), Y(0) + 4); ctx.lineTo(X(-g.b0 / 2), yb + 6 * lw); ctx.moveTo(X(g.b0 / 2), Y(0) + 4); ctx.lineTo(X(g.b0 / 2), yb + 6 * lw); ctx.stroke();
     maatPijl(ctx, X(-g.b0 / 2), yb, X(g.b0 / 2), yb, C.maat, lw);
@@ -4573,7 +4654,7 @@ function renderPara(root) {
     // maat b_top (boven)
     ctx.textBaseline = 'bottom';
     if (g.bt) {
-      const yt = Y(g.h + g.t) - 16 * lw;
+      const yt = Y(Gr.y1) - 16 * lw;
       ctx.strokeStyle = C.zacht; ctx.lineWidth = lw;
       ctx.beginPath(); ctx.moveTo(X(-g.bt / 2), Y(g.h) - 4); ctx.lineTo(X(-g.bt / 2), yt - 6 * lw); ctx.moveTo(X(g.bt / 2), Y(g.h) - 4); ctx.lineTo(X(g.bt / 2), yt - 6 * lw); ctx.stroke();
       maatPijl(ctx, X(-g.bt / 2), yt, X(g.bt / 2), yt, C.maat, lw);
@@ -4581,13 +4662,14 @@ function renderPara(root) {
       richCanvas(ctx, `b_{top} = ${f(g.bt, 1)} cm`, X(g.bt / 2) + 10 * lw, yt + o.fs * 0.35, o.fs, o.mono, C.maat, C.maat);
     } else {
       ctx.fillStyle = C.zacht2; ctx.font = `${o.fs * 0.86}px ${o.fam}`; ctx.textAlign = 'center';
-      ctx.fillText('top (midden van de parachute)', X(0), Y(g.h + g.t) - 8 * lw);
+      ctx.fillText('top (midden van de parachute)', X(0), Y(Gr.y1) - 8 * lw);
     }
     ctx.textAlign = 'center'; ctx.textBaseline = 'top'; ctx.fillStyle = C.zacht2; ctx.font = `${o.fs * 0.86}px ${o.fam}`;
     ctx.fillText('onderrand (hier komen de koorden)', X(0), yb + 8 * lw + o.fs * 1.2);
   }
   function goreMaten(g) { // omhullende in cm + marges in px (bij lettergrootte fs)
-    return { w: g.b0 + 2 * g.t, h: g.h + 2 * g.t };
+    const Gr = grenzen(g);
+    return { w: 2 * Gr.xm, h: Gr.y1 - Gr.y0, y0: Gr.y0, y1: Gr.y1 };
   }
 
   function themaScherm() {
@@ -4604,7 +4686,7 @@ function renderPara(root) {
     const M = goreMaten(g), fs = 13;
     const links = 58, rechts = 92, boven = g.bt ? 46 : 36, onder = 70;
     const k = Math.min((w - links - rechts) / M.w, (h - boven - onder) / M.h);
-    const ox = links + (w - links - rechts) / 2, oy = h - onder - g.t * k;
+    const ox = links + (w - links - rechts) / 2, oy = h - onder + M.y0 * k;
     tekenGore(ctx, g, { k, ox, oy, C: themaScherm(), fs, fam: css('--f-body'), mono: css('--f-mono'), lw: 1 });
     $('schaal').textContent = 'verkleind getekend';
   }
@@ -4695,9 +4777,12 @@ function renderPara(root) {
   function alles() {
     root.querySelector('#pa-gatin').style.display = st.gat ? '' : 'none';
     root.querySelector('#pa-naadin').style.display = st.naad ? '' : 'none';
+    root.querySelector('#pa-zoomOin').style.display = st.zoomO ? '' : 'none';
+    root.querySelector('#pa-zoomGblok').style.display = st.gat ? '' : 'none';
+    root.querySelector('#pa-zoomGin').style.display = st.zoomG ? '' : 'none';
     const g = bereken();
     ber(g); tabel(g); tekenScherm(g); tekenChute(g);
-    $('pdf').disabled = !g.ok;
+    $('pdf').disabled = !g.ok; $('dxf').disabled = !g.ok;
   }
 
   /* ---------- pdf ---------- */
@@ -4744,7 +4829,7 @@ function renderPara(root) {
     const M = goreMaten(g);
     const fs = 0.3 * KCM, lw = KCM / 45;
     const k = Math.min((gebiedW - 3.2 * KCM) / M.w, (vrijH - 2.8 * KCM) / M.h, KCM);
-    const ox = L + 1.6 * KCM + (gebiedW - 3.2 * KCM) / 2, oy = y + vrijH - 1.9 * KCM - g.t * k;
+    const ox = L + 1.6 * KCM + (gebiedW - 3.2 * KCM) / 2, oy = y + vrijH - 1.9 * KCM + M.y0 * k;
     ctx.fillStyle = '#000'; ctx.font = `700 ${0.36 * KCM}px ${fam}`; ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
     ctx.fillText(`Patroon van één gore (schaal ${k >= KCM - 1e-6 ? '1:1' : '1:' + fmt(KCM / k, 1)})`, L, y);
     tekenGore(ctx, g, { k, ox, oy, C: themaPdf, fs, fam, mono, lw, geenLabels: true });
@@ -4774,7 +4859,7 @@ function renderPara(root) {
     const kol = Math.ceil(totW / bruikW), rij = Math.ceil(totH / bruikH);
     const pag = [];
     // oorsprong (midden onderrand) in het totale vlak, in cm vanaf linksboven
-    const gx = extraX + M.w / 2, gy = extraB + g.h + g.t;
+    const gx = extraX + M.w / 2, gy = extraB + M.y1;
     let nr = 2;
     for (let r = 0; r < rij; r++) for (let c = 0; c < kol; c++) {
       const { cv, ctx } = nieuwePagina();
@@ -4850,12 +4935,583 @@ function renderPara(root) {
     }
   }
   $('pdf').addEventListener('click', exporteer);
+  /* ---------- dxf (R12, mm) ---------- */
+  function maakDxf(g) {
+    const L = [];
+    const p = (c, v) => L.push(String(c), String(v));
+    const getal = x => (Math.round(x * 1000) / 1000).toFixed(3);
+    p(0, 'SECTION'); p(2, 'HEADER'); p(9, '$ACADVER'); p(1, 'AC1009'); p(9, '$INSUNITS'); p(70, 4); p(0, 'ENDSEC');
+    p(0, 'SECTION'); p(2, 'TABLES'); p(0, 'TABLE'); p(2, 'LAYER'); p(70, 2);
+    [['SNIJLIJN', 1], ['NAADLIJN', 5]].forEach(([n, kl]) => { p(0, 'LAYER'); p(2, n); p(70, 0); p(62, kl); p(6, 'CONTINUOUS'); });
+    p(0, 'ENDTAB'); p(0, 'ENDSEC');
+    p(0, 'SECTION'); p(2, 'ENTITIES');
+    const poly = (laag, pts) => {
+      p(0, 'POLYLINE'); p(8, laag); p(66, 1); p(70, 1); p(10, '0.0'); p(20, '0.0'); p(30, '0.0');
+      pts.forEach(q => { p(0, 'VERTEX'); p(8, laag); p(10, getal(q.x * 10)); p(20, getal(q.y * 10)); p(30, '0.0'); });
+      p(0, 'SEQEND'); p(8, laag);
+    };
+    // naadlijn = de gore zelf
+    const r = rand(g), gore = [...r];
+    for (let i = r.length - 1; i >= 0; i--) if (r[i].x > 1e-9) gore.push({ x: -r[i].x, y: r[i].y });
+    // verschuif alles zodat de onderste linkerhoek van de snijlijn in (0,0) ligt
+    const M = goreMaten(g), dx = M.w / 2, dy = -M.y0;
+    const sch = a => a.map(q => ({ x: q.x + dx, y: q.y + dy }));
+    if (heeftExtra(g)) { poly('SNIJLIJN', sch(naadRand(g))); poly('NAADLIJN', sch(gore)); }
+    else poly('SNIJLIJN', sch(gore));
+    p(0, 'ENDSEC'); p(0, 'EOF');
+    return L.join('\r\n') + '\r\n';
+  }
+  // zip zonder compressie (één bestand), voor weergaven die geen .dxf toelaten
+  function maakZip(naam, tekst) {
+    const data = new TextEncoder().encode(tekst), nm = new TextEncoder().encode(naam);
+    let crc = -1;
+    for (let i = 0; i < data.length; i++) { crc ^= data[i]; for (let k = 0; k < 8; k++) crc = (crc >>> 1) ^ (0xEDB88320 & -(crc & 1)); }
+    crc = (crc ^ -1) >>> 0;
+    const kop = (sig, extra) => { const b = new DataView(new ArrayBuffer(extra)); b.setUint32(0, sig, true); return b; };
+    const lh = kop(0x04034b50, 30);
+    lh.setUint16(4, 20, true); lh.setUint16(8, 0, true); lh.setUint32(14, crc, true); lh.setUint32(18, data.length, true); lh.setUint32(22, data.length, true); lh.setUint16(26, nm.length, true);
+    const cd = kop(0x02014b50, 46);
+    cd.setUint16(4, 20, true); cd.setUint16(6, 20, true); cd.setUint32(16, crc, true); cd.setUint32(20, data.length, true); cd.setUint32(24, data.length, true); cd.setUint16(28, nm.length, true); cd.setUint32(42, 0, true);
+    const cdOff = 30 + nm.length + data.length, cdLen = 46 + nm.length;
+    const eo = kop(0x06054b50, 22);
+    eo.setUint16(8, 1, true); eo.setUint16(10, 1, true); eo.setUint32(12, cdLen, true); eo.setUint32(16, cdOff, true);
+    return new Blob([lh, nm, data, cd, nm, eo], { type: 'application/zip' });
+  }
+  async function bewaar(naam, data, alsZip) {
+    let dl = null;
+    try { dl = window.claude && window.claude.use ? await window.claude.use('downloads') : null; } catch (e) { dl = null; }
+    if (dl) {
+      try { await dl.save({ filename: naam, data }); return 'ok'; }
+      catch (e) {
+        if (e && e.code === 'declined') return 'nee';
+        if (e && (e.code === 'rejected_extension' || e.code === 'extension_not_enabled') && alsZip) {
+          try { await dl.save({ filename: naam.replace(/\.[^.]+$/, '.zip'), data: alsZip() }); return 'zip'; }
+          catch (e2) { return e2 && e2.code === 'declined' ? 'nee' : 'fout'; }
+        }
+        return 'fout';
+      }
+    }
+    const url = URL.createObjectURL(data instanceof Blob ? data : new Blob([data])), a = document.createElement('a');
+    a.href = url; a.download = naam; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 4000);
+    return 'ok';
+  }
+  async function exporteerDxf() {
+    const g = bereken(); if (!g.ok) return;
+    const meld = $('pdfmeld'), oud = meld.textContent;
+    const naam = `parachute-gore-${g.n}-gores.dxf`;
+    const tekst = maakDxf(g);
+    const r = await bewaar(naam, new Blob([tekst], { type: 'application/dxf' }), () => maakZip(naam, tekst));
+    meld.textContent = r === 'ok' ? 'Het dxf-bestand is klaar.' : r === 'zip' ? 'Het dxf-bestand zit in een zip-bestand.' : r === 'nee' ? oud : 'Opslaan lukte niet in deze weergave.';
+    setTimeout(() => { meld.textContent = oud; }, 6000);
+  }
+  $('dxf').addEventListener('click', exporteerDxf);
+  window.__paraDxf = () => maakDxf(bereken());
 
   const ro = new ResizeObserver(() => alles());
   ro.observe(cvG); ro.observe(cvC);
   alles();
   window.__paraPdf = () => { const g = bereken(); return maakPdf([paginaBerekening(g), ...paginasWareGrootte(g)]); };
-  return () => { ro.disconnect(); delete window.__paraPdf; };
+  return () => { ro.disconnect(); delete window.__paraPdf; delete window.__paraDxf; };
+}
+
+/* ============================================================
+   APPLET: Yagi-Uda-antenne ontwerpen (Engineering – CanSat)
+   Afmetingen volgens vaste ontwerpregels (in golflengtes),
+   stralingspatroon met de methode van de geïnduceerde emk
+   (sinusvormige stroom in elk element, wederzijdse impedanties).
+   ============================================================ */
+function renderYagi(root) {
+  const C0 = 299792458;
+  // ontwerpregels (in λ)
+  const REGEL = { LR: 0.495, LA: 0.473, LD1: 0.440, dec: 0.005, Lmin: 0.40, sR: 0.20, s1: 0.10, s2: 0.20, sg: 0.03, sMax: 0.40 };
+  const st = { f: 433, n: 5, d: 4, montage: 'h' };
+  const zicht = { yaw: -0.65, pitch: 0.38 };   // 3D-kijkrichting
+  const f2 = (x, d = 1) => (Object.is(x, -0) ? 0 : x).toLocaleString('nl-BE', { minimumFractionDigits: d, maximumFractionDigits: d }).replace('-', '−');
+
+  const ctrl = (id, label, min, max, step, eenh) => `
+      <div class="ctrl">
+        <label for="ya-${id}">${label}</label>
+        <div class="rij">
+          <input type="range" id="ya-${id}" min="${min}" max="${max}" step="${step}">
+          <input type="number" id="ya-${id}n" min="${min}" max="${max}" step="${step}" aria-label="${label.replace(/<[^>]+>/g, '')} in ${eenh}">
+          <span class="eenh">${eenh}</span>
+        </div>
+      </div>`;
+
+  root.innerHTML = `
+  <div class="lay2 ya">
+    <div class="hoofd2">
+      <div class="paneel graf">
+        <div class="kop"><h2>Tekening op schaal</h2><span class="legende" id="ya-schaal"></span></div>
+        <div class="doek ya-doek"><canvas id="ya-teken" role="img" aria-label="Tekening op schaal van de Yagi-Uda-antenne"></canvas></div>
+      </div>
+      <div class="ya-rij">
+        <div class="paneel graf">
+          <div class="kop"><h2>Bovenaanzicht</h2><span class="legende" id="ya-l1"></span></div>
+          <div class="doek ya-pool"><canvas id="ya-pe" role="img" aria-label="Stralingspatroon van bovenaf gezien"></canvas></div>
+        </div>
+        <div class="paneel graf">
+          <div class="kop"><h2>Zijaanzicht</h2><span class="legende" id="ya-l2"></span></div>
+          <div class="doek ya-pool"><canvas id="ya-ph" role="img" aria-label="Stralingspatroon van opzij gezien"></canvas></div>
+        </div>
+      </div>
+      <p class="uitleg klein ya-vlakuitleg" id="ya-vlakuitleg"></p>
+      <div class="paneel graf">
+        <div class="kop"><h2>Stralingspatroon in 3D</h2><span class="legende">sleep om te draaien</span></div>
+        <div class="doek ya-3d"><canvas id="ya-3d" role="img" aria-label="Driedimensionaal stralingspatroon, draaibaar"></canvas>
+          <button type="button" class="knop ya-terug" id="ya-terug">↺ Beginstand</button></div>
+        <p class="uitleg klein">De afstand van het oppervlak tot het midden en de kleur tonen hoe sterk de antenne in die richting ontvangt (0 dB = de beste richting, het midden = −30 dB of minder).</p>
+      </div>
+      <div class="ya-onder">
+        <div class="paneel">
+          <h2 class="ya-h2">Afmetingen</h2>
+          <div class="ya-tabwrap"><table class="ya-tab" id="ya-tab"></table></div>
+          <p class="uitleg klein">Posities gemeten vanaf de reflector, langs de boom. Lengtes van tip tot tip.</p>
+        </div>
+        <div class="paneel">
+          <h2 class="ya-h2">Resultaten van de simulatie</h2>
+          <div class="ya-res" id="ya-res"></div>
+        </div>
+      </div>
+      <div class="paneel ya-ber">
+        <h2 class="ya-h2">Berekening</h2>
+        <div id="ya-ber"></div>
+        <label class="vink ya-uitlegvink"><input type="checkbox" id="ya-uitleg">Uitleg tonen: hoe werkt een Yagi-Uda-antenne?</label>
+        <div id="ya-uitlegtekst" hidden>
+          <p>Het <b>gevoede element</b> (A) is een halvegolfdipool: ongeveer een halve golflengte lang en in het midden aangesloten op de kabel naar de zender of ontvanger. Alleen dit element is verbonden met de kabel.</p>
+          <p>De andere elementen zijn <b>parasitaire elementen</b>: de golf van de dipool wekt er een stroom in op, en daardoor stralen ze zelf ook. De <b>reflector</b> (R) is iets langer dan de dipool en staat erachter. Hij stuurt de straling naar voren. De <b>directoren</b> (D1, D2, …) zijn korter en staan ervoor. Zij trekken de straling verder naar voren.</p>
+          <p>Hoe meer directoren, hoe smaller de bundel en hoe groter de <b>antennewinst</b>. Daardoor kan het grondstation een zwakker signaal van de CanSat ontvangen, maar moet de antenne ook nauwkeuriger naar de CanSat gericht worden.</p>
+          <p>De winst wordt uitgedrukt in <b>dBi</b>: hoeveel decibel sterker de antenne in de beste richting straalt dan een denkbeeldige antenne die in alle richtingen even sterk straalt. De <b>voor-achterverhouding</b> zegt hoeveel sterker de antenne naar voren dan naar achteren ontvangt.</p>
+        </div>
+      </div>
+    </div>
+    <div class="zij2">
+      <div class="paneel bediening">
+        <div class="groep">
+          <div class="gkop">Frequentie</div>
+          ${ctrl('f', 'Ontvangfrequentie f', 100, 2500, 1, 'MHz')}
+          <div class="chips" id="ya-snel">
+            <button type="button" class="sit" data-f="433">433 MHz</button>
+            <button type="button" class="sit" data-f="868">868 MHz</button>
+            <button type="button" class="sit" data-f="2400">2,4 GHz</button>
+          </div>
+        </div>
+        <div class="groep">
+          <div class="gkop">Antenne</div>
+          ${ctrl('n', 'Aantal elementen', 2, 15, 1, '')}
+          ${ctrl('d', 'Diameter van de elementen', 1, 10, 0.5, 'mm')}
+        </div>
+        <div class="groep">
+          <div class="gkop">Montage van de elementen</div>
+          <div class="chips" id="ya-mont">
+            <button type="button" class="sit" data-m="h">Horizontaal</button>
+            <button type="button" class="sit" data-m="v">Verticaal</button>
+          </div>
+        </div>
+        <div class="groep">
+          <div class="gkop">Legende</div>
+          <p class="uitleg klein"><b class="ya-kR">R</b> reflector · <b class="ya-kA">A</b> gevoed element (dipool) · <b class="ya-kD">D1, D2, …</b> directoren</p>
+          <p class="uitleg klein">De antenne ontvangt het best in de richting van de directoren (naar rechts in de tekening).</p>
+        </div>
+      </div>
+    </div>
+  </div>`;
+
+  const $ = id => root.querySelector('#ya-' + id);
+  const cvT = $('teken'), cvE = $('pe'), cvH = $('ph'), cv3 = $('3d');
+
+  function koppel(id, key, min, max) {
+    const r = $(id), n = $(id + 'n');
+    const zet = (val, bron) => {
+      let x = parseFloat(String(val).replace(',', '.')); if (!isFinite(x)) return;
+      x = Math.min(max, Math.max(min, x)); st[key] = x;
+      if (bron !== r) r.value = x; if (bron !== n) n.value = x;
+      alles();
+    };
+    r.addEventListener('input', () => zet(r.value, r));
+    n.addEventListener('change', () => zet(n.value, n));
+    n.addEventListener('keydown', e => { if (e.key === 'Enter') zet(n.value, n); });
+    r.value = n.value = st[key];
+    return v => zet(v, null);
+  }
+  const zetF = koppel('f', 'f', 100, 2500); koppel('n', 'n', 2, 15); koppel('d', 'd', 1, 10);
+  $('snel').addEventListener('click', e => { const b = e.target.closest('button[data-f]'); if (b) zetF(+b.dataset.f); });
+  $('uitleg').addEventListener('change', () => { $('uitlegtekst').hidden = !$('uitleg').checked; });
+  $('mont').addEventListener('click', e => { const b = e.target.closest('button[data-m]'); if (b) { st.montage = b.dataset.m; alles(); } });
+  $('terug').addEventListener('click', () => { zicht.yaw = -0.65; zicht.pitch = 0.38; teken3d(); });
+  // slepen om te draaien
+  let sleep = null;
+  cv3.addEventListener('pointerdown', e => { sleep = { x: e.clientX, y: e.clientY, yaw: zicht.yaw, pitch: zicht.pitch }; cv3.setPointerCapture(e.pointerId); });
+  cv3.addEventListener('pointermove', e => {
+    if (!sleep) return;
+    zicht.yaw = sleep.yaw - (e.clientX - sleep.x) * 0.01;
+    zicht.pitch = Math.max(-1.45, Math.min(1.45, sleep.pitch + (e.clientY - sleep.y) * 0.01));
+    teken3d();
+  });
+  const stop = () => { sleep = null; };
+  cv3.addEventListener('pointerup', stop); cv3.addEventListener('pointercancel', stop);
+
+  /* ---------- ontwerp ---------- */
+  function ontwerp() {
+    const N = Math.round(st.n), p = REGEL;
+    const els = [{ naam: 'R', soort: 'R', L: p.LR, x: 0 }, { naam: 'A', soort: 'A', L: p.LA, x: p.sR }];
+    let x = p.sR;
+    for (let i = 0; i < N - 2; i++) {
+      const s = i === 0 ? p.s1 : Math.min(p.sMax, p.s2 + p.sg * (i - 1));
+      x += s;
+      els.push({ naam: 'D' + (i + 1), soort: 'D', L: Math.max(p.Lmin, p.LD1 - p.dec * i), x, s });
+    }
+    return els;
+  }
+
+  /* ---------- simulatie: methode van de geïnduceerde emk ---------- */
+  const K = 2 * Math.PI;   // golfgetal in 1/λ
+  function zMut(hm, hn, d, M) {          // halve lengtes en afstand in λ; Z in Ω (t.o.v. stroommaxima)
+    const ckh = Math.cos(K * hm), dz = 2 * hn / M;
+    let re = 0, im = 0;
+    for (let i = 0; i < M; i++) {
+      const z = -hn + (i + 0.5) * dz;
+      const R1 = Math.hypot(d, z - hm), R2 = Math.hypot(d, z + hm), R0 = Math.hypot(d, z);
+      const tr = Math.cos(K * R1) / R1 + Math.cos(K * R2) / R2 - 2 * ckh * Math.cos(K * R0) / R0;
+      const ti = -Math.sin(K * R1) / R1 - Math.sin(K * R2) / R2 + 2 * ckh * Math.sin(K * R0) / R0;
+      const w = Math.sin(K * (hn - Math.abs(z))) * dz;
+      re += -30 * ti * w; im += 30 * tr * w;
+    }
+    return { re, im };
+  }
+  function los(A, b) {                  // complexe Gauss-eliminatie
+    const n = b.length; A = A.map(r => r.map(c => ({ ...c }))); b = b.map(c => ({ ...c }));
+    const abs = c => Math.hypot(c.re, c.im);
+    for (let i = 0; i < n; i++) {
+      let p = i; for (let r = i + 1; r < n; r++) if (abs(A[r][i]) > abs(A[p][i])) p = r;
+      [A[i], A[p]] = [A[p], A[i]]; [b[i], b[p]] = [b[p], b[i]];
+      const d = A[i][i], dd = d.re * d.re + d.im * d.im;
+      for (let r = i + 1; r < n; r++) {
+        const a = A[r][i], fr = (a.re * d.re + a.im * d.im) / dd, fi = (a.im * d.re - a.re * d.im) / dd;
+        for (let c = i; c < n; c++) { const x = A[i][c]; A[r][c] = { re: A[r][c].re - (fr * x.re - fi * x.im), im: A[r][c].im - (fr * x.im + fi * x.re) }; }
+        b[r] = { re: b[r].re - (fr * b[i].re - fi * b[i].im), im: b[r].im - (fr * b[i].im + fi * b[i].re) };
+      }
+    }
+    const x = new Array(n);
+    for (let i = n - 1; i >= 0; i--) {
+      let s = { ...b[i] };
+      for (let c = i + 1; c < n; c++) { s.re -= A[i][c].re * x[c].re - A[i][c].im * x[c].im; s.im -= A[i][c].re * x[c].im + A[i][c].im * x[c].re; }
+      const d = A[i][i], dd = d.re * d.re + d.im * d.im;
+      x[i] = { re: (s.re * d.re + s.im * d.im) / dd, im: (s.im * d.re - s.re * d.im) / dd };
+    }
+    return x;
+  }
+  function simuleer(els, lambdaMm) {
+    const n = els.length, a = (st.d / 2) / lambdaMm, drv = 1;
+    const Z = [];
+    for (let m = 0; m < n; m++) { Z.push([]); for (let q = 0; q < n; q++) Z[m].push(zMut(els[m].L / 2, els[q].L / 2, m === q ? a : Math.abs(els[m].x - els[q].x), m === q ? 3000 : 400)); }
+    const I = los(Z, els.map((e, i) => ({ re: i === drv ? 1 : 0, im: 0 })));
+    // |AF|² voor een richting: cosθ t.o.v. de elementas, u = component langs de boom
+    const AF2 = (cth, u) => {
+      const sth = Math.sqrt(Math.max(0, 1 - cth * cth));
+      let re = 0, im = 0;
+      for (let i = 0; i < n; i++) {
+        const h = els[i].L / 2;
+        const F = sth < 1e-9 ? 0 : (Math.cos(K * h * cth) - Math.cos(K * h)) / sth;
+        const ph = K * els[i].x * u, c = Math.cos(ph), s = Math.sin(ph);
+        re += F * (I[i].re * c - I[i].im * s); im += F * (I[i].re * s + I[i].im * c);
+      }
+      return re * re + im * im;
+    };
+    const Pin = 0.5 * I[drv].re;
+    const Uf = AF2(0, 1), Ub = AF2(0, -1);
+    const D = 120 * Math.PI * Uf / (2 * Math.PI * Pin);
+    const s2 = Math.sin(K * els[drv].L / 2) ** 2, Id = I[drv], dd = Id.re ** 2 + Id.im ** 2;
+    const Zin = { re: Id.re / dd / s2, im: -Id.im / dd / s2 };
+    // patronen (1° stappen), ψ = hoek t.o.v. de voorwaartse richting
+    const pe = [], ph = [];
+    for (let g = 0; g < 360; g++) {
+      const p = g * Math.PI / 180, c = Math.cos(p), s = Math.sin(p);
+      pe.push(10 * Math.log10(Math.max(1e-12, AF2(s, c) / Uf)));
+      ph.push(10 * Math.log10(Math.max(1e-12, AF2(0, c) / Uf)));
+    }
+    return { I, D, dBi: 10 * Math.log10(D), FB: 10 * Math.log10(Uf / Math.max(1e-30, Ub)), Zin, pe, ph, AF2, Uf };
+  }
+  function bundel(pat) {                 // −3 dB openingshoek rond de voorwaartse richting
+    const fijn = g => { const i = ((Math.floor(g) % 360) + 360) % 360, j = (i + 1) % 360, u = g - Math.floor(g); return pat[i] * (1 - u) + pat[j] * u; };
+    let a = 0; while (a < 180 && fijn(a) > -3) a += 0.25;
+    let b = 0; while (b < 180 && fijn(-b) > -3) b += 0.25;
+    return a >= 180 || b >= 180 ? null : a + b;
+  }
+
+  /* ---------- tekenen ---------- */
+  function kleurVan(s) { return s === 'R' ? css('--meet') : s === 'A' ? css('--a') : css('--b'); }
+  function tekenAntenne(els, lam) {
+    const { ctx, w, h } = prepCanvas(cvT);
+    const mm = e => e * lam;                    // λ → mm
+    const boom = mm(els[els.length - 1].x), Lmax = mm(els[0].L);
+    const links = 46, rechts = 96, boven = 46, onder = 66;
+    const k = Math.min((w - links - rechts) / Math.max(boom, 1), (h - boven - onder) / Lmax); // px per mm
+    // hoogte van het doek aanpassen aan de tekening (geen lege ruimte)
+    const nodig = Math.round(Math.max(240, Math.min(420, Lmax * k + boven + onder + 8)));
+    if (Math.abs(cvT.parentElement.clientHeight - nodig) > 2) cvT.parentElement.style.height = nodig + 'px';
+    const totW = boom * k, ox = links + (w - links - rechts - totW) / 2, cy = boven + (h - boven - onder) / 2;
+    const X = xmm => ox + xmm * k;
+    // boom
+    const extra = 0.04 * lam * k;
+    ctx.fillStyle = css('--axis');
+    ctx.fillRect(X(0) - extra, cy - 3, totW + 2 * extra, 6);
+    // elementen
+    const dik = Math.max(2, st.d * k);
+    els.forEach(e => {
+      const x = X(mm(e.x)), half = mm(e.L) / 2 * k, kl = kleurVan(e.soort);
+      ctx.strokeStyle = kl; ctx.lineWidth = dik; ctx.lineCap = 'round';
+      if (e.soort === 'A') {
+        const gap = Math.max(4, 6);
+        ctx.beginPath(); ctx.moveTo(x, cy - half); ctx.lineTo(x, cy - gap); ctx.moveTo(x, cy + gap); ctx.lineTo(x, cy + half); ctx.stroke();
+        ctx.fillStyle = kl; [cy - gap, cy + gap].forEach(y => { ctx.beginPath(); ctx.arc(x, y, Math.max(2.5, dik * 0.8), 0, 7); ctx.fill(); });
+      } else { ctx.beginPath(); ctx.moveTo(x, cy - half); ctx.lineTo(x, cy + half); ctx.stroke(); }
+      ctx.fillStyle = kl; ctx.font = '600 13px ' + css('--f-body'); ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+      ctx.fillText(e.naam, x, cy - half - 6);
+    });
+    ctx.lineCap = 'butt';
+    // maat lengte reflector (links)
+    const xr = X(0) - 22, hr = mm(els[0].L) / 2 * k;
+    maat(ctx, xr, cy - hr, xr, cy + hr);
+    ctx.save(); ctx.translate(xr - 6, cy); ctx.rotate(-Math.PI / 2); ctx.fillStyle = css('--fg'); ctx.font = '500 12px ' + css('--f-mono'); ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+    ctx.fillText(`${f2(mm(els[0].L), 0)} mm`, 0, 0); ctx.restore();
+    // maten tussen de elementen (onder)
+    const yM = cy + hr + 18;
+    ctx.font = '500 11px ' + css('--f-mono'); ctx.textBaseline = 'top'; ctx.textAlign = 'center';
+    for (let i = 1; i < els.length; i++) {
+      const xa = X(mm(els[i - 1].x)), xb = X(mm(els[i].x));
+      ctx.strokeStyle = css('--grid'); ctx.lineWidth = 1; ctx.setLineDash([2, 3]);
+      ctx.beginPath(); ctx.moveTo(xb, cy + mm(els[i].L) / 2 * k + 4); ctx.lineTo(xb, yM + 4); ctx.stroke(); ctx.setLineDash([]);
+      if (i === 1) { ctx.beginPath(); ctx.setLineDash([2, 3]); ctx.moveTo(xa, cy + hr + 4); ctx.lineTo(xa, yM + 4); ctx.stroke(); ctx.setLineDash([]); }
+      maat(ctx, xa, yM, xb, yM);
+      const t = f2(mm(els[i].x - els[i - 1].x), 0);
+      ctx.fillStyle = css('--muted');
+      if (ctx.measureText(t).width + 6 < xb - xa) ctx.fillText(t, (xa + xb) / 2, yM + 5);
+    }
+    // totale boomlengte
+    const yT = yM + 26;
+    maat(ctx, X(0), yT, X(boom), yT);
+    ctx.fillStyle = css('--fg'); ctx.font = '600 12px ' + css('--f-mono');
+    const tt = `afstand R tot laatste element: ${f2(boom, 0)} mm`, tw2 = ctx.measureText(tt).width / 2;
+    ctx.fillText(tt, Math.min(w - tw2 - 4, Math.max(tw2 + 4, (X(0) + X(boom)) / 2)), yT + 5);
+    // richting
+    const xp = X(boom) + 24;
+    pijl(ctx, xp, cy, xp + 48, cy, css('--fg'), 2);
+    ctx.fillStyle = css('--muted'); ctx.font = '12px ' + css('--f-body'); ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+    ctx.fillText('naar de', xp + 26, cy - 10); ctx.fillText('CanSat', xp + 26, cy + 22);
+    // schaalbalk
+    const stappen = [10, 20, 50, 100, 200, 500];
+    const sb = stappen.find(s => s * k >= 60) || 500;
+    const sx = 14, sy = 16;
+    ctx.strokeStyle = css('--fg'); ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(sx, sy); ctx.lineTo(sx + sb * k, sy); ctx.moveTo(sx, sy - 4); ctx.lineTo(sx, sy + 4); ctx.moveTo(sx + sb * k, sy - 4); ctx.lineTo(sx + sb * k, sy + 4); ctx.stroke();
+    ctx.fillStyle = css('--fg'); ctx.font = '500 12px ' + css('--f-mono'); ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+    ctx.fillText(sb >= 10 && sb % 10 === 0 ? `${sb / 10} cm` : `${sb} mm`, sx + sb * k + 8, sy);
+    $('schaal').textContent = 'alle elementen op dezelfde schaal';
+  }
+  function maat(ctx, x1, y1, x2, y2) {
+    const kl = css('--axis');
+    ctx.strokeStyle = kl; ctx.fillStyle = kl; ctx.lineWidth = 1; ctx.setLineDash([]);
+    ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+    const L = Math.hypot(x2 - x1, y2 - y1); if (L < 8) return;
+    const ux = (x2 - x1) / L, uy = (y2 - y1) / L, s = 6;
+    [[x2, y2, ux, uy], [x1, y1, -ux, -uy]].forEach(([x, y, a, b]) => {
+      ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x - a * s - b * s * 0.4, y - b * s + a * s * 0.4); ctx.lineTo(x - a * s + b * s * 0.4, y - b * s - a * s * 0.4); ctx.closePath(); ctx.fill();
+    });
+  }
+  function tekenPool(cv, pat, kleur, label, soort) {
+    const { ctx, w, h } = prepCanvas(cv);
+    const cx = w / 2, cy = h / 2 + 4, R = Math.min(w, h) / 2 - 30, MIN = -30;
+    const r = dB => Math.max(0, (Math.max(MIN, dB) - MIN) / -MIN) * R;
+    ctx.font = '11px ' + css('--f-mono');
+    // raster
+    [0, -10, -20].forEach(db => {
+      ctx.strokeStyle = css('--grid'); ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(cx, cy, r(db), 0, 7); ctx.stroke();
+    });
+    ctx.setLineDash([3, 4]); ctx.strokeStyle = css('--axis'); ctx.beginPath(); ctx.arc(cx, cy, r(-3), 0, 7); ctx.stroke(); ctx.setLineDash([]);
+    const dbLabels = () => {   // langs de richting 255°, na het patroon getekend
+      const a = 255 * Math.PI / 180;
+      ctx.font = '11px ' + css('--f-mono'); ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+      [[0, '0 dB'], [-3, '−3 dB'], [-10, '−10 dB'], [-20, '−20 dB']].forEach(([db, t]) => {
+        const x = cx + r(db) * Math.cos(a) + 4, y = cy - r(db) * Math.sin(a);
+        ctx.fillStyle = css('--panel'); const tw = ctx.measureText(t).width; ctx.fillRect(x - 2, y - 7, tw + 4, 14);
+        ctx.fillStyle = css('--muted'); ctx.fillText(t, x, y);
+      });
+    };
+    for (let g = 0; g < 360; g += 30) {
+      const a = g * Math.PI / 180;
+      ctx.strokeStyle = css('--grid'); ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx + R * Math.cos(a), cy - R * Math.sin(a)); ctx.stroke();
+      ctx.fillStyle = css('--muted'); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText(`${g}°`, cx + (R + 16) * Math.cos(a), cy - (R + 14) * Math.sin(a));
+    }
+    // patroon
+    ctx.beginPath();
+    for (let g = 0; g <= 360; g++) { const a = g * Math.PI / 180, rr = r(pat[g % 360]); const x = cx + rr * Math.cos(a), y = cy - rr * Math.sin(a); g ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }
+    ctx.closePath(); ctx.fillStyle = rgbaVan(kleur, 0.18); ctx.fill(); ctx.strokeStyle = kleur; ctx.lineWidth = 2.2; ctx.stroke();
+    dbLabels();
+    // openingshoek
+    const bw = bundel(pat);
+    if (bw) {
+      const half = bw / 2 * Math.PI / 180;
+      ctx.setLineDash([5, 4]); ctx.strokeStyle = css('--a'); ctx.lineWidth = 1.2;
+      [half, -half].forEach(a => { ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx + R * Math.cos(a), cy - R * Math.sin(a)); ctx.stroke(); });
+      ctx.setLineDash([]);
+      ctx.fillStyle = css('--a'); ctx.font = '600 12px ' + css('--f-mono'); ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+      ctx.fillText(`openingshoek ${f2(bw, 0)}°`, 6, 4);
+    }
+    ctx.fillStyle = css('--muted'); ctx.font = '12px ' + css('--f-body'); ctx.textAlign = 'right'; ctx.textBaseline = 'top';
+    ctx.fillText(label, w - 6, 4);
+    if (soort === 'zij') { ctx.fillText('90° = omhoog', w - 6, 20); }
+    // klein antennetje in het midden, wijzend naar 0°
+    ctx.strokeStyle = css('--fg'); ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(cx - 14, cy); ctx.lineTo(cx + 14, cy); ctx.stroke();
+    pijl(ctx, cx + 8, cy, cx + 22, cy, css('--fg'), 2);
+    return bw;
+  }
+  function rgbaVan(hex, a) { const v = parseInt(hex.slice(1), 16); return `rgba(${v >> 16 & 255},${v >> 8 & 255},${v & 255},${a})`; }
+
+  /* ---------- 3D-patroon ---------- */
+  let rooster = null;
+  const NA = 72, NB = 36;     // stappen in azimut en elevatie
+  function maakRooster(sim) {
+    const hor = st.montage === 'h', MIN = -30, P = [];
+    for (let j = 0; j <= NB; j++) {
+      const b = -Math.PI / 2 + Math.PI * j / NB, rij = [];
+      for (let i = 0; i <= NA; i++) {
+        const a = 2 * Math.PI * i / NA;
+        const dx = Math.cos(b) * Math.cos(a), dy = Math.cos(b) * Math.sin(a), dz = Math.sin(b);
+        const cth = hor ? dy : dz;                  // as van de elementen: y (horizontaal) of z (verticaal)
+        const db = 10 * Math.log10(Math.max(1e-12, sim.AF2(cth, dx) / sim.Uf));
+        const r = Math.max(0, (Math.max(MIN, db) - MIN) / -MIN);
+        rij.push({ x: r * dx, y: r * dy, z: r * dz, r });
+      }
+      P.push(rij);
+    }
+    rooster = P;
+  }
+  function kleur3d(r, licht) {          // van blauw (zwak) naar amber (sterk)
+    const a = [40, 70, 120], b = [92, 198, 227], c = [242, 181, 68];
+    const m = r < 0.6 ? a.map((v, i) => v + (b[i] - v) * r / 0.6) : b.map((v, i) => v + (c[i] - v) * (r - 0.6) / 0.4);
+    return `rgb(${m.map(v => Math.round(v * licht)).join(',')})`;
+  }
+  function teken3d() {
+    if (!rooster) return;
+    const { ctx, w, h } = prepCanvas(cv3);
+    const R = Math.min(w * 0.36, h * 0.44), cx = w / 2 - R * 0.1, cy = h / 2 + 8;
+    const cy0 = Math.cos(zicht.yaw), sy0 = Math.sin(zicht.yaw), cp = Math.cos(zicht.pitch), sp = Math.sin(zicht.pitch);
+    const proj = p => {
+      const x1 = p.x * cy0 - p.y * sy0, y1 = p.x * sy0 + p.y * cy0, z1 = p.z;
+      const y2 = y1 * cp - z1 * sp, z2 = y1 * sp + z1 * cp;
+      return { X: cx + x1 * R, Y: cy - z2 * R, d: y2 };
+    };
+    // assen
+    const as = (x, y, z, t, kl) => {
+      const o = proj({ x: 0, y: 0, z: 0 }), e = proj({ x, y, z });
+      ctx.setLineDash([4, 4]); ctx.strokeStyle = kl; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(o.X, o.Y); ctx.lineTo(e.X, e.Y); ctx.stroke(); ctx.setLineDash([]);
+      ctx.fillStyle = kl; ctx.font = '12px ' + css('--f-body'); ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(t, e.X, e.Y);
+    };
+    as(0, 0, 1.25, 'omhoog', css('--muted'));
+    as(-1.2, 0, 0, 'achter', css('--muted'));
+    // vlakjes sorteren (ver eerst)
+    const Q = [];
+    for (let j = 0; j < NB; j++) for (let i = 0; i < NA; i++) {
+      const p = [rooster[j][i], rooster[j][i + 1], rooster[j + 1][i + 1], rooster[j + 1][i]];
+      const rm = (p[0].r + p[1].r + p[2].r + p[3].r) / 4;
+      if (rm < 0.005) continue;
+      const q = p.map(proj);
+      // normaal voor schaduw
+      const ux = p[2].x - p[0].x, uy = p[2].y - p[0].y, uz = p[2].z - p[0].z, vx = p[3].x - p[1].x, vy = p[3].y - p[1].y, vz = p[3].z - p[1].z;
+      let nx = uy * vz - uz * vy, ny = uz * vx - ux * vz, nz = ux * vy - uy * vx; const nl = Math.hypot(nx, ny, nz) || 1;
+      const kijk = { x: sy0 * cp, y: cy0 * cp, z: -sp };           // richting naar de kijker (wereld)
+      const licht = 0.45 + 0.55 * Math.abs((nx * -kijk.x + ny * -kijk.y + nz * -kijk.z) / nl);
+      Q.push({ q, d: (q[0].d + q[1].d + q[2].d + q[3].d) / 4, rm, licht });
+    }
+    Q.sort((a, b) => b.d - a.d);
+    // antenne in het midden (klein, niet op schaal)
+    const hor = st.montage === 'h', els = ontwerp(), bl = els[els.length - 1].x || 0.2, sch = 0.32 / Math.max(bl, 0.3);
+    const tekenAnt = () => {
+      els.forEach(e => {
+        const x = (e.x - bl / 2) * sch, half = e.L / 2 * sch;
+        const a = proj(hor ? { x, y: -half, z: 0 } : { x, y: 0, z: -half }), b = proj(hor ? { x, y: half, z: 0 } : { x, y: 0, z: half });
+        ctx.strokeStyle = kleurVan(e.soort); ctx.lineWidth = 2.5; ctx.beginPath(); ctx.moveTo(a.X, a.Y); ctx.lineTo(b.X, b.Y); ctx.stroke();
+      });
+      const a = proj({ x: -bl / 2 * sch - 0.03, y: 0, z: 0 }), b = proj({ x: bl / 2 * sch + 0.03, y: 0, z: 0 });
+      ctx.strokeStyle = css('--axis'); ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(a.X, a.Y); ctx.lineTo(b.X, b.Y); ctx.stroke();
+    };
+    tekenAnt();
+    ctx.lineWidth = 0.5;
+    Q.forEach(v => {
+      ctx.beginPath(); ctx.moveTo(v.q[0].X, v.q[0].Y); for (let k = 1; k < 4; k++) ctx.lineTo(v.q[k].X, v.q[k].Y); ctx.closePath();
+      ctx.globalAlpha = 0.86; ctx.fillStyle = kleur3d(v.rm, v.licht); ctx.fill();
+      ctx.globalAlpha = 0.35; ctx.strokeStyle = css('--bg'); ctx.stroke(); ctx.globalAlpha = 1;
+    });
+    // voorwaartse richting
+    const o = proj({ x: 1.02, y: 0, z: 0 }), e = proj({ x: 1.35, y: 0, z: 0 });
+    pijl(ctx, o.X, o.Y, e.X, e.Y, css('--fg'), 2);
+    ctx.fillStyle = css('--fg'); ctx.font = '600 12px ' + css('--f-body'); ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+    ctx.fillText('naar de CanSat', e.X, e.Y - 8);
+    // kleurenschaal
+    const gx = 14, gy = h - 24, gw = Math.min(160, w * 0.4);
+    for (let i = 0; i < gw; i++) { ctx.fillStyle = kleur3d(i / gw, 1); ctx.fillRect(gx + i, gy, 1, 8); }
+    ctx.fillStyle = css('--muted'); ctx.font = '11px ' + css('--f-mono'); ctx.textBaseline = 'top';
+    ctx.textAlign = 'left'; ctx.fillText('−30 dB', gx, gy + 10); ctx.textAlign = 'right'; ctx.fillText('0 dB', gx + gw, gy + 10);
+  }
+
+  function alles() {
+    const lam = C0 / (st.f * 1e6) * 1000;   // mm
+    const els = ontwerp();
+    const sim = simuleer(els, lam);
+    tekenAntenne(els, lam);
+    const hor = st.montage === 'h';
+    const bwE = tekenPool(hor ? cvE : cvH, sim.pe, css('--b'), 'voorkant = 0°', hor ? 'boven' : 'zij');
+    const bwH = tekenPool(hor ? cvH : cvE, sim.ph, css('--b'), 'voorkant = 0°', hor ? 'zij' : 'boven');
+    $('l1').textContent = hor ? 'E-vlak' : 'H-vlak';
+    $('l2').textContent = hor ? 'H-vlak' : 'E-vlak';
+    $('vlakuitleg').innerHTML = hor
+      ? 'De elementen staan <b>horizontaal</b>. Het <b>bovenaanzicht</b> is het <b>E-vlak</b>: het vlak waarin de elementen liggen en waarin het elektrisch veld trilt. Het <b>zijaanzicht</b> is het <b>H-vlak</b>: het vlak loodrecht op de elementen, waarin het magnetisch veld trilt. 0° is telkens de richting waarin de antenne wijst.'
+      : 'De elementen staan <b>verticaal</b>. Het <b>bovenaanzicht</b> is nu het <b>H-vlak</b>: het vlak loodrecht op de elementen, waarin het magnetisch veld trilt. Het <b>zijaanzicht</b> is het <b>E-vlak</b>: het vlak waarin de elementen liggen en waarin het elektrisch veld trilt. 0° is telkens de richting waarin de antenne wijst.';
+    root.querySelectorAll('#ya-mont button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.m === st.montage)));
+    maakRooster(sim); teken3d();
+    // tabel
+    const Imax = Math.max(...sim.I.map(c => Math.hypot(c.re, c.im)));
+    const ref = sim.I[1], fRef = Math.atan2(ref.im, ref.re);
+    $('tab').innerHTML = `<thead><tr><th>element</th><th>lengte (mm)</th><th>positie (mm)</th><th>afstand tot vorige (mm)</th><th>stroom (relatief)</th></tr></thead><tbody>` +
+      els.map((e, i) => {
+        const c = sim.I[i], amp = Math.hypot(c.re, c.im) / Imax;
+        let fa = (Math.atan2(c.im, c.re) - fRef) * 180 / Math.PI; fa = ((fa + 540) % 360) - 180;
+        return `<tr><td><b style="color:${kleurVan(e.soort)}">${e.naam}</b> <span class="ya-soort">${e.soort === 'R' ? 'reflector' : e.soort === 'A' ? 'gevoed element' : 'director'}</span></td>` +
+          `<td>${f2(e.L * lam, 0)}</td><td>${f2(e.x * lam, 0)}</td><td>${i ? f2((e.x - els[i - 1].x) * lam, 0) : '–'}</td>` +
+          `<td>${f2(amp * 100, 0)} % · ${f2(fa, 0)}°</td></tr>`;
+      }).join('') + '</tbody>';
+    // resultaten
+    const Z = sim.Zin;
+    $('res').innerHTML = `
+      <div><span>Antennewinst</span><b>${f2(sim.dBi, 1)} dBi</b></div>
+      <div><span>Voor-achterverhouding</span><b>${f2(sim.FB, 1)} dB</b></div>
+      <div><span>Openingshoek ${hor ? 'bovenaanzicht' : 'zijaanzicht'} / E-vlak (−3 dB)</span><b>${bwE ? f2(bwE, 0) + '°' : '–'}</b></div>
+      <div><span>Openingshoek ${hor ? 'zijaanzicht' : 'bovenaanzicht'} / H-vlak (−3 dB)</span><b>${bwH ? f2(bwH, 0) + '°' : '–'}</b></div>
+      <div><span>Ingangsimpedantie dipool</span><b>${f2(Z.re, 0)} ${Z.im < 0 ? '−' : '+'} j${f2(Math.abs(Z.im), 0)} Ω</b></div>
+      <p class="uitleg klein">Vereenvoudigde simulatie (methode van de geïnduceerde emk) in vrije ruimte, met een geleidende boom en de kabel niet meegerekend. Een echte antenne wijkt daar wat van af, dus test en stem af na het bouwen.</p>`;
+    // berekening
+    const r = REGEL, d1 = els.filter(e => e.soort === 'D');
+    $('ber').innerHTML = `
+      <div class="pa-f">golflengte: λ = c / f = 299 792 458 / (${f2(st.f, 0)} · 10<sup>6</sup>) = <b>${f2(lam / 1000, 4)} m = ${f2(lam, 1)} mm</b></div>
+      <h3>Lengtes</h3>
+      <div class="pa-f">reflector R: L = ${f2(r.LR, 3)} · λ = <b>${f2(r.LR * lam, 0)} mm</b></div>
+      <div class="pa-f">gevoed element A (dipool): L = ${f2(r.LA, 3)} · λ = <b>${f2(r.LA * lam, 0)} mm</b></div>
+      ${d1.length ? `<div class="pa-f">directoren: D1 = ${f2(r.LD1, 3)} · λ = <b>${f2(r.LD1 * lam, 0)} mm</b>, elke volgende ${f2(r.dec, 3)} · λ korter (minstens ${f2(r.Lmin, 2)} · λ)</div>` : ''}
+      <h3>Afstanden</h3>
+      <div class="pa-f">R → A: ${f2(r.sR, 2)} · λ = <b>${f2(r.sR * lam, 0)} mm</b></div>
+      ${d1.length ? `<div class="pa-f">A → D1: ${f2(r.s1, 2)} · λ = <b>${f2(r.s1 * lam, 0)} mm</b></div>` : ''}
+      ${d1.length > 1 ? `<div class="pa-f">tussen de directoren: vanaf ${f2(r.s2, 2)} · λ, telkens ${f2(r.sg, 2)} · λ meer (hoogstens ${f2(r.sMax, 2)} · λ)</div>` : ''}
+      <p class="uitleg klein">De reflector is iets langer dan λ/2, de directoren zijn korter. Zo stuurt de antenne de straling naar de directoren toe.</p>`;
+    root.querySelectorAll('#ya-snel button').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.f === st.f)));
+  }
+
+  const ro = new ResizeObserver(() => alles());
+  [cvT, cvE, cvH, cv3].forEach(c => ro.observe(c));
+  alles();
+  return () => ro.disconnect();
 }
 
 route();
