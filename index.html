@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Klasapplets: interactieve applets per klas. Applets door VDSTH.">
+<meta name="description" content="Tools voor mechanica, elektriciteit en fysica, per klas. Tools door VDSTH.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%276%27 fill=%27%230c0e12%27/%3E%3Cpath d=%27M6 24 L13 14 L19 19 L26 8%27 fill=%27none%27 stroke=%27%23f2b544%27 stroke-width=%273%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27/%3E%3C/svg%3E">
-<title>Klasapplets</title>
+<title>Tools voor mechanica, elektriciteit en fysica</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Atkinson+Hyperlegible:wght@400;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -409,6 +409,7 @@ button.tr-hoofd { border-color: var(--a); color: var(--a); font-weight: 600; }
 .pa-tabel th { font: 600 .85rem var(--f-body); color: var(--muted); }
 button.pa-pdf { border-color: var(--a); color: var(--a); font-weight: 600; }
 button.pa-pdf:disabled { opacity: .5; cursor: default; }
+@media (max-width: 520px) { nav.klassen .tegel .sub { display: none; } }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
@@ -416,15 +417,15 @@ button.pa-pdf:disabled { opacity: .5; cursor: default; }
 
 <div class="wrap">
   <header class="top">
-    <a class="brand" href="#">Klasapplets</a>
-    <span class="hint">Kies je klas en open een applet.</span>
+    <a class="brand" href="#">Tools voor mechanica, elektriciteit en fysica</a>
+    <span class="hint">Kies je klas en open een tool.</span>
   </header>
 
   <nav class="klassen" id="nav" aria-label="Klassen"></nav>
 
   <main id="inhoud" aria-live="polite"></main>
 
-  <footer class="voet">Applets door <b>VDSTH</b></footer>
+  <footer class="voet">Tools door <b>VDSTH</b></footer>
 </div>
 
 <script>
@@ -511,7 +512,7 @@ const APPLETS = [
   },
   {
     id: 'coord',
-    titel: 'Coördinaten en positievectoren',
+    titel: 'Oefeningen op coördinaten en positievectoren',
     vak: 'Mechanica',
     klassen: ['3TEW'],
     beschrijving: 'Bepaal coördinaten en positievectoren van punten in het vlak (10 oefeningen) en in de ruimte (5 oefeningen), met controle van je antwoorden.',
@@ -593,10 +594,8 @@ let laatsteKlas = null;
 function tekenNav(actief, compact) {
   nav.classList.toggle('compact', !!compact);
   nav.innerHTML = KLASSEN.map(k => {
-    const n = APPLETS.filter(a => a.klassen.includes(k.id)).length;
-    const sub = k.vak ? 'tools · alle klassen' : (n === 1 ? '1 applet' : n + ' applets');
     return `<a class="tegel${k.vak ? ' vak' : ''}" href="#${k.id}" ${k.id === actief ? 'aria-current="page"' : ''}>
-      <span class="naam">${k.naam}</span><span class="sub">${sub}</span></a>`;
+      <span class="naam">${k.naam}</span></a>`;
   }).join('');
 }
 
@@ -614,7 +613,7 @@ function route() {
       <h1>${applet.titel}</h1>
       <div id="applet"></div>`;
     opruimen = applet.render(document.getElementById('applet'));
-    document.title = applet.titel + ' · Klasapplets';
+    document.title = applet.titel + ' · Tools';
     return;
   }
 
@@ -633,15 +632,15 @@ function route() {
           <span class="open">Openen →</span>
         </a>`).join('')}</div>`
       : `<div class="leeg">${klas.vak
-          ? 'Hier komen handige tools voor Engineering. Er staan er nog geen.'
-          : 'Er staan nog geen applets voor ' + klas.naam + '.'}</div>`}`;
-    document.title = klas.naam + ' · Klasapplets';
+          ? 'Er staan nog geen tools voor Engineering.'
+          : 'Er staan nog geen tools voor ' + klas.naam + '.'}</div>`}`;
+    document.title = klas.naam + ' · Tools';
     return;
   }
 
   tekenNav(null);
-  inhoud.innerHTML = `<div class="leeg">Klik hierboven op je klas om de applets te zien.</div>`;
-  document.title = 'Klasapplets';
+  inhoud.innerHTML = `<div class="leeg">Klik hierboven op je klas om de tools te zien.</div>`;
+  document.title = 'Tools voor mechanica, elektriciteit en fysica';
 }
 window.addEventListener('hashchange', route);
 
@@ -4710,7 +4709,7 @@ function renderPara(root) {
   }
   function voet(ctx, tekst) {
     ctx.fillStyle = '#666'; ctx.font = `${0.28 * KCM}px ${css('--f-body')}`; ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
-    ctx.fillText('Klasapplets · Applets door VDSTH', 1.2 * KCM, PH - 0.6 * KCM);
+    ctx.fillText('Tools voor mechanica, elektriciteit en fysica · door VDSTH', 1.2 * KCM, PH - 0.6 * KCM);
     ctx.textAlign = 'right'; ctx.fillText(tekst, PW - 1.2 * KCM, PH - 0.6 * KCM);
   }
   function paginaBerekening(g) {
