@@ -8,7 +8,7 @@
 <title>Tools voor mechanica, elektriciteit en fysica</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Atkinson+Hyperlegible:wght@400;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Atkinson+Hyperlegible:wght@400;700&family=IBM+Plex+Mono:wght@400;500&family=STIX+Two+Text:ital,wght@1,500&display=swap">
 <style>
 /* Layout: smalle kop, rij van zes even grote klastegels als navigatie, daaronder de inhoud (lijst of applet). Bewust één donkere look. */
 :root {
@@ -305,7 +305,7 @@ button.co-nr { min-width: 2.6em; text-align: center; font-family: var(--f-mono);
 .co-asnaam { font: italic 600 15px var(--f-body); }
 .co-naam { font: italic 700 15px var(--f-body); fill: var(--fg); }
 .co-koppen { display: none; }
-.co-rij { display: grid; grid-template-columns: 1fr; gap: 8px 10px; align-items: center; padding: 10px 0; border-top: 1px solid var(--line); font: 400 1rem var(--f-mono); }
+.co-rij { display: grid; grid-template-columns: 1fr; gap: 8px 10px; align-items: center; padding: 10px 0; border-top: 1px solid var(--line); font: 400 1.08rem var(--f-body); }
 .co-coord, .co-vec { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
 .co-coord i { font-family: var(--f-body); font-weight: 700; margin-right: 2px; }
 .co-r { margin-right: 4px; white-space: nowrap; }
@@ -318,8 +318,11 @@ button.co-nr { min-width: 2.6em; text-align: center; font-family: var(--f-mono);
 .co-score { margin: 10px 0 0; }
 .c-goed { color: var(--druk); }
 @media (min-width: 1500px) { .co-rij { grid-template-columns: auto 1fr; column-gap: 28px; } }
-.vec { position: relative; display: inline-block; font-style: italic; }
-.vec::after { content: '→'; position: absolute; left: 50%; top: -0.78em; transform: translateX(-50%); font-size: .72em; font-style: normal; line-height: 1; }
+.vec { position: relative; display: inline-block; font: italic 500 1.18em/1 "STIX Two Text", "Cambria Math", Cambria, "Times New Roman", "Liberation Serif", serif; padding: 0 .06em; }
+.vec::after { content: '→'; position: absolute; left: 50%; top: -0.62em; transform: translateX(-46%); font: 400 .7em/1 var(--f-body); }
+.vec.punt::after { top: -0.78em; }
+.vec.hoog::after { top: -0.9em; }
+.co-vec .vec { margin-left: .12em; }
 .co-vec { padding-top: 4px; }
 @media (max-width: 520px) { .co-in { width: 3.6em; padding: 4px; } .co-rij { font-size: .9rem; } }
 @media (max-width: 520px) { .co-lay.ruimte .co-in { width: 2.9em; padding: 3px; font-size: .85rem; } .co-lay.ruimte .co-rij { font-size: .82rem; } .co-lay.ruimte .co-coord, .co-lay.ruimte .co-vec { gap: 2px; } }
@@ -438,6 +441,46 @@ button.pa-pdf:disabled { opacity: .5; cursor: default; }
 @media (max-width: 600px) { .doek.ya-3d { height: 380px; } }
 .ya-terug { position: absolute; top: 6px; right: 6px; padding: 4px 10px; font-size: .85rem; }
 .ya-vlakuitleg { margin: -4px 0 0; max-width: none; }
+.doek.vw-doek { aspect-ratio: auto; height: 360px; touch-action: none; cursor: crosshair; }
+.vw-balk { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin: 10px 0 6px; }
+.vw-balk button.sit { padding: 5px 12px; }
+.vw-balk button.knop { padding: 5px 12px; font-size: .88rem; }
+.vw-balk button.knop:disabled { opacity: .45; cursor: default; }
+#vw-hint { margin: 0 0 8px; min-height: 2.6em; }
+.vw-vb { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-top: 10px; }
+.vw-vb button.sit { padding: 4px 10px; font-size: .86rem; }
+.vw-onder { display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 1200px) { .vw-onder { grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); } }
+.vw-h2 { margin: 0 0 8px; font-size: 1.1rem; }
+.vw-h3 { margin: 14px 0 4px; font: 600 .95rem var(--f-display); color: var(--muted); }
+.vw-groot { font: 700 1.15rem var(--f-display); padding: 8px 12px; border-radius: 8px; margin-bottom: 8px; }
+.vw-groot.goed { color: var(--druk); background: rgba(95,207,134,.1); }
+.vw-groot.slecht { color: var(--trek); background: rgba(255,107,107,.12); }
+.vw-kv { display: flex; justify-content: space-between; gap: 12px; padding: 5px 0; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+.vw-kv span { color: var(--muted); }
+.vw-kv b { font: 600 .92rem var(--f-mono); }
+.vw-fout { color: var(--trek); }
+.vw-tabwrap { overflow-x: auto; max-height: 460px; overflow-y: auto; }
+.vw-tab { width: 100%; border-collapse: collapse; font: 400 .88rem var(--f-mono); }
+.vw-tab th, .vw-tab td { text-align: right; padding: 4px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.vw-tab th:first-child, .vw-tab td:first-child { text-align: left; }
+.vw-tab th { font: 600 .8rem var(--f-body); color: var(--muted); white-space: normal; vertical-align: bottom; position: sticky; top: 0; background: var(--panel); }
+.vw-tab tr.te-zwak td { color: var(--trek); }
+.vw-soort { font: 400 .78rem var(--f-body); color: var(--muted); }
+.vw-soort.trek, .vw-trek { color: var(--trek); } .vw-soort.druk, .vw-druk { color: var(--druk); }
+.vw-ber .pa-f b { color: var(--a); }
+.vw-getal .rij input[type=number] { width: 6.5em; }
+.vw-lt { color: #ff6b6b; } .vw-ld { color: #5b9bff; }
+.vw-ok { color: var(--druk); font-weight: 600; } .vw-nok { color: #ffd166; font-weight: 700; }
+.last.vw-nieuw { border-color: var(--a); box-shadow: 0 0 0 2px rgba(242,181,68,.25); }
+.vw-fout.klein { font-size: .85rem; margin: 0; }
+.vw .lasten { grid-template-columns: repeat(auto-fill, minmax(min(100%, 270px), 1fr)); gap: 10px; }
+.vw .last { padding: 10px 12px; gap: 6px; }
+.vw .lrij { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 6px 10px; }
+.vw .lrij .ctrl:has(input[type=range]), .vw .lrij .vw-fout { grid-column: 1 / -1; }
+.vw .lrij select { width: 100%; align-self: stretch; }
+.vw .lrij .ctrl label { font-size: .8rem; }
+.vw .lrij input[type=number] { width: 4.8em; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
@@ -624,6 +667,23 @@ const APPLETS = [
       <path d="M150 35 C170 5 225 15 232 35 C225 55 170 65 150 35 Z" fill="none" stroke="var(--b)" stroke-width="2"/>
       <path d="M150 35 C146 30 141 30 140 35 C141 40 146 40 150 35 Z" fill="none" stroke="var(--b)" stroke-width="1.5"/></svg>`,
     render: renderYagi
+  },
+  {
+    id: 'vakwerk',
+    titel: 'Vakwerken tekenen en simuleren',
+    vak: 'Sterkteleer',
+    klassen: ['Engineering'],
+    beschrijving: 'Teken een vakwerk op een raster, zet steunpunten en krachten op de knopen en zie welke staaf trek of druk krijgt, met spanning, knik en benutting. Exporteer de staven als dxf voor de lasercutter.',
+    thumb: `<svg viewBox="0 0 240 70" aria-hidden="true">
+      <g stroke-width="4" stroke-linecap="round">
+        <line x1="30" y1="56" x2="210" y2="56" stroke="var(--trek)"/>
+        <line x1="75" y1="16" x2="165" y2="16" stroke="var(--druk)"/>
+        <line x1="30" y1="56" x2="75" y2="16" stroke="var(--druk)"/><line x1="165" y1="16" x2="210" y2="56" stroke="var(--druk)"/>
+        <line x1="75" y1="16" x2="120" y2="56" stroke="var(--trek)"/><line x1="120" y1="56" x2="165" y2="16" stroke="var(--trek)"/>
+      </g>
+      <g fill="var(--bg)" stroke="var(--fg)" stroke-width="1.5"><circle cx="30" cy="56" r="4"/><circle cx="120" cy="56" r="4"/><circle cx="210" cy="56" r="4"/><circle cx="75" cy="16" r="4"/><circle cx="165" cy="16" r="4"/></g>
+      <path d="M120 30 V48" stroke="var(--a)" stroke-width="2.5"/><path d="M114 44 L120 52 L126 44 Z" fill="var(--a)"/></svg>`,
+    render: renderVak
   }
 ];
 
@@ -3103,14 +3163,14 @@ function renderCoord(root) {
   }
 
   /* ---------- antwoordvelden ---------- */
-  const vec = l => `<span class="vec">${l}</span>`;
+  const vec = l => `<span class="vec${l === 'i' || l === 'j' ? ' punt' : l === 'k' ? ' hoog' : ''}">${l}</span>`;
   function velden(o) {
     const drie = o.soort === 'ruimte';
     const veld = (naam, k, label) => `<input class="co-in" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" data-p="${naam}" data-k="${k}" aria-label="${label}">`;
     return Object.keys(o.pts).map(n => `
       <div class="co-rij" data-rij="${n}">
         <span class="co-coord"><i>${n}</i>(${veld(n, 'x', 'x-coördinaat van ' + n)} ; ${veld(n, 'y', 'y-coördinaat van ' + n)}${drie ? ' ; ' + veld(n, 'z', 'z-coördinaat van ' + n) : ''})</span>
-        <span class="co-vec"><span class="co-r">${vec('r')}<sub>${n}</sub> =</span> (${veld(n, 'rx', 'x-component van de positievector van ' + n)}) ${vec('ı')} + (${veld(n, 'ry', 'y-component van de positievector van ' + n)}) ${vec('ȷ')}${drie ? ` + (${veld(n, 'rz', 'z-component van de positievector van ' + n)}) ${vec('k')}` : ''}</span>
+        <span class="co-vec"><span class="co-r">${vec('r')}<sub>${n}</sub> =</span> (${veld(n, 'rx', 'x-component van de positievector van ' + n)}) ${vec('i')} + (${veld(n, 'ry', 'y-component van de positievector van ' + n)}) ${vec('j')}${drie ? ` + (${veld(n, 'rz', 'z-component van de positievector van ' + n)}) ${vec('k')}` : ''}</span>
         <span class="co-hint" data-hint="${n}"></span>
       </div>`).join('');
   }
@@ -5512,6 +5572,709 @@ function renderYagi(root) {
   [cvT, cvE, cvH, cv3].forEach(c => ro.observe(c));
   alles();
   return () => ro.disconnect();
+}
+
+/* ============================================================
+   APPLET: Vakwerken tekenen en simuleren (Engineering)
+   Tekenen op een instelbaar raster, steunpunten en krachten op knopen,
+   oplossen met de stijfheidsmethode (scharnierende knopen),
+   spanning per lid, knik (Euler), export van de onderdelen als dxf.
+   ============================================================ */
+function renderVak(root) {
+  const MAT = [
+    { id: 'multiplex', naam: 'Multiplex / plexihout (populier)', s: 30, E: 6000 },
+    { id: 'mdf', naam: 'MDF', s: 18, E: 3000 },
+    { id: 'pmma', naam: 'Plexiglas (PMMA)', s: 70, E: 3000 },
+    { id: 's235', naam: 'Staal S235', s: 235, E: 210000 },
+    { id: 's355', naam: 'Staal S355', s: 355, E: 210000 },
+    { id: 'alu', naam: 'Aluminium EN AW-6060 T6', s: 150, E: 70000 },
+    { id: 'messing', naam: 'Messing CuZn37', s: 200, E: 100000 },
+    { id: 'eigen', naam: 'Eigen materiaal', s: null, E: null }
+  ];
+  const st = {
+    W: 400, H: 200, g: 50,
+    tool: 'staaf',
+    mat: 'multiplex', s: 30, E: 6000,
+    b: 15, t: 3, d: 3.2,
+    toon: 'N', vervorm: false,
+    nodes: [], bars: [], loads: [], volg: 1
+  };
+  const RICHT = {
+    down: { t: '↓ omlaag', u: () => [0, -1] },
+    up: { t: '↑ omhoog', u: () => [0, 1] },
+    right: { t: '→ naar rechts', u: () => [1, 0] },
+    left: { t: '← naar links', u: () => [-1, 0] },
+    dr: { t: '↘ schuin rechts omlaag', u: a => [Math.cos(a), -Math.sin(a)], schuin: true },
+    dl: { t: '↙ schuin links omlaag', u: a => [-Math.cos(a), -Math.sin(a)], schuin: true },
+    ur: { t: '↗ schuin rechts omhoog', u: a => [Math.cos(a), Math.sin(a)], schuin: true },
+    ul: { t: '↖ schuin links omhoog', u: a => [-Math.cos(a), Math.sin(a)], schuin: true }
+  };
+  const TREK = '#ff6b6b', DRUK = '#5b9bff';
+  const lastVec = l => { const u = RICHT[l.dir].u(l.a * Math.PI / 180); return { fx: u[0] * l.F, fy: u[1] * l.F }; };
+  const f2 = (x, d = 1) => (Object.is(x, -0) ? 0 : x).toLocaleString('nl-BE', { minimumFractionDigits: d, maximumFractionDigits: d }).replace('-', '−');
+  const geschiedenis = [];
+
+  const ctrl = (id, label, min, max, step, eenh) => `
+      <div class="ctrl">
+        <label for="vw-${id}">${label}</label>
+        <div class="rij">
+          <input type="range" id="vw-${id}" min="${min}" max="${max}" step="${step}">
+          <input type="number" id="vw-${id}n" min="${min}" max="${max}" step="${step}" aria-label="${label.replace(/<[^>]+>/g, '')} in ${eenh}">
+          <span class="eenh">${eenh}</span>
+        </div>
+      </div>`;
+  const getal = (id, label, min, max, step, eenh) => `
+      <div class="ctrl vw-getal">
+        <label for="vw-${id}">${label}</label>
+        <div class="rij"><input type="number" id="vw-${id}" min="${min}" max="${max}" step="${step}"><span class="eenh">${eenh}</span></div>
+      </div>`;
+
+  root.innerHTML = `
+  <div class="lay2 vw">
+    <div class="hoofd2">
+      <div class="paneel graf">
+        <div class="kop"><h2>Vakwerk</h2><span class="legende vw-leg"><span class="vw-lt"><i class="ln" style="border-color:#ff6b6b"></i>trek (uitgerekt)</span><span class="vw-ld"><i class="ln" style="border-color:#5b9bff"></i>druk (ingedrukt)</span><span><i class="ln" style="border-color:var(--axis)"></i>nulstaaf</span><span><i class="ln" style="border-color:var(--a)"></i>kracht</span></span></div>
+        <div class="vw-balk">
+          <div class="chips" id="vw-tools">
+            <button type="button" class="sit" data-tool="staaf">╱ Staaf</button>
+            <button type="button" class="sit" data-tool="scharnier">▲ Scharnier</button>
+            <button type="button" class="sit" data-tool="rol">◉ Rol</button>
+            <button type="button" class="sit" data-tool="kracht">↓ Kracht</button>
+            <button type="button" class="sit" data-tool="wis">✕ Wissen</button>
+          </div>
+          <div class="chips">
+            <button type="button" class="knop" id="vw-undo">↶ Ongedaan maken</button>
+            <button type="button" class="knop" id="vw-leeg">Alles wissen</button>
+          </div>
+        </div>
+        <p class="uitleg klein" id="vw-hint"></p>
+        <div class="doek vw-doek"><canvas id="vw-c" role="img" aria-label="Tekenvlak met raster voor het vakwerk"></canvas></div>
+        <div class="vw-vb"><span class="uitleg klein">Voorbeeld laden:</span>
+          <button type="button" class="sit" data-vb="warren">Warren</button>
+          <button type="button" class="sit" data-vb="pratt">Pratt</button>
+          <button type="button" class="sit" data-vb="howe">Howe</button>
+          <button type="button" class="sit" data-vb="kraan">Uitkragende arm</button>
+        </div>
+      </div>
+      <div class="paneel">
+        <div class="lasten-kop"><h2 class="vw-h2" style="margin:0">Krachten</h2>
+          <div class="knoppen"><button class="knop" type="button" id="vw-addF">+ Kracht</button><button class="knop" type="button" id="vw-wisF">↺ Alle krachten wissen</button></div></div>
+        <div class="lasten" id="vw-lasten"></div>
+      </div>
+      <div class="vw-onder">
+        <div class="paneel">
+          <h2 class="vw-h2">Resultaat</h2>
+          <div id="vw-status"></div>
+        </div>
+        <div class="paneel">
+          <h2 class="vw-h2">Staven</h2>
+          <div class="vw-tabwrap"><table class="vw-tab" id="vw-tab"></table></div>
+        </div>
+      </div>
+      <div class="paneel">
+        <h2 class="vw-h2">Hoe wordt er gerekend?</h2>
+        <div id="vw-ber" class="vw-ber"></div>
+      </div>
+    </div>
+    <div class="zij2">
+      <div class="paneel bediening">
+        <div class="groep">
+          <div class="gkop">Raster</div>
+          ${ctrl('W', 'Breedte van het rooster', 100, 1000, 10, 'mm')}
+          ${ctrl('H', 'Hoogte van het rooster', 50, 600, 10, 'mm')}
+          ${ctrl('g', 'Grootte van één vakje', 5, 100, 5, 'mm')}
+        </div>
+        <div class="groep">
+          <div class="gkop">Materiaal</div>
+          <select id="vw-mat" aria-label="Materiaal">${MAT.map(m => `<option value="${m.id}">${m.naam}</option>`).join('')}</select>
+          ${getal('s', 'Vloeigrens / sterkte σ<sub>toel</sub>', 1, 2000, 1, 'MPa')}
+          ${getal('E', 'Elasticiteitsmodulus E', 100, 300000, 100, 'MPa')}
+          <p class="uitleg klein">Richtwaarden. Hout en kunststof hebben geen echte vloeigrens: dan is het de sterkte.</p>
+        </div>
+        <div class="groep">
+          <div class="gkop">Staven en knopen</div>
+          ${getal('b', 'Breedte van een staaf b', 5, 60, 0.5, 'mm')}
+          ${getal('t', 'Dikte van de plaat t', 1, 20, 0.5, 'mm')}
+          ${getal('d', 'Diameter van het gat (M3)', 1, 20, 0.1, 'mm')}
+        </div>
+        <div class="groep">
+          <div class="gkop">Weergave</div>
+          <div class="ctrl"><label for="vw-toon">Op de staven tonen</label>
+            <select id="vw-toon">
+              <option value="N">Kracht N (in N)</option>
+              <option value="sigma">Spanning σ (in MPa)</option>
+              <option value="knik">Knikcontrole (|N| / F_k)</option>
+              <option value="ben">Benutting (in %)</option>
+              <option value="nr">Alleen het nummer</option>
+            </select></div>
+          <label class="vink"><input type="checkbox" id="vw-vervorm">Vervorming tonen (overdreven)</label>
+        </div>
+        <div class="groep">
+          <div class="gkop">Lasercutter</div>
+          <div class="knoppen"><button class="knop pa-pdf" type="button" id="vw-dxf">⤓ Onderdelen als dxf</button></div>
+          <p class="uitleg klein" id="vw-dxfmeld">Elke staaf als onderdeel met afgeronde uiteinden en twee gaten, in mm, met een nummer om te graveren.</p>
+        </div>
+      </div>
+    </div>
+  </div>`;
+
+  const $ = id => root.querySelector('#vw-' + id);
+  const cv = $('c');
+
+  /* ---------- bediening ---------- */
+  function koppel(id, key, min, max, na) {
+    const r = $(id), n = $(id + 'n');
+    const zet = (val, bron) => {
+      let x = parseFloat(String(val).replace(',', '.')); if (!isFinite(x)) return;
+      x = Math.min(max, Math.max(min, x)); st[key] = x;
+      if (bron !== r) r.value = x; if (bron !== n) n.value = x;
+      if (na) na(); alles();
+    };
+    r.addEventListener('input', () => zet(r.value, r));
+    n.addEventListener('change', () => zet(n.value, n));
+    n.addEventListener('keydown', e => { if (e.key === 'Enter') zet(n.value, n); });
+    r.value = n.value = st[key];
+    return v => zet(v, null);
+  }
+  function koppelGetal(id, key, min, max, na) {
+    const n = $(id);
+    const zet = () => { let x = parseFloat(String(n.value).replace(',', '.')); if (!isFinite(x)) { n.value = st[key]; return; } x = Math.min(max, Math.max(min, x)); st[key] = x; n.value = x; if (na) na(); alles(); };
+    n.addEventListener('change', zet); n.addEventListener('keydown', e => { if (e.key === 'Enter') zet(); });
+    n.value = st[key];
+  }
+  const binnenRooster = () => { // knopen buiten het rooster of naast het raster verwijderen
+    const ok = n => n.x <= st.W + 1e-9 && n.y <= st.H + 1e-9;
+    const weg = new Set(st.nodes.filter(n => !ok(n)).map(n => n.id));
+    if (weg.size) { st.bars = st.bars.filter(b => !weg.has(b.a) && !weg.has(b.b)); st.nodes = st.nodes.filter(n => !weg.has(n.id)); }
+  };
+  koppel('W', 'W', 100, 1000, binnenRooster); koppel('H', 'H', 50, 600, binnenRooster); koppel('g', 'g', 5, 100);
+  koppelGetal('s', 's', 1, 2000, () => { st.mat = 'eigen'; $('mat').value = 'eigen'; });
+  koppelGetal('E', 'E', 100, 300000, () => { st.mat = 'eigen'; $('mat').value = 'eigen'; });
+  koppelGetal('b', 'b', 5, 60); koppelGetal('t', 't', 1, 20); koppelGetal('d', 'd', 1, 20);
+  $('mat').value = st.mat;
+  $('mat').addEventListener('change', () => {
+    const m = MAT.find(x => x.id === $('mat').value); st.mat = m.id;
+    if (m.s != null) { st.s = m.s; st.E = m.E; $('s').value = m.s; $('E').value = m.E; }
+    alles();
+  });
+  $('toon').value = st.toon; $('vervorm').checked = st.vervorm;
+  $('toon').addEventListener('change', () => { st.toon = $('toon').value; teken(); });
+  $('vervorm').addEventListener('change', () => { st.vervorm = $('vervorm').checked; teken(); });
+  $('tools').addEventListener('click', e => { const b = e.target.closest('button[data-tool]'); if (!b) return; st.tool = b.dataset.tool; start = null; knoppen(); teken(); });
+  $('undo').addEventListener('click', () => { if (!geschiedenis.length) return; Object.assign(st, JSON.parse(geschiedenis.pop())); alles(); });
+  $('leeg').addEventListener('click', () => { if (!st.bars.length && !st.nodes.length && !st.loads.length) return; bewaarStap(); st.nodes = []; st.bars = []; st.loads = []; alles(); });
+  root.querySelector('.vw-vb').addEventListener('click', e => { const b = e.target.closest('button[data-vb]'); if (b) voorbeeld(b.dataset.vb); });
+  $('dxf').addEventListener('click', exportDxf);
+
+  function bewaarStap() {
+    geschiedenis.push(JSON.stringify({ nodes: st.nodes, bars: st.bars, loads: st.loads, volg: st.volg }));
+    if (geschiedenis.length > 60) geschiedenis.shift();
+  }
+  function knoppen() {
+    root.querySelectorAll('#vw-tools button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.tool === st.tool)));
+    $('undo').disabled = !geschiedenis.length;
+    const hints = {
+      staaf: 'Klik op een rasterpunt en daarna op een tweede rasterpunt om een staaf te tekenen (of sleep). De knopen komen vanzelf op de uiteinden.',
+      scharnier: 'Klik op een knoop om er een scharnier van te maken (houdt de knoop horizontaal én verticaal vast). Klik nog eens om het weg te halen.',
+      rol: 'Klik op een knoop om er een rol van te maken (houdt de knoop alleen verticaal vast). Klik nog eens om het weg te halen.',
+      kracht: 'Klik op een knoop om er een kracht op te zetten. Grootte en richting stel je in onder "Krachten", onder de tekening.',
+      wis: 'Klik op een staaf om ze te verwijderen.'
+    };
+    $('hint').textContent = hints[st.tool];
+  }
+
+  /* ---------- model ---------- */
+  const knoop = (x, y) => st.nodes.find(n => Math.abs(n.x - x) < 1e-6 && Math.abs(n.y - y) < 1e-6);
+  function maakKnoop(x, y) { let n = knoop(x, y); if (!n) { n = { id: 'k' + (st.volg++), x, y, steun: null, F: null }; st.nodes.push(n); } return n; }
+  function voegStaafToe(p, q) {
+    if (Math.abs(p.x - q.x) < 1e-9 && Math.abs(p.y - q.y) < 1e-9) return;
+    bewaarStap();
+    const a = maakKnoop(p.x, p.y), b = maakKnoop(q.x, q.y);
+    if (st.bars.some(s => (s.a === a.id && s.b === b.id) || (s.a === b.id && s.b === a.id))) { geschiedenis.pop(); return; }
+    st.bars.push({ id: 's' + (st.volg++), a: a.id, b: b.id });
+  }
+  function opruimen() { // knopen zonder staaf verdwijnen
+    const gebruikt = new Set(st.bars.flatMap(b => [b.a, b.b]));
+    st.nodes = st.nodes.filter(n => gebruikt.has(n.id));
+  }
+  function zetLast(x, y, F = 50, dir = 'down') { const l = { id: st.volg++, x, y, F, dir, a: 45 }; st.loads.push(l); return l; }
+  function voorbeeld(soort) {
+    bewaarStap();
+    st.nodes = []; st.bars = []; st.loads = [];
+    const g = st.g, nx = Math.max(2, Math.floor(st.W / g)), hy = Math.max(1, Math.min(Math.floor(st.H / g), Math.round(nx / 4) || 1));
+    const B = (x1, y1, x2, y2) => { const a = maakKnoop(x1, y1), b = maakKnoop(x2, y2); st.bars.push({ id: 's' + (st.volg++), a: a.id, b: b.id }); };
+    let vakken = Math.min(8, nx); if (soort !== 'warren' && vakken % 2) vakken--;
+    const dx = Math.max(1, Math.floor(nx / vakken)) * g, h = hy * g, L = vakken * dx;
+    if (soort === 'kraan') {
+      const n = Math.min(4, nx);
+      for (let i = 0; i < n; i++) { B(i * g, 0, (i + 1) * g, 0); B(i * g, h, (i + 1) * g, h); B(i * g, 0, (i + 1) * g, h); }
+      for (let i = 0; i < n; i++) B((i + 1) * g, 0, (i + 1) * g, h);
+      B(0, 0, 0, h);
+      knoop(0, 0).steun = 'scharnier'; knoop(0, h).steun = 'scharnier';
+      zetLast(n * g, 0);
+    } else if (soort === 'warren') {
+      const m = Math.max(2, Math.floor(nx / 2) * 2 > 8 ? 8 : Math.floor(nx / 2) * 2);
+      const d = Math.floor(nx / m) * g || g;
+      for (let i = 0; i < m; i += 2) B(i * d, 0, (i + 2) * d, 0);
+      for (let i = 0; i < m; i += 2) { B(i * d, 0, (i + 1) * d, h); B((i + 1) * d, h, (i + 2) * d, 0); if (i + 2 < m) B((i + 1) * d, h, (i + 3) * d, h); }
+      knoop(0, 0).steun = 'scharnier'; knoop(m * d, 0).steun = 'rol';
+      for (let i = 2; i < m; i += 2) zetLast(i * d, 0);
+      if (m === 2) zetLast(d, h);
+    } else {
+      for (let i = 0; i < vakken; i++) { B(i * dx, 0, (i + 1) * dx, 0); if (i > 0 && i < vakken - 1) B(i * dx, h, (i + 1) * dx, h); }
+      for (let i = 1; i < vakken; i++) B(i * dx, 0, i * dx, h);
+      B(0, 0, dx, h); B((vakken - 1) * dx, h, L, 0);
+      const mid = vakken / 2;
+      for (let i = 1; i < vakken - 1; i++) {
+        const links = i < mid;
+        if (soort === 'pratt') { links ? B(i * dx, h, (i + 1) * dx, 0) : B(i * dx, 0, (i + 1) * dx, h); }
+        else { links ? B(i * dx, 0, (i + 1) * dx, h) : B(i * dx, h, (i + 1) * dx, 0); }
+      }
+      knoop(0, 0).steun = 'scharnier'; knoop(L, 0).steun = 'rol';
+      for (let i = 1; i < vakken; i++) zetLast(i * dx, 0);
+    }
+    opruimen(); alles();
+  }
+
+  /* ---------- oplossen (stijfheidsmethode) ---------- */
+  function los() {
+    const N = st.nodes.length, M = st.bars.length;
+    const res = { ok: false, reden: '', N: [], u: [], R: {} };
+    if (!M) { res.reden = 'leeg'; return res; }
+    const idx = new Map(st.nodes.map((n, i) => [n.id, i]));
+    const A = st.b * st.t, E = st.E, nd = 2 * N;
+    const K = Array.from({ length: nd }, () => new Float64Array(nd));
+    const geo = st.bars.map(s => {
+      const p = st.nodes[idx.get(s.a)], q = st.nodes[idx.get(s.b)];
+      const L = Math.hypot(q.x - p.x, q.y - p.y), c = (q.x - p.x) / L, sn = (q.y - p.y) / L;
+      return { i: idx.get(s.a), j: idx.get(s.b), L, c, s: sn };
+    });
+    geo.forEach(g => {
+      const k = E * A / g.L, m = [g.c * g.c, g.c * g.s, g.s * g.s];
+      const d = [2 * g.i, 2 * g.i + 1, 2 * g.j, 2 * g.j + 1];
+      const ke = [[m[0], m[1], -m[0], -m[1]], [m[1], m[2], -m[1], -m[2]], [-m[0], -m[1], m[0], m[1]], [-m[1], -m[2], m[1], m[2]]];
+      for (let a = 0; a < 4; a++) for (let b = 0; b < 4; b++) K[d[a]][d[b]] += k * ke[a][b];
+    });
+    const F = new Float64Array(nd), vast = new Array(nd).fill(false);
+    st.nodes.forEach((n, i) => {
+      if (n.steun === 'scharnier') { vast[2 * i] = vast[2 * i + 1] = true; }
+      if (n.steun === 'rol') vast[2 * i + 1] = true;
+    });
+    st.loads.forEach(l => { const k = knoop(l.x, l.y); if (!k) return; const i = idx.get(k.id), v = lastVec(l); F[2 * i] += v.fx; F[2 * i + 1] += v.fy; });
+    const Fmax = Math.max(1, ...st.loads.map(l => l.F));
+    const vrij = []; for (let i = 0; i < nd; i++) if (!vast[i]) vrij.push(i);
+    const r = vast.filter(Boolean).length;
+    res.m = M; res.k = N; res.r = r;
+    if (!r) { res.reden = 'geen steun'; return res; }
+    // gereduceerd stelsel
+    const n = vrij.length, Kr = vrij.map(i => Float64Array.from(vrij.map(j => K[i][j]))), Fr = Float64Array.from(vrij.map(i => F[i]));
+    let maxd = 0; for (let i = 0; i < n; i++) maxd = Math.max(maxd, Math.abs(Kr[i][i]));
+    for (let c = 0; c < n; c++) {
+      let p = c; for (let rr = c + 1; rr < n; rr++) if (Math.abs(Kr[rr][c]) > Math.abs(Kr[p][c])) p = rr;
+      if (Math.abs(Kr[p][c]) < 1e-9 * maxd) { res.reden = 'mechanisme'; return res; }
+      [Kr[c], Kr[p]] = [Kr[p], Kr[c]]; [Fr[c], Fr[p]] = [Fr[p], Fr[c]];
+      for (let rr = c + 1; rr < n; rr++) { const f = Kr[rr][c] / Kr[c][c]; if (!f) continue; for (let k = c; k < n; k++) Kr[rr][k] -= f * Kr[c][k]; Fr[rr] -= f * Fr[c]; }
+    }
+    const ur = new Float64Array(n);
+    for (let i = n - 1; i >= 0; i--) { let s = Fr[i]; for (let k = i + 1; k < n; k++) s -= Kr[i][k] * ur[k]; ur[i] = s / Kr[i][i]; }
+    const u = new Float64Array(nd); vrij.forEach((d, i) => { u[d] = ur[i]; });
+    res.u = u;
+    res.N = geo.map(g => E * A / g.L * (g.c * (u[2 * g.j] - u[2 * g.i]) + g.s * (u[2 * g.j + 1] - u[2 * g.i + 1])));
+    res.geo = geo;
+    st.nodes.forEach((nn, i) => {
+      if (!nn.steun) return;
+      const rx = vast[2 * i] ? K[2 * i].reduce((s, v, j) => s + v * u[j], 0) - F[2 * i] : 0;
+      const ry = K[2 * i + 1].reduce((s, v, j) => s + v * u[j], 0) - F[2 * i + 1];
+      res.R[nn.id] = { rx, ry };
+    });
+    // controle per staaf
+    const An = Math.max(0, st.b - st.d) * st.t, Ab = st.b * st.t, I = st.b * st.t ** 3 / 12;
+    res.staaf = geo.map((g, k) => {
+      const Nk = res.N[k], klein = Math.abs(Nk) < 1e-6 * Fmax;
+      const trek = Nk > 0 && !klein, druk = Nk < 0 && !klein;
+      const sigma = klein ? 0 : trek ? Nk / An : Nk / Ab;
+      const Fk = Math.PI ** 2 * E * I / g.L ** 2;
+      const bs = Math.abs(sigma) / st.s, bk = druk ? -Nk / Fk : 0;
+      return { L: g.L, N: klein ? 0 : Nk, trek, druk, sigma, Fk, ben: Math.max(bs, bk), bs, bk, knikOk: !druk || -Nk <= Fk };
+    });
+    res.ok = true;
+    return res;
+  }
+
+  /* ---------- tekenen ---------- */
+  let res = null, start = null, muis = null, layout = null, zweef = null;
+  function geomVoorDoek() {
+    const w = cv.clientWidth, pad = w < 500 ? 34 : 56, pt = 40, pb = 84;
+    const k = (w - 2 * pad) / st.W;
+    const h = Math.max(240, Math.min(660, st.H * k + pt + pb));
+    const k2 = Math.min(k, (h - pt - pb) / st.H);
+    const ox = pad + (w - 2 * pad - st.W * k2) / 2, oy = h - pb - (h - pt - pb - st.H * k2) / 2;
+    return { w, h, k: k2, ox, oy, X: x => ox + x * k2, Y: y => oy - y * k2 };
+  }
+  function teken() {
+    const L0 = geomVoorDoek();
+    if (Math.abs(cv.parentElement.clientHeight - L0.h) > 2) cv.parentElement.style.height = L0.h + 'px';
+    const { ctx, w, h } = prepCanvas(cv);
+    const Lg = geomVoorDoek(); layout = Lg;
+    const { X, Y, k } = Lg;
+    // raster
+    ctx.lineWidth = 1;
+    const stapPx = st.g * k, fijn = stapPx >= 6;
+    for (let x = 0; x <= st.W + 1e-9; x += st.g) { ctx.strokeStyle = (Math.round(x / st.g) % 5 === 0) ? css('--line') : css('--grid'); if (fijn || Math.round(x / st.g) % 5 === 0) { ctx.beginPath(); ctx.moveTo(X(x), Y(0)); ctx.lineTo(X(x), Y(st.H)); ctx.stroke(); } }
+    for (let y = 0; y <= st.H + 1e-9; y += st.g) { ctx.strokeStyle = (Math.round(y / st.g) % 5 === 0) ? css('--line') : css('--grid'); if (fijn || Math.round(y / st.g) % 5 === 0) { ctx.beginPath(); ctx.moveTo(X(0), Y(y)); ctx.lineTo(X(st.W), Y(y)); ctx.stroke(); } }
+    ctx.strokeStyle = css('--axis'); ctx.strokeRect(X(0), Y(st.H), st.W * k, st.H * k);
+    ctx.fillStyle = css('--muted'); ctx.font = '11px ' + css('--f-mono'); ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+    ctx.fillText(`${f2(st.W, 0)} × ${f2(st.H, 0)} mm · 1 vakje = ${f2(st.g, st.g % 1 ? 1 : 0)} mm`, X(0), Y(st.H) - 6);
+    if (fijn && stapPx >= 10) { ctx.fillStyle = css('--axis'); for (let x = 0; x <= st.W + 1e-9; x += st.g) for (let y = 0; y <= st.H + 1e-9; y += st.g) { ctx.fillRect(X(x) - 1, Y(y) - 1, 2, 2); } }
+
+    const kn = id => st.nodes.find(n => n.id === id);
+    const maxN = res && res.ok ? Math.max(1e-9, ...res.staaf.map(s => Math.abs(s.N))) : 1;
+    // vervorming
+    let schaal = 0;
+    if (res && res.ok && st.vervorm) {
+      const umax = Math.max(...Array.from(res.u).map(Math.abs));
+      if (umax > 0) schaal = 0.06 * Math.max(st.W, st.H) / umax;
+    }
+    const pos = (n, def) => {
+      if (!def || !schaal) return { x: n.x, y: n.y };
+      const i = st.nodes.indexOf(n); return { x: n.x + res.u[2 * i] * schaal, y: n.y + res.u[2 * i + 1] * schaal };
+    };
+    if (schaal) {
+      ctx.setLineDash([5, 4]); ctx.strokeStyle = css('--muted'); ctx.lineWidth = 1.2;
+      st.bars.forEach(s => { const p = kn(s.a), q = kn(s.b); ctx.beginPath(); ctx.moveTo(X(p.x), Y(p.y)); ctx.lineTo(X(q.x), Y(q.y)); ctx.stroke(); });
+      ctx.setLineDash([]);
+    }
+    // staven
+    st.bars.forEach((s, i) => {
+      const p = pos(kn(s.a), true), q = pos(kn(s.b), true);
+      let kl = css('--fg'), dik = Math.max(3, Math.min(8, st.b * k * 0.45));
+      const r = res && res.ok ? res.staaf[i] : null;
+      if (r) kl = r.trek ? TREK : r.druk ? DRUK : css('--axis');
+      if (r && r.ben > 1) {
+        ctx.strokeStyle = 'rgba(255,107,107,.35)'; ctx.lineWidth = dik + 8; ctx.lineCap = 'round';
+        ctx.beginPath(); ctx.moveTo(X(p.x), Y(p.y)); ctx.lineTo(X(q.x), Y(q.y)); ctx.stroke();
+      }
+      ctx.strokeStyle = kl; ctx.lineWidth = dik; ctx.lineCap = 'round';
+      ctx.beginPath(); ctx.moveTo(X(p.x), Y(p.y)); ctx.lineTo(X(q.x), Y(q.y)); ctx.stroke();
+      if (r && !r.knikOk) {   // knikt: golvend lijntje erlangs
+        const x1 = X(p.x), y1 = Y(p.y), x2 = X(q.x), y2 = Y(q.y), Lp = Math.hypot(x2 - x1, y2 - y1), ux = (x2 - x1) / Lp, uy = (y2 - y1) / Lp;
+        ctx.strokeStyle = '#ffd166'; ctx.lineWidth = 1.6; ctx.beginPath();
+        for (let t = 0; t <= 1.0001; t += 0.02) { const a = Math.sin(Math.PI * t) * (dik / 2 + 7); const px2 = x1 + (x2 - x1) * t - uy * a, py2 = y1 + (y2 - y1) * t + ux * a; t ? ctx.lineTo(px2, py2) : ctx.moveTo(px2, py2); }
+        ctx.stroke();
+      }
+    });
+    ctx.lineCap = 'butt';
+    // labels op de staven
+    if (true) {
+      ctx.font = '600 11px ' + css('--f-mono'); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      const geplaatst = [];
+      st.bars.forEach((s, i) => {
+        const p = pos(kn(s.a), true), q = pos(kn(s.b), true), mx = X((p.x + q.x) / 2), my = Y((p.y + q.y) / 2);
+        const r = res && res.ok ? res.staaf[i] : null;
+        let t = `S${i + 1}`;
+        if (r && st.toon === 'N') t += `: ${r.N === 0 ? '0' : f2(r.N, Math.abs(r.N) < 100 ? 1 : 0)} N`;
+        else if (r && st.toon === 'sigma') t += `: ${f2(r.sigma, Math.abs(r.sigma) < 10 ? 2 : 1)} MPa`;
+        else if (r && st.toon === 'knik') { if (!r.druk) return; t += `: ${f2(-r.N / r.Fk * 100, 0)} % ${r.knikOk ? '✓' : '✗ knikt'}`; }
+        else if (r && st.toon === 'ben') t += `: ${f2(r.ben * 100, 0)} %`;
+        const tw = ctx.measureText(t).width, lenPx = Math.hypot(X(q.x) - X(p.x), Y(q.y) - Y(p.y));
+        if (tw + 14 > lenPx) return;     // past niet: zie de tabel of beweeg erover
+        const rect = [mx - tw / 2 - 4, my - 9, mx + tw / 2 + 4, my + 9];
+        if (geplaatst.some(q2 => rect[0] < q2[2] && rect[2] > q2[0] && rect[1] < q2[3] && rect[3] > q2[1])) return;
+        geplaatst.push(rect);
+        ctx.fillStyle = css('--panel'); ctx.globalAlpha = 0.88; ctx.fillRect(mx - tw / 2 - 3, my - 8, tw + 6, 16); ctx.globalAlpha = 1;
+        ctx.fillStyle = r && (st.toon === 'knik' ? !r.knikOk : r.ben > 1) ? '#ffd166' : r ? (r.trek ? TREK : r.druk ? DRUK : css('--fg')) : css('--fg'); ctx.fillText(t, mx, my);
+      });
+    }
+    // knopen, steunen, krachten
+    st.nodes.forEach(n => {
+      const p = pos(n, true), x = X(p.x), y = Y(p.y);
+      if (n.steun) tekenSteun(ctx, x, y, n.steun);
+      ctx.fillStyle = css('--bg'); ctx.strokeStyle = css('--fg'); ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.arc(x, y, Math.max(3.5, st.d / 2 * k), 0, 7); ctx.fill(); ctx.stroke();
+    });
+    st.loads.forEach((l, li) => {
+      const n = knoop(l.x, l.y); if (!n || !l.F) return;
+      const p = pos(n, true), x = X(p.x), y = Y(p.y), len = 46, v = lastVec(l);
+      const F = l.F, ux = v.fx / F, uy = v.fy / F;
+      pijl(ctx, x - ux * (len + 6), y + uy * (len + 6), x - ux * 6, y + uy * 6, css('--a'), 2.5);
+      ctx.font = '600 12px ' + css('--f-mono'); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      const tF = `F${li + 1} = ${f2(F, F % 1 ? 1 : 0)} N`, tx = x - ux * (len + 22), ty = y + uy * (len + 16) - (ux ? 12 : 0), twF = ctx.measureText(tF).width;
+      ctx.fillStyle = css('--panel'); ctx.fillRect(tx - twF / 2 - 3, ty - 8, twF + 6, 16);
+      ctx.fillStyle = css('--a'); ctx.fillText(tF, tx, ty);
+    });
+    // reacties
+    if (res && res.ok) {
+      st.nodes.forEach(n => {
+        const R = res.R[n.id]; if (!R) return;
+        const x = X(n.x), y = Y(n.y), kl = css('--meet');
+        ctx.font = '600 11px ' + css('--f-mono'); ctx.fillStyle = kl;
+        if (Math.abs(R.ry) > 1e-6) {
+          const up = R.ry > 0;
+          pijl(ctx, x + 14, y + (up ? 54 : 22), x + 14, y + (up ? 22 : 54), kl, 2);
+          const tY = `${f2(Math.abs(R.ry), 1)} N`, twY = ctx.measureText(tY).width; ctx.textBaseline = 'middle'; ctx.textAlign = 'left'; ctx.fillText(tY, Math.min(x + 20, w - twY - 4), y + 64);
+        }
+        if (Math.abs(R.rx) > 1e-6) {
+          const rechts = R.rx > 0;
+          pijl(ctx, x + (rechts ? -50 : -18), y + 30, x + (rechts ? -18 : -50), y + 30, kl, 2);
+          const tR = `${f2(Math.abs(R.rx), 1)} N`, twR = ctx.measureText(tR).width;
+          ctx.textAlign = 'left'; ctx.textBaseline = 'top'; ctx.fillText(tR, Math.max(4, x - 18 - twR), y + 36);
+        }
+      });
+    }
+    if (schaal) { ctx.fillStyle = css('--muted'); ctx.font = '11px ' + css('--f-mono'); ctx.textAlign = 'right'; ctx.textBaseline = 'top'; ctx.fillText(`vervorming × ${f2(schaal, 0)}`, X(st.W), Y(0) + 8); }
+    // rubberband
+    if (st.tool === 'staaf' && start) {
+      ctx.fillStyle = css('--a'); ctx.beginPath(); ctx.arc(X(start.x), Y(start.y), 5, 0, 7); ctx.fill();
+      if (muis) { ctx.setLineDash([6, 4]); ctx.strokeStyle = css('--a'); ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(X(start.x), Y(start.y)); ctx.lineTo(X(muis.x), Y(muis.y)); ctx.stroke(); ctx.setLineDash([]); }
+    }
+    if (muis && st.tool === 'staaf') { ctx.strokeStyle = css('--a'); ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(X(muis.x), Y(muis.y), 7, 0, 7); ctx.stroke(); }
+    if (zweef && res && res.ok && st.tool !== 'staaf') {
+      const i = st.bars.indexOf(zweef.s); const r = i >= 0 ? res.staaf[i] : null;
+      if (r) {
+        const regels = [`S${i + 1} · ${r.trek ? 'trek' : r.druk ? 'druk' : 'nulstaaf'}`, `N = ${f2(r.N, 1)} N`, `σ = ${f2(r.sigma, 2)} MPa`, ...(r.druk ? [`F_k = ${f2(r.Fk, 0)} N`] : []), `benut: ${f2(r.ben * 100, 0)} %`];
+        ctx.font = '12px ' + css('--f-mono');
+        const bw = Math.max(...regels.map(t => ctx.measureText(t).width)) + 16, bh = regels.length * 16 + 10;
+        let bx = zweef.px + 14, by = zweef.py - bh - 8; if (bx + bw > w - 4) bx = zweef.px - bw - 14; if (by < 4) by = zweef.py + 14;
+        ctx.fillStyle = css('--panel-2'); ctx.strokeStyle = css('--line'); ctx.lineWidth = 1; ctx.beginPath(); ctx.roundRect(bx, by, bw, bh, 6); ctx.fill(); ctx.stroke();
+        ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+        regels.forEach((t, k2) => { ctx.fillStyle = k2 === 0 ? (r.trek ? TREK : r.druk ? DRUK : css('--muted')) : css('--fg'); ctx.fillText(t, bx + 8, by + 6 + k2 * 16); });
+      }
+    }
+    if (!st.bars.length) {
+      ctx.fillStyle = css('--muted'); ctx.font = '14px ' + css('--f-body'); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText('Kies "Staaf" en klik op twee rasterpunten, of laad een voorbeeld hieronder.', w / 2, Y(st.H / 2));
+    }
+  }
+  function tekenSteun(ctx, x, y, soort) {
+    ctx.strokeStyle = css('--fg'); ctx.fillStyle = css('--panel-2'); ctx.lineWidth = 1.5;
+    const s = 12;
+    ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x - s, y + 1.6 * s); ctx.lineTo(x + s, y + 1.6 * s); ctx.closePath(); ctx.fill(); ctx.stroke();
+    let yb = y + 1.6 * s;
+    if (soort === 'rol') { [-6, 6].forEach(dx => { ctx.beginPath(); ctx.arc(x + dx, yb + 4, 4, 0, 7); ctx.stroke(); }); yb += 8; }
+    ctx.beginPath(); ctx.moveTo(x - s - 6, yb); ctx.lineTo(x + s + 6, yb); ctx.stroke();
+    for (let i = -s - 6; i < s + 6; i += 5) { ctx.beginPath(); ctx.moveTo(x + i + 5, yb); ctx.lineTo(x + i, yb + 5); ctx.stroke(); }
+  }
+
+  /* ---------- muis en aanraking ---------- */
+  function rasterPunt(e) {
+    const r = cv.getBoundingClientRect(), L = layout; if (!L) return null;
+    const mx = (e.clientX - r.left - L.ox) / L.k, my = (L.oy - (e.clientY - r.top)) / L.k;
+    const x = Math.round(mx / st.g) * st.g, y = Math.round(my / st.g) * st.g;
+    if (x < -1e-9 || y < -1e-9 || x > st.W + 1e-9 || y > st.H + 1e-9) return null;
+    return { x: +x.toFixed(6), y: +y.toFixed(6), px: e.clientX - r.left, py: e.clientY - r.top };
+  }
+  function dichtsteStaaf(px, py) {
+    const L = layout; let best = null, bd = 10;
+    st.bars.forEach(s => {
+      const p = st.nodes.find(n => n.id === s.a), q = st.nodes.find(n => n.id === s.b);
+      const x1 = L.X(p.x), y1 = L.Y(p.y), x2 = L.X(q.x), y2 = L.Y(q.y);
+      const dx = x2 - x1, dy = y2 - y1, t = Math.max(0, Math.min(1, ((px - x1) * dx + (py - y1) * dy) / (dx * dx + dy * dy)));
+      const d = Math.hypot(px - x1 - t * dx, py - y1 - t * dy);
+      if (d < bd) { bd = d; best = s; }
+    });
+    return best;
+  }
+  let sleepVan = null;
+  cv.addEventListener('pointerdown', e => {
+    const p = rasterPunt(e);
+    if (st.tool === 'staaf') {
+      if (!p) return;
+      if (start) { voegStaafToe(start, p); start = null; opruimen(); alles(); return; }
+      start = p; sleepVan = p; muis = p; cv.setPointerCapture(e.pointerId); teken();
+    } else if (st.tool === 'wis') {
+      const r = cv.getBoundingClientRect(), s = dichtsteStaaf(e.clientX - r.left, e.clientY - r.top);
+      if (s) { bewaarStap(); st.bars = st.bars.filter(b => b !== s); opruimen(); alles(); }
+    } else {
+      if (!p) return;
+      const n = knoop(p.x, p.y); if (!n) return;
+      bewaarStap();
+      if (st.tool === 'kracht') {
+        const l = zetLast(n.x, n.y); alles(); focusLast(l.id); return;
+      } else n.steun = n.steun === st.tool ? null : st.tool;
+      alles();
+    }
+  });
+  cv.addEventListener('pointermove', e => {
+    const p = rasterPunt(e); muis = p;
+    const r = cv.getBoundingClientRect(), px = e.clientX - r.left, py = e.clientY - r.top;
+    const s = st.tool !== 'staaf' && e.pointerType !== 'touch' ? dichtsteStaaf(px, py) : null;
+    const oud = zweef; zweef = s ? { s, px, py } : null;
+    if (st.tool === 'staaf' || zweef || oud) teken();
+  });
+  cv.addEventListener('pointerup', e => {
+    if (st.tool !== 'staaf' || !sleepVan) return;
+    const p = rasterPunt(e);
+    if (p && (p.x !== sleepVan.x || p.y !== sleepVan.y)) { voegStaafToe(sleepVan, p); start = null; opruimen(); alles(); }
+    sleepVan = null;
+  });
+  cv.addEventListener('pointerleave', () => { muis = null; zweef = null; teken(); });
+  window.addEventListener('keydown', esc);
+  function esc(e) { if (e.key === 'Escape' && start) { start = null; teken(); } }
+
+  /* ---------- resultaten ---------- */
+  function resultaten() {
+    const r = res;
+    const An = Math.max(0, st.b - st.d) * st.t, Ab = st.b * st.t, I = st.b * st.t ** 3 / 12;
+    let html = '';
+    if (!st.bars.length) html = '<p class="uitleg">Teken eerst een vakwerk.</p>';
+    else if (!r.ok) {
+      const rd = r.reden === 'geen steun' ? 'Er zijn nog geen steunpunten. Zet minstens één scharnier en één rol (of twee scharnieren) op knopen.'
+        : 'Het vakwerk is <b>niet stabiel</b>: het kan bewegen zonder dat een staaf langer of korter wordt (een mechanisme). Voeg staven toe (driehoeken!) of extra steunpunten.';
+      html = `<p class="vw-fout">${rd}</p>`;
+    } else {
+      const kr = st.loads.filter(l => knoop(l.x, l.y) && l.F).length;
+      const zwak = r.staaf.reduce((a, s, i) => (s.ben > (a ? a.ben : -1) ? { ...s, i } : a), null);
+      const ok = zwak.ben <= 1;
+      const bep = r.m + r.r === 2 * r.k ? 'statisch bepaald' : r.m + r.r > 2 * r.k ? 'statisch onbepaald (meer staven of steunen dan nodig)' : '';
+      html = `
+        <div class="vw-groot ${ok ? 'goed' : 'slecht'}">${ok ? '✓ Het vakwerk houdt het.' : '✗ Het vakwerk bezwijkt.'}</div>
+        <div class="vw-kv"><span>Zwakste staaf</span><b>S${zwak.i + 1}: ${f2(zwak.ben * 100, 0)} % benut ${zwak.bk > zwak.bs ? '(knik)' : zwak.trek ? '(trek)' : '(druk)'}</b></div>
+        <div class="vw-kv"><span>Staven, knopen, reacties</span><b>s = ${r.m}, k = ${r.k}, r = ${r.r}</b></div>
+        <p class="uitleg klein">s + r ${r.m + r.r === 2 * r.k ? '=' : r.m + r.r > 2 * r.k ? '>' : '<'} 2 · k: het vakwerk is ${bep || 'stabiel dankzij de steunen'}.</p>
+        ${kr ? '' : '<p class="uitleg klein">Er staan nog geen krachten op het vakwerk.</p>'}
+        <h3 class="vw-h3">Knikcontrole (staven op druk)</h3>
+        ${r.staaf.some(s => s.druk) ? r.staaf.map((s, i) => s.druk ? `<div class="vw-kv"><span>S${i + 1}: |N| = ${f2(-s.N, 1)} N ${s.knikOk ? '≤' : '>'} F<sub>k</sub> = ${f2(s.Fk, 0)} N</span><b class="${s.knikOk ? 'vw-ok' : 'vw-nok'}">${s.knikOk ? '✓ geen knik' : '✗ knikt'}</b></div>` : '').join('') : '<p class="uitleg klein">Er zijn geen staven op druk, dus geen knikgevaar.</p>'}
+        <h3 class="vw-h3">Reactiekrachten</h3>
+        ${st.nodes.filter(n => r.R[n.id]).map(n => `<div class="vw-kv"><span>${n.steun === 'rol' ? 'Rol' : 'Scharnier'} op (${f2(n.x, 0)} ; ${f2(n.y, 0)})</span><b>${n.steun === 'scharnier' ? `R<sub>x</sub> = ${f2(r.R[n.id].rx, 1)} N · ` : ''}R<sub>y</sub> = ${f2(r.R[n.id].ry, 1)} N</b></div>`).join('')}`;
+    }
+    $('status').innerHTML = html;
+    // tabel
+    if (r && r.ok) {
+      $('tab').innerHTML = `<thead><tr><th>staaf</th><th>lengte (mm)</th><th>kracht N (N)</th><th>σ (MPa)</th><th>knikkracht F<sub>k</sub> (N)</th><th>knik?</th><th>benut</th></tr></thead><tbody>` +
+        r.staaf.map((s, i) => `<tr class="${s.ben > 1 ? 'te-zwak' : ''}"><td><b>S${i + 1}</b> <span class="vw-soort" style="color:${s.trek ? TREK : s.druk ? DRUK : 'var(--muted)'}">${s.trek ? 'trek' : s.druk ? 'druk' : 'nulstaaf'}</span></td>` +
+          `<td>${f2(s.L, 1)}</td><td>${f2(s.N, 1)}</td><td>${f2(s.sigma, 2)}</td><td>${s.druk ? f2(s.Fk, 0) : '–'}</td><td>${s.druk ? (s.knikOk ? '<span class="vw-ok">✓ nee</span>' : '<span class="vw-nok">✗ ja</span>') : '–'}</td><td>${f2(s.ben * 100, 0)} %</td></tr>`).join('') + '</tbody>';
+    } else if (st.bars.length) {
+      $('tab').innerHTML = `<thead><tr><th>staaf</th><th>lengte (mm)</th></tr></thead><tbody>` +
+        st.bars.map((s, i) => { const p = st.nodes.find(n => n.id === s.a), q = st.nodes.find(n => n.id === s.b); return `<tr><td><b>S${i + 1}</b></td><td>${f2(Math.hypot(q.x - p.x, q.y - p.y), 1)}</td></tr>`; }).join('') + '</tbody>';
+    } else $('tab').innerHTML = '';
+    // berekening
+    $('ber').innerHTML = `
+      <p class="uitleg">De knopen zijn scharnieren (draadstang M3), dus elke staaf krijgt alleen een <b>normaalkracht</b> N langs de staaf: <b style="color:${TREK}">trek</b> (positief, de staaf wordt uitgerekt) of <b style="color:${DRUK}">druk</b> (negatief, de staaf wordt ingedrukt). De computer lost het evenwicht van alle knopen tegelijk op (stijfheidsmethode).</p>
+      <div class="pa-f">doorsnede (volle staaf): A = b · t = ${f2(st.b, 1)} · ${f2(st.t, 1)} = <b>${f2(Ab, 1)} mm²</b></div>
+      <div class="pa-f">doorsnede ter hoogte van het gat: A<sub>net</sub> = (b − d) · t = (${f2(st.b, 1)} − ${f2(st.d, 1)}) · ${f2(st.t, 1)} = <b>${f2(An, 1)} mm²</b></div>
+      <div class="pa-f">trekspanning: σ = N / A<sub>net</sub> · drukspanning: σ = N / A</div>
+      <div class="pa-f">knik (Euler, scharnierend): F<sub>k</sub> = π² · E · I / L² met I = b · t³ / 12 = ${f2(I, 2)} mm⁴</div>
+      <div class="pa-f">knikcontrole (bij druk): |N| ≤ F<sub>k</sub> → geen knik</div>
+      <div class="pa-f">benutting = grootste van |σ| / σ<sub>toel</sub> en |N| / F<sub>k</sub> (bij druk)</div>
+      <p class="uitleg klein">Knik gebeurt bij een dunne plaat bijna altijd uit het vlak (de dunne kant), daarom I = b · t³ / 12. De stuik van het gat rond de draadstang, de lijm en de kwaliteit van het hout zijn niet meegerekend. Bouw dus met wat reserve en test het model.</p>`;
+  }
+
+  /* ---------- krachten-editor ---------- */
+  function tekenLasten() {
+    const opties = [...st.nodes].sort((a, b) => a.x - b.x || a.y - b.y);
+    $('lasten').innerHTML = st.loads.length ? st.loads.map((l, i) => {
+      const bestaat = !!knoop(l.x, l.y), key = l.x + ';' + l.y;
+      const sel = opties.map(n => `<option value="${n.x};${n.y}" ${n.x + ';' + n.y === key ? 'selected' : ''}>(${f2(n.x, 0)} ; ${f2(n.y, 0)})</option>`).join('') + (bestaat ? '' : `<option value="${key}" selected>(${f2(l.x, 0)} ; ${f2(l.y, 0)}) bestaat niet</option>`);
+      return `<div class="last" data-last="${l.id}">
+        <div class="lkop"><b>F<sub>${i + 1}</sub></b><span>Kracht op een knoop</span><button type="button" class="weg" data-del="${l.id}" aria-label="Verwijder F${i + 1}">Verwijderen</button></div>
+        <div class="lrij">
+          <div class="ctrl"><label>Knoop (x ; y) in mm</label><select data-id="${l.id}" data-key="knoop">${sel}</select></div>
+          <div class="ctrl"><label>Richting</label><select data-id="${l.id}" data-key="dir">${Object.entries(RICHT).map(([k, v]) => `<option value="${k}" ${k === l.dir ? 'selected' : ''}>${v.t}</option>`).join('')}</select></div>
+          ${RICHT[l.dir].schuin ? `<div class="ctrl"><label>Hoek α met de horizontale</label><div class="rij"><input type="range" data-id="${l.id}" data-key="a" min="0" max="90" step="1" value="${l.a}"><input type="number" data-id="${l.id}" data-key="a" min="0" max="90" step="1" value="${l.a}"><span class="eenh">°</span></div></div>` : ''}
+          <div class="ctrl"><label>Grootte F</label><div class="rij"><input type="range" data-id="${l.id}" data-key="F" min="0" max="500" step="1" value="${Math.min(500, l.F)}"><input type="number" data-id="${l.id}" data-key="F" min="0" max="10000" step="1" value="${l.F}"><span class="eenh">N</span></div></div>
+          ${bestaat ? '' : '<p class="vw-fout klein">Deze knoop bestaat niet (meer). Kies een andere knoop.</p>'}
+        </div></div>`;
+    }).join('') : '<div class="leeg">Nog geen krachten. Klik op "+ Kracht" of kies "Kracht" in de tekenbalk en klik op een knoop.</div>';
+  }
+  function focusLast(id) { const el = root.querySelector(`[data-last="${id}"]`); if (el) { el.classList.add('vw-nieuw'); el.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); setTimeout(() => el.classList.remove('vw-nieuw'), 1200); } }
+  $('lasten').addEventListener('input', e => {
+    const t = e.target, key = t.dataset.key; if (!key) return;
+    const l = st.loads.find(x => x.id === +t.dataset.id); if (!l) return;
+    if (key === 'knoop') { const [x, y] = t.value.split(';').map(Number); l.x = x; l.y = y; herreken(); return; }
+    if (key === 'dir') { l.dir = t.value; alles(); return; }
+    let v = parseFloat(t.value); if (!isFinite(v)) return;
+    v = Math.min(+t.max, Math.max(+t.min, v)); l[key] = v;
+    root.querySelectorAll(`#vw-lasten [data-id="${l.id}"][data-key="${key}"]`).forEach(o => { if (o !== t) o.value = key === 'F' && o.type === 'range' ? Math.min(500, v) : v; });
+    herreken();
+  });
+  $('lasten').addEventListener('change', e => { const t = e.target; if (t.type !== 'number') return; const l = st.loads.find(x => x.id === +t.dataset.id); if (l) t.value = l[t.dataset.key]; });
+  $('lasten').addEventListener('click', e => {
+    const b = e.target.closest('button[data-del]'); if (!b) return;
+    bewaarStap(); st.loads = st.loads.filter(l => l.id !== +b.dataset.del); alles();
+  });
+  $('addF').addEventListener('click', () => {
+    bewaarStap();
+    const n = [...st.nodes].sort((a, b) => b.y - a.y || a.x - b.x)[0];
+    const l = n ? zetLast(n.x, n.y) : zetLast(0, 0);
+    alles(); focusLast(l.id);
+  });
+  $('wisF').addEventListener('click', () => { if (!st.loads.length) return; bewaarStap(); st.loads = []; alles(); });
+  function herreken() { res = los(); teken(); resultaten(); }
+
+  function alles() {
+    opruimen();
+    tekenLasten();
+    res = los();
+    knoppen(); teken(); resultaten();
+    $('dxf').disabled = !st.bars.length;
+  }
+
+  /* ---------- dxf-export van de onderdelen ---------- */
+  function maakDxf() {
+    const L = [], p = (c, v) => L.push(String(c), String(v)), n3 = x => (Math.round(x * 1000) / 1000).toFixed(3);
+    p(0, 'SECTION'); p(2, 'HEADER'); p(9, '$ACADVER'); p(1, 'AC1009'); p(9, '$INSUNITS'); p(70, 4); p(0, 'ENDSEC');
+    p(0, 'SECTION'); p(2, 'TABLES'); p(0, 'TABLE'); p(2, 'LAYER'); p(70, 2);
+    [['SNIJLIJN', 1], ['GRAVEER', 5]].forEach(([n, kl]) => { p(0, 'LAYER'); p(2, n); p(70, 0); p(62, kl); p(6, 'CONTINUOUS'); });
+    p(0, 'ENDTAB'); p(0, 'ENDSEC');
+    p(0, 'SECTION'); p(2, 'ENTITIES');
+    const lijn = (x1, y1, x2, y2) => { p(0, 'LINE'); p(8, 'SNIJLIJN'); p(10, n3(x1)); p(20, n3(y1)); p(30, '0.0'); p(11, n3(x2)); p(21, n3(y2)); p(31, '0.0'); };
+    const boog = (x, y, r, a1, a2) => { p(0, 'ARC'); p(8, 'SNIJLIJN'); p(10, n3(x)); p(20, n3(y)); p(30, '0.0'); p(40, n3(r)); p(50, n3(a1)); p(51, n3(a2)); };
+    const cirkel = (x, y, r) => { p(0, 'CIRCLE'); p(8, 'SNIJLIJN'); p(10, n3(x)); p(20, n3(y)); p(30, '0.0'); p(40, n3(r)); };
+    const tekst = (x, y, hgt, t) => { p(0, 'TEXT'); p(8, 'GRAVEER'); p(10, n3(x)); p(20, n3(y)); p(30, '0.0'); p(40, n3(hgt)); p(1, t); p(72, 1); p(11, n3(x)); p(21, n3(y)); p(31, '0.0'); };
+    const b = st.b, r = b / 2, gap = 4, plaat = 580;
+    const delen = st.bars.map((s, i) => { const P = st.nodes.find(n => n.id === s.a), Q = st.nodes.find(n => n.id === s.b); return { nr: i + 1, L: Math.hypot(Q.x - P.x, Q.y - P.y) }; }).sort((a, c) => c.L - a.L);
+    let x = 0, y = 0;
+    delen.forEach(d => {
+      const breed = d.L + b;
+      if (x > 0 && x + breed > plaat) { x = 0; y += b + gap; }
+      const cx1 = x + r, cx2 = x + r + d.L, cy = y + r;
+      lijn(cx1, y, cx2, y); lijn(cx1, y + b, cx2, y + b);
+      boog(cx2, cy, r, 270, 90); boog(cx1, cy, r, 90, 270);
+      cirkel(cx1, cy, st.d / 2); cirkel(cx2, cy, st.d / 2);
+      if (d.L > 3 * st.d + 12) tekst((cx1 + cx2) / 2, cy, Math.min(6, b * 0.4), 'S' + d.nr);
+      x += breed + gap;
+    });
+    p(0, 'ENDSEC'); p(0, 'EOF');
+    return L.join('\r\n') + '\r\n';
+  }
+  function maakZip(naam, tekst) {
+    const data = new TextEncoder().encode(tekst), nm = new TextEncoder().encode(naam);
+    let crc = -1;
+    for (let i = 0; i < data.length; i++) { crc ^= data[i]; for (let k = 0; k < 8; k++) crc = (crc >>> 1) ^ (0xEDB88320 & -(crc & 1)); }
+    crc = (crc ^ -1) >>> 0;
+    const kop = (sig, n) => { const v = new DataView(new ArrayBuffer(n)); v.setUint32(0, sig, true); return v; };
+    const lh = kop(0x04034b50, 30); lh.setUint16(4, 20, true); lh.setUint32(14, crc, true); lh.setUint32(18, data.length, true); lh.setUint32(22, data.length, true); lh.setUint16(26, nm.length, true);
+    const cd = kop(0x02014b50, 46); cd.setUint16(4, 20, true); cd.setUint16(6, 20, true); cd.setUint32(16, crc, true); cd.setUint32(20, data.length, true); cd.setUint32(24, data.length, true); cd.setUint16(28, nm.length, true);
+    const eo = kop(0x06054b50, 22); eo.setUint16(8, 1, true); eo.setUint16(10, 1, true); eo.setUint32(12, 46 + nm.length, true); eo.setUint32(16, 30 + nm.length + data.length, true);
+    return new Blob([lh, nm, data, cd, nm, eo], { type: 'application/zip' });
+  }
+  async function exportDxf() {
+    if (!st.bars.length) return;
+    const naam = `vakwerk-${st.bars.length}-staven.dxf`, tekst = maakDxf(), meld = $('dxfmeld'), oud = meld.textContent;
+    let dl = null;
+    try { dl = window.claude && window.claude.use ? await window.claude.use('downloads') : null; } catch (e) { dl = null; }
+    let r = 'ok';
+    if (dl) {
+      try { await dl.save({ filename: naam, data: new Blob([tekst]) }); }
+      catch (e) {
+        if (e && e.code === 'declined') r = 'nee';
+        else if (e && (e.code === 'rejected_extension' || e.code === 'extension_not_enabled')) {
+          try { await dl.save({ filename: naam.replace('.dxf', '.zip'), data: maakZip(naam, tekst) }); r = 'zip'; } catch (e2) { r = e2 && e2.code === 'declined' ? 'nee' : 'fout'; }
+        } else r = 'fout';
+      }
+    } else {
+      const url = URL.createObjectURL(new Blob([tekst], { type: 'application/dxf' })), a = document.createElement('a');
+      a.href = url; a.download = naam; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 4000);
+    }
+    meld.textContent = r === 'ok' ? 'Het dxf-bestand is klaar.' : r === 'zip' ? 'Het dxf-bestand zit in een zip-bestand.' : r === 'nee' ? oud : 'Opslaan lukte niet in deze weergave.';
+    setTimeout(() => { meld.textContent = oud; }, 6000);
+  }
+  window.__vakDxf = maakDxf;
+
+  const ro = new ResizeObserver(() => teken());
+  ro.observe(cv.parentElement);
+  alles();
+  return () => { ro.disconnect(); window.removeEventListener('keydown', esc); delete window.__vakDxf; };
 }
 
 route();
