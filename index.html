@@ -481,6 +481,130 @@ button.pa-pdf:disabled { opacity: .5; cursor: default; }
 .vw .lrij select { width: 100%; align-self: stretch; }
 .vw .lrij .ctrl label { font-size: .8rem; }
 .vw .lrij input[type=number] { width: 4.8em; }
+.eh-groep .eh-rij { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.eh-groep .chips { gap: 6px; }
+.eh-groep button.sit { padding: 3px 12px; font-size: .86rem; min-width: 3.2em; }
+.dm-rij .stukken { grid-template-columns: auto; gap: 0; }
+.dm-rij .vd { margin-bottom: 6px; font-size: .85rem; }
+.doek.vw-3d { aspect-ratio: auto; height: 460px; touch-action: none; cursor: grab; }
+.doek.vw-3d:active { cursor: grabbing; }
+@media (max-width: 600px) { .doek.vw-3d { height: 340px; } }
+.vw-3dbalk { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; margin: 8px 0; }
+.vw-breed { flex-direction: row; align-items: center; gap: 8px; }
+.vv-kop { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; justify-content: space-between; }
+.vv-naam { display: flex; align-items: center; gap: 10px; }
+.vv-naam label { color: var(--muted); font-size: .9rem; }
+.vv-naam input, .vv-in, .vv-open { background: var(--bg); color: var(--fg); border: 1px solid var(--line); border-radius: 6px; padding: 6px 10px; font: 400 1rem var(--f-body); }
+.vv-naam input { width: 16em; }
+.vv-tabs button.sit { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; }
+.vv-tnr { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--a); color: #111; font: 700 .8rem var(--f-mono); }
+.vv-teller { font: 400 .78rem var(--f-mono); color: var(--muted); }
+#vv-meld { margin: 8px 0 12px; }
+.vv-deel { display: flex; flex-direction: column; gap: 16px; }
+.vv-intro h2 { margin: 0 0 8px; }
+.vv-intro p { max-width: 90ch; line-height: 1.6; margin: 6px 0; }
+.vv-vec { position: relative; display: inline-block; font: italic 600 1.08em/1 "STIX Two Text", "Cambria Math", Cambria, "Times New Roman", serif; }
+.vv-vec::after { content: '→'; position: absolute; left: 50%; top: -0.62em; transform: translateX(-46%); font: 400 .7em/1 var(--f-body); }
+.vv-lay { display: grid; grid-template-columns: 1fr; gap: 16px; align-items: start; }
+@media (min-width: 1100px) { .vv-lay { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); } }
+.vv-balk { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.vv-balk .vink { font-size: .9rem; }
+.doek.vv-doek1 { aspect-ratio: auto; height: 640px; }
+@media (max-width: 600px) { .doek.vv-doek1 { height: 520px; } }
+.vv-keuzes { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+.vv-keuze { display: flex; align-items: center; gap: 8px; }
+.vv-keuze button.sit { padding: 4px 10px; font-size: .86rem; }
+.vv-tijd { margin: 4px 0 10px; }
+.vv-lees { display: flex; flex-wrap: wrap; gap: 6px 18px; font: 400 .95rem var(--f-mono); margin-top: 8px; }
+.vv-top { color: var(--meet); font-family: var(--f-body); }
+.vv-vragen h3 { margin: 0 0 10px; }
+.vv-vraag { padding: 12px 0; border-top: 1px solid var(--line); }
+.vv-vkop { display: flex; gap: 10px; align-items: flex-start; }
+.vv-vkop p { margin: 0; line-height: 1.5; }
+.vv-nr { flex: none; display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--line); font: 600 .8rem var(--f-mono); color: var(--muted); }
+.vv-opties { display: flex; flex-direction: column; gap: 6px; margin: 10px 0 0 34px; }
+.vv-optie { display: flex; gap: 8px; align-items: flex-start; cursor: pointer; line-height: 1.4; }
+.vv-optie input { margin-top: 3px; accent-color: var(--a); }
+.vv-num { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 10px 0 0 34px; }
+.vv-in { width: 8em; font-family: var(--f-mono); }
+.vv-num button.knop { padding: 5px 12px; font-size: .88rem; }
+.vv-open { display: block; box-sizing: border-box; width: calc(100% - 34px); margin: 10px 0 0 34px; resize: vertical; line-height: 1.45; }
+.vv-fb { margin: 8px 0 0 34px; font-size: .92rem; line-height: 1.45; }
+.vv-fb:empty { display: none; }
+.vv-fb.goed { color: var(--druk); } .vv-fb.fout { color: var(--trek); }
+.vv-uitwerking { margin: 8px 0 0 34px; padding: 8px 12px; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; font-size: .92rem; line-height: 1.5; }
+.vv-formules { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin: 12px 0; }
+.vv-formule { background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
+.vv-formule p { margin: 6px 0 0; color: var(--muted); font-size: .92rem; }
+.vv-f { font: 600 1.35rem var(--f-mono); color: var(--a); }
+.vv-reken { display: flex; flex-direction: column; gap: 10px; margin: 10px 0; }
+.vv-ingevuld .pa-f { font-size: 1rem; padding: 4px 0; }
+.vv-ingevuld .pa-f b { color: var(--a); }
+.vv-let { color: var(--trek); font-size: .92rem; }
+.vv-y0 { min-width: min(100%, 360px); }
+.vv-grafrij { display: grid; grid-template-columns: 1fr; gap: 12px; }
+@media (min-width: 900px) { .vv-grafrij { grid-template-columns: 130px minmax(0, 1fr) minmax(0, 1fr); } }
+.doek.vv-doek3a { aspect-ratio: auto; height: 380px; }
+@media (max-width: 899px) { .doek.vv-doek3a { height: 200px; } }
+.doek.vv-doek3 { aspect-ratio: auto; height: 380px; }
+@media (max-width: 899px) { .doek.vv-doek3 { height: 280px; } }
+.vv-verder { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.vv-verder button:only-child { margin-left: auto; }
+.vv-start { max-width: 760px; margin: 0 auto 16px; padding: 24px; }
+.vv-start h2 { margin: 0 0 10px; }
+.vv-start p { line-height: 1.6; }
+.vv-startrij { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 14px; }
+.vv-startrij label { width: 100%; color: var(--muted); font-size: .9rem; }
+.vv-startrij input { flex: 1 1 240px; background: var(--bg); color: var(--fg); border: 1px solid var(--line); border-radius: 6px; padding: 8px 12px; font: 400 1.05rem var(--f-body); }
+button.vv-go { border-color: var(--a); color: var(--a); font-weight: 600; }
+button.vv-go:disabled { opacity: .45; cursor: default; }
+.vv-wie { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; }
+.vv-wie b { font-size: 1.05rem; }
+.vv-lk { margin-top: 24px; }
+.vv-lk summary { cursor: pointer; font-weight: 600; }
+.vv-drop { display: block; margin: 12px 0; padding: 22px; border: 2px dashed var(--line); border-radius: 10px; text-align: center; color: var(--muted); cursor: pointer; }
+.vv-drop.over { border-color: var(--a); color: var(--fg); }
+.vv-tabwrap { overflow-x: auto; }
+.vv-tab { width: 100%; border-collapse: collapse; font: 400 .9rem var(--f-mono); margin-bottom: 10px; }
+.vv-tab th, .vv-tab td { text-align: left; padding: 5px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.vv-tab th { font: 600 .82rem var(--f-body); color: var(--muted); }
+.vv-lkfout { color: var(--trek); }
+.vv-reeks { display: flex; flex-direction: column; gap: 8px; margin: 10px 0 0 34px; }
+@media (min-width: 1100px) {
+  .vv-deel[data-deel="1"] .vv-lay > .paneel.graf { position: sticky; top: 12px; }
+  .doek.vv-doek1 { height: min(640px, calc(100vh - 240px)); min-height: 420px; }
+}
+.vv-afspraak b { color: var(--a); }
+.vv-rv { display: flex; align-items: center; gap: 8px; }
+.vv-rv > span:first-child { font: 400 .9rem var(--f-mono); color: var(--muted); min-width: 3.6em; }
+.vv-rin { width: 6.5em; background: var(--bg); color: var(--fg); border: 1px solid var(--line); border-radius: 6px; padding: 5px 8px; font: 400 .95rem var(--f-mono); }
+.vv-rin.goed { border-color: var(--druk); } .vv-rin.fout { border-color: var(--trek); }
+.vv-frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 .15em; line-height: 1.15; }
+.vv-frac > span:first-child { padding: 0 .25em .08em; border-bottom: 1.5px solid currentColor; }
+.vv-frac > span:last-child { padding-top: .08em; }
+.vv-uitleg2 h3 { margin: 18px 0 6px; font: 600 1.05rem var(--f-display); color: var(--a); }
+.vv-stappen { margin: 6px 0; padding-left: 1.3em; line-height: 1.65; max-width: 90ch; }
+.vv-formule.vv-res { border-color: var(--a); }
+.vv-oefkop { margin: 16px 0 2px; padding-top: 12px; border-top: 1px solid var(--line); }
+.vv-oefkop h4 { margin: 0 0 4px; font: 700 1.02rem var(--f-display); color: var(--a); }
+.vv-oefkop p { margin: 0; line-height: 1.5; }
+.vv-vraag.vv-sub { border-top: none; padding-top: 8px; }
+.vv-nr { min-width: 24px; width: auto; padding: 0 4px; border-radius: 12px; }
+.vv-puntbalk { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+#vv-c3v { cursor: crosshair; }
+.vv-export{display:flex;flex-direction:column;gap:14px;max-width:720px}
+.vv-overzicht{display:flex;flex-direction:column;gap:6px}
+.vv-ovrij{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 12px;border:1px solid var(--line);border-radius:8px}
+.vv-ovrij.klaar{border-color:#3fb37f}
+.vv-ok{color:#3fb37f;font-weight:600}
+button.vv-groot{font-size:1.05rem;padding:12px 20px}
+.vv-instr{margin:4px 0 12px;padding-left:22px;line-height:1.6}
+.vv-instr li{margin:3px 0}
+.vv-vast input:disabled{opacity:1;cursor:default}
+.vv-vast button.vv-check{display:none}
+.vv-rin:disabled,.vv-in:disabled{opacity:1}
+#vv-startmeld.vv-dicht{color:#ff6b6b;font-size:.95rem;font-weight:600}
+.vv-terug{margin-right:8px}
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
@@ -549,6 +673,20 @@ const APPLETS = [
       <line x1="168" y1="60" x2="236" y2="60" stroke="var(--axis)"/><line x1="168" y1="8" x2="168" y2="60" stroke="var(--axis)"/>
       <line x1="168" y1="30" x2="234" y2="30" stroke="var(--a)" stroke-width="2.5"/></svg>`,
     render: renderEVB
+  },
+  {
+    id: 'vrijeval',
+    titel: 'Leerpad: de vrije val',
+    vak: 'Mechanica',
+    klassen: ['4EMT'],
+    beschrijving: 'Ontdek de vrije val in drie stappen: de snelheids- en versnellingsvector, de formules met twee oefeningen, en de (y,t)- en (v,t)-grafiek. Met vragen onderweg en je antwoorden als pdf.',
+    thumb: `<svg viewBox="0 0 240 70" aria-hidden="true">
+      <g fill="#e07a2f"><circle cx="30" cy="10" r="5" opacity=".35"/><circle cx="30" cy="16" r="5" opacity=".45"/><circle cx="30" cy="28" r="5" opacity=".6"/><circle cx="30" cy="46" r="6"/></g>
+      <path d="M44 46 V64" stroke="var(--b)" stroke-width="2.5"/><path d="M40 60 L44 66 L48 60 Z" fill="var(--b)"/>
+      <path d="M16 46 V58" stroke="var(--a)" stroke-width="2.5"/><path d="M12 55 L16 61 L20 55 Z" fill="var(--a)"/>
+      <path d="M80 62 V8 M80 62 H150" stroke="var(--axis)"/><path d="M80 12 Q115 14 145 60" fill="none" stroke="var(--a)" stroke-width="2.5"/>
+      <path d="M168 8 V62 M168 10 H236" stroke="var(--axis)"/><path d="M168 10 L232 58" stroke="var(--b)" stroke-width="2.5"/></svg>`,
+    render: renderVrijeVal
   },
   {
     id: 'buig',
@@ -757,6 +895,15 @@ function fmt(x, d = 2) {
   return (Object.is(r, -0) ? 0 : r).toLocaleString('nl-BE', { maximumFractionDigits: d }).replace('-', '−');
 }
 function pn(x) { return x < 0 ? `(${fmt(x)})` : fmt(x); }
+// getal met ongeveer 4 beduidende cijfers (voor eenheden als N, mm, Nmm)
+function fmtS(x) { if (!isFinite(x) || Math.abs(x) < 1e-9) return '0'; const d = Math.min(6, Math.max(0, 3 - Math.floor(Math.log10(Math.abs(x))))); return fmt(x, d); }
+// eenheden: intern kN en m, weergave volgens st.uF (N/kN) en st.uL (m/mm)
+function eenhedenVan(st) {
+  const cF = st.uF === 'N' ? 1000 : 1, cL = st.uL === 'mm' ? 1000 : 1;
+  return { cF, cL, F: v => v * cF, L: v => v * cL, M: v => v * cF * cL, q: v => v * cF / cL,
+    uF: st.uF, uL: st.uL, uM: st.uF + st.uL, uq: st.uF + '/' + st.uL };
+}
+const rondAf = v => +(+v).toPrecision(10);
 function par(x, eenh) { return x < 0 ? `(${fmt(x)} ${eenh})` : `${fmt(x)} ${eenh}`; }
 function niceStep(x) {
   const p = 10 ** Math.floor(Math.log10(x)); const f = x / p;
@@ -2336,7 +2483,7 @@ function renderBuig(root) {
 function renderDM(root) {
   const eps = 1e-9;
   const st = {
-    type: 'steun', L: 5, xA: 0, xB: 5, kant: 'links', hover: null,
+    type: 'steun', L: 5, xA: 0, xB: 5, kant: 'links', hover: null, uF: 'kN', uL: 'm',
     loads: [],
     volg: 1
   };
@@ -2373,6 +2520,11 @@ function renderDM(root) {
               <button type="button" class="sit" data-id="rechts">Rechts ingeklemd</button>
             </div>
           </div>
+        </div>
+        <div class="groep eh-groep">
+          <div class="gkop">Eenheden</div>
+          <div class="eh-rij"><span class="lbl-klein">Kracht</span><div class="chips" id="dm-uF"><button type="button" class="sit" data-u="N">N</button><button type="button" class="sit" data-u="kN">kN</button></div></div>
+          <div class="eh-rij"><span class="lbl-klein">Afstand</span><div class="chips" id="dm-uL"><button type="button" class="sit" data-u="m">m</button><button type="button" class="sit" data-u="mm">mm</button></div></div>
         </div>
       </div>
       <div class="paneel">
@@ -2412,7 +2564,7 @@ function renderDM(root) {
         <div class="doek dm-lijn"><canvas id="dm-cm" role="img" aria-label="Momentenlijn"></canvas></div>
         <div class="fv" id="dm-fvM"></div>
       </div>
-      <p class="uitleg klein">x in m (gemeten vanaf het linkeruiteinde), D in kN, M in kNm. Afspraak: D is de som van de verticale krachten links van de doorsnede (omhoog positief), M is de som van hun momenten (hol naar boven positief).</p>
+      <p class="uitleg klein"><span id="dm-noot"></span> Afspraak: D is de som van de verticale krachten links van de doorsnede (omhoog positief), M is de som van hun momenten (hol naar boven positief).</p>
     </div>
   </div>`;
 
@@ -2420,13 +2572,15 @@ function renderDM(root) {
   const cvB = $('cb'), cvD = $('cd'), cvM = $('cm');
 
   /* ---------- ligger-instellingen ---------- */
+  const E = () => eenhedenVan(st);
   function koppel(id, key, min, maxF, na) {
     const r = $(id), n = $(id + 'n');
     const zet = (val, bron) => {
-      let x = parseFloat(val);
+      let x = parseFloat(String(val).replace(',', '.'));
       if (!isFinite(x)) return;
-      x = Math.min(maxF(), Math.max(min, x));
-      st[key] = x;
+      const c = E().cL;
+      x = Math.min(maxF() * c, Math.max(min * c, x));
+      st[key] = x / c;
       if (bron !== r) r.value = x;
       if (bron !== n) n.value = x;
       if (na) na();
@@ -2434,16 +2588,23 @@ function renderDM(root) {
     };
     r.addEventListener('input', () => zet(r.value, r));
     n.addEventListener('input', () => zet(n.value, n));
-    n.addEventListener('change', () => { n.value = st[key]; });
-    r.value = n.value = st[key];
+    n.addEventListener('change', () => { n.value = rondAf(st[key] * E().cL); });
+    r.value = n.value = rondAf(st[key] * E().cL);
     return v => zet(v, null);
+  }
+  function zetBereik() {    // schuiven en vakjes van de ligger in de gekozen lengte-eenheid
+    const c = E().cL;
+    [['L', 1, 12, 0.5], ['xA', 0, st.L, 0.1], ['xB', 0, st.L, 0.1]].forEach(([k, mn, mx, sp]) => {
+      [$(k), $(k + 'n')].forEach(el => { el.min = mn * c; el.max = mx * c; el.step = c === 1 ? sp : sp * 100; el.value = rondAf(st[k] * c); });
+      $(k + 'n').nextElementSibling.textContent = E().uL;
+    });
   }
   const maxL = () => st.L;
   const zetters = {};
   const nieuweLengte = () => {
     ['xA', 'xB'].forEach(k => {
-      $(k).max = st.L; $(k + 'n').max = st.L;
-      if (st[k] > st.L) { st[k] = st.L; $(k).value = $(k + 'n').value = st.L; }
+      $(k).max = st.L * E().cL; $(k + 'n').max = st.L * E().cL;
+      if (st[k] > st.L) { st[k] = st.L; $(k).value = $(k + 'n').value = rondAf(st.L * E().cL); }
     });
     st.loads.forEach(l => ['x', 's', 'e'].forEach(k => { if (k in l && l[k] > st.L) l[k] = st.L; }));
     tekenLasten();
@@ -2451,7 +2612,14 @@ function renderDM(root) {
   koppel('L', 'L', 1, () => 12, nieuweLengte);
   zetters.xA = koppel('xA', 'xA', 0, maxL);
   zetters.xB = koppel('xB', 'xB', 0, maxL);
-  ['xA', 'xB'].forEach(k => { $(k).max = st.L; $(k + 'n').max = st.L; $(k).value = $(k + 'n').value = st[k]; });
+  zetBereik();
+  function kiesEenheid() {
+    root.querySelectorAll('#dm-uF button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.u === st.uF)));
+    root.querySelectorAll('#dm-uL button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.u === st.uL)));
+  }
+  $('uF').addEventListener('click', e => { const b = e.target.closest('button[data-u]'); if (!b) return; st.uF = b.dataset.u; kiesEenheid(); tekenLasten(); teken(); });
+  $('uL').addEventListener('click', e => { const b = e.target.closest('button[data-u]'); if (!b) return; st.uL = b.dataset.u; kiesEenheid(); zetBereik(); tekenLasten(); teken(); });
+  kiesEenheid();
 
   function kies() {
     root.querySelectorAll('#dm-type button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.id === st.type)));
@@ -2463,17 +2631,18 @@ function renderDM(root) {
   $('kant').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; st.kant = b.dataset.id; kies(); teken(); });
 
   /* ---------- belastingen-editor ---------- */
+  function fac(key) { const u = E(); return key === 'F' ? u.cF : key === 'q' ? u.cF / u.cL : (key === 'x' || key === 's' || key === 'e') ? u.cL : 1; }
   function tekenLasten() {
     let nF = 0, nQ = 0;
-    const veld = (l, key, label, min, max, step, eenh, metSchuif) => `
+    const veld = (l, key, label, min, max, step, eenh, metSchuif) => { const f = fac(key), sp = f === 1 ? step : 'any', spR = key === 'x' || key === 's' || key === 'e' ? (E().cL === 1 ? step : 10) : step * f; return `
       <div class="ctrl">
         <label for="dm-l${l.id}-${key}">${label}</label>
         <div class="rij">
-          ${metSchuif ? `<input type="range" data-id="${l.id}" data-key="${key}" min="${min}" max="${max}" step="${step}" value="${l[key]}" aria-label="${label}">` : ''}
-          <input type="number" id="dm-l${l.id}-${key}" data-id="${l.id}" data-key="${key}" min="${min}" max="${max}" step="${step}" value="${l[key]}">
+          ${metSchuif ? `<input type="range" data-id="${l.id}" data-key="${key}" min="${min * f}" max="${max * f}" step="${spR}" value="${rondAf(l[key] * f)}" aria-label="${label}">` : ''}
+          <input type="number" id="dm-l${l.id}-${key}" data-id="${l.id}" data-key="${key}" min="${min * f}" max="${max * f}" step="${sp}" value="${rondAf(l[key] * f)}">
           <span class="eenh">${eenh}</span>
         </div>
-      </div>`;
+      </div>`; };
     const richting = l => `
       <div class="ctrl"><label for="dm-l${l.id}-dir">Richting</label>
         <select id="dm-l${l.id}-dir" data-id="${l.id}" data-key="dir">
@@ -2485,27 +2654,27 @@ function renderDM(root) {
         nF++;
         return `<div class="last">
           <div class="lkop"><b>F<sub>${nF}</sub></b><span>Puntkracht</span><button type="button" class="weg" data-del="${l.id}" aria-label="Verwijder F${nF}">Verwijderen</button></div>
-          <div class="lrij">${richting(l)}${veld(l, 'F', 'Grootte', 0, 100, 0.5, 'kN', false)}${veld(l, 'x', 'Positie x', 0, st.L, 0.1, 'm', true)}</div></div>`;
+          <div class="lrij">${richting(l)}${veld(l, 'F', 'Grootte', 0, 100, 0.5, E().uF, false)}${veld(l, 'x', 'Positie x', 0, st.L, 0.1, E().uL, true)}</div></div>`;
       }
       nQ++;
       return `<div class="last">
         <div class="lkop"><b>q<sub>${nQ}</sub></b><span>Gelijkmatig verdeelde belasting</span><button type="button" class="weg" data-del="${l.id}" aria-label="Verwijder q${nQ}">Verwijderen</button></div>
-        <div class="lrij">${richting(l)}${veld(l, 'q', 'Grootte', 0, 50, 0.5, 'kN/m', false)}${veld(l, 's', 'Begint op', 0, st.L, 0.1, 'm', true)}${veld(l, 'e', 'Eindigt op', 0, st.L, 0.1, 'm', true)}</div></div>`;
+        <div class="lrij">${richting(l)}${veld(l, 'q', 'Grootte', 0, 50, 0.5, E().uq, false)}${veld(l, 's', 'Begint op', 0, st.L, 0.1, E().uL, true)}${veld(l, 'e', 'Eindigt op', 0, st.L, 0.1, E().uL, true)}</div></div>`;
     }).join('') : '<div class="leeg">Nog geen belastingen. Voeg een puntkracht of een verdeelde belasting toe.</div>';
   }
   $('lasten').addEventListener('input', e => {
     const t = e.target, key = t.dataset.key; if (!key) return;
     const l = st.loads.find(x => x.id === +t.dataset.id); if (!l) return;
     if (key === 'dir') { l.dir = +t.value; teken(); return; }
-    let v = parseFloat(t.value); if (!isFinite(v)) return;
+    let v = parseFloat(String(t.value).replace(',', '.')); if (!isFinite(v)) return;
     v = Math.min(+t.max, Math.max(+t.min, v));
-    l[key] = v;
+    l[key] = v / fac(key);
     root.querySelectorAll(`#dm-lasten [data-id="${l.id}"][data-key="${key}"]`).forEach(o => { if (o !== t) o.value = v; });
     teken();
   });
   $('lasten').addEventListener('change', e => {
     const t = e.target; if (t.type !== 'number') return;
-    const l = st.loads.find(x => x.id === +t.dataset.id); if (l) t.value = l[t.dataset.key];
+    const l = st.loads.find(x => x.id === +t.dataset.id); if (l) t.value = rondAf(l[t.dataset.key] * fac(t.dataset.key));
   });
   $('lasten').addEventListener('click', e => {
     const b = e.target.closest('[data-del]'); if (!b) return;
@@ -2577,10 +2746,10 @@ function renderDM(root) {
   function polyTekst(c2, c1, c0) {
     const t = [];
     const add = (c, v) => {
-      const r = Math.round(c * 100) / 100;
-      if (Math.abs(r) < 0.005) return;
+      const r = c;
+      if (Math.abs(r) < 1e-9) return;
       const abs = Math.abs(r);
-      t.push({ neg: r < 0, s: (v && Math.abs(abs - 1) < 1e-9 ? '' : fmt(abs)) + v });
+      t.push({ neg: r < 0, s: (v && Math.abs(abs - 1) < 1e-6 ? '' : fmtS(abs)) + v });
     };
     add(c2, 'x²'); add(c1, 'x'); add(c0, '');
     if (!t.length) return '0';
@@ -2598,7 +2767,7 @@ function renderDM(root) {
   }
 
   /* ---------- tekenen ---------- */
-  const ML = 58, MR = 34;
+  const MR = 34, mL = () => (st.uF === 'N' && st.uL === 'mm') ? 96 : 58;
   function teken() {
     const K = { fg: css('--fg'), muted: css('--muted'), axis: css('--axis'), grid: css('--grid'), bg: css('--panel'), vul: css('--panel-2'), reac: css('--meet'), d: css('--b'), m: css('--a') };
     const L = st.L;
@@ -2607,7 +2776,7 @@ function renderDM(root) {
     /* Ligger */
     {
       const { ctx, w, h } = prepCanvas(cvB);
-      const pw = w - ML - MR, X = x => ML + x / L * pw;
+      const ML = mL(), pw = w - ML - MR, X = x => ML + x / L * pw;
       const yb0 = 104, yb1 = 116, ymid = (yb0 + yb1) / 2;
       const f12 = '500 12px ' + css('--f-mono');
       const tekst = (t, x, y, kleur, uitlijn = 'center') => {
@@ -2625,9 +2794,9 @@ function renderDM(root) {
       ctx.beginPath(); ctx.moveTo(X(0), yAs - 8); ctx.lineTo(X(L), yAs - 8); ctx.stroke();
       for (let x = 0; x <= L + eps; x += stap) {
         ctx.beginPath(); ctx.moveTo(X(x), yAs - 12); ctx.lineTo(X(x), yAs - 4); ctx.stroke();
-        ctx.fillStyle = K.muted; ctx.textAlign = 'center'; ctx.textBaseline = 'top'; ctx.fillText(fmt(x), X(x), yAs - 2);
+        ctx.fillStyle = K.muted; ctx.textAlign = 'center'; ctx.textBaseline = 'top'; ctx.fillText(fmtS(E().L(x)), X(x), yAs - 2);
       }
-      ctx.fillStyle = K.fg; ctx.textAlign = 'right'; ctx.textBaseline = 'bottom'; ctx.fillText('x (m)', w - 2, yAs - 14);
+      ctx.fillStyle = K.fg; ctx.font = '600 12px ' + css('--f-mono'); ctx.textAlign = 'right'; ctx.textBaseline = 'bottom'; ctx.fillText(`x (${E().uL})`, w - 2, yAs - 14); ctx.font = '11px ' + css('--f-mono');
       // balk
       ctx.fillStyle = K.vul; ctx.fillRect(X(0), yb0, pw, yb1 - yb0);
       ctx.strokeStyle = K.fg; ctx.lineWidth = 1.5; ctx.strokeRect(X(0), yb0, pw, yb1 - yb0);
@@ -2643,7 +2812,7 @@ function renderDM(root) {
         ctx.beginPath(); ctx.moveTo(X(q.s), yL); ctx.lineTo(X(q.e), yL); ctx.stroke();
         const n = Math.max(1, Math.round((X(q.e) - X(q.s)) / 20));
         for (let i = 0; i <= n; i++) { const xx = X(q.s) + (X(q.e) - X(q.s)) * i / n; pijl(ctx, xx, yL, xx, yK, K.fg, 1.2); }
-        tekst(`q${sub(q.nr)} = ${fmt(q.mag)} kN/m`, (X(q.s) + X(q.e)) / 2, omlaag ? yL - 12 : yL + 12, K.fg);
+        tekst(`q${sub(q.nr)} = ${fmtS(E().q(q.mag))} ${E().uq}`, (X(q.s) + X(q.e)) / 2, omlaag ? yL - 12 : yL + 12, K.fg);
       });
       // opleggingen + reacties
       if (!res.fout) {
@@ -2661,7 +2830,7 @@ function renderDM(root) {
             }
             ctx.font = '600 12px ' + css('--f-mono'); ctx.fillStyle = K.fg; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
             ctx.fillText(nm, X(x) - 12, yb1 + 30);
-            indexLabel(ctx, Math.min(Math.max(X(x) + 14, 70), w - 70), yb1 + 76, 'R', nm, ' = ' + fmt(Math.abs(R)) + ' kN', K.reac, K.bg);
+            indexLabel(ctx, Math.min(Math.max(X(x) + 14, 70), w - 70), yb1 + 76, 'R', nm, ' = ' + fmtS(E().F(Math.abs(R))) + ' ' + E().uF, K.reac, K.bg);
           });
         } else {
           const links = st.kant === 'links', xw = links ? X(0) : X(L);
@@ -2672,7 +2841,7 @@ function renderDM(root) {
           const { R, Mk } = res.reac;
           const xr = links ? xw + 16 : xw - 16;
           if (Math.abs(R) > 1e-6) { if (R > 0) pijl(ctx, xr, yb1 + 66, xr, yb1 + 6, K.reac, 2.2); else pijl(ctx, xr, yb1 + 6, xr, yb1 + 66, K.reac, 2.2); }
-          tekst(`R = ${fmt(Math.abs(R))} kN`, xr, yb1 + 76, K.reac, links ? 'left' : 'right');
+          tekst(`R = ${fmtS(E().F(Math.abs(R)))} ${E().uF}`, xr, yb1 + 76, K.reac, links ? 'left' : 'right');
           if (Math.abs(Mk) > 1e-6) {
             // inklemmingsmoment als gebogen pijl
             const cx = xw, r = 30;
@@ -2686,7 +2855,7 @@ function renderDM(root) {
             ctx.fillStyle = K.reac; ctx.beginPath(); ctx.moveTo(ex + 8 * Math.cos(tang), ey + 8 * Math.sin(tang));
             ctx.lineTo(ex + 5 * Math.cos(tang + 2.2), ey + 5 * Math.sin(tang + 2.2));
             ctx.lineTo(ex + 5 * Math.cos(tang - 2.2), ey + 5 * Math.sin(tang - 2.2)); ctx.closePath(); ctx.fill();
-            tekst(`M = ${fmt(Math.abs(Mk))} kNm`, links ? xw + 40 : xw - 40, yb0 - 46, K.reac, links ? 'left' : 'right');
+            tekst(`M = ${fmtS(E().M(Math.abs(Mk)))} ${E().uM}`, links ? xw + 40 : xw - 40, yb0 - 46, K.reac, links ? 'left' : 'right');
           }
         }
       }
@@ -2694,7 +2863,7 @@ function renderDM(root) {
       res.P.forEach(p => {
         const omlaag = p.dir > 0, xx = X(p.x);
         if (omlaag) pijl(ctx, xx, yb0 - 70, xx, yb0 - 2, K.fg, 2.4); else pijl(ctx, xx, yb1 + 70, xx, yb1 + 2, K.fg, 2.4);
-        tekst(`F${sub(p.nr)} = ${fmt(p.F)} kN`, xx, omlaag ? yb0 - 80 : yb1 + 80, K.fg);
+        tekst(`F${sub(p.nr)} = ${fmtS(E().F(p.F))} ${E().uF}`, xx, omlaag ? yb0 - 80 : yb1 + 80, K.fg);
       });
       // doorsnede
       if (st.hover != null) {
@@ -2706,7 +2875,7 @@ function renderDM(root) {
     /* D- en M-lijn */
     const lijn = (cv, soort) => {
       const { ctx, w, h } = prepCanvas(cv);
-      const pw = w - ML - MR, X = x => ML + x / L * pw;
+      const ML = mL(), pw = w - ML - MR, X = x => ML + x / L * pw;
       if (res.fout) {
         ctx.font = '500 13px ' + css('--f-body'); ctx.fillStyle = K.muted; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
         ctx.fillText(res.fout, w / 2, h / 2); return;
@@ -2736,19 +2905,20 @@ function renderDM(root) {
       for (let i = Math.ceil(R.min / R.step - 1e-9); i * R.step <= R.max + 1e-9; i++) {
         const v = i * R.step;
         ctx.strokeStyle = K.grid; ctx.beginPath(); ctx.moveTo(X(0), Y(v) + .5); ctx.lineTo(X(L), Y(v) + .5); ctx.stroke();
-        ctx.fillStyle = K.muted; ctx.textAlign = 'right'; ctx.textBaseline = 'middle'; ctx.fillText(fmt(v), X(0) - 8, Y(v));
+        ctx.fillStyle = K.muted; ctx.textAlign = 'right'; ctx.textBaseline = 'middle'; ctx.fillText(fmtS(isD ? E().F(v) : E().M(v)), X(0) - 8, Y(v));
       }
       const stap = L > 8 ? 2 : L > 3 ? 1 : 0.5;
       for (let x = 0; x <= L + eps; x += stap) {
         ctx.strokeStyle = K.grid; ctx.beginPath(); ctx.moveTo(X(x) + .5, y0); ctx.lineTo(X(x) + .5, y1); ctx.stroke();
-        ctx.fillStyle = K.muted; ctx.textAlign = 'center'; ctx.textBaseline = 'top'; ctx.fillText(fmt(x), X(x), y1 + 6);
+        ctx.fillStyle = K.muted; ctx.textAlign = 'center'; ctx.textBaseline = 'top'; ctx.fillText(fmtS(E().L(x)), X(x), y1 + 6);
       }
       ctx.strokeStyle = K.axis; ctx.lineWidth = 1.5;
       ctx.beginPath(); ctx.moveTo(X(0), Y(0)); ctx.lineTo(X(L) + 12, Y(0)); ctx.stroke();
       ctx.beginPath(); ctx.moveTo(X(0), y1); ctx.lineTo(X(0), y0 - 8); ctx.stroke();
-      ctx.fillStyle = K.fg; ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
-      ctx.fillText(isD ? 'D (kN)' : 'M (kNm)', X(0) + 6, y0 - 10);
-      ctx.textAlign = 'right'; ctx.fillText('x (m)', w - 2, Y(0) - 6);
+      ctx.fillStyle = K.fg; ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic'; ctx.font = '600 13px ' + css('--f-mono');
+      ctx.fillText(isD ? `D (${E().uF})` : `M (${E().uM})`, X(0) + 8, y0 - 10);
+      ctx.textAlign = 'right'; ctx.fillText(`x (${E().uL})`, w - 2, Y(0) - 8);
+      ctx.font = '11px ' + css('--f-mono');
       // kromme
       const pad = sluiten => {
         ctx.beginPath();
@@ -2772,7 +2942,7 @@ function renderDM(root) {
       ctx.font = '600 11px ' + css('--f-mono');
       labels.forEach(lb => {
         if (Math.abs(lb.v) < 0.005) return;
-        const t = fmt(lb.v);
+        const t = fmtS(isD ? E().F(lb.v) : E().M(lb.v));
         const tw = ctx.measureText(t).width;
         let x = X(lb.x) + (lb.kant === 1 ? 4 : lb.kant === -1 ? -4 - tw : -tw / 2);
         x = Math.min(Math.max(x, ML + 2), w - tw - 2);
@@ -2790,7 +2960,7 @@ function renderDM(root) {
         ctx.beginPath(); ctx.moveTo(px, y0 - 8); ctx.lineTo(px, y1); ctx.stroke(); ctx.setLineDash([]); ctx.globalAlpha = 1;
         ctx.fillStyle = kleur; ctx.beginPath(); ctx.arc(px, py, 5, 0, 7); ctx.fill();
         ctx.strokeStyle = K.bg; ctx.lineWidth = 2; ctx.stroke();
-        const t1 = 'x = ' + fmt(xh) + ' m', t2 = (isD ? 'D = ' : 'M = ') + fmt(val) + (isD ? ' kN' : ' kNm');
+        const t1 = 'x = ' + fmtS(E().L(xh)) + ' ' + E().uL, t2 = (isD ? 'D = ' : 'M = ') + fmtS(isD ? E().F(val) : E().M(val)) + ' ' + (isD ? E().uF : E().uM);
         ctx.font = '600 12px ' + css('--f-mono');
         const bw = Math.max(ctx.measureText(t1).width, ctx.measureText(t2).width) + 16, bh = 40;
         let bx = px + 12; if (bx + bw > w - 4) bx = px - 12 - bw;
@@ -2806,6 +2976,7 @@ function renderDM(root) {
     lijn(cvM, 'M');
 
     /* Teksten */
+    $('noot').textContent = `x in ${E().uL} (gemeten vanaf het linkeruiteinde), D in ${E().uF}, M in ${E().uM}.`;
     if (res.fout) {
       $('rr').textContent = '—'; $('nr').textContent = res.fout; $('ru').textContent = '—';
       $('fvD').innerHTML = ''; $('fvM').innerHTML = '';
@@ -2814,12 +2985,12 @@ function renderDM(root) {
     const pijlT = R => R >= 0 ? '↑' : '↓';
     if (st.type === 'steun') {
       const { RA, RB } = res.reac;
-      $('rr').innerHTML = `R<sub>A</sub> = <b class="c-m">${fmt(Math.abs(RA))} kN</b> ${pijlT(RA)}<br>R<sub>B</sub> = <b class="c-m">${fmt(Math.abs(RB))} kN</b> ${pijlT(RB)}`;
+      $('rr').innerHTML = `R<sub>A</sub> = <b class="c-m">${fmtS(E().F(Math.abs(RA)))} ${E().uF}</b> ${pijlT(RA)}<br>R<sub>B</sub> = <b class="c-m">${fmtS(E().F(Math.abs(RB)))} ${E().uF}</b> ${pijlT(RB)}`;
       $('nr').textContent = 'Uit ΣM = 0 rond A volgt R_B, daarna uit ΣF = 0 volgt R_A.' + ((RA < -1e-9 || RB < -1e-9) ? ' Een reactie naar omlaag betekent dat de oplegging de ligger moet tegenhouden om niet op te tillen.' : '');
     } else {
       const { R, Mk } = res.reac;
-      $('rr').innerHTML = `R = <b class="c-m">${fmt(Math.abs(R))} kN</b> ${pijlT(R)}<br>M<sub>inklemming</sub> = <b class="c-m">${fmt(Mk)} kNm</b>`;
-      $('nr').textContent = `De inklemming neemt zowel een kracht als een moment op. Het moment in de ligger aan de inklemming is ${fmt(Mk)} kNm.`;
+      $('rr').innerHTML = `R = <b class="c-m">${fmtS(E().F(Math.abs(R)))} ${E().uF}</b> ${pijlT(R)}<br>M<sub>inklemming</sub> = <b class="c-m">${fmtS(E().M(Mk))} ${E().uM}</b>`;
+      $('nr').textContent = `De inklemming neemt zowel een kracht als een moment op. Het moment in de ligger aan de inklemming is ${fmtS(E().M(Mk))} ${E().uM}.`;
     }
     // uitersten
     let dMax = { v: 0, x: 0 }, mMax = { v: -Infinity, x: 0 }, mMin = { v: Infinity, x: 0 };
@@ -2829,11 +3000,11 @@ function renderDM(root) {
       if (Math.abs(v.m2) > 1e-9) { const xs = -v.m1 / (2 * v.m2); if (xs > v.a && xs < v.b) kand.push(xs); }
       kand.forEach(x => { const m = Mv(v, x); if (m > mMax.v) mMax = { v: m, x }; if (m < mMin.v) mMin = { v: m, x }; });
     });
-    const rx = x => fmt(Math.round(x * 100) / 100);
+    const rx = x => fmtS(E().L(Math.round(x * 1000) / 1000)) + ' ' + E().uL;
     $('ru').innerHTML =
-      `|D|<sub>max</sub> = <b style="color:var(--b)">${fmt(Math.abs(dMax.v))} kN</b> bij x = ${rx(dMax.x)} m<br>` +
-      (mMax.v > 0.005 ? `M<sub>max</sub> = <b class="c-a">${fmt(mMax.v)} kNm</b> bij x = ${rx(mMax.x)} m<br>` : '') +
-      (mMin.v < -0.005 ? `M<sub>min</sub> = <b class="c-a">${fmt(mMin.v)} kNm</b> bij x = ${rx(mMin.x)} m` : '');
+      `|D|<sub>max</sub> = <b style="color:var(--b)">${fmtS(E().F(Math.abs(dMax.v)))} ${E().uF}</b> bij x = ${rx(dMax.x)}<br>` +
+      (mMax.v > 0.005 ? `M<sub>max</sub> = <b class="c-a">${fmtS(E().M(mMax.v))} ${E().uM}</b> bij x = ${rx(mMax.x)}<br>` : '') +
+      (mMin.v < -0.005 ? `M<sub>min</sub> = <b class="c-a">${fmtS(E().M(mMin.v))} ${E().uM}</b> bij x = ${rx(mMin.x)}` : '');
 
     // functievoorschriften
     const Dst = samenvoegen(res.iv, v => [v.d0, v.d1]);
@@ -2841,8 +3012,9 @@ function renderDM(root) {
     const blok = (naam, stukken, f, dom) => `
       <div class="voorschrift"><span class="vnaam">${naam}(x) =</span>
         <div class="stukken">${stukken.map(v => `<span class="vf">${f(v)}</span><span class="vd">${dom(v)}</span>`).join('')}</div></div>`;
-    $('fvD').innerHTML = blok('D', Dst, v => polyTekst(0, v.d1, v.d0), v => `voor ${fmt(v.a)} &lt; x &lt; ${fmt(v.b)}`);
-    $('fvM').innerHTML = blok('M', Mst, v => polyTekst(v.m2, v.m1, v.m0), v => `voor ${fmt(v.a)} ≤ x ≤ ${fmt(v.b)}`);
+    const u = E();
+    $('fvD').innerHTML = blok('D', Dst, v => polyTekst(0, v.d1 * u.cF / u.cL, v.d0 * u.cF), v => `voor ${fmtS(u.L(v.a))} &lt; x &lt; ${fmtS(u.L(v.b))}`);
+    $('fvM').innerHTML = blok('M', Mst, v => polyTekst(v.m2 * u.cF / u.cL, v.m1 * u.cF, v.m0 * u.cF * u.cL), v => `voor ${fmtS(u.L(v.a))} ≤ x ≤ ${fmtS(u.L(v.b))}`);
   }
   function sub(t) { return String(t).replace(/[0-9]/g, c => '₀₁₂₃₄₅₆₇₈₉'[c]); }
 
@@ -3256,7 +3428,7 @@ function renderReac(root) {
     ul: { t: '↖ schuin omhoog, naar links', u: a => [-Math.cos(a), Math.sin(a)], schuin: true }
   };
   const st = {
-    type: 'steun', L: 5, xA: 0, xB: 5, kant: 'links', rond: 'A', opl: false,
+    type: 'steun', L: 5, xA: 0, xB: 5, kant: 'links', rond: 'A', opl: false, uF: 'kN', uL: 'm',
     loads: [],
     volg: 1
   };
@@ -3293,6 +3465,11 @@ function renderReac(root) {
               <button type="button" class="sit" data-id="rechts">Rechts ingeklemd</button>
             </div>
           </div>
+        </div>
+        <div class="groep eh-groep">
+          <div class="gkop">Eenheden</div>
+          <div class="eh-rij"><span class="lbl-klein">Kracht</span><div class="chips" id="rk-uF"><button type="button" class="sit" data-u="N">N</button><button type="button" class="sit" data-u="kN">kN</button></div></div>
+          <div class="eh-rij"><span class="lbl-klein">Afstand</span><div class="chips" id="rk-uL"><button type="button" class="sit" data-u="m">m</button><button type="button" class="sit" data-u="mm">mm</button></div></div>
         </div>
       </div>
       <div class="paneel">
@@ -3343,13 +3520,15 @@ function renderReac(root) {
   const cv1 = $('c1'), cv2 = $('c2');
 
   /* ---------- ligger-instellingen ---------- */
+  const E = () => eenhedenVan(st);
   function koppel(id, key, min, maxF, na) {
     const r = $(id), n = $(id + 'n');
     const zet = (val, bron) => {
-      let x = parseFloat(val);
+      let x = parseFloat(String(val).replace(',', '.'));
       if (!isFinite(x)) return;
-      x = Math.min(maxF(), Math.max(min, x));
-      st[key] = x;
+      const c = E().cL;
+      x = Math.min(maxF() * c, Math.max(min * c, x));
+      st[key] = x / c;
       if (bron !== r) r.value = x;
       if (bron !== n) n.value = x;
       if (na) na();
@@ -3357,15 +3536,22 @@ function renderReac(root) {
     };
     r.addEventListener('input', () => zet(r.value, r));
     n.addEventListener('input', () => zet(n.value, n));
-    n.addEventListener('change', () => { n.value = st[key]; });
-    r.value = n.value = st[key];
+    n.addEventListener('change', () => { n.value = rondAf(st[key] * E().cL); });
+    r.value = n.value = rondAf(st[key] * E().cL);
     return v => zet(v, null);
+  }
+  function zetBereik() {
+    const c = E().cL;
+    [['L', 1, 12, 0.5], ['xA', 0, st.L, 0.1], ['xB', 0, st.L, 0.1]].forEach(([k, mn, mx, sp]) => {
+      [$(k), $(k + 'n')].forEach(el => { el.min = mn * c; el.max = mx * c; el.step = c === 1 ? sp : sp * 100; el.value = rondAf(st[k] * c); });
+      $(k + 'n').nextElementSibling.textContent = E().uL;
+    });
   }
   const maxL = () => st.L;
   const nieuweLengte = () => {
     ['xA', 'xB'].forEach(k => {
-      $(k).max = st.L; $(k + 'n').max = st.L;
-      if (st[k] > st.L) { st[k] = st.L; $(k).value = $(k + 'n').value = st.L; }
+      $(k).max = st.L * E().cL; $(k + 'n').max = st.L * E().cL;
+      if (st[k] > st.L) { st[k] = st.L; $(k).value = $(k + 'n').value = rondAf(st.L * E().cL); }
     });
     st.loads.forEach(l => ['x', 's', 'e'].forEach(k => { if (k in l && l[k] > st.L) l[k] = st.L; }));
     tekenLasten();
@@ -3373,7 +3559,14 @@ function renderReac(root) {
   koppel('L', 'L', 1, () => 12, nieuweLengte);
   koppel('xA', 'xA', 0, maxL);
   koppel('xB', 'xB', 0, maxL);
-  ['xA', 'xB'].forEach(k => { $(k).max = st.L; $(k + 'n').max = st.L; $(k).value = $(k + 'n').value = st[k]; });
+  zetBereik();
+  function kiesEenheid() {
+    root.querySelectorAll('#rk-uF button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.u === st.uF)));
+    root.querySelectorAll('#rk-uL button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.u === st.uL)));
+  }
+  $('uF').addEventListener('click', e => { const b = e.target.closest('button[data-u]'); if (!b) return; st.uF = b.dataset.u; kiesEenheid(); tekenLasten(); teken(); });
+  $('uL').addEventListener('click', e => { const b = e.target.closest('button[data-u]'); if (!b) return; st.uL = b.dataset.u; kiesEenheid(); zetBereik(); tekenLasten(); teken(); });
+  kiesEenheid();
 
   function kies() {
     root.querySelectorAll('#rk-type button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.id === st.type)));
@@ -3388,17 +3581,18 @@ function renderReac(root) {
   $('ev').addEventListener('change', e => { if (e.target.name === 'rk-rond') { st.rond = e.target.value; teken(); } });
 
   /* ---------- belastingen-editor ---------- */
+  function fac(key) { const u = E(); return key === 'F' ? u.cF : key === 'q' ? u.cF / u.cL : (key === 'x' || key === 's' || key === 'e') ? u.cL : 1; }
   function tekenLasten() {
     let nF = 0, nQ = 0;
-    const veld = (l, key, label, min, max, step, eenh, metSchuif) => `
+    const veld = (l, key, label, min, max, step, eenh, metSchuif) => { const f = fac(key), sp = f === 1 ? step : 'any', spR = key === 'x' || key === 's' || key === 'e' ? (E().cL === 1 ? step : 10) : step * f; return `
       <div class="ctrl">
         <label for="rk-l${l.id}-${key}">${label}</label>
         <div class="rij">
-          ${metSchuif ? `<input type="range" data-id="${l.id}" data-key="${key}" min="${min}" max="${max}" step="${step}" value="${l[key]}" aria-label="${label}">` : ''}
-          <input type="number" id="rk-l${l.id}-${key}" data-id="${l.id}" data-key="${key}" min="${min}" max="${max}" step="${step}" value="${l[key]}">
+          ${metSchuif ? `<input type="range" data-id="${l.id}" data-key="${key}" min="${min * f}" max="${max * f}" step="${spR}" value="${rondAf(l[key] * f)}" aria-label="${label}">` : ''}
+          <input type="number" id="rk-l${l.id}-${key}" data-id="${l.id}" data-key="${key}" min="${min * f}" max="${max * f}" step="${sp}" value="${rondAf(l[key] * f)}">
           <span class="eenh">${eenh}</span>
         </div>
-      </div>`;
+      </div>`; };
     $('lasten').innerHTML = st.loads.length ? st.loads.map(l => {
       if (l.soort === 'F') {
         nF++;
@@ -3407,7 +3601,7 @@ function renderReac(root) {
         const hoek = RICHT[l.dir].schuin ? veld(l, 'a', 'Hoek α met de ligger', 1, 89, 1, '°', true) : '';
         return `<div class="last">
           <div class="lkop"><b>F<sub>${nF}</sub></b><span>Puntkracht</span><button type="button" class="weg" data-del="${l.id}" aria-label="Verwijder F${nF}">Verwijderen</button></div>
-          <div class="lrij">${sel}${hoek}${veld(l, 'F', 'Grootte', 0, 100, 0.5, 'kN', false)}${veld(l, 'x', 'Positie x', 0, st.L, 0.1, 'm', true)}</div></div>`;
+          <div class="lrij">${sel}${hoek}${veld(l, 'F', 'Grootte', 0, 100, 0.5, E().uF, false)}${veld(l, 'x', 'Positie x', 0, st.L, 0.1, E().uL, true)}</div></div>`;
       }
       nQ++;
       const sel = `<div class="ctrl"><label for="rk-l${l.id}-qdir">Richting</label>
@@ -3416,7 +3610,7 @@ function renderReac(root) {
           <option value="-1" ${l.qdir < 0 ? 'selected' : ''}>↑ naar omhoog</option></select></div>`;
       return `<div class="last">
         <div class="lkop"><b>q<sub>${nQ}</sub></b><span>Gelijkmatig verdeelde belasting</span><button type="button" class="weg" data-del="${l.id}" aria-label="Verwijder q${nQ}">Verwijderen</button></div>
-        <div class="lrij">${sel}${veld(l, 'q', 'Grootte', 0, 50, 0.5, 'kN/m', false)}${veld(l, 's', 'Begint op', 0, st.L, 0.1, 'm', true)}${veld(l, 'e', 'Eindigt op', 0, st.L, 0.1, 'm', true)}</div></div>`;
+        <div class="lrij">${sel}${veld(l, 'q', 'Grootte', 0, 50, 0.5, E().uq, false)}${veld(l, 's', 'Begint op', 0, st.L, 0.1, E().uL, true)}${veld(l, 'e', 'Eindigt op', 0, st.L, 0.1, E().uL, true)}</div></div>`;
     }).join('') : '<div class="leeg">Nog geen belastingen. Voeg een puntkracht of een verdeelde belasting toe.</div>';
   }
   $('lasten').addEventListener('input', e => {
@@ -3424,15 +3618,15 @@ function renderReac(root) {
     const l = st.loads.find(x => x.id === +t.dataset.id); if (!l) return;
     if (key === 'dir') { l.dir = t.value; tekenLasten(); teken(); return; }
     if (key === 'qdir') { l.qdir = +t.value; teken(); return; }
-    let v = parseFloat(t.value); if (!isFinite(v)) return;
+    let v = parseFloat(String(t.value).replace(',', '.')); if (!isFinite(v)) return;
     v = Math.min(+t.max, Math.max(+t.min, v));
-    l[key] = v;
+    l[key] = v / fac(key);
     root.querySelectorAll(`#rk-lasten [data-id="${l.id}"][data-key="${key}"]`).forEach(o => { if (o !== t) o.value = v; });
     teken();
   });
   $('lasten').addEventListener('change', e => {
     const t = e.target; if (t.type !== 'number') return;
-    const l = st.loads.find(x => x.id === +t.dataset.id); if (l) t.value = l[t.dataset.key];
+    const l = st.loads.find(x => x.id === +t.dataset.id); if (l) t.value = rondAf(l[t.dataset.key] * fac(t.dataset.key));
   });
   $('lasten').addEventListener('click', e => {
     const b = e.target.closest('[data-del]'); if (!b) return;
@@ -3539,9 +3733,9 @@ function renderReac(root) {
       ctx.beginPath(); ctx.moveTo(X(0), yAs - 8); ctx.lineTo(X(L), yAs - 8); ctx.stroke();
       for (let x = 0; x <= L + eps; x += stap) {
         ctx.beginPath(); ctx.moveTo(X(x), yAs - 12); ctx.lineTo(X(x), yAs - 4); ctx.stroke();
-        ctx.fillStyle = C.muted; ctx.textAlign = 'center'; ctx.textBaseline = 'top'; ctx.fillText(fmt(x), X(x), yAs - 2);
+        ctx.fillStyle = C.muted; ctx.textAlign = 'center'; ctx.textBaseline = 'top'; ctx.fillText(fmtS(E().L(x)), X(x), yAs - 2);
       }
-      ctx.fillStyle = C.fg; ctx.textAlign = 'right'; ctx.textBaseline = 'bottom'; ctx.fillText('x (m)', w - 2, yAs - 12);
+      ctx.fillStyle = C.fg; ctx.font = '600 12px ' + css('--f-mono'); ctx.textAlign = 'right'; ctx.textBaseline = 'bottom'; ctx.fillText(`x (${E().uL})`, w - 2, yAs - 12); ctx.font = '11px ' + css('--f-mono');
       }
       // balk
       ctx.fillStyle = C.vul; ctx.fillRect(X(0), yb0, pw, yb1 - yb0);
@@ -3558,7 +3752,7 @@ function renderReac(root) {
       else tip = [xx, uy < 0 ? yb0 - 2 : yb1 + 2];
       const tail = [tip[0] - ux * len, tip[1] + uy * len];
       pijl(ctx, tail[0], tail[1], tip[0], tip[1], kleur, 2.4);
-      (g.vrij ? g.vlabel : g.label)('F', String(k.nr), ' = ' + fmt(k.F) + ' kN', tail[0] + (ux > 0 ? -8 : ux < 0 ? 8 : 0), tail[1] + (uy < 0 ? -12 : uy > 0 ? 12 : -14), kleur);
+      (g.vrij ? g.vlabel : g.label)('F', String(k.nr), ' = ' + fmtS(E().F(k.F)) + ' ' + E().uF, tail[0] + (ux > 0 ? -8 : ux < 0 ? 8 : 0), tail[1] + (uy < 0 ? -12 : uy > 0 ? 12 : -14), kleur);
       if (k.schuin) {
         // hoek α tussen ligger en kracht
         const th = tail[0] < tip[0] ? Math.PI : 0;
@@ -3591,7 +3785,7 @@ function renderReac(root) {
       const n = Math.max(1, Math.round((X(k.e) - X(k.s)) / 20));
       for (let i = 0; i <= n; i++) { const xx = X(k.s) + (X(k.e) - X(k.s)) * i / n; pijl(ctx, xx, yL, xx, yK, C.fg, 1.1); }
       ctx.globalAlpha = 1;
-      if (!vaag) g.label('q', String(k.nr), ' = ' + fmt(k.q) + ' kN/m', (X(k.s) + X(k.e)) / 2, omlaag ? yL - 12 : yL + 12, C.fg);
+      if (!vaag) g.label('q', String(k.nr), ' = ' + fmtS(E().q(k.q)) + ' ' + E().uq, (X(k.s) + X(k.e)) / 2, omlaag ? yL - 12 : yL + 12, C.fg);
       else g.label('q', String(k.nr), '', X(k.s) + 16, omlaag ? yL - 10 : yL + 10, C.muted);
     };
 
@@ -3644,10 +3838,10 @@ function renderReac(root) {
           ctx.font = '500 12px ' + css('--f-mono'); ctx.fillStyle = C.fg; ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
           if (X(x2) - X(x1) > 22) ctx.fillText(t, (X(x1) + X(x2)) / 2, y - 3);
         };
-        for (let i = 0; i < xs.length - 1; i++) maat(xs[i], xs[i + 1], yD, fmt(r2(xs[i + 1] - xs[i])));
-        maat(0, L, yT, fmt(L));
+        for (let i = 0; i < xs.length - 1; i++) maat(xs[i], xs[i + 1], yD, fmtS(E().L(r2(xs[i + 1] - xs[i]))));
+        maat(0, L, yT, fmtS(E().L(L)));
         ctx.font = '11px ' + css('--f-mono'); ctx.fillStyle = C.muted; ctx.textAlign = 'left'; ctx.textBaseline = 'top';
-        ctx.fillText('maten in m', X(0), yT + 6);
+        ctx.fillText(`maten in ${E().uL}`, X(0), yT + 6);
       }
       // referentieassenstelsel
       const ox = 22, oy = 64;
@@ -3665,7 +3859,7 @@ function renderReac(root) {
         verdeeld(g, k, true);
         const omlaag = k.qdir > 0, xx = X(k.x);
         if (omlaag) pijl(ctx, xx, yb0 - 80, xx, yb0 - 2, C.fq, 3); else pijl(ctx, xx, yb1 + 80, xx, yb1 + 2, C.fq, 3);
-        g.vlabel('F', 'q' + k.nr, ' = ' + fmt(k.F) + ' kN', xx, omlaag ? yb0 - 92 : yb1 + 92, C.fq);
+        g.vlabel('F', 'q' + k.nr, ' = ' + fmtS(E().F(k.F)) + ' ' + E().uF, xx, omlaag ? yb0 - 92 : yb1 + 92, C.fq);
       });
       res.K.filter(k => k.soort === 'F').forEach(k => puntkracht(g, k, C.fg, true));
       // reactiekrachten (aangenomen positieve zin, met de berekende waarde)
@@ -3673,8 +3867,8 @@ function renderReac(root) {
         const reactie = (x, naam, idx, waarde, soort) => {
           const xx = X(x);
           // labels onder de oplegging gestapeld: eerst A_y/B_y, daaronder A_x
-          if (soort === 'x') { pijl(ctx, xx - 46, yb1 + 18, xx - 2, yb1 + 18, C.reac, 2.4); g.vlabel('R', naam + idx, st.opl ? ' = ' + fmt(waarde) + ' kN' : '', xx, yb1 + 101, C.reac); }
-          else { pijl(ctx, xx, yb1 + 58, xx, yb1 + 2, C.reac, 2.4); g.vlabel('R', naam + idx, st.opl ? ' = ' + fmt(waarde) + ' kN' : '', xx, yb1 + 72, C.reac); }
+          if (soort === 'x') { pijl(ctx, xx - 46, yb1 + 18, xx - 2, yb1 + 18, C.reac, 2.4); g.vlabel('R', naam + idx, st.opl ? ' = ' + fmtS(E().F(waarde)) + ' ' + E().uF : '', xx, yb1 + 101, C.reac); }
+          else { pijl(ctx, xx, yb1 + 58, xx, yb1 + 2, C.reac, 2.4); g.vlabel('R', naam + idx, st.opl ? ' = ' + fmtS(E().F(waarde)) + ' ' + E().uF : '', xx, yb1 + 72, C.reac); }
         };
         if (st.type === 'steun') {
           reactie(res.a, 'A', 'x', res.Ax, 'x');
@@ -3695,7 +3889,7 @@ function renderReac(root) {
           const e = a0, px = cx + r * Math.cos(e), py = ym + r * Math.sin(e), tang = e - Math.PI / 2;
           ctx.fillStyle = C.reac; ctx.beginPath(); ctx.moveTo(px + 8 * Math.cos(tang), py + 8 * Math.sin(tang));
           ctx.lineTo(px + 5 * Math.cos(tang + 2.2), py + 5 * Math.sin(tang + 2.2)); ctx.lineTo(px + 5 * Math.cos(tang - 2.2), py + 5 * Math.sin(tang - 2.2)); ctx.closePath(); ctx.fill();
-          g.label('M', 'A', st.opl ? ' = ' + fmt(res.MA) + ' kNm' : '', cx + (links ? 70 : -70), ym - 44, C.reac);
+          g.label('M', 'A', st.opl ? ' = ' + fmtS(E().M(res.MA)) + ' ' + E().uM : '', cx + (links ? 70 : -70), ym - 44, C.reac);
           ctx.font = '600 13px ' + css('--f-body'); ctx.fillStyle = C.fg; ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
           ctx.fillText('A', cx + (links ? 10 : -10), yb0 - 4);
         }
@@ -3703,17 +3897,17 @@ function renderReac(root) {
     }
 
     /* 3. Voorafgaande berekeningen */
-    const kn = v => fmt(Math.abs(v));
+    const U = E(), kn = v => fmtS(U.F(Math.abs(v))), ln = v => fmtS(U.L(v)), mn = v => fmtS(U.M(v)), fF = v => fmtS(U.F(v));
     const voor = [];
     res.K.forEach(k => {
       if (k.soort === 'q') {
         voor.push(`<div class="rk-blok"><b>Vervangkracht van q<sub>${k.nr}</sub></b>
-          <div>F<sub>q${k.nr}</sub> = q<sub>${k.nr}</sub> · l = ${fmt(k.q)} · ${fmt(r2(k.e - k.s))} = <b class="c-a">${fmt(k.F)} kN</b> ${k.qdir > 0 ? '↓' : '↑'}</div>
-          <div class="note">Aangrijpingspunt: in het midden van de verdeelde belasting, op x = ${fmt(r2(k.x))} m.</div></div>`);
+          <div>F<sub>q${k.nr}</sub> = q<sub>${k.nr}</sub> · l = ${fmtS(U.q(k.q))} · ${ln(r2(k.e - k.s))} = <b class="c-a">${fF(k.F)} ${U.uF}</b> ${k.qdir > 0 ? '↓' : '↑'}</div>
+          <div class="note">Aangrijpingspunt: in het midden van de verdeelde belasting, op x = ${ln(r2(k.x))} ${U.uL}.</div></div>`);
       } else if (k.schuin) {
         voor.push(`<div class="rk-blok"><b>Ontbinding van F<sub>${k.nr}</sub></b> (α = ${fmt(k.hoek)}°)
-          <div>F<sub>${k.nr}x</sub> = F<sub>${k.nr}</sub> · cos α = ${fmt(k.F)} · cos ${fmt(k.hoek)}° = <b>${kn(k.Fx)} kN</b> ${k.Fx > 0 ? '→' : '←'}</div>
-          <div>F<sub>${k.nr}y</sub> = F<sub>${k.nr}</sub> · sin α = ${fmt(k.F)} · sin ${fmt(k.hoek)}° = <b>${kn(k.Fy)} kN</b> ${k.Fy > 0 ? '↑' : '↓'}</div></div>`);
+          <div>F<sub>${k.nr}x</sub> = F<sub>${k.nr}</sub> · cos α = ${fF(k.F)} · cos ${fmt(k.hoek)}° = <b>${kn(k.Fx)} ${U.uF}</b> ${k.Fx > 0 ? '→' : '←'}</div>
+          <div>F<sub>${k.nr}y</sub> = F<sub>${k.nr}</sub> · sin α = ${fF(k.F)} · sin ${fmt(k.hoek)}° = <b>${kn(k.Fy)} ${U.uF}</b> ${k.Fy > 0 ? '↑' : '↓'}</div></div>`);
       }
     });
     $('voor').innerHTML = voor.length ? voor.join('') : '<p class="note">Er zijn geen verdeelde belastingen of schuine krachten. Er is dus niets vooraf te berekenen.</p>';
@@ -3730,58 +3924,58 @@ function renderReac(root) {
     const fyK = res.K.filter(k => Math.abs(k.Fy) > eps);
     const P = res.P;
     const momK = res.K.filter(k => Math.abs(k.Fy) > eps && Math.abs(k.x - P) > eps);
-    const arm = k => fmt(r2(Math.abs(k.x - P)));
+    const arm = k => ln(r2(Math.abs(k.x - P)));
     // momenttermen: eerst in symbolen (kracht · arm), daarna met getallen
     const momSym = (k) => term(k.Fy * (k.x - P), `${naamComp(k, 'y')} · ${arm(k)}`);
     const momNum = (k) => term(k.Fy * (k.x - P), `${kn(k.Fy)} · ${arm(k)}`);
     const horNoot = fxK.length ? ' Horizontale krachten liggen op de as van de ligger en geven geen moment.' : '';
     // ΣFx
     let blokFx = `<div class="rk-blok"><b>ΣF<sub>x</sub> = 0</b>`;
-    if (!fxK.length) blokFx += `<div>R<sub>Ax</sub> = 0</div><div>R<sub>Ax</sub> = <b class="c-m">0 kN</b></div><div class="note">Er werken geen horizontale krachten op de ligger.</div>`;
+    if (!fxK.length) blokFx += `<div>R<sub>Ax</sub> = 0</div><div>R<sub>Ax</sub> = <b class="c-m">0 ${U.uF}</b></div><div class="note">Er werken geen horizontale krachten op de ligger.</div>`;
     else {
       blokFx += `<div>R<sub>Ax</sub>${fxK.map(k => term(k.Fx, naamComp(k, 'x'))).join('')} = 0</div>`;
       blokFx += `<div>R<sub>Ax</sub>${fxK.map(k => term(k.Fx, kn(k.Fx))).join('')} = 0</div>`;
-      blokFx += `<div>R<sub>Ax</sub> = <b class="c-m">${fmt(res.Ax)} kN</b></div>`;
+      blokFx += `<div>R<sub>Ax</sub> = <b class="c-m">${fF(res.Ax)} ${U.uF}</b></div>`;
     }
     blokFx += '</div>';
     let ev = blokFx;
     if (st.type === 'steun') {
-      const rondA = res.rondA, U = rondA ? 'R<sub>By</sub>' : 'R<sub>Ay</sub>', punt = rondA ? 'A' : 'B';
+      const rondA = res.rondA, Un = rondA ? 'R<sub>By</sub>' : 'R<sub>Ay</sub>', punt = rondA ? 'A' : 'B';
       const cU = r2(res.cU), Uw = rondA ? res.By : res.Ay;
       const S = r2(res.Smom);
-      const uTerm = term(cU, `${U} · ${fmt(Math.abs(cU))}`, true);
+      const uTerm = term(cU, `${Un} · ${ln(Math.abs(cU))}`, true);
       ev += `<div class="rk-blok"><div class="rk-mkop"><b>ΣM<sub>${punt}</sub> = 0</b>
         <span class="rk-keuze"><label class="vink"><input type="radio" name="rk-rond" value="A" ${rondA ? 'checked' : ''}>Momenten rond A</label>
         <label class="vink"><input type="radio" name="rk-rond" value="B" ${rondA ? '' : 'checked'}>Momenten rond B</label></span></div>`;
       ev += `<div>${uTerm}${momK.map(momSym).join('')} = 0</div>`;
       if (momK.length) ev += `<div>${uTerm}${momK.map(momNum).join('')} = 0</div>`;
-      ev += `<div>${U} · ${cU < 0 ? '(' + fmt(cU) + ')' : fmt(cU)} = ${fmt(r2(-S))}</div>`;
-      ev += `<div>${U} = ${fmt(r2(-S))} / ${cU < 0 ? '(' + fmt(cU) + ')' : fmt(cU)} = <b class="c-m">${fmt(Uw)} kN</b></div>`;
+      ev += `<div>${Un} · ${cU < 0 ? '(' + ln(cU) + ')' : ln(cU)} = ${mn(r2(-S))}</div>`;
+      ev += `<div>${Un} = ${mn(r2(-S))} / ${cU < 0 ? '(' + ln(cU) + ')' : ln(cU)} = <b class="c-m">${fF(Uw)} ${U.uF}</b></div>`;
       ev += `<div class="note">${punt} is gekozen als momentpunt: ${rondA ? 'R<sub>Ax</sub> en R<sub>Ay</sub>' : 'R<sub>Ax</sub> en R<sub>By</sub>'} geven daar geen moment.${horNoot}</div></div>`;
       const V = rondA ? 'R<sub>Ay</sub>' : 'R<sub>By</sub>', Vw = rondA ? res.Ay : res.By;
       ev += `<div class="rk-blok"><b>ΣF<sub>y</sub> = 0</b>`;
       ev += `<div>R<sub>Ay</sub> + R<sub>By</sub>${fyK.map(k => term(k.Fy, naamComp(k, 'y'))).join('')} = 0</div>`;
       ev += `<div>${rondA ? V + term(Uw, kn(Uw)) : term(Uw, kn(Uw), true) + ' + ' + V}${fyK.map(k => term(k.Fy, kn(k.Fy))).join('')} = 0</div>`;
-      ev += `<div>${V} = <b class="c-m">${fmt(Vw)} kN</b></div></div>`;
+      ev += `<div>${V} = <b class="c-m">${fF(Vw)} ${U.uF}</b></div></div>`;
     } else {
       // inklemming: ΣFx → ΣFy → ΣM
       ev += `<div class="rk-blok"><b>ΣF<sub>y</sub> = 0</b>`;
       ev += `<div>R<sub>Ay</sub>${fyK.map(k => term(k.Fy, naamComp(k, 'y'))).join('')} = 0</div>`;
       if (fyK.length) ev += `<div>R<sub>Ay</sub>${fyK.map(k => term(k.Fy, kn(k.Fy))).join('')} = 0</div>`;
-      ev += `<div>R<sub>Ay</sub> = <b class="c-m">${fmt(res.Ay)} kN</b></div></div>`;
+      ev += `<div>R<sub>Ay</sub> = <b class="c-m">${fF(res.Ay)} ${U.uF}</b></div></div>`;
       ev += `<div class="rk-blok"><b>ΣM<sub>A</sub> = 0</b>`;
       ev += `<div>M<sub>A</sub>${momK.map(momSym).join('')} = 0</div>`;
       if (momK.length) ev += `<div>M<sub>A</sub>${momK.map(momNum).join('')} = 0</div>`;
-      ev += `<div>M<sub>A</sub> = <b class="c-m">${fmt(res.MA)} kNm</b></div>`;
+      ev += `<div>M<sub>A</sub> = <b class="c-m">${mn(res.MA)} ${U.uM}</b></div>`;
       ev += `<div class="note">Het momentpunt is de inklemming A: R<sub>Ax</sub> en R<sub>Ay</sub> geven daar geen moment.${horNoot}</div></div>`;
     }
     $('ev').innerHTML = ev;
 
     /* Resultaat */
-    const zin = (naam, v, pos, neg, eenh = 'kN') => `<div>${naam} = <b class="c-m">${fmt(v)} ${eenh}</b>${Math.abs(v) < 0.005 ? '' : v > 0 ? ` → werkelijke zin: ${pos}` : ` → negatief: de werkelijke zin is ${neg}, tegengesteld aan de aangenomen zin`}</div>`;
+    const zin = (naam, v, pos, neg, eenh = U.uF) => `<div>${naam} = <b class="c-m">${eenh === U.uM ? mn(v) : fF(v)} ${eenh}</b>${Math.abs(v) < 0.005 ? '' : v > 0 ? ` → werkelijke zin: ${pos}` : ` → negatief: de werkelijke zin is ${neg}, tegengesteld aan de aangenomen zin`}</div>`;
     let rs = zin('R<sub>Ax</sub>', res.Ax, 'naar rechts', 'naar links') + zin('R<sub>Ay</sub>', res.Ay, 'naar boven', 'naar beneden');
     if (st.type === 'steun') rs += zin('R<sub>By</sub>', res.By, 'naar boven', 'naar beneden');
-    else rs += zin('M<sub>A</sub>', res.MA, 'tegenwijzerzin ↺', 'wijzerzin ↻', 'kNm');
+    else rs += zin('M<sub>A</sub>', res.MA, 'tegenwijzerzin ↺', 'wijzerzin ↻', U.uM);
     $('res').innerHTML = rs;
   }
 
@@ -5596,7 +5790,7 @@ function renderVak(root) {
     tool: 'staaf',
     mat: 'multiplex', s: 30, E: 6000,
     b: 15, t: 3, d: 3.2,
-    toon: 'N', vervorm: false,
+    toon: 'N', vervorm: false, B: 120, kr3d: true, toon3d: false,
     nodes: [], bars: [], loads: [], volg: 1
   };
   const RICHT = {
@@ -5675,6 +5869,16 @@ function renderVak(root) {
         <h2 class="vw-h2">Hoe wordt er gerekend?</h2>
         <div id="vw-ber" class="vw-ber"></div>
       </div>
+      <div class="paneel graf" id="vw-3dpaneel" hidden>
+        <div class="kop"><h2>Brug in 3D (op schaal)</h2><span class="legende">sleep om te draaien</span></div>
+        <div class="vw-3dbalk">
+          <label class="vink"><input type="checkbox" id="vw-3dkr" checked>Krachten tonen</label>
+          <div class="ctrl vw-getal vw-breed"><label for="vw-B">Breedte van de brug</label><div class="rij"><input type="number" id="vw-B" min="20" max="1000" step="10"><span class="eenh">mm</span></div></div>
+        </div>
+        <div class="doek vw-3d"><canvas id="vw-3d" role="img" aria-label="Driedimensionaal beeld van de vakwerkbrug, draaibaar"></canvas>
+          <button type="button" class="knop ya-terug" id="vw-terug">↺ Beginstand</button></div>
+        <p class="uitleg klein" id="vw-3duitleg">Alles staat op schaal, ook de breedte b en de dikte t van de staven. Een vakwerkbrug bestaat uit twee gelijke, evenwijdige vakwerken. De staven die in een knoop samenkomen, liggen in lagen naast elkaar op de draadstang. Onderaan verbinden dwarsliggers ze en dragen ze het brugdek, bovenaan houden windverbanden ze op hun plaats. Elk vakwerk draagt de krachten zoals je ze hierboven instelt: de hele brug draagt dus het dubbele.</p>
+      </div>
     </div>
     <div class="zij2">
       <div class="paneel bediening">
@@ -5708,6 +5912,7 @@ function renderVak(root) {
               <option value="nr">Alleen het nummer</option>
             </select></div>
           <label class="vink"><input type="checkbox" id="vw-vervorm">Vervorming tonen (overdreven)</label>
+          <label class="vink"><input type="checkbox" id="vw-toon3d">Brug in 3D tonen (onderaan)</label>
         </div>
         <div class="groep">
           <div class="gkop">Lasercutter</div>
@@ -6199,13 +6404,138 @@ function renderVak(root) {
     alles(); focusLast(l.id);
   });
   $('wisF').addEventListener('click', () => { if (!st.loads.length) return; bewaarStap(); st.loads = []; alles(); });
-  function herreken() { res = los(); teken(); resultaten(); }
+  function herreken() { res = los(); teken(); resultaten(); teken3d(); }
+
+  /* ---------- 3D-beeld van de brug (twee evenwijdige vakwerken) ---------- */
+  const cv3 = $('3d'), zicht = { yaw: -0.55, pitch: 0.42 };
+  $('B').value = st.B;
+  const zetB = () => { let x = parseFloat(String($('B').value).replace(',', '.')); if (!isFinite(x)) { $('B').value = st.B; return; } st.B = Math.min(1000, Math.max(20, x)); $('B').value = st.B; teken3d(); };
+  $('B').addEventListener('change', zetB); $('B').addEventListener('keydown', e => { if (e.key === 'Enter') zetB(); });
+  $('3dkr').addEventListener('change', () => { st.kr3d = $('3dkr').checked; teken3d(); });
+  $('toon3d').checked = st.toon3d;
+  $('toon3d').addEventListener('change', () => { st.toon3d = $('toon3d').checked; $('3dpaneel').hidden = !st.toon3d; if (st.toon3d) { teken3d(); $('3dpaneel').scrollIntoView({ behavior: 'smooth', block: 'start' }); } });
+  $('terug').addEventListener('click', () => { zicht.yaw = -0.55; zicht.pitch = 0.42; teken3d(); });
+  let sleep3 = null;
+  cv3.addEventListener('pointerdown', e => { sleep3 = { x: e.clientX, y: e.clientY, yaw: zicht.yaw, pitch: zicht.pitch }; cv3.setPointerCapture(e.pointerId); });
+  cv3.addEventListener('pointermove', e => { if (!sleep3) return; zicht.yaw = sleep3.yaw - (e.clientX - sleep3.x) * 0.01; zicht.pitch = Math.max(-1.4, Math.min(1.4, sleep3.pitch + (e.clientY - sleep3.y) * 0.01)); teken3d(); });
+  const stop3 = () => { sleep3 = null; }; cv3.addEventListener('pointerup', stop3); cv3.addEventListener('pointercancel', stop3);
+  function teken3d() {
+    if (!st.toon3d) return;
+    const { ctx, w, h } = prepCanvas(cv3);
+    if (!st.bars.length) {
+      ctx.fillStyle = css('--muted'); ctx.font = '14px ' + css('--f-body'); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText('Teken eerst een vakwerk: hier verschijnt dan de brug in 3D.', w / 2, h / 2); return;
+    }
+    const xs = st.nodes.map(n => n.x), ys = st.nodes.map(n => n.y);
+    const x0 = Math.min(...xs), x1 = Math.max(...xs), z0 = Math.min(...ys), z1 = Math.max(...ys), B = st.B, b = st.b, t = st.t;
+    const cxm = (x0 + x1) / 2, czm = (z0 + z1) / 2;
+    const ext = Math.hypot(x1 - x0 + b, B + 6 * t, z1 - z0 + b) || 1, S = Math.min(w, h * 1.6) * 0.8 / ext;
+    const cyw = Math.cos(zicht.yaw), syw = Math.sin(zicht.yaw), cp = Math.cos(zicht.pitch), sp = Math.sin(zicht.pitch);
+    const rot = (X, Y, Z) => { const x1r = X * cyw - Y * syw, y1r = X * syw + Y * cyw; return [x1r, y1r * cp - Z * sp, y1r * sp + Z * cp]; };
+    const P = (x, y, z) => { const [a, d, c] = rot(x - cxm, y, z - czm); return { X: w / 2 + a * S, Y: h / 2 + 10 - c * S, d }; };
+    const kijk = (() => { const [a, d, c] = [0, 1, 0]; return null; })();
+    // richting naar de kijker in wereldcoördinaten (inverse rotatie van (0,-1,0))
+    const V = [syw * cp * -1 * -1, cyw * cp, -sp].map((v, i) => i === 0 ? -syw * cp * -1 : v);
+    const toKijker = [-(syw * cp), -(cyw * cp), sp];
+    const kn = id => st.nodes.find(n => n.id === id);
+    const ok = res && res.ok && st.kr3d;
+    const vlakken = [];
+    const hex = (c, f) => { const v = parseInt(c.slice(1), 16); return `rgb(${[v >> 16 & 255, v >> 8 & 255, v & 255].map(q => Math.round(q * f)).join(',')})`; };
+    const voegPrisma = (omtrek, yA, yB, kleur) => {        // omtrek: punten in het xz-vlak, geëxtrudeerd van yA tot yB
+      const n = omtrek.length;
+      const vlak = (pts3, nrm) => {
+        const pr = pts3.map(p => P(p[0], p[1], p[2]));
+        const lam = Math.abs(nrm[0] * toKijker[0] + nrm[1] * toKijker[1] + nrm[2] * toKijker[2]);
+        vlakken.push({ pr, d: pr.reduce((s2, q) => s2 + q.d, 0) / pr.length, kl: hex(kleur, 0.45 + 0.55 * lam) });
+      };
+      vlak(omtrek.map(p => [p[0], yA, p[1]]), [0, -1, 0]);
+      vlak(omtrek.map(p => [p[0], yB, p[1]]), [0, 1, 0]);
+      for (let i = 0; i < n; i++) {
+        const a = omtrek[i], c = omtrek[(i + 1) % n], ex = c[0] - a[0], ez = c[1] - a[1], L = Math.hypot(ex, ez) || 1;
+        vlak([[a[0], yA, a[1]], [c[0], yA, c[1]], [c[0], yB, c[1]], [a[0], yB, a[1]]], [ez / L, 0, -ex / L]);
+      }
+    };
+    const stadion = (p, q, breed, seg = 6) => {          // staaf met afgeronde uiteinden (in het xz-vlak)
+      const dx = q.x - p.x, dz = q.y - p.y, L = Math.hypot(dx, dz) || 1, ux = dx / L, uz = dz / L, r = breed / 2, a0 = Math.atan2(uz, ux);
+      const pts = [];
+      for (let k = 0; k <= seg; k++) { const a = a0 - Math.PI / 2 + Math.PI * k / seg; pts.push([q.x + r * Math.cos(a), q.y + r * Math.sin(a)]); }
+      for (let k = 0; k <= seg; k++) { const a = a0 + Math.PI / 2 + Math.PI * k / seg; pts.push([p.x + r * Math.cos(a), p.y + r * Math.sin(a)]); }
+      return pts;
+    };
+    const laag = (p, q) => Math.abs(q.y - p.y) < 1e-9 ? 0 : Math.abs(q.x - p.x) < 1e-9 ? 1 : 2;
+    const hout = '#c9a27a';
+    [-1, 1].forEach(kant => st.bars.forEach((s2, i) => {
+      const p = kn(s2.a), q = kn(s2.b), l = laag(p, q);
+      const r = ok ? res.staaf[i] : null;
+      const kl = r ? (r.trek ? TREK : r.druk ? DRUK : '#8b95a5') : hout;
+      const yA = kant * (B / 2 + l * t), yB = kant * (B / 2 + (l + 1) * t);
+      voegPrisma(stadion(p, q, b), Math.min(yA, yB), Math.max(yA, yB), r && !r.knikOk ? '#ffd166' : kl);
+    }));
+    // draadstangen M3 door de knopen
+    const staven3 = [];
+    st.nodes.forEach(n => [-1, 1].forEach(kant => {
+      const a = P(n.x, kant * (B / 2 - 2), n.y), c = P(n.x, kant * (B / 2 + 3 * t + 3), n.y);
+      staven3.push({ a, c, d: (a.d + c.d) / 2 });
+    }));
+    // dwarsliggers onderaan en verbanden bovenaan (zelfde doorsnede, dwars op de brug)
+    const dwars = (n, onder) => {
+      const omtrek = [[n.x - t / 2, n.y - b / 2], [n.x + t / 2, n.y - b / 2], [n.x + t / 2, n.y + b / 2], [n.x - t / 2, n.y + b / 2]];
+      voegPrisma(omtrek, -B / 2, B / 2, onder ? '#8b95a5' : '#6b7585');
+    };
+    st.nodes.forEach(n => { if (Math.abs(n.y - z0) < 1e-6) dwars(n, true); else if (z1 > z0 && Math.abs(n.y - z1) < 1e-6) dwars(n, false); });
+    // dek (doorschijnend) onder de onderrand
+    const zd = z0 - b / 2;
+    const dek = [P(x0 - b / 2, -B / 2, zd), P(x1 + b / 2, -B / 2, zd), P(x1 + b / 2, B / 2, zd), P(x0 - b / 2, B / 2, zd)];
+    ctx.beginPath(); dek.forEach((p, i) => i ? ctx.lineTo(p.X, p.Y) : ctx.moveTo(p.X, p.Y)); ctx.closePath();
+    ctx.fillStyle = 'rgba(160,140,110,.14)'; ctx.fill(); ctx.strokeStyle = 'rgba(160,140,110,.4)'; ctx.lineWidth = 1; ctx.stroke();
+    // steunpunten
+    st.nodes.filter(n => n.steun).forEach(n => [-1, 1].forEach(kant => {
+      const a = P(n.x, kant * (B / 2 + 1.5 * t), n.y - b / 2), s2 = Math.max(6, b * S * 0.5);
+      ctx.fillStyle = css('--panel-2'); ctx.strokeStyle = css('--fg'); ctx.lineWidth = 1.2;
+      ctx.beginPath(); ctx.moveTo(a.X, a.Y); ctx.lineTo(a.X - s2, a.Y + 1.6 * s2); ctx.lineTo(a.X + s2, a.Y + 1.6 * s2); ctx.closePath(); ctx.fill(); ctx.stroke();
+      if (n.steun === 'rol') { ctx.beginPath(); ctx.arc(a.X - s2 / 2, a.Y + 1.6 * s2 + 3.5, 3, 0, 7); ctx.moveTo(a.X + s2 / 2 + 3, a.Y + 1.6 * s2 + 3.5); ctx.arc(a.X + s2 / 2, a.Y + 1.6 * s2 + 3.5, 3, 0, 7); ctx.stroke(); }
+    }));
+    // tekenen van ver naar dichtbij
+    const alles3 = vlakken.map(v => ({ ...v, soort: 'v' })).concat(staven3.map(v => ({ ...v, soort: 's' })));
+    alles3.sort((p, q) => q.d - p.d);
+    ctx.lineJoin = 'round';
+    alles3.forEach(v => {
+      if (v.soort === 'v') {
+        ctx.beginPath(); v.pr.forEach((p, i) => i ? ctx.lineTo(p.X, p.Y) : ctx.moveTo(p.X, p.Y)); ctx.closePath();
+        ctx.fillStyle = v.kl; ctx.fill(); ctx.strokeStyle = 'rgba(0,0,0,.25)'; ctx.lineWidth = 0.6; ctx.stroke();
+      } else {
+        ctx.strokeStyle = '#d0d4da'; ctx.lineWidth = Math.max(1.5, st.d * S); ctx.lineCap = 'round';
+        ctx.beginPath(); ctx.moveTo(v.a.X, v.a.Y); ctx.lineTo(v.c.X, v.c.Y); ctx.stroke(); ctx.lineCap = 'butt';
+      }
+    });
+    // krachten op beide vakwerken
+    if (st.kr3d) {
+      st.loads.forEach(l => {
+        const n = knoop(l.x, l.y); if (!n || !l.F) return;
+        const v = lastVec(l), u = { x: v.fx / l.F, z: v.fy / l.F }, len = 0.14 * ext;
+        [-1, 1].forEach(kant => {
+          const yv = kant * (B / 2 + 4 * t);
+          const bq = P(n.x - u.x * b * 0.6, yv, n.y - u.z * b * 0.6), a = P(n.x - u.x * (len + b * 0.6), yv, n.y - u.z * (len + b * 0.6));
+          pijl(ctx, a.X, a.Y, bq.X, bq.Y, css('--a'), 2.5);
+        });
+      });
+    }
+    // schaalbalk
+    const stappen = [10, 20, 50, 100, 200, 500];
+    const sb = stappen.find(q => q * S >= 50) || 500;
+    ctx.strokeStyle = css('--fg'); ctx.lineWidth = 2; const sx = 10, sy = h - 16;
+    ctx.beginPath(); ctx.moveTo(sx, sy); ctx.lineTo(sx + sb * S, sy); ctx.moveTo(sx, sy - 4); ctx.lineTo(sx, sy + 4); ctx.moveTo(sx + sb * S, sy - 4); ctx.lineTo(sx + sb * S, sy + 4); ctx.stroke();
+    ctx.fillStyle = css('--fg'); ctx.font = '11px ' + css('--f-mono'); ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+    ctx.fillText(`${sb} mm`, sx + sb * S + 8, sy);
+    ctx.font = '12px ' + css('--f-body'); ctx.textAlign = 'left'; ctx.textBaseline = 'top'; ctx.fillStyle = css('--muted');
+    ctx.fillText(ok ? 'rood = trek · blauw = druk · geel = knikt' : (st.kr3d && !(res && res.ok) ? 'krachten: het vakwerk is nog niet stabiel of niet ondersteund' : 'zonder krachten'), 10, 10);
+  }
 
   function alles() {
     opruimen();
     tekenLasten();
     res = los();
-    knoppen(); teken(); resultaten();
+    knoppen(); teken(); resultaten(); teken3d();
     $('dxf').disabled = !st.bars.length;
   }
 
@@ -6271,10 +6601,696 @@ function renderVak(root) {
   }
   window.__vakDxf = maakDxf;
 
-  const ro = new ResizeObserver(() => teken());
-  ro.observe(cv.parentElement);
+  const ro = new ResizeObserver(() => { teken(); teken3d(); });
+  ro.observe(cv.parentElement); ro.observe(cv3);
   alles();
   return () => { ro.disconnect(); window.removeEventListener('keydown', esc); delete window.__vakDxf; };
+}
+
+/* ============================================================
+   APPLET: Leerpad – de vrije val (4EMT, Mechanica)
+   Deel 1 vectoren (simulatie + vragen), deel 2 formules (+ 2 oefeningen),
+   deel 3 grafieken (y,t) en (v,t) (+ vragen). Antwoorden exporteren als pdf.
+   ============================================================ */
+function renderVrijeVal(root) {
+  const G = 9.81;
+  const OPSLAG = 'vrijeval-antwoorden-v1';
+  const f2 = (x, d = 2) => (Object.is(x, -0) ? 0 : x).toLocaleString('nl-BE', { minimumFractionDigits: d, maximumFractionDigits: d }).replace('-', '−');
+  const VEC = l => `<span class="vv-vec">${l}</span>`;
+  const FRAC = (t, n) => `<span class="vv-frac"><span>${t}</span><span>${n}</span></span>`;
+
+
+  /* ---------- vragen ---------- */
+  const DELEN = [
+    { nr: 1, titel: 'Vectoren', vragen: [
+      { id: 'v1', type: 'mc', vraag: `Laat de bal vallen en kijk naar de versnellingsvector ${VEC('a')}. Welke richting en zin heeft hij tijdens de val?`, opties: ['Richting verticaal, zin naar beneden', 'Richting verticaal, zin naar boven', 'Richting horizontaal, zin naar rechts'], juist: 0, uitleg: `De zwaartekracht trekt de bal naar de aarde toe: ${VEC('a')} heeft een verticale richting en is naar beneden gericht.` },
+      { id: 'v2', type: 'mc', vraag: `Wat gebeurt er met de grootte van de snelheidsvector ${VEC('v')} tijdens de val?`, opties: ['Hij wordt steeds groter', 'Hij blijft even groot', 'Hij wordt steeds kleiner'], juist: 0, uitleg: `Elke seconde komt er 9,81 m/s bij: de bal gaat steeds sneller.` },
+      { id: 'v3', type: 'mc', vraag: `Wat gebeurt er met de versnellingsvector ${VEC('a')} tijdens de val?`, opties: ['Hij blijft even groot en naar beneden gericht', 'Hij wordt steeds groter', 'Hij wordt steeds kleiner'], juist: 0, uitleg: `De versnelling is constant: a = g = 9,81 m/s², naar beneden. Daarom is de vrije val een eenparig veranderlijke beweging.` },
+      { id: 'v4', type: 'open', vraag: 'Zet de momentopnames aan (elke 0,2 s een beeld). Waarom liggen de beelden van de bal steeds verder uit elkaar?' },
+      { id: 'r1', type: 'reeks', vraag: 'Kies de tennisbal. Zet de tijd met de schuifregelaar achtereenvolgens op 1 s, 2 s, 3 s en 4 s. Noteer telkens de snelheid v. Let op het teken.', eenh: 'm/s', tijden: [1, 2, 3, 4], juisten: [1, 2, 3, 4].map(t => -G * t), tol: 0.1, teken: true,
+        oplossing: 't = 1 s: v = −9,81 m/s · t = 2 s: v = −19,62 m/s · t = 3 s: v = −29,43 m/s · t = 4 s: v = <b>−39,24 m/s</b>' },
+      { id: 'v9', type: 'mc', vraag: 'Bekijk je antwoorden van de vorige vraag. Met hoeveel neemt de snelheid elke seconde toe?', opties: ['Met 9,81 m/s', 'Met 4,9 m/s', 'Met 19,6 m/s'], juist: 0, uitleg: 'Dat is precies de betekenis van g = 9,81 m/s²: elke seconde komt er 9,81 m/s snelheid bij.' },
+      { id: 'r2', type: 'reeks', vraag: 'Zet de tijd opnieuw op 1 s, 2 s, 3 s en 4 s. Noteer nu telkens de hoogte y van de bal. (De bal start op 100 m hoogte.)', eenh: 'm', tijden: [1, 2, 3, 4], juisten: [1, 2, 3, 4].map(t => 100 - 0.5 * G * t * t), tol: 0.15,
+        oplossing: 't = 1 s: y = 95,1 m · t = 2 s: y = 80,4 m · t = 3 s: y = 55,9 m · t = 4 s: y = <b>21,5 m</b>' },
+      { id: 'o3', type: 'open', vraag: 'Vergelijk de hoogtes uit de vorige vraag. Hoeveel meter valt de bal tijdens de 1e, de 2e, de 3e en de 4e seconde? Wat stel je vast?' },
+      { id: 'r3', type: 'reeks', vraag: 'Kies nu de bowlingbal. Zet de tijd op 1 s, 2 s, 3 s en 4 s en noteer telkens de snelheid v.', eenh: 'm/s', tijden: [1, 2, 3, 4], juisten: [1, 2, 3, 4].map(t => -G * t), tol: 0.1, teken: true,
+        oplossing: 'Precies dezelfde waarden als bij de tennisbal: −9,81 · −19,62 · −29,43 · <b>−39,24 m/s</b>' },
+      { id: 'o4', type: 'open', vraag: 'Vergelijk de tennisbal met de bowlingbal. Wat is het verschil (of net niet) tussen beide? Wat besluit je over de versnelling van een vallend voorwerp?' }
+    ] },
+    { nr: 2, titel: 'Formules', vragen: [
+      { id: 'e1a', label: '1a', kop: 'Oefening 1 – Een vallende tennisbal', context: 'Een tennisbal wordt losgelaten vanaf de top van een toren van 60 m hoog. Verwaarloos de luchtweerstand.',
+        type: 'num', vraag: 'Wat is de snelheid van de tennisbal na 3 s? Let op het teken.', eenh: 'm/s', juist: -G * 3, afronding: true, teken: true },
+      { id: 'e1b', label: '1b', type: 'num', vraag: 'Op welke hoogte bevindt de tennisbal zich na 3 s?', eenh: 'm', juist: 60 - 0.5 * G * 9, afronding: true },
+      { id: 'o2a', label: '2a', kop: 'Oefening 2 – Een vallende bloempot', context: 'Een bloempot valt van een vensterbank en raakt na 1,5 s de grond.',
+        type: 'num', vraag: 'Welke snelheid heeft de bloempot net voor hij de grond raakt?', eenh: 'm/s', juist: -G * 1.5, afronding: true, teken: true },
+      { id: 'o2b', label: '2b', type: 'num', vraag: 'Hoe hoog is de vensterbank?', eenh: 'm', juist: 0.5 * G * 1.5 * 1.5, afronding: true }
+    ] },
+    { nr: 3, titel: 'Grafieken', vragen: [
+      { id: 'g1', type: 'mc', vraag: 'Welke vorm heeft de (y,t)-grafiek?', opties: ['Een kromme die steeds sneller daalt', 'Een rechte die gelijkmatig daalt', 'Een horizontale rechte'], juist: 0, uitleg: 'De bal valt elke seconde verder dan de seconde ervoor. Daarom daalt de hoogte steeds sneller en wordt de grafiek steeds steiler.' },
+      { id: 'g7', type: 'open', vraag: 'Zet de momentopnames aan (elke 0,2 s een beeld) en laat de bal vallen. Waarom liggen de beelden van de bal steeds verder uit elkaar? Hoe zie je dat terug in de (y,t)-grafiek?' },
+      { id: 'g2', type: 'mc', vraag: 'Welke vorm heeft de (v,t)-grafiek?', opties: ['Een dalende rechte door de oorsprong', 'Een kromme die steeds sneller daalt', 'Een horizontale rechte'], juist: 0, uitleg: 'v = −g · t is een eerstegraadsfunctie van t: een rechte door de oorsprong.' },
+      { id: 'g3', type: 'num', vraag: 'Bepaal de richtingscoëfficiënt (helling) van de (v,t)-grafiek. Laat eerst de bal vallen. Klik daarna op twee punten van de (v,t)-grafiek: ze worden aangeduid met hun coördinaten. Bereken dan de helling = Δv / Δt. Wil je andere punten kiezen? Klik op “Punten verwijderen” onder de grafieken.', eenh: 'm/s²', juist: -G, tol: 0.1, teken: true,
+        oplossing: 'Bijvoorbeeld: na 1 s is v = −9,81 m/s, na 2 s is v = −19,62 m/s. Helling = Δv / Δt = (−19,62 − (−9,81)) / (2 − 1) = <b>−9,81 m/s²</b>' },
+      { id: 'g4', type: 'mc', vraag: 'Welke grootheid stelt die helling van de (v,t)-grafiek voor?', opties: ['De versnelling (−g)', 'De hoogte', 'De beginsnelheid'], juist: 0, uitleg: 'De helling van de (v,t)-grafiek is Δv / Δt: de versnelling.' },
+      { id: 'g5', type: 'num', vraag: 'Stel de beginhoogte in op 45 m en laat de bal vallen. Na hoeveel seconden raakt hij de grond? Lees af op de grafiek.', eenh: 's', juist: Math.sqrt(90 / G), tol: 0.06,
+        oplossing: 'Op de (y,t)-grafiek snijdt de kromme de t-as bij <b>t ≈ 3,03 s</b>. Controle: t = √(2 · 45 / 9,81) = 3,03 s.' },
+      { id: 'g6', type: 'open', vraag: 'Waarom wordt de (y,t)-grafiek steeds steiler naarmate de tijd vordert? Gebruik de (v,t)-grafiek in je uitleg.' }
+    ] }
+  ];
+  const ALLE = DELEN.flatMap(d => d.vragen.map(v => ({ ...v, deel: d.nr })));
+
+  /* ---------- toestand (antwoorden blijven bewaard in deze browser) ---------- */
+  let A = { naam: '', ant: {} };
+  try { const s = localStorage.getItem(OPSLAG); if (s) A = JSON.parse(s); } catch (e) { }
+  if (!A.ant) A.ant = {};
+  const bewaar = () => { try { localStorage.setItem(OPSLAG, JSON.stringify(A)); } catch (e) { } };
+  const st = { deel: 1 };
+
+  /* ---------- opbouw ---------- */
+  const vraagHTML = (v, i) => {
+    const a = A.ant[v.id] || {};
+    let inhoud = '';
+    if (v.type === 'mc') inhoud = `<div class="vv-opties">${v.opties.map((o, k) => `<label class="vv-optie"><input type="radio" name="vv-${v.id}" value="${k}" ${a.keuze === k ? 'checked' : ''}><span>${o}</span></label>`).join('')}</div>`;
+    else if (v.type === 'num') inhoud = `<div class="vv-num"><input type="text" inputmode="decimal" class="vv-in" data-id="${v.id}" value="${a.tekst ? a.tekst.replace(/"/g, '&quot;') : ''}" placeholder="jouw antwoord"><span class="eenh">${v.eenh}</span><button type="button" class="knop vv-check" data-id="${v.id}">Controleer</button>${v.oplossing ? `<button type="button" class="knop vv-opl" data-id="${v.id}" ${a.pogingen ? '' : 'hidden'}>Toon uitwerking</button>` : ''}</div>`;
+    else if (v.type === 'reeks') inhoud = `<div class="vv-reeks">${v.tijden.map((t, k) => `<label class="vv-rv"><span>t = ${t} s</span><input type="text" inputmode="decimal" class="vv-rin" data-id="${v.id}" data-k="${k}" value="${a.teksten && a.teksten[k] ? String(a.teksten[k]).replace(/"/g, '&quot;') : ''}"><span class="eenh">${v.eenh}</span></label>`).join('')}</div><div class="vv-num"><button type="button" class="knop vv-check" data-id="${v.id}">Controleer</button><button type="button" class="knop vv-opl" data-id="${v.id}" ${a.pogingen ? '' : 'hidden'}>Toon uitwerking</button></div>`;
+    else inhoud = `<textarea class="vv-open" data-id="${v.id}" rows="3" placeholder="Typ hier je antwoord …">${a.tekst ? a.tekst.replace(/</g, '&lt;') : ''}</textarea>`;
+    return `${v.kop ? `<div class="vv-oefkop"><h4>${v.kop}</h4><p>${v.context}</p></div>` : ''}<div class="vv-vraag${v.label ? ' vv-sub' : ''}" data-vraag="${v.id}"><div class="vv-vkop"><span class="vv-nr">${v.label || i + 1}</span><p>${v.vraag}</p></div>${inhoud}<div class="vv-fb" id="vv-fb-${v.id}"></div>${v.oplossing ? `<div class="vv-uitwerking" id="vv-uw-${v.id}" hidden><b>Uitwerking:</b> ${v.oplossing}</div>` : ''}</div>`;
+  };
+  const vragenBlok = nr => DELEN[nr - 1].vragen.map(vraagHTML).join('');
+
+  root.innerHTML = `
+  <div class="vv">
+    <div class="paneel vv-start" id="vv-start">
+      <h2>Welkom bij het leerpad over de vrije val</h2>
+      <p>Omdat jullie dinsdag 20 oktober niet op school moeten zijn, moeten jullie voor mechanica een leerpad over de vrije val volgen.</p>
+      <ul class="vv-instr">
+        <li>Neem kladpapier, schrijfgerief en een rekenmachine bij de hand.</li>
+        <li>Je doorloopt de drie delen: <b>1. vectoren</b>, <b>2. formules</b> en <b>3. grafieken</b>. Onderweg beantwoord je vragen.</li>
+        <li>Op het einde (<b>4. Antwoorden exporteren</b>) moet je jouw antwoorden downloaden en indienen bij de betreffende oefening op Teams.</li>
+        <li>Jouw antwoorden worden gecontroleerd door de leerkracht.</li>
+        <li>Jouw tijd wordt geregistreerd.</li>
+      </ul>
+      <p>Vul hieronder jouw naam in en start het leerpad. Veel succes!</p>
+      <div class="vv-startrij"><label for="vv-naam">Voornaam</label><input type="text" id="vv-naam" autocomplete="given-name" placeholder="bv. Jan"><button type="button" class="knop vv-go" id="vv-go" disabled>Start het leerpad →</button></div>
+      <p class="uitleg klein" id="vv-startmeld"></p>
+    </div>
+    <div id="vv-inhoud" hidden>
+    <div class="paneel vv-kop">
+      <div class="vv-wie"><button type="button" class="knop vv-terug" id="vv-terug" hidden>← Terug naar het startscherm</button><span class="uitleg klein" id="vv-wielbl">Leerling</span><b id="vv-wienaam"></b><span class="uitleg klein" id="vv-wiestart"></span></div>
+      <div class="chips vv-tabs" id="vv-tabs">
+        ${DELEN.map(d => `<button type="button" class="sit" data-deel="${d.nr}"><span class="vv-tnr">${d.nr}</span>${d.titel}<span class="vv-teller" id="vv-tel-${d.nr}"></span></button>`).join('')}
+        <button type="button" class="sit" data-deel="4"><span class="vv-tnr">4</span>Antwoorden exporteren</button>
+      </div>
+    </div>
+
+    <section class="vv-deel" data-deel="1">
+      <div class="paneel vv-intro">
+        <h2>Deel 1 – De vrije val met vectoren</h2>
+        <p>Bij een <b>vrije val</b> werkt alleen de zwaartekracht op een voorwerp (we verwaarlozen de luchtweerstand). We kijken naar twee vectoren: de <b class="c-b">snelheidsvector ${VEC('v')}</b> en de <b class="c-a">versnellingsvector ${VEC('a')}</b>. Start de simulatie, zet de vectoren aan of uit en beantwoord de vragen.</p>
+      </div>
+      <div class="vv-lay">
+        <div class="paneel graf">
+          <div class="vv-balk">
+            <div class="vv-keuzes">
+              <div class="vv-keuze"><span class="lbl-klein">Voorwerp</span><div class="chips" id="vv-vw"><button type="button" class="sit" data-v="licht">Tennisbal (58 g)</button><button type="button" class="sit" data-v="zwaar">Bowlingbal (7 kg)</button></div></div>
+            </div>
+            <div class="knoppen"><button class="knop" type="button" id="vv-start1">▶ Start</button><button class="knop" type="button" id="vv-reset1">↺ Opnieuw</button></div>
+          </div>
+          <div class="ctrl vv-tijd"><label for="vv-t1">Tijdstip t (sleep om de tijd zelf in te stellen)</label><div class="rij"><input type="range" id="vv-t1" min="0" max="2.02" step="0.01" value="0"><input type="number" id="vv-t1n" min="0" max="5" step="0.1" value="0"><span class="eenh">s</span></div></div>
+          <div class="vv-balk">
+            <label class="vink"><input type="checkbox" id="vv-tv" checked><span class="c-b">Snelheidsvector ${VEC('v')}</span></label>
+            <label class="vink"><input type="checkbox" id="vv-ta" checked><span class="c-a">Versnellingsvector ${VEC('a')}</span></label>
+            <label class="vink"><input type="checkbox" id="vv-strobo">Momentopnames (elke 0,2 s)</label>
+          </div>
+          <div class="doek vv-doek1"><canvas id="vv-c1" role="img" aria-label="Simulatie van een vallende bal met snelheids- en versnellingsvector"></canvas></div>
+        </div>
+        <div class="paneel vv-vragen"><h3>Vragen</h3>${vragenBlok(1)}</div>
+      </div>
+      <div class="vv-verder"><button type="button" class="knop" data-naar="2">Verder naar deel 2: formules →</button></div>
+    </section>
+
+    <section class="vv-deel" data-deel="2" hidden>
+      <div class="paneel vv-intro vv-uitleg2">
+        <h2>Deel 2 – De formules</h2>
+        <p>De vrije val is een <b>eenparig veranderlijke beweging (EVB)</b>: de versnelling blijft constant. Je vertrekt dus van de algemene formules van de EVB:</p>
+        <div class="vv-formules">
+          <div class="vv-formule"><div class="vv-f">s = s<sub>begin</sub> + v<sub>begin</sub> · t + ${FRAC('a · t²', '2')}</div><p>de positie op tijdstip t</p></div>
+          <div class="vv-formule"><div class="vv-f">v = v<sub>begin</sub> + a · t</div><p>de snelheid op tijdstip t</p></div>
+        </div>
+        <h3>Toegepast op de vrije val</h3>
+        <ul class="vv-stappen">
+          <li>We kiezen de <b>y-as verticaal naar boven</b>, met de oorsprong op de grond. De positie s noemen we dus de hoogte <b>y</b>.</li>
+          <li>De bal start op de beginhoogte: s<sub>begin</sub> = <b>y<sub>begin</sub></b>.</li>
+          <li>De bal wordt losgelaten zonder beginsnelheid: v<sub>begin</sub> = <b>0</b>. De term v<sub>begin</sub> · t valt dus weg.</li>
+          <li>De versnelling is naar beneden gericht, tegen de y-as in: a = <b>−g</b>.</li>
+        </ul>
+        <p>Vul je dat in, dan krijg je de formules van de vrije val:</p>
+        <div class="vv-formules">
+          <div class="vv-formule vv-res"><div class="vv-f">y = y<sub>begin</sub> − ${FRAC('g · t²', '2')}</div><p>De hoogte neemt af. In de eerste seconde valt de bal 4,9 m, na 2 s al 19,6 m.</p></div>
+          <div class="vv-formule vv-res"><div class="vv-f">v = −g · t</div><p>De snelheid neemt elke seconde met 9,81 m/s toe, naar beneden. Daarom is v negatief.</p></div>
+        </div>
+        <h3>De zwaarteveldconstante g</h3>
+        <p>De versnelling van een vallend voorwerp is gelijk aan de <b>zwaarteveldconstante g</b>. Op aarde is <b>g = 9,81 N/kg</b>, en dat is hetzelfde als <b>9,81 m/s²</b>. In deel 1 zag je dat de massa van het voorwerp geen rol speelt: de tennisbal en de bowlingbal vallen even snel (als we de luchtweerstand verwaarlozen). De versnelling hangt wel af van de plaats waar je bent: op de Maan is g = 1,62 m/s², op Mars 3,71 m/s² en op Jupiter 24,8 m/s².</p>
+      </div>
+      <div class="paneel vv-vragen vv-breed"><h3>Oefeningen</h3><p class="uitleg klein vv-afspraak">Gebruik g = 9,81 m/s². <b>Rond niet af tijdens het rekenen</b>: reken met alle cijfers en geef je eindantwoord met minstens één cijfer na de komma (bv. 15,85). Gebruik een komma.</p>${vragenBlok(2)}</div>
+      <div class="vv-verder"><button type="button" class="knop" data-naar="1">← Deel 1</button><button type="button" class="knop" data-naar="3">Verder naar deel 3: grafieken →</button></div>
+    </section>
+
+    <section class="vv-deel" data-deel="3" hidden>
+      <div class="paneel vv-intro">
+        <h2>Deel 3 – Grafische voorstelling</h2>
+        <p>Laat de bal vallen. Terwijl hij valt, worden de <b>(y,t)-grafiek</b> (hoogte in functie van de tijd) en de <b>(v,t)-grafiek</b> (snelheid in functie van de tijd) getekend. Beweeg met de muis over een grafiek om waarden af te lezen.</p>
+      </div>
+      <div class="paneel graf">
+        <div class="vv-balk">
+          <div class="ctrl vv-y0"><label for="vv-h3">Beginhoogte y<sub>begin</sub></label><div class="rij"><input type="range" id="vv-h3" min="5" max="80" step="1"><input type="number" id="vv-h3n" min="5" max="80" step="1"><span class="eenh">m</span></div></div>
+          <label class="vink"><input type="checkbox" id="vv-strobo3">Momentopnames (elke 0,2 s)</label>
+          <div class="knoppen"><button class="knop" type="button" id="vv-start3">▶ Start</button><button class="knop" type="button" id="vv-reset3">↺ Opnieuw</button></div>
+        </div>
+        <div class="vv-grafrij">
+          <div class="doek vv-doek3a"><canvas id="vv-c3a" role="img" aria-label="Vallende bal"></canvas></div>
+          <div class="doek vv-doek3"><canvas id="vv-c3y" role="img" aria-label="(y,t)-grafiek"></canvas></div>
+          <div class="doek vv-doek3"><canvas id="vv-c3v" role="img" aria-label="(v,t)-grafiek: klik om een punt aan te duiden"></canvas></div>
+        </div>
+        <div class="vv-puntbalk"><span class="uitleg klein">Klik op de <b>(v,t)-grafiek</b> om een punt aan te duiden (maximaal twee punten).</span><button type="button" class="knop" id="vv-wispunten">✕ Punten verwijderen</button></div>
+      </div>
+      <div class="paneel vv-vragen vv-breed"><h3>Vragen</h3>${vragenBlok(3)}</div>
+      <div class="vv-verder"><button type="button" class="knop" data-naar="2">← Deel 2</button><button type="button" class="knop" data-naar="4">Verder naar 4: antwoorden exporteren →</button></div>
+    </section>
+
+    <section class="vv-deel" data-deel="4" hidden>
+      <div class="paneel vv-intro vv-export">
+        <h2>4 – Antwoorden exporteren</h2>
+        <p>Kijk na of je alle vragen beantwoord hebt. Exporteer daarna je antwoorden als pdf en geef dat pdf-bestand af aan je leerkracht.</p>
+        <div id="vv-overzicht" class="vv-overzicht"></div>
+        <button class="knop pa-pdf vv-groot" type="button" id="vv-pdf">⤓ Exporteer mijn antwoorden als pdf</button>
+        <p class="uitleg klein" id="vv-meld"></p>
+      </div>
+      <div class="vv-verder"><button type="button" class="knop" data-naar="3">← Deel 3</button></div>
+    </section>
+    </div>
+    <details class="paneel vv-lk" id="vv-lk">
+      <summary>Voor de leerkracht: overzicht van de ingediende pdf's</summary>
+      <p class="uitleg klein">Sleep de pdf's die je leerlingen indienden hieronder (of kies ze). Elke pdf bevat de naam, het starttijdstip, het tijdstip van afwerken, de duur en de score. Er wordt niets doorgestuurd: alles gebeurt in je eigen browser.</p>
+      <label class="vv-drop" id="vv-drop"><input type="file" id="vv-files" accept="application/pdf,.pdf" multiple hidden><span>📄 Sleep pdf's hierheen of klik om ze te kiezen</span></label>
+      <div class="vv-tabwrap"><table class="vv-tab" id="vv-lktab"></table></div>
+      <div class="knoppen"><button type="button" class="knop" id="vv-csv" hidden>⤓ Overzicht als csv (Excel)</button><button type="button" class="knop" id="vv-lkwis" hidden>Lijst leegmaken</button></div>
+    </details>
+  </div>`;
+
+  const $ = id => root.querySelector('#vv-' + id);
+
+  /* ---------- navigatie ---------- */
+  function toonDeel(nr, scroll = true) {
+    st.deel = nr;
+    if (nr === 4) overzicht();
+    root.querySelectorAll('.vv-deel').forEach(s => { s.hidden = +s.dataset.deel !== nr; });
+    root.querySelectorAll('#vv-tabs button').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.deel === nr)));
+    tekenAlles();
+    if (scroll) window.scrollTo({ top: root.getBoundingClientRect().top + window.scrollY - 10, behavior: 'smooth' });
+  }
+  $('tabs').addEventListener('click', e => { const b = e.target.closest('button[data-deel]'); if (b) toonDeel(+b.dataset.deel); });
+  root.addEventListener('click', e => { const b = e.target.closest('button[data-naar]'); if (b) toonDeel(+b.dataset.naar); });
+  /* ---------- start: eerst de naam ---------- */
+  const tijd = ms => new Date(ms).toLocaleString('nl-BE', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+  const duur = ms => { if (!(ms >= 0)) return '–'; const m = Math.round(ms / 60000); return m < 60 ? `${m} min` : `${Math.floor(m / 60)} u ${String(m % 60).padStart(2, '0')} min`; };
+  // het leerpad is enkel open op dinsdag 20 oktober 2026 van 8.00 tot 12.00 uur (behalve voor LEERKRACHT)
+  const OPEN = new Date(2026, 9, 20, 8, 0).getTime(), DICHT = new Date(2026, 9, 20, 12, 0).getTime();
+  const LK = 'LEERKRACHT';
+  const isLk = n => String(n || '').trim() === LK;
+  const venster = () => { const n = Date.now(); return n < OPEN ? 'voor' : n >= DICHT ? 'na' : 'open'; };
+  const vensterMeld = () => venster() === 'voor' ? 'Het leerpad is nog niet open. Je kunt pas starten op dinsdag 20 oktober om 8.00 uur.'
+    : venster() === 'na' ? 'Het leerpad is gesloten. Je kon het leerpad maken op dinsdag 20 oktober tot 12.00 uur.' : '';
+  $('naam').value = isLk(A.naam) ? '' : (A.naam || '');
+  const naamOk = () => isLk($('naam').value) || (venster() === 'open' && $('naam').value.trim().length >= 2);
+  const startStatus = () => { $('go').disabled = !naamOk(); $('startmeld').textContent = isLk($('naam').value) ? '' : vensterMeld(); $('startmeld').classList.toggle('vv-dicht', !!$('startmeld').textContent); };
+  $('naam').addEventListener('input', startStatus);
+  $('naam').addEventListener('keydown', e => { if (e.key === 'Enter' && naamOk()) start(); });
+  $('go').addEventListener('click', () => { if (naamOk()) start(); });
+  $('terug').addEventListener('click', () => {
+    if (!isLk(A.naam)) return;
+    try { localStorage.removeItem(OPSLAG); } catch (e) { }
+    location.reload();
+  });
+  function start() {
+    const nieuw = $('naam').value.trim().replace(/\s+/g, ' ');
+    if (!isLk(nieuw) && venster() !== 'open') { startStatus(); return; }
+    if (A.naam && A.naam !== nieuw) { A = { naam: nieuw, ant: {}, start: Date.now() }; bewaar(); location.reload(); return; }   // andere naam dan bewaard: met een leeg leerpad beginnen
+    A.naam = nieuw;
+    if (!A.start) A.start = Date.now();
+    bewaar(); open();
+  }
+  function open() {
+    $('start').hidden = true; $('inhoud').hidden = false;
+    $('wienaam').textContent = A.naam;
+    $('terug').hidden = !isLk(A.naam);
+    $('wielbl').textContent = isLk(A.naam) ? 'Bekijken als' : 'Leerling';
+    $('wiestart').textContent = 'gestart op ' + tijd(A.start);
+    toonDeel(st.deel, false);
+  }
+
+  /* ---------- vragen beantwoorden ---------- */
+  const leesGetal = s => { const t = String(s).trim().replace(/\s/g, '').replace('−', '-').replace(',', '.'); return t === '' || isNaN(+t) ? null : +t; };
+  function feedback(v) {
+    const a = A.ant[v.id], fb = root.querySelector('#vv-fb-' + v.id);
+    if (!fb) return;
+    if (!a || (v.type !== 'open' && a.juist == null)) { fb.innerHTML = ''; fb.className = 'vv-fb'; return; }
+    if (v.type === 'open') { fb.innerHTML = ''; return; }
+    if (v.type === 'reeks') root.querySelectorAll(`.vv-rin[data-id="${v.id}"]`).forEach((inp, k) => { inp.classList.toggle('goed', !!(a.goedK && a.goedK[k])); inp.classList.toggle('fout', !!(a.goedK && !a.goedK[k])); });
+    if (v.type === 'reeks' && a.goedK) root.querySelectorAll(`.vv-rin[data-id="${v.id}"]`).forEach((inp, k) => { if (a.goedK[k]) inp.disabled = true; });
+    if (a.juist) { fb.className = 'vv-fb goed'; fb.innerHTML = `✓ Juist! ${v.uitleg || ''}`; vergrendel(v); }
+    else {
+      fb.className = 'vv-fb fout';
+      let t = '✗ Nog niet juist. Probeer opnieuw.';
+      if (v.type === 'num' && a.waarde != null && v.teken && inBereik(v, a.waarde)) t = '✗ Bijna: de grootte klopt, maar let op het teken. In welke richting beweegt de bal?';
+      if (v.type === 'num' && a.waarde == null) t = '✗ Geef een getal in, bijvoorbeeld 2,5.';
+      if (v.type === 'reeks') {
+        const fout = a.goedK ? a.goedK.filter(x => !x).length : 4;
+        t = `✗ ${fout} van de ${v.tijden.length} waarden ${fout === 1 ? 'is' : 'zijn'} nog niet juist (rood omrand). Probeer opnieuw.`;
+        if (v.teken && a.waarden && a.waarden.every((x, k) => x != null && Math.abs(Math.abs(x) - Math.abs(v.juisten[k])) <= v.tol)) t = '✗ Bijna: de groottes kloppen, maar let op het teken. In welke richting beweegt de bal?';
+      }
+      fb.innerHTML = t;
+    }
+    tellers();
+  }
+  // een juist antwoord kan niet meer aangepast worden
+  function vergrendel(v) {
+    const q = root.querySelector(`.vv-vraag[data-vraag="${v.id}"]`); if (!q) return;
+    q.classList.add('vv-vast');
+    q.querySelectorAll('input, button.vv-check').forEach(el => { el.disabled = true; });
+  }
+  function overzicht() {
+    const el = $('overzicht'); if (!el) return;
+    el.innerHTML = DELEN.map(d => {
+      const n = d.vragen.length, k = d.vragen.filter(v => { const a = A.ant[v.id]; return a && (v.type === 'open' ? (a.tekst || '').trim().length > 0 : a.juist != null); }).length;
+      return `<div class="vv-ovrij ${k === n ? 'klaar' : ''}"><span>Deel ${d.nr} – ${d.titel}</span><b>${k}/${n} beantwoord</b>${k < n ? `<button type="button" class="weg" data-naar="${d.nr}">naar deel ${d.nr}</button>` : '<span class="vv-ok">✓</span>'}</div>`;
+    }).join('');
+  }
+  function tellers() {
+    DELEN.forEach(d => {
+      const n = d.vragen.length, k = d.vragen.filter(v => { const a = A.ant[v.id]; return a && (v.type === 'open' ? (a.tekst || '').trim().length > 0 : a.juist != null); }).length;
+      const el = $('tel-' + d.nr); if (el) el.textContent = `${k}/${n}`;
+    });
+  }
+  root.addEventListener('change', e => {
+    const r = e.target;
+    if (r.type === 'radio' && r.name.startsWith('vv-')) {
+      const id = r.name.slice(3), v = ALLE.find(q => q.id === id); if (!v) return;
+      const a = A.ant[id] || (A.ant[id] = { pogingen: 0 });
+      if (a.juist) { r.checked = false; const ok = root.querySelector(`input[name="vv-${id}"][value="${a.keuze}"]`); if (ok) ok.checked = true; return; }
+      a.keuze = +r.value; a.pogingen = (a.pogingen || 0) + 1; a.juist = a.keuze === v.juist; a.tekst = v.opties[a.keuze];
+      if (a.juist && a.eersteJuist == null) a.eersteJuist = a.pogingen === 1;
+      bewaar(); feedback(v);
+    }
+  });
+  root.addEventListener('input', e => {
+    const t = e.target;
+    if (t.classList.contains('vv-open')) { const a = A.ant[t.dataset.id] || (A.ant[t.dataset.id] = {}); a.tekst = t.value; bewaar(); tellers(); }
+    if (t.classList.contains('vv-rin')) { const v = ALLE.find(q => q.id === t.dataset.id), a = A.ant[t.dataset.id] || (A.ant[t.dataset.id] = { pogingen: 0 }); a.teksten = a.teksten || []; a.teksten[+t.dataset.k] = t.value; a.tekst = v.tijden.map((tt, k) => `t = ${tt} s: ${a.teksten[k] || '…'} ${v.eenh}`).join('; '); bewaar(); }
+    if (t.classList.contains('vv-in')) { const a = A.ant[t.dataset.id] || (A.ant[t.dataset.id] = { pogingen: 0 }); a.tekst = t.value; bewaar(); }
+  });
+  // afronding: alles wat tot op één cijfer na de komma juist is, telt (ook fout afgerond), bv. 29,43 → 29,4 tot 29,5
+  function inBereik(v, x) {
+    if (!v.afronding) return Math.abs(Math.abs(x) - Math.abs(v.juist)) <= v.tol;
+    const tr = Math.abs(v.juist), lo = Math.floor(tr * 10 + 1e-9) / 10;
+    return Math.abs(x) >= lo - 1e-9 && Math.abs(x) <= lo + 0.1 + 1e-9;
+  }
+  function klopt(v, x) { return inBereik(v, x) && (Math.sign(x) === Math.sign(v.juist) || x === 0 && v.juist === 0); }
+  function controleer(id) {
+    const v = ALLE.find(q => q.id === id);
+    const a = A.ant[id] || (A.ant[id] = { pogingen: 0 });
+    if (a.juist) return;
+    if (v.type === 'reeks') {
+      const ins = [...root.querySelectorAll(`.vv-rin[data-id="${id}"]`)];
+      a.teksten = ins.map(x => x.value); a.waarden = a.teksten.map(leesGetal); a.pogingen = (a.pogingen || 0) + 1;
+      a.goedK = a.waarden.map((x, k) => x != null && Math.abs(x - v.juisten[k]) <= v.tol);
+      a.juist = a.goedK.every(Boolean);
+      a.tekst = v.tijden.map((tt, k) => `t = ${tt} s: ${a.teksten[k] || '…'} ${v.eenh}`).join('; ');
+      bewaar(); feedback(v); root.querySelector(`.vv-opl[data-id="${id}"]`).hidden = false; return;
+    }
+    const inp = root.querySelector(`.vv-in[data-id="${id}"]`);
+    a.tekst = inp.value; a.waarde = leesGetal(inp.value); a.pogingen = (a.pogingen || 0) + 1;
+    a.juist = a.waarde != null && klopt(v, a.waarde);
+    bewaar(); feedback(v);
+    const ob = root.querySelector(`.vv-opl[data-id="${id}"]`); if (ob) ob.hidden = false;
+  }
+  root.addEventListener('click', e => {
+    const c = e.target.closest('.vv-check'); if (c) { controleer(c.dataset.id); return; }
+    const o = e.target.closest('.vv-opl');
+    if (o) { const uw = $('uw-' + o.dataset.id); uw.hidden = !uw.hidden; const a = A.ant[o.dataset.id] || (A.ant[o.dataset.id] = { pogingen: 0 }); if (!uw.hidden) { a.uitwerking = true; bewaar(); } o.textContent = uw.hidden ? 'Toon uitwerking' : 'Verberg uitwerking'; }
+  });
+  root.addEventListener('keydown', e => { if (e.key === 'Enter' && (e.target.classList.contains('vv-in') || e.target.classList.contains('vv-rin'))) controleer(e.target.dataset.id); });
+  ALLE.forEach(v => { const a = A.ant[v.id]; if (a && a.uitwerking && v.oplossing) { $('uw-' + v.id).hidden = false; const b = root.querySelector(`.vv-opl[data-id="${v.id}"]`); if (b) { b.hidden = false; b.textContent = 'Verberg uitwerking'; } } feedback(v); });
+  tellers();
+
+  /* ---------- tekenhulp ---------- */
+  function vecLabel(ctx, x, y, letter, kleur) {
+    ctx.fillStyle = kleur; ctx.font = 'italic 600 15px ' + css('--f-body'); ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+    ctx.fillText(letter, x, y);
+    const w = ctx.measureText(letter).width;
+    ctx.strokeStyle = kleur; ctx.lineWidth = 1.3; ctx.beginPath(); ctx.moveTo(x, y - 11); ctx.lineTo(x + w + 1, y - 11); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(x + w + 1, y - 11); ctx.lineTo(x + w - 2, y - 13.5); ctx.moveTo(x + w + 1, y - 11); ctx.lineTo(x + w - 2, y - 8.5); ctx.stroke();
+  }
+  function bal(ctx, x, y, r, zwaar = false, alfa = 1) {
+    ctx.globalAlpha = alfa;
+    const gr = ctx.createRadialGradient(x - r * 0.35, y - r * 0.35, r * 0.1, x, y, r);
+    if (zwaar) { gr.addColorStop(0, '#8fa3c7'); gr.addColorStop(1, '#2b3a5c'); } else { gr.addColorStop(0, '#f4ffb0'); gr.addColorStop(1, '#b8d12a'); }
+    ctx.fillStyle = gr; ctx.beginPath(); ctx.arc(x, y, r, 0, 7); ctx.fill();
+    ctx.globalAlpha = 1;
+  }
+
+  /* ---------- deel 1: simulatie met vectoren ---------- */
+  const s1 = { t: 0, loopt: false, tv: true, ta: true, strobo: false, vw: 'licht' };
+  const Y01 = 100;
+  const g1 = () => G;
+  const yv1 = t => Y01 - 0.5 * g1() * t * t;
+  const vv1 = t => -g1() * t;
+  const tEind1 = () => Math.sqrt(2 * Y01 / g1());
+  function kies1() {
+    root.querySelectorAll('#vv-vw button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === s1.vw)));
+    $('start1').textContent = s1.loopt ? '⏸ Pauze' : (s1.t > 0 && s1.t < tEind1() - 1e-9 ? '▶ Verder' : '▶ Start');
+    $('t1').max = rondAf(tEind1()); $('t1n').max = rondAf(tEind1());
+  }
+  const zetT1 = () => { $('t1').value = s1.t; $('t1n').value = (Math.round(s1.t * 100) / 100); };
+  $('vw').addEventListener('click', e => { const b = e.target.closest('button[data-v]'); if (!b) return; s1.vw = b.dataset.v; s1.t = 0; s1.loopt = false; kies1(); zetT1(); teken1(); });
+  $('start1').addEventListener('click', () => { if (s1.t >= tEind1() - 1e-9) s1.t = 0; s1.loopt = !s1.loopt; kies1(); lus(); });
+  $('reset1').addEventListener('click', () => { s1.t = 0; s1.loopt = false; kies1(); zetT1(); teken1(); });
+  const tijdIn = v => { let x = parseFloat(String(v).replace(',', '.')); if (!isFinite(x)) return; s1.t = Math.min(tEind1(), Math.max(0, x)); s1.loopt = false; kies1(); teken1(); };
+  $('t1').addEventListener('input', () => { tijdIn($('t1').value); $('t1n').value = Math.round(s1.t * 100) / 100; });
+  $('t1n').addEventListener('change', () => { tijdIn($('t1n').value); $('t1').value = s1.t; });
+  [['tv', 'tv'], ['ta', 'ta'], ['strobo', 'strobo']].forEach(([id, k]) => $(id).addEventListener('change', () => { s1[k] = $(id).checked; teken1(); }));
+  function teken1() {
+    const cv = $('c1'); const { ctx, w, h } = prepCanvas(cv);
+    const top = 34, bodem = h - 40, ymax = 105;
+    const k = (bodem - top) / ymax, Y = y => bodem - y * k;
+    const xb = Math.round(w * 0.3), kv = Math.min(3.4, k * 0.6), zwaar = s1.vw === 'zwaar', r = zwaar ? 14 : 8;
+    // lucht/grond en hoogteschaal
+    ctx.fillStyle = css('--panel-2'); ctx.fillRect(0, bodem, w, h - bodem);
+    ctx.strokeStyle = css('--axis'); ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(0, bodem); ctx.lineTo(w, bodem); ctx.stroke();
+    ctx.font = '12px ' + css('--f-mono'); ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+    for (let y = 0; y <= ymax; y += 10) {
+      ctx.strokeStyle = y % 50 === 0 ? css('--line') : css('--grid'); ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(44, Y(y)); ctx.lineTo(w, Y(y)); ctx.stroke();
+      ctx.fillStyle = css('--muted'); ctx.fillText(`${y} m`, 40, Y(y));
+    }
+    ctx.fillStyle = css('--muted'); ctx.font = '12px ' + css('--f-body'); ctx.textAlign = 'right'; ctx.textBaseline = 'top';
+    ctx.textBaseline = 'bottom';
+    ctx.fillText('Aarde: g = 9,81 m/s²', w - 10, bodem - 26);
+    ctx.fillText(zwaar ? 'bowlingbal, m = 7 kg' : 'tennisbal, m = 58 g', w - 10, bodem - 8);
+    // startplatform
+    ctx.fillStyle = css('--axis'); ctx.fillRect(xb - 46, Y(Y01) + r + 1, 38, 5);
+    const te = tEind1(), t = Math.min(s1.t, te);
+    // momentopnames op dezelfde lijn (zonder vectoren)
+    if (s1.strobo) {
+      let vorigY = -1e9;
+      for (let i = 0; i * 0.2 <= t + 1e-9; i++) {
+        const ti = i * 0.2, y = Y(yv1(ti));
+        bal(ctx, xb, y, r, zwaar, 0.38);
+        ctx.strokeStyle = css('--axis'); ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(xb - r - 4, y); ctx.lineTo(xb - r - 14, y); ctx.stroke();
+        if (y - vorigY > 15) { ctx.fillStyle = css('--muted'); ctx.font = '11px ' + css('--f-mono'); ctx.textAlign = 'right'; ctx.textBaseline = 'middle'; ctx.fillText(`${f2(ti, 1)} s`, xb - r - 18, y); vorigY = y; }
+      }
+    }
+    // bal en vectoren
+    const yb = Y(yv1(t)), v = vv1(t), g = g1();
+    bal(ctx, xb, yb, r, zwaar);
+    if (s1.tv && Math.abs(v) > 0.05) { pijl(ctx, xb + r + 10, yb, xb + r + 10, yb - v * kv, css('--b'), 3.5); vecLabel(ctx, xb + r + 20, yb - v * kv / 2, 'v', css('--b')); }
+    if (s1.ta) { pijl(ctx, xb + r + 46, yb, xb + r + 46, yb + g * kv, css('--a'), 3.5); vecLabel(ctx, xb + r + 56, yb + g * kv / 2, 'a', css('--a')); }
+    // waarden naast de bal
+    const bx = xb + r + 92, regels = [['t', `${f2(t, 2)} s`, css('--fg')], ['y', `${f2(yv1(t), 2)} m`, css('--fg')], ['v', `${f2(v, 2)} m/s`, css('--b')], ['a', `−${f2(g, 2)} m/s²`, css('--a')]];
+    const bh = regels.length * 22 + 14, by = Math.min(Math.max(yb - bh / 2, 6), bodem - bh - 4), bw = 176;
+    ctx.fillStyle = css('--panel-2'); ctx.strokeStyle = css('--line'); ctx.lineWidth = 1; ctx.beginPath(); ctx.roundRect(bx, by, bw, bh, 8); ctx.fill(); ctx.stroke();
+    ctx.strokeStyle = css('--axis'); ctx.setLineDash([3, 3]); ctx.beginPath(); ctx.moveTo(xb + r + 4, yb); ctx.lineTo(bx, Math.min(Math.max(yb, by + 8), by + bh - 8)); ctx.stroke(); ctx.setLineDash([]);
+    regels.forEach(([n, val, kl], k2) => {
+      const yy = by + 18 + k2 * 22;
+      ctx.font = 'italic 600 15px ' + css('--f-body'); ctx.fillStyle = kl; ctx.textAlign = 'left'; ctx.textBaseline = 'middle'; ctx.fillText(n, bx + 12, yy);
+      ctx.font = '600 14px ' + css('--f-mono'); ctx.fillText('= ' + val, bx + 30, yy);
+    });
+  }
+
+  /* ---------- deel 3: grafieken ---------- */
+  const s3 = { y0: 20, t: 0, loopt: false, hover: null, pts: [], strobo: false };
+  const r3 = $('h3'), n3 = $('h3n');
+  const zet3 = (val, bron) => { let x = parseFloat(String(val).replace(',', '.')); if (!isFinite(x)) return; x = Math.min(80, Math.max(5, Math.round(x))); s3.y0 = x; s3.pts = []; if (bron !== r3) r3.value = x; if (bron !== n3) n3.value = x; s3.t = 0; s3.loopt = false; kies3(); teken3(); };
+  r3.addEventListener('input', () => zet3(r3.value, r3)); n3.addEventListener('change', () => zet3(n3.value, n3));
+  r3.value = n3.value = s3.y0;
+  const tEind3 = () => Math.sqrt(2 * s3.y0 / G);
+  function kies3() { $('start3').textContent = s3.loopt ? '⏸ Pauze' : (s3.t > 0 && s3.t < tEind3() ? '▶ Verder' : '▶ Start'); }
+  $('start3').addEventListener('click', () => { if (s3.t >= tEind3() - 1e-9) s3.t = 0; s3.loopt = !s3.loopt; kies3(); lus(); });
+  $('reset3').addEventListener('click', () => { s3.pts = []; s3.t = 0; s3.loopt = false; kies3(); teken3(); });
+  function grafiek(cv, soort) {
+    const { ctx, w, h } = prepCanvas(cv);
+    const te = tEind3(), tmax = Math.max(1, Math.ceil(te * 2) / 2), ML = 48, MR = 14, MT = 26, MB = 32;
+    const X = t => ML + t / tmax * (w - ML - MR);
+    let lo, hi, stap, f, kleur, naam, eenh;
+    if (soort === 'y') { lo = 0; const r = niceRange(0, s3.y0); hi = r.max; stap = r.step; f = t => s3.y0 - 0.5 * G * t * t; kleur = css('--a'); naam = 'y'; eenh = 'm'; }
+    else { const r = niceRange(-G * te, 0); lo = r.min; hi = 0; stap = r.step; f = t => -G * t; kleur = css('--b'); naam = 'v'; eenh = 'm/s'; }
+    const Y = v => MT + (hi - v) / (hi - lo) * (h - MT - MB);
+    ctx.font = '11px ' + css('--f-mono'); ctx.lineWidth = 1;
+    for (let v = lo; v <= hi + 1e-9; v += stap) { ctx.strokeStyle = css('--grid'); ctx.beginPath(); ctx.moveTo(ML, Y(v)); ctx.lineTo(w - MR, Y(v)); ctx.stroke(); ctx.fillStyle = css('--muted'); ctx.textAlign = 'right'; ctx.textBaseline = 'middle'; ctx.fillText(fmt(v), ML - 6, Y(v)); }
+    const ts = tmax > 4 ? 1 : 0.5;
+    for (let t = 0; t <= tmax + 1e-9; t += ts) { ctx.strokeStyle = css('--grid'); ctx.beginPath(); ctx.moveTo(X(t), MT); ctx.lineTo(X(t), h - MB); ctx.stroke(); ctx.fillStyle = css('--muted'); ctx.textAlign = 'center'; ctx.textBaseline = 'top'; ctx.fillText(fmt(t), X(t), h - MB + 6); }
+    ctx.strokeStyle = css('--axis'); ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(ML, MT - 6); ctx.lineTo(ML, h - MB); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(ML, Y(0)); ctx.lineTo(w - MR + 4, Y(0)); ctx.stroke();
+    ctx.fillStyle = css('--fg'); ctx.font = '600 13px ' + css('--f-mono'); ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+    ctx.fillText(`${naam} (${eenh})`, ML + 6, MT - 8);
+    ctx.textAlign = 'right'; ctx.textBaseline = soort === 'y' ? 'bottom' : 'top'; ctx.fillText('t (s)', w - MR, soort === 'y' ? Y(0) - 4 : Y(0) + 4);
+    // kromme tot nu
+    const tn = Math.min(s3.t, te);
+    ctx.strokeStyle = kleur; ctx.lineWidth = 2.6; ctx.beginPath();
+    for (let i = 0; i <= 120; i++) { const t = tn * i / 120; i ? ctx.lineTo(X(t), Y(f(t))) : ctx.moveTo(X(t), Y(f(t))); }
+    ctx.stroke();
+    if (s3.t > 0) { ctx.fillStyle = kleur; ctx.beginPath(); ctx.arc(X(tn), Y(f(tn)), 5, 0, 7); ctx.fill(); }
+    if (s3.strobo && soort === 'y') { ctx.fillStyle = css('--fg'); for (let i = 0; i * 0.2 <= tn + 1e-9; i++) { ctx.beginPath(); ctx.arc(X(i * 0.2), Y(f(i * 0.2)), 3, 0, 7); ctx.fill(); } }
+    // aflezen
+    if (s3.hover != null && s3.hover <= tn + 1e-9) {
+      const t = s3.hover, px = X(t), py = Y(f(t));
+      ctx.setLineDash([4, 4]); ctx.strokeStyle = css('--fg'); ctx.globalAlpha = .6; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(px, MT); ctx.lineTo(px, h - MB); ctx.moveTo(ML, py); ctx.lineTo(px, py); ctx.stroke(); ctx.setLineDash([]); ctx.globalAlpha = 1;
+      const t1 = `t = ${f2(t, 2)} s`, t2 = `${naam} = ${f2(f(t), 2)} ${eenh}`;
+      ctx.font = '600 12px ' + css('--f-mono'); const bw = Math.max(ctx.measureText(t1).width, ctx.measureText(t2).width) + 16;
+      let bx = px + 10; if (bx + bw > w - 4) bx = px - bw - 10; const by = Math.min(Math.max(py - 44, 4), h - 44);
+      ctx.fillStyle = css('--panel-2'); ctx.fillRect(bx, by, bw, 38); ctx.strokeStyle = kleur; ctx.strokeRect(bx + .5, by + .5, bw - 1, 37);
+      ctx.fillStyle = css('--muted'); ctx.textAlign = 'left'; ctx.textBaseline = 'middle'; ctx.fillText(t1, bx + 8, by + 12); ctx.fillStyle = kleur; ctx.fillText(t2, bx + 8, by + 27);
+    }
+    // aangeduide punten (alleen op de (v,t)-grafiek)
+    if (soort === 'v' && s3.pts.length) {
+      const P = s3.pts.map(t => ({ t, v: f(t), x: X(t), y: Y(f(t)) }));
+      if (P.length === 2) {   // hulplijnen Δt en Δv
+        const [a, b] = P[0].t <= P[1].t ? P : [P[1], P[0]];
+        ctx.setLineDash([5, 4]); ctx.strokeStyle = css('--fg'); ctx.lineWidth = 1.3;
+        ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); ctx.setLineDash([]);
+        ctx.fillStyle = css('--fg'); ctx.font = 'italic 600 13px ' + css('--f-body');
+        ctx.textAlign = 'center'; ctx.textBaseline = 'bottom'; ctx.fillText('Δt', (a.x + b.x) / 2, a.y - 4);
+        ctx.textAlign = 'left'; ctx.textBaseline = 'middle'; ctx.fillText('Δv', b.x + 6, (a.y + b.y) / 2);
+      }
+      P.forEach((p, k) => {
+        ctx.fillStyle = css('--bg'); ctx.strokeStyle = css('--fg'); ctx.lineWidth = 2.5;
+        ctx.beginPath(); ctx.arc(p.x, p.y, 6, 0, 7); ctx.fill(); ctx.stroke();
+        const lab = `P${k + 1} (${f2(p.t, 1)} s ; ${f2(p.v, 2)} m/s)`;
+        ctx.font = '600 12px ' + css('--f-mono'); const tw = ctx.measureText(lab).width;
+        let lx = p.x - tw - 12; if (lx < ML + 4) lx = p.x + 12;
+        ctx.fillStyle = css('--panel'); ctx.globalAlpha = .9; ctx.fillRect(lx - 4, p.y - 22, tw + 8, 18); ctx.globalAlpha = 1;
+        ctx.fillStyle = css('--fg'); ctx.textAlign = 'left'; ctx.textBaseline = 'middle'; ctx.fillText(lab, lx, p.y - 13);
+      });
+    }
+    if (soort === 'v' && s3.t === 0) {
+      ctx.fillStyle = css('--muted'); ctx.font = '13px ' + css('--f-body'); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText('Laat eerst de bal vallen.', (ML + w - MR) / 2, MT + 30);
+    }
+    cv._X = { ML, MR, tmax };
+  }
+  function teken3() {
+    const cv = $('c3a'); const { ctx, w, h } = prepCanvas(cv);
+    const top = 26, bodem = h - 32, r = niceRange(0, s3.y0), k = (bodem - top) / r.max, Y = y => bodem - y * k;
+    ctx.fillStyle = css('--panel-2'); ctx.fillRect(0, bodem, w, h - bodem);
+    ctx.strokeStyle = css('--axis'); ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(0, bodem); ctx.lineTo(w, bodem); ctx.stroke();
+    ctx.font = '11px ' + css('--f-mono'); ctx.fillStyle = css('--muted'); ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+    for (let y = 0; y <= r.max + 1e-9; y += r.step) { ctx.strokeStyle = css('--grid'); ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(0, Y(y)); ctx.lineTo(w, Y(y)); ctx.stroke(); ctx.fillText(`${fmt(y)} m`, 4, Y(y) - 7); }
+    const t = Math.min(s3.t, tEind3());
+    if (s3.strobo) {
+      let vorigY = -1e9;
+      for (let i = 0; i * 0.2 <= t + 1e-9; i++) {
+        const ti = i * 0.2, yy = Y(s3.y0 - 0.5 * G * ti * ti);
+        bal(ctx, w * 0.62, yy, 9, false, 0.38);
+        if (yy - vorigY > 13) { ctx.fillStyle = css('--muted'); ctx.font = '10px ' + css('--f-mono'); ctx.textAlign = 'right'; ctx.textBaseline = 'middle'; ctx.fillText(`${f2(ti, 1)} s`, w * 0.62 - 13, yy); vorigY = yy; }
+      }
+    }
+    bal(ctx, w * 0.62, Y(s3.y0 - 0.5 * G * t * t), 9);
+    grafiek($('c3y'), 'y'); grafiek($('c3v'), 'v');
+  }
+  [$('c3y'), $('c3v')].forEach(cv => {
+    const zet = e => { const r = cv.getBoundingClientRect(), m = cv._X; if (!m) return; const t = (e.clientX - r.left - m.ML) / (r.width - m.ML - m.MR) * m.tmax; s3.hover = t >= 0 && t <= m.tmax ? t : null; teken3(); };
+    cv.addEventListener('pointermove', zet); cv.addEventListener('pointerdown', zet);
+    cv.addEventListener('pointerleave', () => { s3.hover = null; teken3(); });
+  });
+  // punten aanduiden op de (v,t)-grafiek
+  $('c3v').addEventListener('click', e => {
+    const cv = $('c3v'), r = cv.getBoundingClientRect(), m = cv._X; if (!m) return;
+    let t = (e.clientX - r.left - m.ML) / (r.width - m.ML - m.MR) * m.tmax;
+    const tmaxNu = Math.min(s3.t, tEind3()); if (tmaxNu <= 0) return;
+    t = Math.round(t * 10) / 10; t = Math.min(Math.floor(tmaxNu * 10) / 10, Math.max(0, t));
+    if (s3.pts.some(p => Math.abs(p - t) < 1e-9)) return;
+    s3.pts.push(t); if (s3.pts.length > 2) s3.pts.shift();
+    teken3();
+  });
+  $('wispunten').addEventListener('click', () => { s3.pts = []; teken3(); });
+  $('strobo3').addEventListener('change', () => { s3.strobo = $('strobo3').checked; teken3(); });
+
+  /* ---------- animatie ---------- */
+  let raf = null, vorig = null;
+  function lus() {
+    if (raf) return;
+    vorig = null;
+    const stap = ts => {
+      const dt = vorig == null ? 0 : Math.min(0.05, (ts - vorig) / 1000); vorig = ts;
+      let actief = false;
+      if (s1.loopt) { s1.t += dt * 0.5; if (s1.t >= tEind1()) { s1.t = tEind1(); s1.loopt = false; kies1(); } else actief = true; zetT1(); if (st.deel === 1) teken1(); }
+      if (s3.loopt) { s3.t += dt; if (s3.t >= tEind3()) { s3.t = tEind3(); s3.loopt = false; kies3(); } else actief = true; if (st.deel === 3) teken3(); }
+      raf = actief ? requestAnimationFrame(stap) : null;
+    };
+    raf = requestAnimationFrame(stap);
+  }
+  function tekenAlles() { if (st.deel === 1) teken1(); if (st.deel === 3) teken3(); }
+
+  /* ---------- pdf ---------- */
+  function metadata() {
+    const auto = ALLE.filter(v => v.type !== 'open');
+    const delen = {}; DELEN.forEach(d => { delen[d.nr] = d.vragen.filter(v => { const a = A.ant[v.id]; return a && (v.type === 'open' ? (a.tekst || '').trim() : a.juist != null); }).length + '/' + d.vragen.length; });
+    return { leerpad: 'vrije val', klas: '4EMT', naam: A.naam, start: A.start || null, einde: A.einde || null,
+      score: auto.filter(v => A.ant[v.id] && A.ant[v.id].juist).length, max: auto.length, delen,
+      vragen: Object.fromEntries(ALLE.map(v => { const a = A.ant[v.id] || {}; return [v.id, { juist: a.juist == null ? null : a.juist, pogingen: a.pogingen || 0 }]; })) };
+  }
+  function maakPdf(canvassen) {
+    const enc = s => { const u = new Uint8Array(s.length); for (let i = 0; i < s.length; i++) u[i] = s.charCodeAt(i) & 255; return u; };
+    const delen = []; let pos = 0; const offs = [];
+    const add = d => { const u = typeof d === 'string' ? enc(d) : d; delen.push(u); pos += u.length; };
+    const N = canvassen.length, W = 595.28, H = 841.89;
+    add('%PDF-1.4\n%\xE2\xE3\xCF\xD3\n');
+    add('%VRIJEVAL-DATA ' + btoa(unescape(encodeURIComponent(JSON.stringify(metadata())))) + '\n');
+    const obj = (nr, body) => { offs[nr] = pos; add(`${nr} 0 obj\n`); body(); add('\nendobj\n'); };
+    obj(1, () => add('<< /Type /Catalog /Pages 2 0 R >>'));
+    obj(2, () => add(`<< /Type /Pages /Count ${N} /Kids [${canvassen.map((_, i) => `${3 + 3 * i} 0 R`).join(' ')}] >>`));
+    canvassen.forEach((cv, i) => {
+      const p = 3 + 3 * i;
+      obj(p, () => add(`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${W} ${H}] /Resources << /XObject << /Im${i} ${p + 2} 0 R >> >> /Contents ${p + 1} 0 R >>`));
+      const inh = `q ${W} 0 0 ${H} 0 0 cm /Im${i} Do Q`;
+      obj(p + 1, () => add(`<< /Length ${inh.length} >>\nstream\n${inh}\nendstream`));
+      const bin = atob(cv.toDataURL('image/jpeg', 0.88).split(',')[1]);
+      obj(p + 2, () => { add(`<< /Type /XObject /Subtype /Image /Width ${cv.width} /Height ${cv.height} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${bin.length} >>\nstream\n`); add(enc(bin)); add('\nendstream'); });
+    });
+    const nObj = 3 + 3 * N, xref = pos;
+    let x = `xref\n0 ${nObj}\n0000000000 65535 f \n`;
+    for (let i = 1; i < nObj; i++) x += String(offs[i]).padStart(10, '0') + ' 00000 n \n';
+    add(x + `trailer\n<< /Size ${nObj} /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF`);
+    return new Blob(delen, { type: 'application/pdf' });
+  }
+  const zonderHtml = s => s.replace(/<span class="vv-frac"><span>(.*?)<\/span><span>(.*?)<\/span><\/span>/g, '($1)/$2').replace(/<span class="vv-vec">(.)<\/span>/g, '$1').replace(/<sub>(.*?)<\/sub>/g, '$1').replace(/<[^>]+>/g, '').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+  function paginas() {
+    const PW = 1240, PH = 1754, K = PW / 21, M = 1.6 * K, fam = css('--f-body'), mono = css('--f-mono');
+    const pag = []; let cv, ctx, y;
+    const nieuw = () => {
+      cv = document.createElement('canvas'); cv.width = PW; cv.height = PH; ctx = cv.getContext('2d');
+      ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, PW, PH); pag.push(cv); y = M;
+      ctx.fillStyle = '#777'; ctx.font = `${0.26 * K}px ${fam}`; ctx.textAlign = 'right'; ctx.textBaseline = 'alphabetic';
+      ctx.fillText(`Leerpad vrije val · ${A.naam || ''} · blad ${pag.length}`, PW - M, PH - 0.7 * K); ctx.textAlign = 'left';
+    };
+    const ruimte = n => { if (y + n > PH - 1.4 * K) nieuw(); };
+    const tekst = (s, size, kleur = '#000', gewicht = 400, inspring = 0, lijn = 1.38) => {
+      ctx.font = `${gewicht} ${size}px ${fam}`; ctx.fillStyle = kleur; ctx.textBaseline = 'top';
+      const maxW = PW - 2 * M - inspring;
+      String(s).split('\n').forEach(par => {
+        const woorden = par.split(' '); let r = '';
+        const schrijf = q => { ruimte(size * lijn); ctx.fillText(q, M + inspring, y); y += size * lijn; };
+        woorden.forEach(wd => { const test = r ? r + ' ' + wd : wd; if (ctx.measureText(test).width > maxW && r) { schrijf(r); r = wd; } else r = test; });
+        schrijf(r || ' ');
+      });
+    };
+    nieuw();
+    tekst('Leerpad: de vrije val', 0.62 * K, '#000', 700);
+    y += 0.1 * K;
+    tekst(`Naam: ${A.naam || '(geen naam ingevuld)'}     Klas: 4EMT`, 0.32 * K, '#333');
+    tekst(`Gestart: ${A.start ? tijd(A.start) : '–'}     Afgewerkt: ${A.einde ? tijd(A.einde) : '–'}     Duur: ${A.start && A.einde ? duur(A.einde - A.start) : '–'}`, 0.32 * K, '#333');
+    const auto = ALLE.filter(v => v.type !== 'open'), goed = auto.filter(v => A.ant[v.id] && A.ant[v.id].juist).length;
+    tekst(`Automatisch nagekeken: ${goed} van ${auto.length} juist`, 0.32 * K, '#333');
+    DELEN.forEach((d, di) => {
+      if (di > 0) nieuw(); else { y += 0.4 * K; ruimte(1.2 * K); }
+      tekst(`Deel ${d.nr} – ${d.titel}`, 0.44 * K, '#000', 700);
+      d.vragen.forEach((v, i) => {
+        y += 0.18 * K; ruimte(1.4 * K);
+        if (v.kop) { y += 0.1 * K; tekst(`${v.kop}: ${zonderHtml(v.context)}`, 0.3 * K, '#000', 700); }
+        tekst(`${v.label || i + 1}. ${zonderHtml(v.vraag)}`, 0.3 * K, '#000', 600);
+        const a = A.ant[v.id] || {};
+        let ant = a.tekst && String(a.tekst).trim() ? String(a.tekst).trim() : '(niet beantwoord)';
+        if (v.type === 'num' && a.tekst) ant += ' ' + v.eenh;
+        tekst('Antwoord: ' + zonderHtml(ant), 0.3 * K, '#1b3a8a', 400, 0.4 * K);
+        if (v.type !== 'open') {
+          const st2 = a.juist == null ? 'niet nagekeken' : a.juist ? '✓ juist' : '✗ niet juist';
+          tekst(`${st2}${a.pogingen ? ` · pogingen: ${a.pogingen}` : ''}${a.uitwerking ? ' · uitwerking bekeken' : ''}`, 0.26 * K, a.juist ? '#1a7f3c' : a.juist == null ? '#777' : '#b42318', 400, 0.4 * K);
+        }
+      });
+    });
+    return pag;
+  }
+  async function exporteer() {
+    const meld = $('meld'), oud = meld.textContent;
+    if (!(A.naam || '').trim()) return;
+    try { await document.fonts.ready; } catch (e) { }
+    A.einde = Date.now();
+    const blob = maakPdf(paginas());
+    const naam = `vrije-val-${A.naam.trim().replace(/[^\p{L}\p{N}]+/gu, '-').replace(/^-|-$/g, '').toLowerCase() || 'antwoorden'}.pdf`;
+    let dl = null;
+    try { dl = window.claude && window.claude.use ? await window.claude.use('downloads') : null; } catch (e) { dl = null; }
+    if (dl) { try { await dl.save({ filename: naam, data: blob }); meld.textContent = 'Het pdf is klaar. Je mag het leerpad nu sluiten.'; } catch (e) { if (e && e.code !== 'declined') meld.textContent = 'Opslaan lukte niet in deze weergave.'; } }
+    else { const url = URL.createObjectURL(blob), a = document.createElement('a'); a.href = url; a.download = naam; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 4000); meld.textContent = 'Het pdf is klaar. Je mag het leerpad nu sluiten.'; }
+  }
+  $('pdf').addEventListener('click', exporteer);
+
+  /* ---------- overzicht voor de leerkracht ---------- */
+  const lk = [];
+  function leesPdf(file) {
+    return file.arrayBuffer().then(buf => {
+      const txt = new TextDecoder('latin1').decode(new Uint8Array(buf).subarray(0, Math.min(buf.byteLength, 200000)));
+      const m = txt.match(/%VRIJEVAL-DATA ([A-Za-z0-9+/=]+)/);
+      if (!m) return { bestand: file.name, fout: 'geen leerpad-pdf' };
+      try { return { bestand: file.name, ...JSON.parse(decodeURIComponent(escape(atob(m[1])))) }; } catch (e) { return { bestand: file.name, fout: 'onleesbaar' }; }
+    });
+  }
+  async function voegToe(files) {
+    for (const f of files) { const r = await leesPdf(f); const i = lk.findIndex(x => x.naam && x.naam === r.naam); if (i >= 0 && !r.fout) lk[i] = r; else lk.push(r); }
+    lk.sort((a, b) => (a.naam || a.bestand).localeCompare(b.naam || b.bestand, 'nl'));
+    tekenLk();
+  }
+  function tekenLk() {
+    $('lktab').innerHTML = lk.length ? `<thead><tr><th>leerling</th><th>gestart</th><th>afgewerkt</th><th>duur</th><th>score</th><th>deel 1</th><th>deel 2</th><th>deel 3</th></tr></thead><tbody>` +
+      lk.map(r => r.fout ? `<tr><td>${r.bestand.replace(/</g, '&lt;')}</td><td colspan="7" class="vv-lkfout">${r.fout}</td></tr>` :
+        `<tr><td><b>${String(r.naam || '').replace(/</g, '&lt;')}</b></td><td>${r.start ? tijd(r.start) : '–'}</td><td>${r.einde ? tijd(r.einde) : '–'}</td><td>${r.start && r.einde ? duur(r.einde - r.start) : '–'}</td><td>${r.score}/${r.max}</td><td>${r.delen[1]}</td><td>${r.delen[2]}</td><td>${r.delen[3]}</td></tr>`).join('') + '</tbody>' : '';
+    $('csv').hidden = $('lkwis').hidden = !lk.length;
+  }
+  $('files').addEventListener('change', e => { voegToe([...e.target.files]); e.target.value = ''; });
+  const drop = $('drop');
+  ['dragover', 'dragenter'].forEach(t => drop.addEventListener(t, e => { e.preventDefault(); drop.classList.add('over'); }));
+  ['dragleave', 'drop'].forEach(t => drop.addEventListener(t, () => drop.classList.remove('over')));
+  drop.addEventListener('drop', e => { e.preventDefault(); voegToe([...e.dataTransfer.files].filter(f => /\.pdf$/i.test(f.name) || f.type === 'application/pdf')); });
+  $('lkwis').addEventListener('click', () => { lk.length = 0; tekenLk(); });
+  $('csv').addEventListener('click', async () => {
+    const q = v => `"${String(v == null ? '' : v).replace(/"/g, '""')}"`;
+    const rijen = [['leerling', 'gestart', 'afgewerkt', 'duur (min)', 'score', 'max', 'deel 1', 'deel 2', 'deel 3', 'bestand']]
+      .concat(lk.filter(r => !r.fout).map(r => [r.naam, r.start ? tijd(r.start) : '', r.einde ? tijd(r.einde) : '', r.start && r.einde ? Math.round((r.einde - r.start) / 60000) : '', r.score, r.max, r.delen[1], r.delen[2], r.delen[3], r.bestand]));
+    const tekstCsv = '\ufeff' + rijen.map(r => r.map(q).join(';')).join('\r\n');
+    let dl = null;
+    try { dl = window.claude && window.claude.use ? await window.claude.use('downloads') : null; } catch (e) { dl = null; }
+    const blob = new Blob([tekstCsv], { type: 'text/csv' });
+    if (dl) { try { await dl.save({ filename: 'overzicht-leerpad-vrije-val.csv', data: blob }); } catch (e) { } }
+    else { const url = URL.createObjectURL(blob), a = document.createElement('a'); a.href = url; a.download = 'overzicht-leerpad-vrije-val.csv'; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 4000); }
+  });
+
+  kies1(); kies3();
+  if (A.start && A.naam && (isLk(A.naam) || venster() === 'open')) open(); else startStatus();
+  const ro = new ResizeObserver(() => tekenAlles());
+  [$('c1'), $('c3a'), $('c3y'), $('c3v')].forEach(c => ro.observe(c));
+  window.__vvPdf = () => maakPdf(paginas());
+  return () => { ro.disconnect(); if (raf) cancelAnimationFrame(raf); delete window.__vvPdf; };
 }
 
 route();
