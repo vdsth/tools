@@ -605,6 +605,11 @@ button.vv-groot{font-size:1.05rem;padding:12px 20px}
 .vv-rin:disabled,.vv-in:disabled{opacity:1}
 #vv-startmeld.vv-dicht{color:#ff6b6b;font-size:.95rem;font-weight:600}
 .vv-terug{margin-right:8px}
+.vv-sym{font-family:"STIX Two Text","Times New Roman",serif;font-style:italic;font-size:1.1rem;white-space:nowrap;margin-right:2px}
+.vv-recht{font-style:normal;font-family:'Atkinson Hyperlegible',sans-serif;font-size:1rem}
+.vv-sym sub{font-style:normal;font-size:.7em}
+.vv-rv .vv-sym{margin-left:14px}
+#vv-lk[hidden]{display:none!important}
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
@@ -6627,32 +6632,32 @@ function renderVrijeVal(root) {
       { id: 'v2', type: 'mc', vraag: `Wat gebeurt er met de grootte van de snelheidsvector ${VEC('v')} tijdens de val?`, opties: ['Hij wordt steeds groter', 'Hij blijft even groot', 'Hij wordt steeds kleiner'], juist: 0, uitleg: `Elke seconde komt er 9,81 m/s bij: de bal gaat steeds sneller.` },
       { id: 'v3', type: 'mc', vraag: `Wat gebeurt er met de versnellingsvector ${VEC('a')} tijdens de val?`, opties: ['Hij blijft even groot en naar beneden gericht', 'Hij wordt steeds groter', 'Hij wordt steeds kleiner'], juist: 0, uitleg: `De versnelling is constant: a = g = 9,81 m/s², naar beneden. Daarom is de vrije val een eenparig veranderlijke beweging.` },
       { id: 'v4', type: 'open', vraag: 'Zet de momentopnames aan (elke 0,2 s een beeld). Waarom liggen de beelden van de bal steeds verder uit elkaar?' },
-      { id: 'r1', type: 'reeks', vraag: 'Kies de tennisbal. Zet de tijd met de schuifregelaar achtereenvolgens op 1 s, 2 s, 3 s en 4 s. Noteer telkens de snelheid v. Let op het teken.', eenh: 'm/s', tijden: [1, 2, 3, 4], juisten: [1, 2, 3, 4].map(t => -G * t), tol: 0.1, teken: true,
+      { id: 'r1', sym: 'v', type: 'reeks', vraag: 'Kies de tennisbal. Zet de tijd met de schuifregelaar achtereenvolgens op 1 s, 2 s, 3 s en 4 s. Noteer telkens de snelheid v. Let op het teken.', eenh: 'm/s', tijden: [1, 2, 3, 4], juisten: [1, 2, 3, 4].map(t => -G * t), tol: 0.1, teken: true,
         oplossing: 't = 1 s: v = −9,81 m/s · t = 2 s: v = −19,62 m/s · t = 3 s: v = −29,43 m/s · t = 4 s: v = <b>−39,24 m/s</b>' },
       { id: 'v9', type: 'mc', vraag: 'Bekijk je antwoorden van de vorige vraag. Met hoeveel neemt de snelheid elke seconde toe?', opties: ['Met 9,81 m/s', 'Met 4,9 m/s', 'Met 19,6 m/s'], juist: 0, uitleg: 'Dat is precies de betekenis van g = 9,81 m/s²: elke seconde komt er 9,81 m/s snelheid bij.' },
-      { id: 'r2', type: 'reeks', vraag: 'Zet de tijd opnieuw op 1 s, 2 s, 3 s en 4 s. Noteer nu telkens de hoogte y van de bal. (De bal start op 100 m hoogte.)', eenh: 'm', tijden: [1, 2, 3, 4], juisten: [1, 2, 3, 4].map(t => 100 - 0.5 * G * t * t), tol: 0.15,
+      { id: 'r2', sym: 'y', type: 'reeks', vraag: 'Zet de tijd opnieuw op 1 s, 2 s, 3 s en 4 s. Noteer nu telkens de hoogte y van de bal. (De bal start op 100 m hoogte.)', eenh: 'm', tijden: [1, 2, 3, 4], juisten: [1, 2, 3, 4].map(t => 100 - 0.5 * G * t * t), tol: 0.15,
         oplossing: 't = 1 s: y = 95,1 m · t = 2 s: y = 80,4 m · t = 3 s: y = 55,9 m · t = 4 s: y = <b>21,5 m</b>' },
       { id: 'o3', type: 'open', vraag: 'Vergelijk de hoogtes uit de vorige vraag. Hoeveel meter valt de bal tijdens de 1e, de 2e, de 3e en de 4e seconde? Wat stel je vast?' },
-      { id: 'r3', type: 'reeks', vraag: 'Kies nu de bowlingbal. Zet de tijd op 1 s, 2 s, 3 s en 4 s en noteer telkens de snelheid v.', eenh: 'm/s', tijden: [1, 2, 3, 4], juisten: [1, 2, 3, 4].map(t => -G * t), tol: 0.1, teken: true,
+      { id: 'r3', sym: 'v', type: 'reeks', vraag: 'Kies nu de bowlingbal. Zet de tijd op 1 s, 2 s, 3 s en 4 s en noteer telkens de snelheid v.', eenh: 'm/s', tijden: [1, 2, 3, 4], juisten: [1, 2, 3, 4].map(t => -G * t), tol: 0.1, teken: true,
         oplossing: 'Precies dezelfde waarden als bij de tennisbal: −9,81 · −19,62 · −29,43 · <b>−39,24 m/s</b>' },
       { id: 'o4', type: 'open', vraag: 'Vergelijk de tennisbal met de bowlingbal. Wat is het verschil (of net niet) tussen beide? Wat besluit je over de versnelling van een vallend voorwerp?' }
     ] },
     { nr: 2, titel: 'Formules', vragen: [
       { id: 'e1a', label: '1a', kop: 'Oefening 1 – Een vallende tennisbal', context: 'Een tennisbal wordt losgelaten vanaf de top van een toren van 60 m hoog. Verwaarloos de luchtweerstand.',
-        type: 'num', vraag: 'Wat is de snelheid van de tennisbal na 3 s? Let op het teken.', eenh: 'm/s', juist: -G * 3, afronding: true, teken: true },
-      { id: 'e1b', label: '1b', type: 'num', vraag: 'Op welke hoogte bevindt de tennisbal zich na 3 s?', eenh: 'm', juist: 60 - 0.5 * G * 9, afronding: true },
+        sym: 'v', type: 'num', vraag: 'Wat is de snelheid van de tennisbal na 3 s? Let op het teken.', eenh: 'm/s', juist: -G * 3, afronding: true, teken: true },
+      { id: 'e1b', sym: 'y', label: '1b', type: 'num', vraag: 'Op welke hoogte bevindt de tennisbal zich na 3 s?', eenh: 'm', juist: 60 - 0.5 * G * 9, afronding: true },
       { id: 'o2a', label: '2a', kop: 'Oefening 2 – Een vallende bloempot', context: 'Een bloempot valt van een vensterbank en raakt na 1,5 s de grond.',
-        type: 'num', vraag: 'Welke snelheid heeft de bloempot net voor hij de grond raakt?', eenh: 'm/s', juist: -G * 1.5, afronding: true, teken: true },
-      { id: 'o2b', label: '2b', type: 'num', vraag: 'Hoe hoog is de vensterbank?', eenh: 'm', juist: 0.5 * G * 1.5 * 1.5, afronding: true }
+        sym: 'v', type: 'num', vraag: 'Welke snelheid heeft de bloempot net voor hij de grond raakt?', eenh: 'm/s', juist: -G * 1.5, afronding: true, teken: true },
+      { id: 'o2b', sym: 'y<sub>begin</sub>', symT: 'y_begin', label: '2b', type: 'num', vraag: 'Hoe hoog is de vensterbank?', eenh: 'm', juist: 0.5 * G * 1.5 * 1.5, afronding: true }
     ] },
     { nr: 3, titel: 'Grafieken', vragen: [
       { id: 'g1', type: 'mc', vraag: 'Welke vorm heeft de (y,t)-grafiek?', opties: ['Een kromme die steeds sneller daalt', 'Een rechte die gelijkmatig daalt', 'Een horizontale rechte'], juist: 0, uitleg: 'De bal valt elke seconde verder dan de seconde ervoor. Daarom daalt de hoogte steeds sneller en wordt de grafiek steeds steiler.' },
       { id: 'g7', type: 'open', vraag: 'Zet de momentopnames aan (elke 0,2 s een beeld) en laat de bal vallen. Waarom liggen de beelden van de bal steeds verder uit elkaar? Hoe zie je dat terug in de (y,t)-grafiek?' },
       { id: 'g2', type: 'mc', vraag: 'Welke vorm heeft de (v,t)-grafiek?', opties: ['Een dalende rechte door de oorsprong', 'Een kromme die steeds sneller daalt', 'Een horizontale rechte'], juist: 0, uitleg: 'v = −g · t is een eerstegraadsfunctie van t: een rechte door de oorsprong.' },
-      { id: 'g3', type: 'num', vraag: 'Bepaal de richtingscoëfficiënt (helling) van de (v,t)-grafiek. Laat eerst de bal vallen. Klik daarna op twee punten van de (v,t)-grafiek: ze worden aangeduid met hun coördinaten. Bereken dan de helling = Δv / Δt. Wil je andere punten kiezen? Klik op “Punten verwijderen” onder de grafieken.', eenh: 'm/s²', juist: -G, tol: 0.1, teken: true,
+      { id: 'g3', sym: '<span class="vv-recht">rico</span>', symT: 'rico', type: 'num', vraag: 'Bepaal de richtingscoëfficiënt (helling) van de (v,t)-grafiek. Laat eerst de bal vallen. Klik daarna op twee punten van de (v,t)-grafiek: ze worden aangeduid met hun coördinaten. Bereken dan de helling = Δv / Δt. Wil je andere punten kiezen? Klik op “Punten verwijderen” onder de grafieken.', eenh: 'm/s²', juist: -G, tol: 0.1, teken: true,
         oplossing: 'Bijvoorbeeld: na 1 s is v = −9,81 m/s, na 2 s is v = −19,62 m/s. Helling = Δv / Δt = (−19,62 − (−9,81)) / (2 − 1) = <b>−9,81 m/s²</b>' },
       { id: 'g4', type: 'mc', vraag: 'Welke grootheid stelt die helling van de (v,t)-grafiek voor?', opties: ['De versnelling (−g)', 'De hoogte', 'De beginsnelheid'], juist: 0, uitleg: 'De helling van de (v,t)-grafiek is Δv / Δt: de versnelling.' },
-      { id: 'g5', type: 'num', vraag: 'Stel de beginhoogte in op 45 m en laat de bal vallen. Na hoeveel seconden raakt hij de grond? Lees af op de grafiek.', eenh: 's', juist: Math.sqrt(90 / G), tol: 0.06,
+      { id: 'g5', sym: 't', type: 'num', vraag: 'Stel de beginhoogte in op 45 m en laat de bal vallen. Na hoeveel seconden raakt hij de grond? Lees af op de grafiek.', eenh: 's', juist: Math.sqrt(90 / G), tol: 0.06,
         oplossing: 'Op de (y,t)-grafiek snijdt de kromme de t-as bij <b>t ≈ 3,03 s</b>. Controle: t = √(2 · 45 / 9,81) = 3,03 s.' },
       { id: 'g6', type: 'open', vraag: 'Waarom wordt de (y,t)-grafiek steeds steiler naarmate de tijd vordert? Gebruik de (v,t)-grafiek in je uitleg.' }
     ] }
@@ -6671,9 +6676,9 @@ function renderVrijeVal(root) {
     const a = A.ant[v.id] || {};
     let inhoud = '';
     if (v.type === 'mc') inhoud = `<div class="vv-opties">${v.opties.map((o, k) => `<label class="vv-optie"><input type="radio" name="vv-${v.id}" value="${k}" ${a.keuze === k ? 'checked' : ''}><span>${o}</span></label>`).join('')}</div>`;
-    else if (v.type === 'num') inhoud = `<div class="vv-num"><input type="text" inputmode="decimal" class="vv-in" data-id="${v.id}" value="${a.tekst ? a.tekst.replace(/"/g, '&quot;') : ''}" placeholder="jouw antwoord"><span class="eenh">${v.eenh}</span><button type="button" class="knop vv-check" data-id="${v.id}">Controleer</button>${v.oplossing ? `<button type="button" class="knop vv-opl" data-id="${v.id}" ${a.pogingen ? '' : 'hidden'}>Toon uitwerking</button>` : ''}</div>`;
-    else if (v.type === 'reeks') inhoud = `<div class="vv-reeks">${v.tijden.map((t, k) => `<label class="vv-rv"><span>t = ${t} s</span><input type="text" inputmode="decimal" class="vv-rin" data-id="${v.id}" data-k="${k}" value="${a.teksten && a.teksten[k] ? String(a.teksten[k]).replace(/"/g, '&quot;') : ''}"><span class="eenh">${v.eenh}</span></label>`).join('')}</div><div class="vv-num"><button type="button" class="knop vv-check" data-id="${v.id}">Controleer</button><button type="button" class="knop vv-opl" data-id="${v.id}" ${a.pogingen ? '' : 'hidden'}>Toon uitwerking</button></div>`;
-    else inhoud = `<textarea class="vv-open" data-id="${v.id}" rows="3" placeholder="Typ hier je antwoord …">${a.tekst ? a.tekst.replace(/</g, '&lt;') : ''}</textarea>`;
+    else if (v.type === 'num') inhoud = `<div class="vv-num">${v.sym ? `<span class="vv-sym">${v.sym} =</span>` : ''}<input type="text" inputmode="decimal" class="vv-in" data-id="${v.id}" value="${a.tekst ? a.tekst.replace(/"/g, '&quot;') : ''}"><span class="eenh">${v.eenh}</span><button type="button" class="knop vv-check" data-id="${v.id}">Controleer</button>${v.oplossing ? `<button type="button" class="knop vv-opl" data-id="${v.id}" ${a.pogingen ? '' : 'hidden'}>Toon uitwerking</button>` : ''}</div>`;
+    else if (v.type === 'reeks') inhoud = `<div class="vv-reeks">${v.tijden.map((t, k) => `<label class="vv-rv"><span>t = ${t} s</span>${v.sym ? `<span class="vv-sym">${v.sym} =</span>` : ''}<input type="text" inputmode="decimal" class="vv-rin" data-id="${v.id}" data-k="${k}" value="${a.teksten && a.teksten[k] ? String(a.teksten[k]).replace(/"/g, '&quot;') : ''}"><span class="eenh">${v.eenh}</span></label>`).join('')}</div><div class="vv-num"><button type="button" class="knop vv-check" data-id="${v.id}">Controleer</button><button type="button" class="knop vv-opl" data-id="${v.id}" ${a.pogingen ? '' : 'hidden'}>Toon uitwerking</button></div>`;
+    else inhoud = `<textarea class="vv-open" data-id="${v.id}" rows="3">${a.tekst ? a.tekst.replace(/</g, '&lt;') : ''}</textarea>`;
     return `${v.kop ? `<div class="vv-oefkop"><h4>${v.kop}</h4><p>${v.context}</p></div>` : ''}<div class="vv-vraag${v.label ? ' vv-sub' : ''}" data-vraag="${v.id}"><div class="vv-vkop"><span class="vv-nr">${v.label || i + 1}</span><p>${v.vraag}</p></div>${inhoud}<div class="vv-fb" id="vv-fb-${v.id}"></div>${v.oplossing ? `<div class="vv-uitwerking" id="vv-uw-${v.id}" hidden><b>Uitwerking:</b> ${v.oplossing}</div>` : ''}</div>`;
   };
   const vragenBlok = nr => DELEN[nr - 1].vragen.map(vraagHTML).join('');
@@ -6691,7 +6696,7 @@ function renderVrijeVal(root) {
         <li>Jouw tijd wordt geregistreerd.</li>
       </ul>
       <p>Vul hieronder jouw naam in en start het leerpad. Veel succes!</p>
-      <div class="vv-startrij"><label for="vv-naam">Voornaam</label><input type="text" id="vv-naam" autocomplete="given-name" placeholder="bv. Jan"><button type="button" class="knop vv-go" id="vv-go" disabled>Start het leerpad →</button></div>
+      <div class="vv-startrij"><input type="text" id="vv-naam" aria-label="Voornaam" autocomplete="given-name" placeholder="bv. Jan"><button type="button" class="knop vv-go" id="vv-go" disabled>Start het leerpad →</button></div>
       <p class="uitleg klein" id="vv-startmeld"></p>
     </div>
     <div id="vv-inhoud" hidden>
@@ -6781,7 +6786,7 @@ function renderVrijeVal(root) {
     <section class="vv-deel" data-deel="4" hidden>
       <div class="paneel vv-intro vv-export">
         <h2>4 – Antwoorden exporteren</h2>
-        <p>Kijk na of je alle vragen beantwoord hebt. Exporteer daarna je antwoorden als pdf en geef dat pdf-bestand af aan je leerkracht.</p>
+        <p>Kijk na of je alle vragen beantwoord hebt. Exporteer daarna je antwoorden als pdf en dien het in op Teams bij de bijhorende opdracht.</p>
         <div id="vv-overzicht" class="vv-overzicht"></div>
         <button class="knop pa-pdf vv-groot" type="button" id="vv-pdf">⤓ Exporteer mijn antwoorden als pdf</button>
         <p class="uitleg klein" id="vv-meld"></p>
@@ -6789,7 +6794,7 @@ function renderVrijeVal(root) {
       <div class="vv-verder"><button type="button" class="knop" data-naar="3">← Deel 3</button></div>
     </section>
     </div>
-    <details class="paneel vv-lk" id="vv-lk">
+    <details class="paneel vv-lk" id="vv-lk" hidden>
       <summary>Voor de leerkracht: overzicht van de ingediende pdf's</summary>
       <p class="uitleg klein">Sleep de pdf's die je leerlingen indienden hieronder (of kies ze). Elke pdf bevat de naam, het starttijdstip, het tijdstip van afwerken, de duur en de score. Er wordt niets doorgestuurd: alles gebeurt in je eigen browser.</p>
       <label class="vv-drop" id="vv-drop"><input type="file" id="vv-files" accept="application/pdf,.pdf" multiple hidden><span>📄 Sleep pdf's hierheen of klik om ze te kiezen</span></label>
@@ -6844,6 +6849,7 @@ function renderVrijeVal(root) {
     $('start').hidden = true; $('inhoud').hidden = false;
     $('wienaam').textContent = A.naam;
     $('terug').hidden = !isLk(A.naam);
+    $('lk').hidden = !isLk(A.naam);
     $('wielbl').textContent = isLk(A.naam) ? 'Bekijken als' : 'Leerling';
     $('wiestart').textContent = 'gestart op ' + tijd(A.start);
     toonDeel(st.deel, false);
@@ -6906,7 +6912,7 @@ function renderVrijeVal(root) {
   root.addEventListener('input', e => {
     const t = e.target;
     if (t.classList.contains('vv-open')) { const a = A.ant[t.dataset.id] || (A.ant[t.dataset.id] = {}); a.tekst = t.value; bewaar(); tellers(); }
-    if (t.classList.contains('vv-rin')) { const v = ALLE.find(q => q.id === t.dataset.id), a = A.ant[t.dataset.id] || (A.ant[t.dataset.id] = { pogingen: 0 }); a.teksten = a.teksten || []; a.teksten[+t.dataset.k] = t.value; a.tekst = v.tijden.map((tt, k) => `t = ${tt} s: ${a.teksten[k] || '…'} ${v.eenh}`).join('; '); bewaar(); }
+    if (t.classList.contains('vv-rin')) { const v = ALLE.find(q => q.id === t.dataset.id), a = A.ant[t.dataset.id] || (A.ant[t.dataset.id] = { pogingen: 0 }); a.teksten = a.teksten || []; a.teksten[+t.dataset.k] = t.value; a.tekst = v.tijden.map((tt, k) => `t = ${tt} s: ${v.sym ? (v.symT || v.sym) + ' = ' : ''}${a.teksten[k] || '…'} ${v.eenh}`).join('; '); bewaar(); }
     if (t.classList.contains('vv-in')) { const a = A.ant[t.dataset.id] || (A.ant[t.dataset.id] = { pogingen: 0 }); a.tekst = t.value; bewaar(); }
   });
   // afronding: alles wat tot op één cijfer na de komma juist is, telt (ook fout afgerond), bv. 29,43 → 29,4 tot 29,5
@@ -6925,7 +6931,7 @@ function renderVrijeVal(root) {
       a.teksten = ins.map(x => x.value); a.waarden = a.teksten.map(leesGetal); a.pogingen = (a.pogingen || 0) + 1;
       a.goedK = a.waarden.map((x, k) => x != null && Math.abs(x - v.juisten[k]) <= v.tol);
       a.juist = a.goedK.every(Boolean);
-      a.tekst = v.tijden.map((tt, k) => `t = ${tt} s: ${a.teksten[k] || '…'} ${v.eenh}`).join('; ');
+      a.tekst = v.tijden.map((tt, k) => `t = ${tt} s: ${v.sym ? (v.symT || v.sym) + ' = ' : ''}${a.teksten[k] || '…'} ${v.eenh}`).join('; ');
       bewaar(); feedback(v); root.querySelector(`.vv-opl[data-id="${id}"]`).hidden = false; return;
     }
     const inp = root.querySelector(`.vv-in[data-id="${id}"]`);
@@ -7222,7 +7228,7 @@ function renderVrijeVal(root) {
         tekst(`${v.label || i + 1}. ${zonderHtml(v.vraag)}`, 0.3 * K, '#000', 600);
         const a = A.ant[v.id] || {};
         let ant = a.tekst && String(a.tekst).trim() ? String(a.tekst).trim() : '(niet beantwoord)';
-        if (v.type === 'num' && a.tekst) ant += ' ' + v.eenh;
+        if (v.type === 'num' && a.tekst) ant = (v.sym ? (v.symT || v.sym) + ' = ' : '') + ant + ' ' + v.eenh;
         tekst('Antwoord: ' + zonderHtml(ant), 0.3 * K, '#1b3a8a', 400, 0.4 * K);
         if (v.type !== 'open') {
           const st2 = a.juist == null ? 'niet nagekeken' : a.juist ? '✓ juist' : '✗ niet juist';
