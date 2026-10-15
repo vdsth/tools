@@ -1,0 +1,1810 @@
+<!doctype html>
+<html lang="nl" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PneumaLab – pneumatische schakelingen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#dfe5e3;--panel:#f3f6f5;--paper:#fbfcfb;--ink:#1e2a32;--muted:#5f6e77;--line:#cdd6d3;--dot:#bfcac6;
+  --accent:#1c6fe0;--accent-ink:#ffffff;--air:#1c6fe0;--airsoft:#a8c6ee;--cham:rgba(28,111,224,.17);--actbg:#edf3fc;
+  --sel:#d9480f;--danger:#b42318;--btn:#ffffff;--signal:#f2b705;--sc-cyl:#e6ebee;--sc-rod:#cfd6db;--sc-frame:#5f6c75;--sc-metal:#b9c3c9;--sc-box:#d9a95e;--sc-belt:#3f484e;--sc-wood:#e2c99a;--sc-ground:#cdd5d1;--sc-wall:#d9d3c7;--sc-gate:#7a8a95;
+  color-scheme:light;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0e1316;--panel:#151b1f;--paper:#11171a;--ink:#d6e0e4;--muted:#8b9aa1;--line:#28323a;--dot:#2a353b;
+  --accent:#5a9cff;--accent-ink:#08111d;--air:#5a9cff;--airsoft:#2b4c78;--cham:rgba(90,156,255,.2);--actbg:#16263a;
+  --sel:#ff8a3d;--danger:#ff6b5e;--btn:#1b2227;--signal:#f2b705;--sc-cyl:#28323a;--sc-rod:#58656e;--sc-frame:#7b8992;--sc-metal:#5f6c74;--sc-box:#a87a3a;--sc-belt:#1e2529;--sc-wood:#8c7550;--sc-ground:#232b2f;--sc-wall:#3a3631;--sc-gate:#5b6a74;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e1316;--panel:#151b1f;--paper:#11171a;--ink:#d6e0e4;--muted:#8b9aa1;--line:#28323a;--dot:#2a353b;
+  --accent:#5a9cff;--accent-ink:#08111d;--air:#5a9cff;--airsoft:#2b4c78;--cham:rgba(90,156,255,.2);--actbg:#16263a;
+  --sel:#ff8a3d;--danger:#ff6b5e;--btn:#1b2227;--signal:#f2b705;--sc-cyl:#28323a;--sc-rod:#58656e;--sc-frame:#7b8992;--sc-metal:#5f6c74;--sc-box:#a87a3a;--sc-belt:#1e2529;--sc-wood:#8c7550;--sc-ground:#232b2f;--sc-wall:#3a3631;--sc-gate:#5b6a74;color-scheme:dark}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{height:100%;margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 "Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow:hidden}
+*{box-sizing:border-box}
+.app{display:grid;grid-template-rows:auto 1fr auto;height:100%}
+header{display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--panel);border-bottom:1px solid var(--line);flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:8px;font-weight:700;font-size:17px;margin-right:6px}
+.brand svg{width:26px;height:26px}
+button.brand{background:none;border:0;padding:2px 6px;border-radius:6px;color:var(--ink);font:inherit;font-weight:700;font-size:17px}
+button.brand:hover{background:var(--btn)}
+.zoom{position:absolute;right:12px;bottom:12px;display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--btn);box-shadow:0 2px 8px rgba(0,0,0,.08);z-index:2}
+.zoom button{border:0;border-radius:0;padding:6px 13px}
+.zoom button+button{border-left:1px solid var(--line)}
+.start{position:fixed;inset:0;z-index:90;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:24px;overflow:auto}
+.start[hidden]{display:none}
+.sc{width:min(920px,100%)}
+.st-h{text-align:center;margin-bottom:28px}
+.st-h svg{width:54px;height:54px}
+.st-h h1{font-size:36px;margin:6px 0 4px}
+.st-h p{color:var(--muted);margin:0}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+.card{display:flex;flex-direction:column;align-items:flex-start;gap:8px;text-align:left;padding:20px;border:1px solid var(--line);border-radius:12px;background:var(--panel);cursor:pointer;white-space:normal}
+.card:hover{border-color:var(--accent);box-shadow:0 6px 22px rgba(0,0,0,.08)}
+.card svg{width:100%;height:92px}
+.card b{font-size:20px}
+.card span{color:var(--muted);font-size:14px}
+.start h2{font-size:26px;margin:0 0 16px}
+.start .back{margin-bottom:16px}
+.who2{text-align:center;color:var(--muted);font-size:12px;margin-top:22px}
+.sp{flex:1}
+.grp{display:flex;gap:6px;flex-wrap:wrap}
+button,select,input,textarea{font:inherit;color:var(--ink)}
+button{background:var(--btn);border:1px solid var(--line);border-radius:6px;padding:5px 10px;cursor:pointer;white-space:nowrap}
+button:hover{border-color:var(--accent)}
+button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible,.pi:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button:disabled{opacity:.4;cursor:default;border-color:var(--line)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:7px;overflow:hidden;background:var(--btn)}
+.seg button{border:0;border-radius:0;padding:6px 14px}
+.seg button.on{background:var(--accent);color:var(--accent-ink)}
+.who{font-size:12px;color:var(--muted);margin-left:4px}
+.main{display:grid;grid-template-columns:220px 1fr 270px;min-height:0}
+aside{background:var(--panel);overflow:auto;padding:10px 12px}
+#pal{border-right:1px solid var(--line)}
+#props{border-left:1px solid var(--line)}
+#pal h3{margin:0 0 2px}
+.ph{display:flex;width:100%;align-items:center;gap:6px;background:none;border:0;border-radius:5px;padding:7px 4px;font:inherit;font-size:14px;font-weight:700;color:var(--ink);text-align:left;cursor:pointer;white-space:normal}
+.ph:hover{background:var(--btn)}
+.ph i{font-style:normal;color:var(--muted);width:1em;flex:none}
+.pgrid{margin:2px 0 10px}
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.pgrid[hidden]{display:none}
+.pi{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 4px;border:1px solid var(--line);border-radius:6px;cursor:grab;background:var(--paper);user-select:none;touch-action:none}
+.pi:hover{border-color:var(--accent)}
+.pi.wide{grid-column:span 2}
+.pi svg{width:100%;height:46px;pointer-events:none}
+.sym .hit,.sym .acthit{fill:transparent}
+.pi .sym .ln,.pi .sym .box,.pi .sym .body,.pi .sym .src,.pi .sym .rod,.pi .sym .knop,.pi .sym .rol{stroke-width:2}
+.pi span{font-size:12px;color:var(--muted);text-align:center;line-height:1.2}
+.sim #pal{opacity:.35;pointer-events:none}
+#wrap{position:relative;overflow:hidden;background:var(--paper)}
+#cv{width:100%;height:100%;display:block;touch-action:none;user-select:none;-webkit-user-select:none}
+#cv.panning{cursor:grabbing}
+.empty{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;color:var(--muted);text-align:center;padding:20px}
+.empty div{max-width:36ch}
+.empty b{display:block;color:var(--ink);font-size:18px;margin-bottom:4px}
+footer{padding:6px 12px;font-size:13px;color:var(--muted);background:var(--panel);border-top:1px solid var(--line)}
+#props h2{font-size:17px;margin:2px 0 10px}
+#props p{margin:0 0 10px;color:var(--muted);font-size:14px}
+#props label{display:block;font-size:13px;color:var(--muted);margin:0 0 10px}
+#props select,#props input{display:block;width:100%;margin-top:3px;padding:5px 6px;border:1px solid var(--line);border-radius:6px;background:var(--btn)}
+#props .danger{color:var(--danger);margin-top:6px}
+#props ul{margin:0 0 10px;padding-left:18px;color:var(--muted);font-size:14px}
+#props li{margin-bottom:4px}
+.leg{display:flex;align-items:center;gap:8px;font-size:14px;margin-bottom:6px}
+.leg i{display:inline-block;width:28px;height:0;border-top:3px solid var(--air)}
+.leg i.s{border-top:2px solid var(--airsoft)}
+.leg i.k{width:14px;height:14px;border:1.5px solid var(--ink);border-radius:7px;background:var(--signal)}
+kbd{font:12px system-ui,sans-serif;border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:0 4px;background:var(--btn)}
+.ghost{position:fixed;pointer-events:none;z-index:50;opacity:.8;transform:translate(-50%,-50%)}
+.ghost svg{display:block}
+.modal{position:fixed;inset:0;background:rgba(10,15,20,.45);display:flex;align-items:center;justify-content:center;z-index:100;padding:16px}
+.modal[hidden]{display:none}
+.dlg{background:var(--panel);border:1px solid var(--line);border-radius:10px;width:min(560px,100%);max-height:90%;overflow:auto;box-shadow:0 12px 40px rgba(0,0,0,.25)}
+.dh{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--line)}
+.dh b{font-size:17px}
+.db{padding:14px 16px}
+.db p{margin:0 0 10px;color:var(--muted)}
+.db textarea{width:100%;height:120px;border:1px solid var(--line);border-radius:6px;background:var(--btn);padding:6px;font:12px ui-monospace,Consolas,monospace}
+.db input{width:100%;padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--btn)}
+.row{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:0}
+.row .t{flex:1}
+.row .t small{display:block;color:var(--muted)}
+.acts{display:flex;gap:8px;justify-content:flex-end;margin-top:10px}
+.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.err{color:var(--danger);font-size:14px;min-height:1.2em}
+/* symbols */
+.sym .ln{stroke:var(--ink);stroke-width:1.4;fill:none}
+.sym .fl{stroke:var(--ink);stroke-width:1.3}
+.sym .ah{fill:var(--ink)}
+.sym .ah.air{fill:var(--air)}
+.sym .air{stroke:var(--air);stroke-width:2.4}
+.sym .box{fill:var(--paper);stroke:var(--ink);stroke-width:1.4}
+.sym .box.act{fill:var(--actbg)}
+.sym .exh{fill:var(--paper);stroke:var(--ink);stroke-width:1.2}
+.sym .pil{stroke:var(--ink);stroke-width:1.2;stroke-dasharray:4 3;fill:none}
+.sym .pil.air{stroke:var(--air);stroke-width:2}
+.sym .tri{fill:var(--paper);stroke:var(--ink);stroke-width:1.3}
+.sym .tri.on{fill:var(--air);stroke:var(--air)}
+.sym .knop{fill:var(--paper);stroke:var(--ink);stroke-width:1.4}
+.sym .knop.on{fill:var(--signal)}
+.sym .knop.lat{stroke:var(--sel);stroke-width:2.2}
+.sym .rol{fill:var(--paper);stroke:var(--ink);stroke-width:1.4}
+.sym .rol.on{fill:var(--signal)}
+.sym .body{fill:none;stroke:var(--ink);stroke-width:1.7}
+.sym .cham{fill:var(--cham)}
+.sym .rod{fill:var(--paper);stroke:var(--ink);stroke-width:1.3}
+.sym .piston{fill:var(--ink)}
+.sym .src{fill:var(--paper);stroke:var(--ink);stroke-width:1.5}
+.sym .srct{fill:var(--ink)}
+.sym .ball{fill:var(--ink)}
+.sym .tick{stroke:var(--muted);stroke-width:1.4}
+.sym .tick.on{stroke:var(--signal);stroke-width:3}
+.sym .zone{fill:var(--accent);opacity:.4}
+.sym .eln{stroke:var(--ink);stroke-width:1.4;fill:none}
+.sym .eln.ep,.sym .rail.ep{stroke:#e03131}
+.sym .rail{stroke:var(--ink);stroke-width:3}
+.sym .dsh{stroke:var(--ink);stroke-width:1.1;stroke-dasharray:3 2;fill:none}
+.sym .coil{fill:var(--paper);stroke:var(--ink);stroke-width:1.4}
+.sym .coil.on{fill:var(--signal)}
+.sym .sbox{fill:var(--paper);stroke:var(--ink);stroke-width:1.4}
+.sym .sbox.on{fill:#fff3bf}
+#cv .tube.el{stroke-width:1.4}
+#cv .tube.el.ep{stroke:#e03131;stroke-width:2.3}
+#cv .jn.ep{fill:#e03131}
+#cv .port.pe{stroke:#e03131}
+.sym text{font:10px "Atkinson Hyperlegible",system-ui,sans-serif;fill:var(--muted)}
+.sym .cname{font-size:13px;font-weight:700;fill:var(--ink)}
+.sym .mk{font-size:11px;font-weight:700;fill:var(--accent)}
+.sym .lg{font-size:12px;font-weight:700;fill:var(--ink)}
+#cv .gdot{fill:var(--dot)}
+#cv .hit{fill:transparent;cursor:move}
+#cv .acthit{fill:transparent}
+#cv .tube{stroke:var(--ink);stroke-width:1.7;fill:none;stroke-linejoin:round}
+#cv .tube.noair{stroke:var(--airsoft)}
+#cv .tube.air{stroke:var(--air);stroke-width:3}
+#cv .tube.sel{stroke:var(--sel);stroke-width:2.6}
+#cv .tubehit{stroke:transparent;stroke-width:11;fill:none;pointer-events:stroke;cursor:move}
+#cv .porthit{fill:transparent;cursor:crosshair}
+#cv .porthit:hover{fill:var(--accent);fill-opacity:.3}
+#cv .port{fill:var(--paper);stroke:var(--accent);stroke-width:1.5;pointer-events:none}
+#cv .port.hot{fill:var(--accent)}
+#cv .jn{fill:var(--ink)}
+#cv .jn.air{fill:var(--air);stroke:none}
+#cv .selr{fill:none;stroke:var(--sel);stroke-width:1.3;stroke-dasharray:5 4;pointer-events:none}
+#cv .wire{stroke:var(--accent);stroke-width:1.6;stroke-dasharray:5 4;fill:none;pointer-events:none}
+#cv .rsz{fill:var(--accent);opacity:.6;cursor:ew-resize}
+#cv .rsz:hover{opacity:1}
+.sim #cv .hit{cursor:default}
+.sim #cv .acthit{cursor:pointer}
+.sim #cv .tubehit{pointer-events:none}
+.lpmode .main{grid-template-columns:220px 1fr 340px}
+.lpc{margin:-2px 0 14px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.lph small{display:block;color:var(--muted);font-size:12px}
+.lph b{font-size:18px;line-height:1.25}
+.scene{width:100%;height:auto;display:block;margin:8px 0 10px;border:1px solid var(--line);border-radius:8px;background:var(--paper)}
+#props .opd{color:var(--ink)}
+.req{font-size:14px;margin:0 0 10px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--paper)}
+.req b{display:block;font-size:13px;color:var(--muted);margin-bottom:4px}
+.req div{display:flex;gap:6px;color:var(--muted);line-height:1.35;margin-bottom:2px}
+.req div.ok{color:var(--ink)}
+.req span{width:1em;flex:none}
+.req div.ok span{color:#2f9e44;font-weight:700}
+#props details{margin:0 0 10px}
+#props summary{cursor:pointer;font-weight:700}
+#props details p{margin-top:6px}
+.lpn{display:flex;gap:6px;margin-bottom:6px}
+.lpn button{flex:1;padding:5px 4px}
+.lpl{width:100%;margin-top:4px}
+.lvl{color:var(--accent);letter-spacing:1px;font-size:11px}
+footer.warn{color:var(--danger);font-weight:700}
+.scene .sc-bg{fill:var(--paper)}
+.scene .sc-gr{fill:var(--sc-ground)}
+.scene .sc-fr{fill:var(--sc-frame)}
+.scene .sc-m{fill:var(--sc-metal);stroke:var(--ink);stroke-width:1}
+.scene .sc-cylf{fill:var(--sc-cyl)}
+.scene .sc-cylo{fill:none;stroke:var(--ink);stroke-width:1.5}
+.scene .sc-air{fill:var(--cham)}
+.scene .sc-rod{fill:var(--sc-rod);stroke:var(--ink);stroke-width:1}
+.scene .sc-pis{fill:var(--ink)}
+.scene .sc-wp{fill:var(--sc-wood);stroke:var(--ink);stroke-width:1}
+.scene .sc-ink{fill:#d63939}
+.scene .sc-gate{fill:var(--sc-gate);stroke:var(--ink);stroke-width:1}
+.scene .sc-wall{fill:var(--sc-wall);stroke:var(--ink);stroke-width:1}
+.scene .sc-bl{fill:var(--sc-belt)}
+.scene .sc-stripe{stroke:var(--sc-metal);stroke-width:1.5;opacity:.55}
+.scene .sc-bx{fill:var(--sc-box);stroke:var(--ink);stroke-width:1}
+.scene .sc-bin{fill:none;stroke:var(--ink);stroke-width:2}
+.scene .sc-sheet{fill:none;stroke:var(--ink);stroke-width:3.5;stroke-linejoin:round}
+.scene .sc-ln{fill:none;stroke:var(--ink);stroke-width:1.2}
+.scene .sc-dash{fill:none;stroke:var(--muted);stroke-width:1.5;stroke-dasharray:5 4}
+.scene .sc-btn{fill:#d64545;stroke:var(--ink);stroke-width:1}
+.scene .sc-rl{fill:var(--paper);stroke:var(--ink);stroke-width:1.5}
+.scene .sc-rl.on{fill:var(--signal)}
+.scene .sc-glue{fill:var(--signal)}
+.scene .sc-grain{fill:var(--sc-box)}
+.scene .sc-hole{fill:var(--paper);stroke:var(--ink);stroke-width:1}
+.scene .sc-t{font:11px "Atkinson Hyperlegible",system-ui,sans-serif;fill:var(--muted)}
+.scene .sc-b{font-weight:700;fill:var(--ink)}
+.scene .sc-warn{font:700 11px "Atkinson Hyperlegible",system-ui,sans-serif;fill:#fff}
+.scene .sc-wbg{fill:var(--danger)}
+@media (max-width:900px){
+  .main{grid-template-columns:1fr;grid-template-rows:auto 1fr auto}
+  #pal{display:flex;gap:6px;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line);padding:8px}
+  #pal h3{display:none}
+  #pal .pgrid[hidden]{display:contents}
+  .pgrid{display:contents}
+  .pi{flex:none;width:104px}
+  #props{border-left:0;border-top:1px solid var(--line);max-height:34vh}
+  .lpmode #props{max-height:55vh}
+  .who,.brand small{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+<header>
+  <button class="brand" id="bHome" title="Terug naar het startscherm">
+    <svg viewBox="0 0 26 26" aria-hidden="true"><rect x="2" y="8" width="16" height="10" fill="none" stroke="currentColor" stroke-width="2"/><rect x="9" y="9.5" width="2.5" height="7" fill="currentColor"/><rect x="11.5" y="12" width="13" height="2" fill="var(--air)"/></svg>
+    PneumaLab
+  </button>
+  <div class="seg" role="group" aria-label="Modus">
+    <button id="bEdit" class="on">Bewerken</button><button id="bSim">▶ Simuleren</button>
+  </div>
+  <button id="bPause" hidden>⏸ Pauze</button>
+  <button id="bReset" hidden>↺ Opnieuw starten</button>
+  <span class="sp"></span>
+  <div class="grp" id="fileGrp">
+    <button id="bUndo" title="Ongedaan maken (Ctrl+Z)">↶ Ongedaan</button>
+    <button id="bNew">Nieuw</button>
+    <button id="bOpen">Openen</button>
+    <button id="bExport" class="primary">Exporteren</button>
+  </div>
+  <span class="who">VDSTH</span>
+</header>
+<div class="main">
+  <aside id="pal" aria-label="Componenten"></aside>
+  <div id="wrap">
+    <svg id="cv" class="sym">
+      <defs><pattern id="grid" width="16" height="16" patternUnits="userSpaceOnUse"><circle class="gdot" cx="0" cy="0" r="1.1"/><circle class="gdot" cx="16" cy="0" r="1.1"/><circle class="gdot" cx="0" cy="16" r="1.1"/><circle class="gdot" cx="16" cy="16" r="1.1"/></pattern></defs>
+      <g id="world"></g>
+    </svg>
+    <div class="zoom" role="group" aria-label="Zoomen"><button id="zOut" title="Uitzoomen" aria-label="Uitzoomen">−</button><button id="zFit">Passend</button><button id="zIn" title="Inzoomen" aria-label="Inzoomen">+</button></div>
+    <div class="empty" id="empty"><div><b>Het raster is leeg</b>Sleep een drukbron, een ventiel en een cilinder uit de lijst links, of open een voorbeeld.</div></div>
+  </div>
+  <aside id="props" aria-label="Eigenschappen"></aside>
+</div>
+<footer id="status"></footer>
+</div>
+<div id="modal" class="modal" hidden></div>
+<div id="start" class="start" hidden></div>
+
+<script>
+(()=>{
+const G=16;
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]));
+const KEY_CUR='pneumalab.current', KEY_SAVES='pneumalab.saves';
+
+let comps=[],tubes=[],nid=1;
+let sel=null,mode='edit',running=false;
+let P={},ST={},pressed={},latched={};
+let view={x:60,y:60,z:1};
+let drag=null,hoverPort=null,undoStack=[],conn={};
+let NET={adj:new Map(),src:new Set(),vent:new Set()};
+let FULL={};
+let lp=null,scMem={},LEAK=false,lastLeak=false,lpTip=false;
+let EL={E:{},on:{},short:false,sig:''};
+let appMode='pneu',lpWork={},freeWork=null,curName='schakeling';
+const svg=$('#cv'),world=$('#world'),wrap=$('#wrap');
+
+/* ---------- component definitions ---------- */
+const P5=[{n:'4',x:1,s:'t',r:'work'},{n:'2',x:3,s:'t',r:'work'},{n:'5',x:1,s:'b',r:'exh'},{n:'1',x:2,s:'b',r:'supply'},{n:'3',x:3,s:'b',r:'exh'}];
+const VT={
+  v32:{W:3,n:2,p:1,ports:[{n:'2',x:1,s:'t',r:'work'},{n:'1',x:1,s:'b',r:'supply'},{n:'3',x:2,s:'b',r:'exh'}]},
+  v52:{W:4,n:2,p:1,ports:P5},
+  v53:{W:4,n:3,p:1,ports:P5}
+};
+const TYPES=['source','cyl_ew','cyl_dw','v32','v52','v53','or','and','thr','thr_chk','e_rail','e_contact','e_relay','e_sol','e_lamp','e_sensor'];
+const TITLES={source:'Drukbron',cyl_ew:'Enkelwerkende cilinder',cyl_dw:'Dubbelwerkende cilinder',v32:'3/2-ventiel',v52:'5/2-ventiel',v53:'5/3-ventiel',or:'OF-ventiel (wisselventiel)',and:'EN-ventiel (tweedrukventiel)',thr:'Smoorventiel',thr_chk:'Smoorterugslagventiel',e_rail:'Voedingsrail',e_contact:'Contact',e_relay:'Relaisspoel',e_sol:'Ventielspoel',e_lamp:'Signaallamp',e_sensor:'Naderingsschakelaar'};
+const isValve=c=>!!VT[c.type];
+const isCyl=c=>c.type==='cyl_dw'||c.type==='cyl_ew';
+const PIL=new Set(['piloot','druk','tijd']);
+const isThr=c=>c.type==='thr'||c.type==='thr_chk';
+const isEl=c=>c.type.startsWith('e_');
+const nm=v=>String(v??'').trim().toUpperCase();
+const byId=id=>comps.find(c=>c.id===id);
+
+function defProps(t){
+  switch(t){
+    case 'cyl_dw':case 'cyl_ew':return {label:'A',time:1.5,stroke:100,zMode:'%',z0:2,z1:2,rest:'in'};
+    case 'v32':return {name:'',left:'knop',right:'veer',normal:'NC',leftMark:'',rightMark:'',leftSol:'',rightSol:'',delay:2,init:'1'};
+    case 'v52':return {name:'',left:'knop',right:'veer',leftMark:'',rightMark:'',leftSol:'',rightSol:'',delay:2,init:'1'};
+    case 'v53':return {name:'',left:'knop',right:'knop',mid:'gesloten',leftMark:'',rightMark:'',leftSol:'',rightSol:'',delay:2};
+    case 'e_rail':return {pol:'+',len:30};
+    case 'e_contact':return {kind:'knop',contact:'NO',name:'S1',mark:''};
+    case 'e_relay':return {name:'K1'};
+    case 'e_sol':return {name:'Y1'};
+    case 'e_lamp':return {name:'H1'};
+    case 'e_sensor':return {mark:'',kind:'ind'};
+    case 'thr':return {name:'',open:50,rot:'v'};
+    case 'thr_chk':return {name:'',open:50,rot:'v',dir:'12'};
+    default:return {};
+  }
+}
+function nextLabel(){
+  const used=new Set(comps.filter(isCyl).map(c=>String(c.props.label).toUpperCase()));
+  for(const L of 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') if(!used.has(L)) return L;
+  return 'Z';
+}
+function boxes(c){
+  if(c.type==='v32') return c.props.normal==='NO'
+    ?[{f:[['2','3']],b:['1']},{f:[['1','2']],b:['3']}]
+    :[{f:[['1','2']],b:['3']},{f:[['2','3']],b:['1']}];
+  const a={f:[['1','4'],['2','3']],b:['5']},z={f:[['1','2'],['4','5']],b:['3']};
+  if(c.type==='v52') return [a,z];
+  const mid=c.props.mid==='ontlucht'?{f:[['4','5'],['2','3']],b:['1']}
+    :c.props.mid==='belucht'?{f:[['1','4'],['1','2']],b:['5','3']}
+    :{f:[],b:['4','2','5','1','3']};
+  return [a,mid,z];
+}
+function vgeo(c){
+  const t=VT[c.type],W=t.W,n=t.n,p=t.p,A=2;
+  const minDx=(p-(n-1))*W,maxDx=p*W;
+  return {W,n,p,A,minDx,maxDx,portBox:p*W-minDx+A,total:maxDx-minDx+2*A+n*W};
+}
+function pilLabel(c,side){
+  if(c.type==='v32') return (c.props.normal==='NO')===(side==='L')?'10':'12';
+  return side==='L'?'14':'12';
+}
+function restPos(c){
+  if(c.type==='v53') return 1;
+  if(c.props.right==='veer') return 1;
+  return Number(c.props.init)===0?0:1;
+}
+function initState(c){c.state={pos:isValve(c)?restPos(c):0,s:(c.type==='cyl_ew'&&c.props.rest==='uit')?1:0,ball:'X'};}
+function rotOf(c){return (((Number(c.props&&c.props.rotation)||0)%360)+360)%360;}
+function pivot(c){const b=compBox(c);return {x:Math.round(b.x+b.w/2),y:Math.round(b.y+b.h/2)};}
+function rotPt(x,y,c){
+  const r=rotOf(c)/90;if(!r) return [x,y];
+  const pv=pivot(c);let dx=x-pv.x,dy=y-pv.y;
+  for(let i=0;i<r;i++){const t=dx;dx=-dy;dy=t;}
+  return [pv.x+dx,pv.y+dy];
+}
+function invRotX(x,y,c){const r=rotOf(c)/90,pv=pivot(c);let dx=x-pv.x,dy=y-pv.y;for(let i=0;i<r;i++){const t=dx;dx=dy;dy=-t;}return pv.x+dx;}
+function rotN(nx,ny,c){const r=rotOf(c)/90;for(let i=0;i<r;i++){const t=nx;nx=-ny;ny=t;}return [nx+0,ny+0];}
+function compBoxAbs(c){
+  const b=compBox(c),pts=[[b.x,b.y],[b.x+b.w,b.y],[b.x,b.y+b.h],[b.x+b.w,b.y+b.h]].map(([x,y])=>rotPt(x,y,c));
+  const xs=pts.map(q=>q[0]),ys=pts.map(q=>q[1]),x0=Math.min(...xs),y0=Math.min(...ys);
+  return {x:c.x+x0,y:c.y+y0,w:Math.max(...xs)-x0,h:Math.max(...ys)-y0};
+}
+function rotWrap(c,inner){
+  const ro=rotOf(c);if(!ro) return inner;
+  const pv=pivot(c);
+  inner=inner.replace(/<text x="([^"]+)" y="([^"]+)"/g,(m,x,y)=>`<text transform="rotate(${-ro} ${x} ${y})" x="${x}" y="${y}"`);
+  return `<g transform="rotate(${ro} ${pv.x*G} ${pv.y*G})">${inner}</g>`;
+}
+function compPorts(c){
+  const L=[],add=(n,x,y,nx,ny,r)=>{const [rx,ry]=rotPt(x,y,c),[a,b]=rotN(nx,ny,c);L.push({n,x:c.x+rx,y:c.y+ry,nx:a,ny:b,r});};
+  switch(c.type){
+    case 'source':add('P',1,0,0,-1,'source');break;
+    case 'cyl_dw':add('A',1,3,0,1,'work');add('B',9,3,0,1,'work');break;
+    case 'cyl_ew':add('A',c.props.rest==='uit'?9:1,3,0,1,'work');break;
+    case 'or':case 'and':add('X',0,2,-1,0,'work');add('Y',4,2,1,0,'work');add('A',2,0,0,-1,'work');break;
+    case 'e_rail':{const len=Number(c.props.len)||30;for(let k=2;k<=len;k+=2) add('p'+k,k,1,0,c.props.pol==='0'?-1:1,'el');break;}
+    case 'e_contact':case 'e_relay':case 'e_sol':case 'e_lamp':add('a',2,0,0,-1,'el');add('b',2,4,0,1,'el');break;
+    case 'e_sensor':add('+',2,0,0,-1,'el');add('-',2,6,0,1,'el');add('out',5,3,1,0,'el');break;
+    case 'thr':case 'thr_chk':
+      if(c.props.rot==='h'){add('1',0,2,-1,0,'work');add('2',4,2,1,0,'work');}
+      else{add('1',2,4,0,1,'work');add('2',2,0,0,-1,'work');}
+      break;
+    default:{
+      const g=vgeo(c),t=VT[c.type];
+      for(const p of t.ports) add(p.n,g.portBox+p.x,p.s==='t'?0:4,0,p.s==='t'?-1:1,p.r);
+      if(PIL.has(c.props.left)) add('pL',0,2,-1,0,'pilot');
+      if(PIL.has(c.props.right)) add('pR',g.total,2,1,0,'pilot');
+    }
+  }
+  return L;
+}
+function compBox(c){
+  switch(c.type){
+    case 'source':return {x:0,y:0,w:2,h:3};
+    case 'cyl_dw':case 'cyl_ew':return {x:0,y:-1.4,w:20.4,h:4.4};
+    case 'or':case 'and':return {x:0,y:0,w:4,h:4.2};
+    case 'e_rail':return {x:-2.6,y:0,w:(Number(c.props.len)||30)+2.6,h:2};
+    case 'e_contact':case 'e_relay':case 'e_sol':case 'e_lamp':return {x:0,y:0,w:4,h:4};
+    case 'e_sensor':return {x:0,y:0,w:5,h:6};
+    case 'thr':case 'thr_chk':return c.props.rot==='h'?{x:0,y:0,w:4,h:4.6}:{x:0,y:0,w:6,h:4};
+    default:return {x:0,y:-0.6,w:vgeo(c).total,h:5.2};
+  }
+}
+function marks(c){const l=String(c.props.label||'').toLowerCase();return [l+'0',l+'1'];}
+function markOn(m){
+  if(!m) return false;
+  for(const c of comps) if(isCyl(c)){
+    const [m0,m1]=marks(c);
+    const [z0,z1]=zones(c);
+    if(m===m0&&c.state.s<=z0+1e-9) return true;
+    if(m===m1&&c.state.s>=1-z1-1e-9) return true;
+  }
+  return false;
+}
+function zones(c){
+  const st=Math.max(1,Number(c.props.stroke)||100),f=c.props.zMode==='mm'?1/st:1/100;
+  const cl=x=>Math.min(1,Math.max(0,(Number(x)||0)*f));
+  return [cl(c.props.z0),cl(c.props.z1)];
+}
+function connCount(){
+  const m={};
+  for(const t of tubes){const a=t.a.c+':'+t.a.p,b=t.b.c+':'+t.b.p;m[a]=(m[a]||0)+1;m[b]=(m[b]||0)+1;}
+  return m;
+}
+function portOf(ref){const c=byId(ref.c);if(!c) return null;return compPorts(c).find(p=>p.n===ref.p)||null;}
+
+/* ---------- symbol drawing ---------- */
+function arrow(x1,y1,x2,y2,air){
+  const a=Math.atan2(y2-y1,x2-x1),L=7,w=3.3;
+  const bx=x2-L*Math.cos(a),by=y2-L*Math.sin(a),px=-Math.sin(a)*w,py=Math.cos(a)*w;
+  return `<line x1="${x1}" y1="${y1}" x2="${bx}" y2="${by}" class="fl${air?' air':''}"/><path d="M${x2},${y2}L${bx+px},${by+py}L${bx-px},${by-py}Z" class="ah${air?' air':''}"/>`;
+}
+function act1(c,side,it,xi,dir,w,sim,mode){
+  const xo=xi+dir*w,y=2*G;
+  switch(it){
+    case 'veer':{
+      if(mode==='top'){
+        const yt=y-12.5;let d=`M${xi},${yt}`;const N=5;
+        for(let i=1;i<N;i++) d+=`L${xi+dir*w*i/N},${yt+(i%2?-3:3)}`;
+        return `<path d="${d}L${xo},${yt}" class="ln" style="stroke-width:1.2"/>`;
+      }
+      let d=`M${xi},${y}`;const N=5;
+      for(let i=1;i<N;i++) d+=`L${xi+dir*w*i/N},${y+(i%2?-6:6)}`;
+      const oth=side==='R'?c.props.left:c.props.right;
+      return `<path d="${d}L${xo},${y}" class="ln"/>`+(oth==='druk'||oth==='tijd'?arrow(xi+dir*0.1*w,y+9,xi+dir*0.95*w,y-10,false):'');
+    }
+    case 'knop':{
+      const key=c.id+':'+side,on=sim&&(pressed[key]||latched[key]),lat=sim&&latched[key];
+      const cx=xo-dir*7;
+      return `<line x1="${xi}" y1="${y}" x2="${cx}" y2="${y}" class="ln"/><path d="M${cx},${y-7}A7,7 0 0 ${dir>0?1:0} ${cx},${y+7}Z" class="knop${on?' on':''}${lat?' lat':''}"/><rect data-act="${key}" x="${Math.min(xi,xo)-4}" y="${G-2}" width="${w+8}" height="${2*G+4}" class="acthit"/>`;
+    }
+    case 'piloot':{
+      const on=sim&&P[c.id+':p'+side],tb=xi+dir*10;
+      return `<path d="M${xi},${y}L${tb},${y-5}L${tb},${y+5}Z" class="tri${on?' on':''}"/><line x1="${tb}" y1="${y}" x2="${xo}" y2="${y}" class="ln${on?' air':''}" style="stroke-width:1.2"/>`;
+    }
+    case 'elek':{
+      const sn=side==='L'?c.props.leftSol:c.props.rightSol,on=sim&&!!EL.on[nm(sn)];
+      const lab=`<text x="${xo+dir*3}" y="${y+4}" text-anchor="${dir<0?'end':'start'}" class="lg">${esc(sn)}</text>`;
+      if(w<2*G){
+        const a=xi+dir*0.15*w,b=xi+dir*0.92*w,x1=Math.min(a,b),x2=Math.max(a,b);
+        return `<line x1="${xi}" y1="${y}" x2="${a}" y2="${y}" class="ln"/><rect x="${x1}" y="${y-8}" width="${x2-x1}" height="16" class="knop${on?' on':''}"/><line x1="${x1}" y1="${y+8}" x2="${x2}" y2="${y-8}" class="ln"/>`+lab;
+      }
+      const p2=xi+dir*13,s2=xi+dir*(w-1),px=Math.min(xi,p2),sx=Math.min(p2,s2),sw=Math.abs(s2-p2);
+      const t1=xi+dir*3,t2=p2-dir*3;
+      const mo=(p2+s2)/2;
+      return `<rect x="${px}" y="${y-8}" width="13" height="16" class="box"/><path d="M${t1},${y}L${t2},${y-4.5}L${t2},${y+4.5}Z" class="exh"/>`+
+        `<rect x="${sx}" y="${y-8}" width="${sw}" height="16" class="knop${on?' on':''}"/><line x1="${sx}" y1="${y+8}" x2="${sx+sw}" y2="${y-8}" class="ln"/>`+
+        `<path d="${mode==='v53'?`M${mo-3},${y+8}V${y+14}M${mo+3},${y+8}V${y+14}M${mo-6},${y+14}H${mo+6}`:`M${mo-3},${y-8}V${y-14}M${mo+3},${y-8}V${y-14}M${mo-6},${y-14}H${mo+6}`}" class="ln" style="stroke-width:1.2"/>`+lab;
+    }
+    case 'druk':case 'tijd':{
+      const on=sim&&P[c.id+':p'+side],tr=sim&&sig(c,side),tb=xi+dir*10;
+      let r=`<path d="M${xi},${y}L${tb},${y-5}L${tb},${y+5}Z" class="tri${tr?' on':''}"/><line x1="${tb}" y1="${y}" x2="${xo}" y2="${y}" class="ln${on?' air':''}" style="stroke-width:1.2"/>`;
+      if(it==='tijd'){const rx=xi+dir*20;r+=`<rect x="${rx-5}" y="${y-5}" width="10" height="10" class="box"/><text x="${rx}" y="${y-8}" text-anchor="middle" class="mk">${esc(String(Number(c.props.delay)||0).replace('.',','))} s</text>`;}
+      else r+=`<text x="${xi+dir*17}" y="${y-8}" text-anchor="middle" class="mk">p</text>`;
+      return r;
+    }
+    case 'mag':{
+      const key=c.id+':'+side,mk=side==='L'?c.props.leftMark:c.props.rightMark,on=sim&&(markOn(mk)||pressed[key]||latched[key]),cx=xo-dir*6;
+      return `<line x1="${xi}" y1="${y}" x2="${cx}" y2="${y}" class="ln"/><rect x="${cx-5}" y="${y-7}" width="10" height="14" class="rol${on?' on':''}"/><line x1="${cx-5}" y1="${y}" x2="${cx+5}" y2="${y}" class="ln" style="stroke-width:1"/><text x="${cx}" y="${y-10}" text-anchor="middle" class="mk">${esc(mk)}</text><rect data-act="${key}" x="${Math.min(xi,xo)-4}" y="${G-2}" width="${w+8}" height="${2*G+4}" class="acthit"/>`;
+    }
+    case 'rol':{
+      const key=c.id+':'+side,mk=side==='L'?c.props.leftMark:c.props.rightMark,on=sim&&(markOn(mk)||pressed[key]||latched[key]),cx=xo-dir*5;
+      return `<path d="M${xi},${y-2.5}H${cx}M${xi},${y+2.5}H${cx}" class="ln" style="stroke-width:1.2"/><circle cx="${cx}" cy="${y}" r="5" class="rol${on?' on':''}"/><circle cx="${cx}" cy="${y}" r="1.8" class="ln" style="stroke-width:1.2"/><text x="${cx}" y="${y-9}" text-anchor="middle" class="mk">${esc(mk)}</text><rect data-act="${key}" x="${Math.min(xi,xo)-4}" y="${G-2}" width="${w+8}" height="${2*G+4}" class="acthit"/>`;
+    }
+  }
+  return '';
+}
+function acts(c,side,xe,dir,sim){
+  const a=side==='L'?c.props.left:c.props.right;
+  if(c.type==='v53') return act1(c,side,'veer',xe,dir,2*G,sim,'top')+act1(c,side,a,xe,dir,2*G,sim,'v53');
+  return act1(c,side,a,xe,dir,2*G,sim,'');
+}
+function svgValve(c,sim){
+  const g=vgeo(c),t=VT[c.type],bx=boxes(c),pos=c.state.pos;
+  const bs=(g.p-pos)*g.W-g.minDx+g.A;
+  let s=`<rect class="hit" x="0" y="0" width="${g.total*G}" height="${4.6*G}"/>`;
+  if(c.props.name) s+=`<text x="0" y="-3" class="lg">${esc(c.props.name)}</text>`;
+  for(const p of t.ports){
+    const x=(g.portBox+p.x)*G,top=p.s==='t',air=sim&&P[c.id+':'+p.n];
+    s+=`<line x1="${x}" y1="${top?0:4*G}" x2="${x}" y2="${top?G:3*G}" class="ln${air?' air':''}"/>`;
+    s+=`<text x="${x+3}" y="${top?G*0.72:G*3.78}">${p.n}</text>`;
+    if(p.r==='exh'&&!conn[c.id+':'+p.n]) s+=`<path d="M${x-5},${4*G}L${x+5},${4*G}L${x},${4*G+8}Z" class="exh"/>`;
+  }
+  for(let i=0;i<g.n;i++){
+    const x0=(bs+i*g.W)*G,active=i===pos;
+    s+=`<rect x="${x0}" y="${G}" width="${g.W*G}" height="${2*G}" class="box${active&&sim?' act':''}"/>`;
+    for(const [a,b] of bx[i].f){
+      const pa=t.ports.find(q=>q.n===a),pb=t.ports.find(q=>q.n===b);
+      const air=sim&&active&&(P[c.id+':'+a]||P[c.id+':'+b]);
+      s+=arrow(x0+pa.x*G,pa.s==='t'?G+2:3*G-2,x0+pb.x*G,pb.s==='t'?G+2:3*G-2,air);
+    }
+    for(const n of bx[i].b){
+      const pb=t.ports.find(q=>q.n===n),x=x0+pb.x*G,top=pb.s==='t',ye=top?G:3*G,yb=top?G*1.5:G*2.5;
+      s+=`<line x1="${x}" y1="${ye}" x2="${x}" y2="${yb}" class="ln"/><line x1="${x-5}" y1="${yb}" x2="${x+5}" y2="${yb}" class="ln"/>`;
+    }
+  }
+  s+=acts(c,'L',bs*G,-1,sim)+acts(c,'R',(bs+g.n*g.W)*G,1,sim);
+  if(PIL.has(c.props.left)){
+    const on=sim&&P[c.id+':pL'],xe=(bs-g.A)*G;
+    if(xe>0) s+=`<line x1="0" y1="${2*G}" x2="${xe}" y2="${2*G}" class="pil${on?' air':''}"/>`;
+    s+=`<text x="1" y="${2*G-5}">${pilLabel(c,'L')}</text>`;
+  }
+  if(PIL.has(c.props.right)){
+    const on=sim&&P[c.id+':pR'],xs=(bs+g.n*g.W+g.A)*G;
+    if(xs<g.total*G) s+=`<line x1="${xs}" y1="${2*G}" x2="${g.total*G}" y2="${2*G}" class="pil${on?' air':''}"/>`;
+    s+=`<text x="${g.total*G-1}" y="${2*G-5}" text-anchor="end">${pilLabel(c,'R')}</text>`;
+  }
+  return s;
+}
+function svgCyl(c,sim){
+  const dw=c.type==='cyl_dw',sv=c.state.s||0,px=(1.4+sv*7.2)*G;
+  const pA=sim&&P[c.id+':A'],pB=sim&&dw&&P[c.id+':B'],ru=!dw&&c.props.rest==='uit';
+  let o=`<rect class="hit" x="0" y="${-1.4*G}" width="${20.4*G}" height="${4.4*G}"/>`;
+  if(pA&&!ru) o+=`<rect x="0" y="0" width="${px-0.2*G}" height="${2*G}" class="cham"/>`;
+  if(pA&&ru) o+=`<rect x="${px+0.2*G}" y="0" width="${10*G-px-0.2*G}" height="${2*G}" class="cham"/>`;
+  if(pB) o+=`<rect x="${px+0.2*G}" y="0" width="${10*G-px-0.2*G}" height="${2*G}" class="cham"/>`;
+  o+=`<rect x="0" y="0" width="${10*G}" height="${2*G}" class="body"/>`;
+  if(!dw){
+    const x1=ru?0:px+0.2*G,x2=ru?px-0.2*G:10*G,N=9;let d=`M${x1},${G}`;
+    for(let i=1;i<N;i++) d+=`L${x1+(x2-x1)*i/N},${i%2?0.25*G:1.75*G}`;
+    o+=`<path d="${d}L${x2},${G}" class="ln" style="stroke-width:1.1"/>`;
+    const vx=ru?0.8*G:9.2*G;
+    o+=`<line x1="${vx}" y1="0" x2="${vx}" y2="${-0.45*G}" class="ln"/>`;
+  }
+  o+=`<rect x="${px}" y="${0.8*G}" width="${10.4*G}" height="${0.4*G}" class="rod"/>`;
+  o+=`<rect x="${px-0.2*G}" y="2" width="${0.4*G}" height="${2*G-4}" class="piston"/>`;
+  const ax=ru?9*G:G;
+  o+=`<line x1="${ax}" y1="${2*G}" x2="${ax}" y2="${3*G}" class="ln${pA?' air':''}"/><text x="${ax+3}" y="${2.8*G}">A</text>`;
+  if(dw) o+=`<line x1="${9*G}" y1="${2*G}" x2="${9*G}" y2="${3*G}" class="ln${pB?' air':''}"/><text x="${9*G+3}" y="${2.8*G}">B</text>`;
+  const [z0,z1]=zones(c),[m0,m1]=marks(c),on0=sim&&sv<=z0+1e-9,on1=sim&&sv>=1-z1-1e-9;
+  if(z0>0) o+=`<rect x="${11.8*G}" y="${-0.32*G}" width="${z0*7.2*G}" height="${0.22*G}" class="zone"/>`;
+  if(z1>0) o+=`<rect x="${(19-z1*7.2)*G}" y="${-0.32*G}" width="${z1*7.2*G}" height="${0.22*G}" class="zone"/>`;
+  o+=`<line x1="${11.8*G}" y1="${-0.5*G}" x2="${11.8*G}" y2="${0.5*G}" class="tick${on0?' on':''}"/><text x="${11.8*G}" y="${-0.75*G}" text-anchor="middle" class="mk">${esc(m0)}</text>`;
+  o+=`<line x1="${19*G}" y1="${-0.5*G}" x2="${19*G}" y2="${0.5*G}" class="tick${on1?' on':''}"/><text x="${19*G}" y="${-0.75*G}" text-anchor="middle" class="mk">${esc(m1)}</text>`;
+  o+=`<text x="0" y="${-0.4*G}" class="cname">${esc(c.props.label)}</text>`;
+  return o;
+}
+function svgSource(c,sim){
+  return `<rect class="hit" x="0" y="0" width="${2*G}" height="${3*G}"/><line x1="${G}" y1="0" x2="${G}" y2="${1.25*G}" class="ln${sim?' air':''}"/><circle cx="${G}" cy="${2*G}" r="${0.75*G}" class="src"/><path d="M${G},${1.45*G}L${0.6*G},${2.2*G}L${1.4*G},${2.2*G}Z" class="srct"/>`;
+}
+function svgLogic(c,sim){
+  const air=n=>sim&&P[c.id+':'+n]?' air':'';
+  const bxp=c.state.ball==='X'?2.55*G:1.45*G;
+  return `<rect class="hit" x="0" y="0" width="${4*G}" height="${4.2*G}"/>`+
+    `<line x1="0" y1="${2*G}" x2="${G}" y2="${2*G}" class="ln${air('X')}"/><line x1="${3*G}" y1="${2*G}" x2="${4*G}" y2="${2*G}" class="ln${air('Y')}"/><line x1="${2*G}" y1="0" x2="${2*G}" y2="${G}" class="ln${air('A')}"/>`+
+    `<rect x="${G}" y="${G}" width="${2*G}" height="${2*G}" class="box"/>`+
+    `<line x1="${G}" y1="${2*G}" x2="${3*G}" y2="${2*G}" class="ln" style="stroke-width:1"/><line x1="${2*G}" y1="${G}" x2="${2*G}" y2="${2*G}" class="ln" style="stroke-width:1"/>`+
+    `<path d="M${1.25*G},${1.6*G}L${1.25*G},${2.4*G}M${2.75*G},${1.6*G}L${2.75*G},${2.4*G}" class="ln"/>`+
+    `<circle cx="${bxp}" cy="${2*G}" r="${0.3*G}" class="ball"/>`+
+    `<text x="${2*G}" y="${4*G}" text-anchor="middle" class="lg">${c.type==='or'?'OF':'EN'}</text>`+
+    `<text x="2" y="${2*G-4}">X</text><text x="${4*G-2}" y="${2*G-4}" text-anchor="end">Y</text>`;
+}
+function thrRes(c){return 1/Math.max(0.05,(Number(c.props.open)||50)/100)-1;}
+function svgThr(c,sim){
+  const k=G,chk=c.type==='thr_chk',v=c.props.rot!=='h',air=sim&&(P[c.id+':1']||P[c.id+':2'])?' air':'';
+  let g=`<line x1="0" y1="${2*k}" x2="${4*k}" y2="${2*k}" class="ln${air}"/>`;
+  g+=`<path d="M${1.35*k},${1.55*k}Q${2*k},${2.15*k} ${2.65*k},${1.55*k}M${1.35*k},${2.45*k}Q${2*k},${1.85*k} ${2.65*k},${2.45*k}" class="ln"/>`;
+  g+=arrow(1.25*k,2.9*k,2.75*k,1.1*k,false);
+  if(chk){
+    const f=c.props.dir!=='21',ax=f?1.7:2.3,ex=f?2.05:1.95,bx=f?2.12:1.88;
+    g+=`<path d="M${0.7*k},${2*k}V${0.75*k}H${3.3*k}V${2*k}" class="ln${air}"/>`;
+    g+=`<path d="M${ex*k},${0.4*k}L${ax*k},${0.75*k}L${ex*k},${1.1*k}" class="ln"/><circle cx="${bx*k}" cy="${0.75*k}" r="${0.28*k}" class="rol"/>`;
+  }
+  let s=`<rect class="hit" x="0" y="0" width="${(v?6:4)*k}" height="${(v?4:4.6)*k}"/>`;
+  s+=v?`<g transform="rotate(-90 ${2*k} ${2*k})">${g}</g>`:g;
+  const lab=(c.props.name?c.props.name+'  ':'')+Math.round(Number(c.props.open)||50)+' %';
+  s+=v?`<text x="${3.1*k}" y="${1.6*k}" class="lg">${esc(lab)}</text><text x="${2*k+4}" y="${3.8*k}">1</text><text x="${2*k+4}" y="${0.7*k}">2</text>`
+      :`<text x="${2*k}" y="${4.4*k}" text-anchor="middle" class="lg">${esc(lab)}</text><text x="2" y="${2*k+11}">1</text><text x="${4*k-2}" y="${2*k+11}" text-anchor="end">2</text>`;
+  return s;
+}
+function sensActive(c){return !!(pressed[c.id+':K']||latched[c.id+':K'])||markOn(c.props.mark);}
+function contactClosed(c){
+  const k=c.props.kind,nc=c.props.contact==='NC';
+  const act=k==='knop'?!!(pressed[c.id+':K']||latched[c.id+':K']):k==='relais'?!!EL.on[nm(c.props.name)]:(!!(pressed[c.id+':K']||latched[c.id+':K'])||markOn(c.props.mark));
+  return act!==nc;
+}
+function elSolve(){
+  const par=new Map();
+  const f=x=>{let r=x;while(par.get(r)!==r) r=par.get(r);let y=x;while(par.get(y)!==r){const n=par.get(y);par.set(y,r);y=n;}return r;};
+  const un=(a,b)=>{if(!par.has(a)||!par.has(b)) return;const ra=f(a),rb=f(b);if(ra!==rb) par.set(ra,rb);};
+  const els=comps.filter(isEl);
+  for(const c of els) for(const p of compPorts(c)){const id=c.id+':'+p.n;par.set(id,id);}
+  for(const t of tubes) un(t.a.c+':'+t.a.p,t.b.c+':'+t.b.p);
+  for(const c of els){
+    if(c.type==='e_rail'){const ps=compPorts(c);for(let i=1;i<ps.length;i++) un(c.id+':'+ps[0].n,c.id+':'+ps[i].n);}
+    else if(c.type==='e_contact'&&contactClosed(c)) un(c.id+':a',c.id+':b');
+  }
+  const plus=new Set(),zero=new Set();
+  for(const c of els){
+    if(c.type==='e_rail') for(const p of compPorts(c)) (c.props.pol==='0'?zero:plus).add(f(c.id+':'+p.n));
+    else if(c.type==='e_sensor'&&c.state.pw&&sensActive(c)) plus.add(f(c.id+':out'));
+  }
+  const E={};let short=false;
+  for(const id of par.keys()){const r=f(id),p=plus.has(r),z=zero.has(r);if(p&&z) short=true;E[id]=p&&z?'x':p?'+':z?'0':'';}
+  const on={};let pw='';
+  for(const c of els){
+    if(c.type==='e_relay'||c.type==='e_sol'||c.type==='e_lamp'){
+      const a=E[c.id+':a'],b=E[c.id+':b'];
+      c.state.on=(a==='+'&&b==='0')||(a==='0'&&b==='+');
+      if(c.state.on) on[nm(c.props.name)]=true;
+    } else if(c.type==='e_sensor'){c.state.pw=E[c.id+':+']==='+'&&E[c.id+':-']==='0';pw+=c.state.pw?'1':'0';}
+  }
+  return {E,on,short,sig:Object.keys(on).sort().join(',')+'|'+pw};
+}
+function epc(c,n,sim){return sim&&EL.E[c.id+':'+n]==='+'?' ep':'';}
+function svgRail(c,sim){
+  const len=Number(c.props.len)||30,ep=sim&&c.props.pol!=='0'?' ep':'';
+  return `<rect class="hit" x="${-2.6*G}" y="0" width="${(len+2.6)*G}" height="${2*G}"/><line x1="${-0.25*G}" y1="${G}" x2="${len*G}" y2="${G}" class="rail${ep}"/><circle cx="${-0.5*G}" cy="${G}" r="4" class="sbox"/><text x="${-2.5*G}" y="${G-7}" class="lg">${c.props.pol==='0'?'0V':'+24V'}</text>`;
+}
+function svgContact(c,sim){
+  const k=G,nc=c.props.contact==='NC',closed=sim?contactClosed(c):nc,Ea=epc(c,'a',sim),Eb=epc(c,'b',sim);
+  let s=`<rect class="hit" x="0" y="0" width="${4*k}" height="${4*k}"/>`;
+  s+=`<line x1="${2*k}" y1="0" x2="${2*k}" y2="${1.4*k}" class="eln${Ea}"/><line x1="${2*k}" y1="${2.6*k}" x2="${2*k}" y2="${4*k}" class="eln${Eb}"/>`;
+  if(nc) s+=`<line x1="${2*k}" y1="${1.4*k}" x2="${2.6*k}" y2="${1.4*k}" class="eln${Ea}"/>`;
+  const bx=closed?(nc?2.62:2):1.4,by=closed?(nc?1.3:1.4):1.45;
+  s+=`<line x1="${2*k}" y1="${2.6*k}" x2="${bx*k}" y2="${by*k}" class="eln${closed?Eb:''}" style="stroke-width:1.9"/>`;
+  const kind=c.props.kind;
+  if(kind==='knop'||kind==='rol'){
+    const mx=closed?(nc?2.29:2):1.69;
+    s+=`<line x1="${0.95*k}" y1="${2*k}" x2="${mx*k}" y2="${2*k}" class="dsh"/>`;
+    if(kind==='knop'){
+      const key=c.id+':K',on=sim&&(pressed[key]||latched[key]),lat=sim&&latched[key];
+      s+=`<path d="M${0.95*k},${1.55*k}H${0.6*k}V${2.45*k}H${0.95*k}" class="eln" style="${on?'stroke:var(--sel);stroke-width:'+(lat?3:2.2):''}"/><rect data-act="${key}" x="0" y="${0.9*k}" width="${2.8*k}" height="${2.2*k}" class="acthit"/>`;
+    } else {
+      const key=c.id+':K',on=sim&&(pressed[key]||latched[key]||markOn(c.props.mark));
+      s+=`<circle cx="${0.62*k}" cy="${2*k}" r="${0.3*k}" class="rol${on?' on':''}${sim&&latched[key]?' lat':''}"/><text x="${0.62*k}" y="${1.4*k}" text-anchor="middle" class="mk">${esc(c.props.mark)}</text><rect data-act="${key}" x="0" y="${0.9*k}" width="${2.8*k}" height="${2.2*k}" class="acthit"/>`;
+    }
+  }
+  s+=`<text x="${2.25*k}" y="${0.85*k}">${nc?'1':'3'}</text><text x="${2.25*k}" y="${3.65*k}">${nc?'2':'4'}</text>`;
+  if(c.props.name) s+=`<text x="${2.8*k}" y="${2.3*k}" class="lg">${esc(c.props.name)}</text>`;
+  return s;
+}
+function svgCoil(c,sim){
+  const k=G,on=sim&&c.state.on,Ea=epc(c,'a',sim),Eb=epc(c,'b',sim);
+  let s=`<rect class="hit" x="0" y="0" width="${4*k}" height="${4*k}"/>`;
+  if(c.type==='e_lamp'){
+    s+=`<line x1="${2*k}" y1="0" x2="${2*k}" y2="${1.4*k}" class="eln${Ea}"/><line x1="${2*k}" y1="${2.6*k}" x2="${2*k}" y2="${4*k}" class="eln${Eb}"/><circle cx="${2*k}" cy="${2*k}" r="${0.6*k}" class="coil${on?' on':''}"/><path d="M${1.58*k},${1.58*k}L${2.42*k},${2.42*k}M${2.42*k},${1.58*k}L${1.58*k},${2.42*k}" class="eln"/>`;
+  } else {
+    s+=`<line x1="${2*k}" y1="0" x2="${2*k}" y2="${1.5*k}" class="eln${Ea}"/><line x1="${2*k}" y1="${2.5*k}" x2="${2*k}" y2="${4*k}" class="eln${Eb}"/><rect x="${1.2*k}" y="${1.5*k}" width="${1.6*k}" height="${k}" class="coil${on?' on':''}"/>`;
+    if(c.type==='e_sol') s+=`<line x1="${1.2*k}" y1="${2.5*k}" x2="${2.8*k}" y2="${1.5*k}" class="eln"/>`;
+    s+=`<text x="${2.2*k}" y="${1.15*k}">A1</text><text x="${2.2*k}" y="${3.45*k}">A2</text>`;
+  }
+  return s+`<text x="${1.05*k}" y="${2.3*k}" text-anchor="end" class="lg">${esc(c.props.name)}</text>`;
+}
+function svgSensor(c,sim){
+  const k=G,on=sim&&sensActive(c);
+  let s=`<rect class="hit" x="0" y="0" width="${5*k}" height="${6*k}"/>`;
+  s+=`<line x1="${2*k}" y1="0" x2="${2*k}" y2="${k}" class="eln${epc(c,'+',sim)}"/><line x1="${2*k}" y1="${5*k}" x2="${2*k}" y2="${6*k}" class="eln"/><line x1="${3.5*k}" y1="${3*k}" x2="${5*k}" y2="${3*k}" class="eln${epc(c,'out',sim)}"/>`;
+  s+=`<rect x="${0.5*k}" y="${k}" width="${3*k}" height="${4*k}" class="sbox${on?' on':''}"/>`;
+  s+=`<path d="M${2*k},${1.4*k}L${2.7*k},${2.1*k}L${2*k},${2.8*k}L${1.3*k},${2.1*k}Z" class="eln"/>`;
+  const kd=c.props.kind||'ind';
+  if(kd==='ind') s+=`<rect x="${1.8*k}" y="${1.93*k}" width="${0.4*k}" height="${0.34*k}" class="eln" style="stroke-width:1.2"/>`;
+  else if(kd==='cap') s+=`<path d="M${1.9*k},${1.82*k}V${2.38*k}M${2.1*k},${1.82*k}V${2.38*k}" class="eln" style="stroke-width:1.5"/>`;
+  else s+=arrow(0.7*k,1.15*k,1.45*k,1.75*k,false)+arrow(0.7*k,1.6*k,1.3*k,2.05*k,false);
+  s+=`<path d="M${0.9*k},${4.1*k}H${1.5*k}L${2.45*k},${(on?4.1:3.6)*k}M${2.5*k},${4.1*k}H${3.1*k}" class="eln"/>`;
+  s+=`<text x="${2.2*k}" y="${0.8*k}">+</text><text x="${2.2*k}" y="${5.8*k}">0V</text>`;
+  return s+`<text x="${0.5*k}" y="${0.75*k}" class="mk">${esc(c.props.mark)}</text><rect data-act="${c.id}:K" x="${0.5*k}" y="${k}" width="${3*k}" height="${4*k}" class="acthit"/>`;
+}
+
+function sym(c,sim){
+  if(isEl(c)) return c.type==='e_rail'?svgRail(c,sim):c.type==='e_contact'?svgContact(c,sim):c.type==='e_sensor'?svgSensor(c,sim):svgCoil(c,sim);
+  if(isThr(c)) return svgThr(c,sim);
+  if(isValve(c)) return svgValve(c,sim);
+  if(isCyl(c)) return svgCyl(c,sim);
+  if(c.type==='source') return svgSource(c,sim);
+  return svgLogic(c,sim);
+}
+
+/* ---------- tubes ---------- */
+function simp(pts){
+  const o=[];
+  for(const p of pts){const l=o[o.length-1];if(l&&l.x===p.x&&l.y===p.y) continue;o.push({x:p.x,y:p.y});}
+  for(let i=o.length-2;i>0;i--){const a=o[i-1],b=o[i],d=o[i+1];if((a.x===b.x&&b.x===d.x)||(a.y===b.y&&b.y===d.y)) o.splice(i,1);}
+  return o;
+}
+function tubeM(t,a,b){
+  const A1={x:a.x+a.nx,y:a.y+a.ny},B1={x:b.x+b.nx,y:b.y+b.ny};
+  if(t.m!=null) return t.m;
+  return a.ny!==0?Math.round((A1.y+B1.y)/2):Math.round((A1.x+B1.x)/2);
+}
+function route(t){
+  const a=portOf(t.a),b=portOf(t.b);
+  if(!a||!b) return null;
+  const A1={x:a.x+a.nx,y:a.y+a.ny},B1={x:b.x+b.nx,y:b.y+b.ny},m=tubeM(t,a,b);
+  const pts=a.ny!==0
+    ?[a,A1,{x:A1.x,y:m},{x:B1.x,y:m},B1,b]
+    :[a,A1,{x:m,y:A1.y},{x:m,y:B1.y},B1,b];
+  return simp(pts);
+}
+
+/* ---------- simulation ---------- */
+function sig(c,side){
+  const a=side==='L'?c.props.left:c.props.right,key=c.id+':'+side;
+  if(a==='knop') return !!(pressed[key]||latched[key]);
+  if(a==='piloot') return !!P[c.id+':p'+side];
+  if(a==='rol'||a==='mag') return !!(pressed[key]||latched[key])||markOn(side==='L'?c.props.leftMark:c.props.rightMark);
+  if(a==='druk') return !!P[c.id+':p'+side]&&!!FULL[c.id+':p'+side];
+  if(a==='tijd') return !!P[c.id+':p'+side]&&((c.state.tm&&c.state.tm[side])||0)>=Math.max(0,Number(c.props.delay)||0);
+  if(a==='elek') return !!EL.on[nm(side==='L'?c.props.leftSol:c.props.rightSol)];
+  return false;
+}
+function valvePos(c){
+  const L=sig(c,'L'),R=sig(c,'R');
+  if(c.type==='v53') return L&&!R?0:R&&!L?2:1;
+  if(c.props.right==='veer') return L?0:1;
+  if(L&&!R) return 0;
+  if(R&&!L) return 1;
+  return c.state.pos;
+}
+function ballPos(c){
+  const x=!!P[c.id+':X'],y=!!P[c.id+':Y'];
+  if(c.type==='or'){if(x&&!y) return 'X';if(y&&!x) return 'Y';}
+  else{if(x&&!y) return 'Y';if(y&&!x) return 'X';}
+  return c.state.ball||'X';
+}
+function pressures(){
+  const par=new Map();
+  const f=x=>{let r=x;while(par.get(r)!==r) r=par.get(r);let y=x;while(par.get(y)!==r){const n=par.get(y);par.set(y,r);y=n;}return r;};
+  const un=(a,b)=>{if(!par.has(a)||!par.has(b)) return;const ra=f(a),rb=f(b);if(ra!==rb) par.set(ra,rb);};
+  const cnt=connCount(),info=[];
+  for(const c of comps) for(const p of compPorts(c)){const id=c.id+':'+p.n;par.set(id,id);info.push([id,p.r]);}
+  for(const t of tubes) un(t.a.c+':'+t.a.p,t.b.c+':'+t.b.p);
+  for(const c of comps){
+    if(isValve(c)) for(const [a,b] of boxes(c)[c.state.pos].f) un(c.id+':'+a,c.id+':'+b);
+    else if(c.type==='or'||c.type==='and') un(c.id+':A',c.id+':'+c.state.ball);
+    else if(isThr(c)) un(c.id+':1',c.id+':2');
+  }
+  const g={};
+  for(const [id,r] of info){
+    const root=f(id),o=g[root]||(g[root]={s:false,v:false,p:false});
+    if(r==='source') o.s=true;
+    else if((r==='work'||r==='exh')&&!cnt[id]) o.v=true;
+    if(P[id]) o.p=true;
+  }
+  const NP={},NS={};
+  let leak=false;
+  for(const [id] of info){const o=g[f(id)];if(o.s&&o.v) leak=true;NS[id]=o.s&&o.v?'L':o.s?'S':o.v?'V':'T';NP[id]=o.s&&o.v?false:o.s?true:o.v?false:o.p;}
+  LEAK=leak;
+  const cylG={};
+  for(const c of comps) if(isCyl(c)){
+    const sv=c.state.s,ew=c.type==='cyl_ew',ru=ew&&c.props.rest==='uit',blk={A:ru?sv<=0.001:sv>=0.999,B:sv<=0.001};
+    for(const pn of (ew?['A']:['A','B'])){const r=f(c.id+':'+pn);(cylG[r]||(cylG[r]=[])).push(blk[pn]);}
+  }
+  const FL={};
+  for(const [id] of info){const r=f(id),o=g[r];FL[id]=o.s&&!o.v&&(cylG[r]||[]).every(Boolean);}
+  FULL=FL;
+  const adj=new Map(),E=(a,b,r)=>{if(!adj.has(a)) adj.set(a,[]);adj.get(a).push([b,r]);},E2=(a,b,r=0)=>{E(a,b,r);E(b,a,r);};
+  for(const t of tubes) E2(t.a.c+':'+t.a.p,t.b.c+':'+t.b.p);
+  for(const c of comps){
+    if(isValve(c)) for(const [a,b] of boxes(c)[c.state.pos].f) E2(c.id+':'+a,c.id+':'+b);
+    else if(c.type==='or'||c.type==='and') E2(c.id+':A',c.id+':'+c.state.ball);
+    else if(isThr(c)){
+      const r=thrRes(c),a=c.id+':1',b=c.id+':2';
+      if(c.type==='thr') E2(a,b,r);
+      else if(c.props.dir==='21'){E(b,a,0);E(a,b,r);}
+      else{E(a,b,0);E(b,a,r);}
+    }
+  }
+  const src=new Set(),vent=new Set();
+  for(const [id,r] of info){if(r==='source') src.add(id);else if((r==='work'||r==='exh')&&!cnt[id]) vent.add(id);}
+  NET={adj,src,vent};
+  return {NP,NS};
+}
+function solve(){
+  for(let it=0;it<40;it++){
+    let ch=false;
+    const ne=elSolve();if(ne.sig!==EL.sig) ch=true;EL=ne;
+    for(const c of comps){
+      if(isValve(c)){const n=valvePos(c);if(n!==c.state.pos){c.state.pos=n;ch=true;}}
+      else if(c.type==='or'||c.type==='and'){const n=ballPos(c);if(n!==c.state.ball){c.state.ball=n;ch=true;}}
+    }
+    const {NP,NS}=pressures();
+    for(const k in NP) if(NP[k]!==P[k]) ch=true;
+    P=NP;ST=NS;
+    if(!ch) break;
+  }
+}
+function dij(starts,goal){
+  const d=new Map(),done=new Set();
+  for(const s of starts) d.set(s,0);
+  while(true){
+    let u=null,best=Infinity;
+    for(const [n,x] of d) if(!done.has(n)&&x<best){best=x;u=n;}
+    if(u===null) return Infinity;
+    if(goal(u)) return best;
+    done.add(u);
+    for(const [w,r] of NET.adj.get(u)||[]){const nd=best+r;if(nd<(d.has(w)?d.get(w):Infinity)) d.set(w,nd);}
+  }
+}
+const fin=x=>Number.isFinite(x)?x:0;
+const sup=id=>fin(dij(NET.src,n=>n===id)),exh=id=>fin(dij([id],n=>NET.vent.has(n)));
+function stepCyl(dt){
+  for(const c of comps) if(isValve(c)) for(const sd of ['L','R']){
+    if((sd==='L'?c.props.left:c.props.right)!=='tijd') continue;
+    c.state.tm=c.state.tm||{L:0,R:0};
+    c.state.tm[sd]=P[c.id+':p'+sd]?c.state.tm[sd]+dt:0;
+  }
+  for(const c of comps) if(isCyl(c)){
+    const A=c.id+':A',B=c.id+':B',a=ST[A],b=ST[B];let v=0;
+    if(c.type==='cyl_dw'){
+      if(a==='S'&&b==='V') v=1/(1+sup(A)+exh(B));
+      else if(b==='S'&&a==='V') v=-1/(1+sup(B)+exh(A));
+      else if(a==='S'&&b==='S') v=0.25/(1+sup(A));
+    } else { const ru=c.props.rest==='uit'; if(a==='S') v=(ru?-1:1)/(1+sup(A)); else if(a==='V') v=(ru?1:-1)/(1+exh(A)); }
+    const T=Math.max(0.2,Number(c.props.time)||1.5);
+    c.state.s=Math.min(1,Math.max(0,c.state.s+v*dt/T));
+  }
+}
+function resetSim(){
+  comps.forEach(initState);P={};ST={};pressed={};latched={};scMem={};LEAK=false;EL={E:{},on:{},short:false,sig:''};
+  if(mode==='sim') solve();
+}
+let lastT=0;
+function loop(ts){
+  if(mode!=='sim'){lastT=0;return;}
+  const dt=lastT?Math.min(0.05,(ts-lastT)/1000):0;lastT=ts;
+  if(running){solve();stepCyl(dt);solve();}
+  {const w=(LEAK?1:0)+(EL.short?2:0);if(w!==lastLeak){lastLeak=w;setStatus();}}
+  render();
+  requestAnimationFrame(loop);
+}
+
+/* ---------- rendering ---------- */
+function applyView(){world.setAttribute('transform',`translate(${view.x},${view.y}) scale(${view.z})`);}
+function render(){
+  conn=connCount();
+  const sim=mode==='sim';
+  let s=`<rect x="-6400" y="-6400" width="16000" height="16000" fill="url(#grid)" pointer-events="none"/>`;
+  for(const t of tubes){
+    const pts=route(t);if(!pts) continue;
+    const ps=pts.map(p=>`${p.x*G},${p.y*G}`).join(' ');
+    const ida=t.a.c+':'+t.a.p,pa=portOf(t.a),isE=pa&&pa.r==='el';
+    const air=sim&&P[ida],isSel=!sim&&sel&&sel.k==='tube'&&sel.id===t.id;
+    const cl=isE?' el'+(sim&&EL.E[ida]==='+'?' ep':''):(sim?(air?' air':' noair'):'');
+    s+=`<polyline points="${ps}" class="tube${cl}${isSel?' sel':''}"/><polyline points="${ps}" class="tubehit" data-tube="${t.id}"/>`;
+  }
+  for(const c of comps){
+    let inner=sym(c,sim);
+    if(!sim&&c.type==='e_rail'){const L=Number(c.props.len)||30;inner+=`<rect data-resize="${c.id}" x="${(L+0.3)*G}" y="${G-7}" width="8" height="14" rx="2" class="rsz"><title>Sleep om de rail langer of korter te maken</title></rect>`;}
+    if(sel&&sel.k==='comp'&&sel.id===c.id&&(!sim||isThr(c))){const b=compBox(c);inner+=`<rect x="${b.x*G-5}" y="${b.y*G-5}" width="${b.w*G+10}" height="${b.h*G+10}" rx="4" class="selr"/>`;}
+    s+=`<g transform="translate(${c.x*G},${c.y*G})" data-comp="${c.id}">${rotWrap(c,inner)}</g>`;
+  }
+  for(const c of comps) for(const p of compPorts(c)){
+    const id=c.id+':'+p.n,n=conn[id]||0,x=p.x*G,y=p.y*G;
+    if(n>=2||(n>=1&&c.type==='e_rail')) s+=`<circle cx="${x}" cy="${y}" r="3.4" class="jn${p.r==='el'?(sim&&EL.E[id]==='+'?' ep':''):(sim&&P[id]?' air':'')}"/>`;
+    if(!sim){
+      const hot=hoverPort&&hoverPort.c===c.id&&hoverPort.p===p.n;
+      const open=!n&&p.r!=='exh'&&c.type!=='e_rail';
+      s+=(hot||open?`<circle cx="${x}" cy="${y}" r="${hot?5:3.6}" class="port${hot?' hot':''}${p.r==='el'?' pe':''}"/>`:'')+`<circle cx="${x}" cy="${y}" r="8" class="porthit" data-port="${id}"/>`;
+    }
+  }
+  if(drag&&drag.k==='wire'){
+    const a=portOf(drag.from),b=hoverPort?portOf(hoverPort):drag.cur;
+    if(a&&b) s+=`<polyline points="${a.x*G},${a.y*G} ${a.x*G},${b.y*G} ${b.x*G},${b.y*G}" class="wire"/>`;
+  }
+  world.innerHTML=s;applyView();
+  if(lp) drawScene();
+  $('#empty').style.display=comps.length?'none':'flex';
+}
+
+/* ---------- palette ---------- */
+const PAL=[
+  {g:'Energie',items:[{t:'source',n:'Drukbron'}]},
+  {g:'Cilinders',items:[{t:'cyl_ew',n:'Enkelwerkend, in rust ingetrokken',w:1},{t:'cyl_ew',n:'Enkelwerkend, in rust uitgeschoven',p:{rest:'uit'},w:1},{t:'cyl_dw',n:'Dubbelwerkend',w:1}]},
+  {g:'3/2-ventielen',items:[
+    {t:'v32',n:'Drukknop, monostabiel',p:{left:'knop',right:'veer'}},
+    {t:'v32',n:'Lucht, monostabiel',p:{left:'piloot',right:'veer'}},
+    {t:'v32',n:'Rolhendel, monostabiel',p:{left:'rol',right:'veer'}},
+    {t:'v32',n:'Magneet, monostabiel',p:{left:'mag',right:'veer'}},
+    {t:'v32',n:'Drukschakel­ventiel',p:{left:'druk',right:'veer'}},
+    {t:'v32',n:'Tijdvertragings­ventiel',p:{left:'tijd',right:'veer'}},
+    {t:'v32',n:'Spoel, monostabiel',p:{left:'elek',right:'veer'},e:1},
+    {t:'v32',n:'Lucht, bistabiel',p:{left:'piloot',right:'piloot'}},
+    {t:'v32',n:'Spoel, bistabiel',p:{left:'elek',right:'elek',leftSol:'',rightSol:''},e:1}]},
+  {g:'5/2-ventielen',items:[
+    {t:'v52',n:'Drukknop, monostabiel',p:{left:'knop',right:'veer'}},
+    {t:'v52',n:'Lucht, monostabiel',p:{left:'piloot',right:'veer'}},
+    {t:'v52',n:'Spoel, monostabiel',p:{left:'elek',right:'veer'},e:1},
+    {t:'v52',n:'Drukknop, bistabiel',p:{left:'knop',right:'knop'}},
+    {t:'v52',n:'Lucht, bistabiel',p:{left:'piloot',right:'piloot'}},
+    {t:'v52',n:'Spoel, bistabiel',p:{left:'elek',right:'elek',leftSol:'',rightSol:''},e:1}]},
+  {g:'5/3-ventielen',items:[
+    {t:'v53',n:'Drukknop, veergecentreerd',p:{left:'knop',right:'knop'},w:1},
+    {t:'v53',n:'Lucht, veergecentreerd',p:{left:'piloot',right:'piloot'},w:1},
+    {t:'v53',n:'Spoel, veergecentreerd',p:{left:'elek',right:'elek',leftSol:'',rightSol:''},w:1,e:1}]},
+  {g:'Smoorventielen',items:[{t:'thr_chk',n:'Smoorterugslag'},{t:'thr',n:'Smoorventiel'}]},
+  {g:'Logica',items:[{t:'or',n:'OF-ventiel'},{t:'and',n:'EN-ventiel'}]},
+  {g:'Elektrisch: voeding',e:1,items:[{t:'e_rail',n:'+24V-rail',p:{pol:'+'},w:1},{t:'e_rail',n:'0V-rail',p:{pol:'0'},w:1}]},
+  {g:'Elektrisch: schakelaars',e:1,items:[
+    {t:'e_contact',n:'Drukknop maak',p:{kind:'knop',contact:'NO'}},
+    {t:'e_contact',n:'Drukknop verbreek',p:{kind:'knop',contact:'NC'}},
+    {t:'e_contact',n:'Relaiscontact maak',p:{kind:'relais',contact:'NO',name:'K1'}},
+    {t:'e_contact',n:'Relaiscontact verbreek',p:{kind:'relais',contact:'NC',name:'K1'}},
+    {t:'e_contact',n:'Eindeloop­schakelaar',p:{kind:'rol',contact:'NO',name:''}},
+    {t:'e_sensor',n:'Inductieve sensor',p:{kind:'ind'}},
+    {t:'e_sensor',n:'Capacitieve sensor',p:{kind:'cap'}},
+    {t:'e_sensor',n:'Optische sensor',p:{kind:'opt'}}]},
+  {g:'Elektrisch: spoelen',e:1,items:[{t:'e_relay',n:'Relaisspoel'},{t:'e_sol',n:'Ventielspoel'},{t:'e_lamp',n:'Signaallamp'}]}
+];
+function tmpComp(it){
+  const c={id:'pv',type:it.t,x:0,y:0,props:Object.assign(defProps(it.t),it.p||{})};
+  initState(c);return c;
+}
+function palSvg(it,h){
+  const c=tmpComp(it),b=compBox(c),pad=0.5;
+  return `<svg class="sym" viewBox="${(b.x-pad)*G} ${(b.y-pad)*G} ${(b.w+2*pad)*G} ${(b.h+2*pad)*G}"${h?` height="${h}"`:''}>${sym(c,false)}</svg>`;
+}
+function buildPalette(){
+  let h='';
+  PAL.forEach((grp,gi)=>{
+    if(grp.e&&appMode!=='elek') return;
+    h+=`<h3><button class="ph" aria-expanded="false"><i>▸</i>${grp.g}</button></h3><div class="pgrid" hidden>`;
+    grp.items.forEach((it,i)=>{if(it.e&&appMode!=='elek') return;h+=`<div class="pi${it.w?' wide':''}" tabindex="0" data-pal="${gi}:${i}" title="Sleep naar het raster">${palSvg(it)}<span>${it.n}</span></div>`;});
+    h+='</div>';
+  });
+  $('#pal').innerHTML=h;
+  $('#pal').querySelectorAll('.ph').forEach(b=>b.onclick=()=>{
+    const g=b.parentElement.nextElementSibling,open=g.hidden;
+    g.hidden=!open;b.setAttribute('aria-expanded',String(open));b.querySelector('i').textContent=open?'▾':'▸';
+  });
+  $('#pal').querySelectorAll('.pi').forEach(el=>{
+    const [gi,i]=el.dataset.pal.split(':').map(Number),it=PAL[gi].items[i];
+    el.addEventListener('pointerdown',e=>{if(mode!=='edit') return;e.preventDefault();drag={k:'new',it,sx:e.clientX,sy:e.clientY,moved:false,ghost:null};});
+    el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();addComp(it,null);}});
+  });
+}
+function addComp(it,at){
+  if(mode!=='edit') return;
+  pushUndo();
+  const c={id:nid++,type:it.t,x:0,y:0,props:Object.assign(defProps(it.t),it.p||{})};
+  if(isCyl(c)) c.props.label=nextLabel();
+  if(c.type==='e_relay') c.props.name=nextName('K',x=>x.type==='e_relay');
+  if(c.type==='e_sol') c.props.name=nextName('Y',x=>x.type==='e_sol');
+  if(c.type==='e_lamp') c.props.name=nextName('H',x=>x.type==='e_lamp');
+  if(c.type==='e_contact'&&c.props.kind==='knop') c.props.name=nextName('S',x=>x.type==='e_contact'&&x.props.kind==='knop');
+  initState(c);
+  const b=compBox(c);
+  let w=at;
+  if(!w){const r=svg.getBoundingClientRect();w={x:(r.width/2-view.x)/view.z/G,y:(r.height/2-view.y)/view.z/G};}
+  c.x=Math.round(w.x-b.x-b.w/2);c.y=Math.round(w.y-b.y-b.h/2);
+  comps.push(c);sel={k:'comp',id:c.id};
+  changed();
+}
+
+/* ---------- editing helpers ---------- */
+function snapshot(){return JSON.stringify({app:'pneumalab',v:1,nid,comps:comps.map(c=>({id:c.id,type:c.type,x:c.x,y:c.y,props:c.props})),tubes:tubes.map(t=>({id:t.id,a:t.a,b:t.b,...(t.m!=null?{m:t.m}:{})}))});}
+function load(data){
+  const d=typeof data==='string'?JSON.parse(data):data;
+  if(!d||!Array.isArray(d.comps)) throw new Error('Dit is geen geldige schakeling.');
+  const cs=d.comps.filter(c=>TYPES.includes(c.type)&&Number.isFinite(c.x)&&Number.isFinite(c.y)).map(c=>({id:Number(c.id),type:c.type,x:Math.round(c.x),y:Math.round(c.y),props:Object.assign(defProps(c.type),c.props||{})}));
+  comps=cs;comps.forEach(initState);
+  tubes=(d.tubes||[]).filter(t=>t&&t.a&&t.b).map(t=>({id:Number(t.id),a:{c:Number(t.a.c),p:String(t.a.p)},b:{c:Number(t.b.c),p:String(t.b.p)},...(Number.isFinite(t.m)?{m:t.m}:{})}));
+  const maxId=Math.max(0,...comps.map(c=>c.id),...tubes.map(t=>t.id));
+  nid=Math.max(Number(d.nid)||0,maxId+1);
+  cleanup();sel=null;
+}
+function cleanup(){tubes=tubes.filter(t=>portOf(t.a)&&portOf(t.b));}
+function save(){if(lp) lpWork[lp.idx]=snapshot();}
+function pushUndo(){undoStack.push(snapshot());if(undoStack.length>100) undoStack.shift();updButtons();}
+function undo(){if(mode!=='edit'||!undoStack.length) return;load(undoStack.pop());render();renderProps();save();updButtons();}
+function changed(){cleanup();render();renderProps();save();updButtons();}
+function rotateSel(d){
+  if(mode!=='edit'||!sel||sel.k!=='comp') return;
+  const c=byId(sel.id);if(!c) return;
+  pushUndo();c.props.rotation=(((rotOf(c)+d)%360)+360)%360;
+  tubes.forEach(t=>{if(t.a.c===c.id||t.b.c===c.id) delete t.m;});
+  changed();
+}
+function delSel(){
+  if(!sel) return;pushUndo();
+  if(sel.k==='comp'){comps=comps.filter(c=>c.id!==sel.id);tubes=tubes.filter(t=>t.a.c!==sel.id&&t.b.c!==sel.id);}
+  else tubes=tubes.filter(t=>t.id!==sel.id);
+  sel=null;changed();
+}
+function nearestPort(w,ex){
+  let best=null,bd=0.9;
+  for(const c of comps) for(const p of compPorts(c)){
+    if(ex&&ex.c===c.id&&ex.p===p.n) continue;
+    const d=Math.hypot(p.x-w.x,p.y-w.y);
+    if(d<bd){bd=d;best={c:c.id,p:p.n};}
+  }
+  return best;
+}
+function nextName(pre,flt){const used=new Set(comps.filter(flt).map(x=>nm(x.props.name)));for(let i=1;;i++) if(!used.has(pre+i)) return pre+i;}
+function addTube(a,b){
+  if(a.c===b.c&&a.p===b.p) return;
+  const pa=portOf(a),pb=portOf(b);
+  if(pa&&pb&&(pa.r==='el')!==(pb.r==='el')){$('#status').textContent='Een elektrische draad kan je niet met een luchtaansluiting verbinden.';return;}
+  const same=(x,y)=>x.c===y.c&&x.p===y.p;
+  if(tubes.some(t=>(same(t.a,a)&&same(t.b,b))||(same(t.a,b)&&same(t.b,a)))) return;
+  pushUndo();tubes.push({id:nid++,a,b});save();
+}
+function toWorld(e){const r=svg.getBoundingClientRect();return {x:(e.clientX-r.left-view.x)/view.z/G,y:(e.clientY-r.top-view.y)/view.z/G};}
+
+/* ---------- properties panel ---------- */
+function opt(prop,val,label,opts){
+  return `<label>${label}<select data-prop="${prop}">${opts.map(([v,t])=>`<option value="${v}"${String(v)===String(val)?' selected':''}>${t}</option>`).join('')}</select></label>`;
+}
+function markInput(prop,val,label){
+  return `<label>${label}<input data-prop="${prop}" value="${esc(val)}" list="mklist" autocomplete="off"></label>`;
+}
+function renderPropsInner(){
+  const el=$('#props');
+  if(mode==='sim'){
+    const cyl=comps.filter(isCyl);
+    const tc=sel&&sel.k==='comp'&&byId(sel.id);
+    const thrH=tc&&isThr(tc)?`<h2>${TITLES[tc.type]}${tc.props.name?' '+esc(tc.props.name):''}</h2><label>Opening: <b id="opv">${Math.round(tc.props.open)} %</b><input type="range" id="opr" min="5" max="100" step="5" value="${esc(tc.props.open)}"></label><p>Hoe kleiner de opening, hoe trager de cilinder.</p><hr style="border:0;border-top:1px solid var(--line);margin:14px 0">`:'';
+    el.innerHTML=thrH+`<h2>Simulatie</h2>
+      <div class="leg"><i></i>Leiding onder druk</div>
+      <div class="leg"><i class="s"></i>Leiding zonder druk</div>
+      <div class="leg"><i class="k"></i>Bediend (knop of rolhendel)</div>
+      <ul style="margin-top:12px">
+        <li>Klik en houd een drukknop ingedrukt om het ventiel om te schakelen.</li>
+        <li><kbd>Shift</kbd> + klik zet een knop vast. Nog eens <kbd>Shift</kbd> + klik maakt hem los.</li>
+        <li>Het actieve vak van elk ventiel schuift onder de aansluitingen.</li>
+        <li>Sensoren en rolhendels bedien je door erop te klikken (Shift + klik zet ze vast). Hebben ze een merkteken (bv. a0), dan schakelen ze ook automatisch als de cilinder daar staat.</li>
+        <li>Klik op een smoorventiel om de opening te regelen terwijl de simulatie loopt.</li>
+      </ul>
+      ${cyl.length?`<p><b style="color:var(--ink)">Cilinders</b></p><ul id="cylst">${cyl.map(c=>`<li data-c="${c.id}"></li>`).join('')}</ul>`:''}
+      <p>Klik op <b>Bewerken</b> om de schakeling aan te passen.</p>`;
+    updCylStatus();
+    const rg=$('#opr');
+    if(rg) rg.oninput=()=>{tc.props.open=Number(rg.value);$('#opv').textContent=rg.value+' %';save();};
+    return;
+  }
+  if(!sel){el.innerHTML='';return;}
+  if(sel.k==='tube'){
+    el.innerHTML=`<h2>Leiding</h2><p>Sleep de leiding zijwaarts om het middelste stuk te verleggen. Als je een component verplaatst, wordt de leiding opnieuw automatisch gelegd.</p><button class="danger" data-del>Leiding verwijderen</button>`;
+    el.querySelector('[data-del]').onclick=delSel;return;
+  }
+  const c=byId(sel.id);if(!c){sel=null;renderProps();return;}
+  const pr=c.props;
+  const ttl=c.type==='e_contact'?({knop:'Drukknop',relais:'Relaiscontact',rol:'Eindeloopschakelaar'}[pr.kind]||'Contact')+(pr.contact==='NC'?' (verbreek)':' (maak)'):TITLES[c.type];
+  let h=`<h2>${ttl}</h2>`;
+  const allMarks=[...new Set(comps.filter(isCyl).flatMap(marks))];
+  h+=`<datalist id="mklist">${allMarks.map(m=>`<option value="${esc(m)}">`).join('')}</datalist>`;
+  const dl=(id,t)=>`<datalist id="${id}">${[...new Set(comps.filter(x=>x.type===t).map(x=>x.props.name))].map(v=>`<option value="${esc(v)}">`).join('')}</datalist>`;
+  h+=dl('klist','e_relay')+dl('ylist','e_sol');
+  const solInput=(p,v,l)=>`<label>${l}<input data-prop="${p}" value="${esc(v)}" list="ylist" autocomplete="off" maxlength="8"></label>`;
+  const actOpts=[['knop','Drukknop'],['piloot','Lucht (pneumatisch)'],['rol','Rolhendel'],['mag','Magneet (reed)'],['druk','Druk (drukschakelventiel)'],['tijd','Lucht met vertraging (tijdvertragingsventiel)'],['elek','Elektrisch (spoel)']];
+  if(appMode!=='elek'&&pr.left!=='elek'&&pr.right!=='elek') actOpts.pop();
+  if(isCyl(c)){
+    const [m0,m1]=marks(c);
+    h+=`<label>Naam<input data-prop="label" value="${esc(pr.label)}" maxlength="4"></label>`;
+    h+=`<label>Tijd voor één volledige slag (s)<input data-prop="time" type="number" min="0.2" max="20" step="0.1" value="${esc(pr.time)}"></label>`;
+    const u=pr.zMode==='mm'?'mm':'%',mx=pr.zMode==='mm'?pr.stroke:100,stp=u==='%'?1:0.5;
+    h+=`<label>Slaglengte (mm)<input data-prop="stroke" type="number" min="1" max="2000" step="1" value="${esc(pr.stroke)}"></label>`;
+    h+=opt('zMode',pr.zMode,'Gevoeligheid eindeloopschakelaars in',[['%','Procent van de slag'],['mm','Millimeter']]);
+    h+=`<label>${esc(m0)} is bediend tussen 0 en … ${u}<input data-prop="z0" type="number" min="0" max="${mx}" step="${stp}" value="${esc(pr.z0)}"></label>`;
+    h+=`<label>${esc(m1)} is bediend in de laatste … ${u} van de slag<input data-prop="z1" type="number" min="0" max="${mx}" step="${stp}" value="${esc(pr.z1)}"></label>`;
+    h+=`<p>De blauwe balkjes boven de stang tonen de zones. Met 0 wordt de rolhendel alleen in de uiterste eindstand bediend.</p>`;
+    h+=`<p>Merktekens voor rolhendels: <b style="color:var(--accent)">${esc(m0)}</b> (ingetrokken) en <b style="color:var(--accent)">${esc(m1)}</b> (uitgeschoven).</p>`;
+    if(c.type==='cyl_ew'){
+      h+=opt('rest',pr.rest,'Ruststand',[['in','Ingetrokken (veer duwt de zuiger in)'],['uit','Uitgeschoven (veer duwt de zuiger uit)']]);
+      h+=pr.rest==='uit'?`<p>De veer houdt de stang uitgeschoven. Lucht op aansluiting A (stangzijde) trekt de zuiger in; wordt A ontlucht, dan duwt de veer hem weer uit.</p>`:`<p>De veer houdt de stang ingetrokken. Lucht op aansluiting A duwt de zuiger uit; wordt A ontlucht, dan duwt de veer hem terug.</p>`;
+    }
+  } else if(isValve(c)){
+    h+=`<label>Naam (optioneel)<input data-prop="name" value="${esc(pr.name)}" maxlength="10" placeholder="bv. 1V1 of S1"></label>`;
+    if(c.type==='v32') h+=opt('normal',pr.normal,'Ruststand',[['NC','Normaal gesloten (1 afgesloten)'],['NO','Normaal open (1 naar 2)']]);
+    h+=opt('left',pr.left,'Bediening links',actOpts);
+    if(pr.left==='rol'||pr.left==='mag') h+=markInput('leftMark',pr.leftMark,'Merkteken links (optioneel)');
+    if(pr.left==='tijd'||pr.right==='tijd') h+=`<label>Vertragingstijd (s)<input data-prop="delay" type="number" min="0.1" max="60" step="0.1" value="${esc(pr.delay)}"></label>`;
+    if(pr.left==='elek') h+=solInput('leftSol',pr.leftSol,'Naam spoel links');
+    if(c.type==='v53'){
+      h+=opt('right',pr.right,'Bediening rechts',actOpts);
+      if(pr.right==='rol'||pr.right==='mag') h+=markInput('rightMark',pr.rightMark,'Merkteken rechts (optioneel)');
+      if(pr.right==='elek') h+=solInput('rightSol',pr.rightSol,'Naam spoel rechts');
+      h+=opt('mid',pr.mid,'Middenstand',[['gesloten','Gesloten (alles dicht)'],['ontlucht','Ontlucht (2 en 4 naar uitlaat)'],['belucht','Belucht (2 en 4 onder druk)']]);
+      h+=`<p>Veergecentreerd: zonder signaal keert het ventiel terug naar de middenstand.</p>`;
+    } else {
+      h+=opt('right',pr.right,'Bediening rechts',[['veer','Veer → monostabiel'],['knop','Drukknop → bistabiel'],['piloot','Lucht → bistabiel'],['rol','Rolhendel → bistabiel']].concat(appMode==='elek'||pr.right==='elek'?[['elek','Spoel → bistabiel']]:[]));
+      if(pr.right==='rol'||pr.right==='mag') h+=markInput('rightMark',pr.rightMark,'Merkteken rechts (optioneel)');
+      if(pr.right==='elek') h+=solInput('rightSol',pr.rightSol,'Naam spoel rechts');
+      if(pr.right!=='veer'){
+        h+=opt('init',pr.init,'Beginstand',[['1','Rechtervak actief'],['0','Linkervak actief']]);
+        h+=`<p>Bistabiel: het ventiel onthoudt zijn laatste stand tot de andere kant een signaal krijgt.</p>`;
+      } else h+=`<p>Monostabiel: zonder signaal duwt de veer het ventiel terug naar het rechtervak.</p>`;
+    }
+  } else if(isThr(c)){
+    h+=`<label>Naam (optioneel)<input data-prop="name" value="${esc(pr.name)}" maxlength="10" placeholder="bv. 1V2"></label>`;
+    h+=`<label>Opening (%)<input data-prop="open" type="number" min="5" max="100" step="5" value="${esc(pr.open)}"></label>`;
+    if(c.type==='thr_chk') h+=opt('dir',pr.dir,'Vrije doorstroming',[['12','Van 1 naar 2 (smoren van 2 naar 1)'],['21','Van 2 naar 1 (smoren van 1 naar 2)']]);
+    h+=opt('rot',pr.rot,'Stand',[['v','Verticaal'],['h','Horizontaal']]);
+    h+=c.type==='thr_chk'?`<p>In de vrije richting duwt de lucht het kogeltje van zijn zitting. In de andere richting moet alle lucht door de smoring.</p>`:`<p>Smoort de lucht in beide richtingen.</p>`;
+  } else if(c.type==='e_rail'){
+    h+=opt('pol',pr.pol,'Spanning',[['+','+24V'],['0','0V']]);
+    h+=`<label>Lengte (rasterpunten)<input data-prop="len" type="number" min="6" max="120" step="2" value="${esc(pr.len)}"></label>`;
+    h+=`<p>Trek vanaf de aansluitpunten op de rail draden naar je takken.</p>`;
+  } else if(c.type==='e_contact'){
+    h+=opt('kind',pr.kind,'Soort',[['knop','Drukknop'],['relais','Relaiscontact'],['rol','Eindeloopschakelaar (rolhendel)']]);
+    h+=opt('contact',pr.contact,'Contact',[['NO','Maakcontact (normaal open)'],['NC','Verbreekcontact (normaal gesloten)']]);
+    if(pr.kind==='relais') h+=`<label>Naam relais<input data-prop="name" value="${esc(pr.name)}" list="klist" autocomplete="off" maxlength="8" placeholder="bv. K1"></label><p>Dit contact schakelt mee met de relaisspoel met dezelfde naam.</p>`;
+    else if(pr.kind==='rol') h+=markInput('mark',pr.mark,'Merkteken (optioneel, bv. a1)')+`<label>Naam (optioneel)<input data-prop="name" value="${esc(pr.name)}" maxlength="10"></label>`;
+    else h+=`<label>Naam<input data-prop="name" value="${esc(pr.name)}" maxlength="10" placeholder="bv. S1"></label><p>In de simulatie: klik en houd vast. Shift + klik zet de knop vast.</p>`;
+  } else if(c.type==='e_relay'||c.type==='e_sol'||c.type==='e_lamp'){
+    h+=`<label>Naam<input data-prop="name" value="${esc(pr.name)}" maxlength="8"></label>`;
+    h+=c.type==='e_relay'?'<p>Alle relaiscontacten met dezelfde naam schakelen mee zodra deze spoel bekrachtigd is.</p>'
+      :c.type==='e_sol'?'<p>Een elektrisch bediend ventiel met dezelfde spoelnaam schakelt om zodra deze spoel bekrachtigd is.</p>'
+      :'<p>Licht op zodra er 24V over de lamp staat.</p>';
+  } else if(c.type==='e_sensor'){
+    h+=opt('kind',pr.kind,'Soort sensor',[['ind','Inductief'],['cap','Capacitief'],['opt','Optisch']]);
+    h+=markInput('mark',pr.mark,'Merkteken (optioneel, bv. a0)');
+    h+=`<p>${pr.kind==='cap'?'Een capacitieve sensor detecteert bijna alle materialen: metaal, kunststof, hout en zelfs vloeistoffen.':pr.kind==='opt'?'Een optische sensor werkt met een lichtstraal en detecteert een voorwerp dat het licht onderbreekt of terugkaatst.':'Een inductieve sensor detecteert alleen metalen voorwerpen, zonder ze aan te raken.'}</p>`;
+    h+='<p>Driedraads aansluiting: + bovenaan, 0V onderaan, uitgang rechts. De uitgang geeft 24V als je in de simulatie op de sensor klikt, of automatisch als de cilinder op het merkteken staat.</p>';
+  } else if(c.type==='source'){
+    h+=`<p>Levert perslucht. Je mag meerdere leidingen op dezelfde aansluiting tekenen.</p>`;
+  } else if(c.type==='or'){
+    h+=`<p>Uitgang A krijgt druk als X <b>of</b> Y onder druk staat. Het kogeltje sluit de andere ingang af.</p>`;
+  } else if(c.type==='and'){
+    h+=`<p>Uitgang A krijgt pas druk als X <b>en</b> Y allebei onder druk staan.</p>`;
+  }
+  h+=`<div class="acts" style="justify-content:flex-start;margin-top:6px"><button data-rot title="Draaien (R)">↻ Draaien</button><button class="danger" data-del style="margin-top:0">Verwijderen</button></div>`;
+  el.innerHTML=h;
+  el.querySelectorAll('[data-prop]').forEach(inp=>{
+    const commit=()=>{
+      let v=inp.value;
+      if(inp.type==='number'){v=parseFloat(v);if(!Number.isFinite(v)) return;v=Math.min(Number(inp.max),Math.max(Number(inp.min),v));}
+      if(inp.dataset.prop==='label') v=v.trim().toUpperCase()||'A';
+      if(/Mark$|^mark$/.test(inp.dataset.prop)) v=v.trim().toLowerCase();
+      if(/^name$|Sol$/.test(inp.dataset.prop)) v=v.trim();
+      if(String(pr[inp.dataset.prop])===String(v)) return;
+      pushUndo();pr[inp.dataset.prop]=v;
+      if(inp.dataset.prop==='zMode'){const st=Math.max(1,Number(pr.stroke)||100),f=v==='mm'?st/100:100/st;pr.z0=Math.round(pr.z0*f*10)/10;pr.z1=Math.round(pr.z1*f*10)/10;}
+      if(inp.dataset.prop==='stroke'&&pr.zMode==='mm'){pr.z0=Math.min(pr.z0,v);pr.z1=Math.min(pr.z1,v);}
+      if(c.type==='v53'&&inp.dataset.prop==='right'&&v==='veer') pr.right='knop';
+      if(inp.dataset.prop==='rot') tubes.forEach(t=>{if(t.a.c===c.id||t.b.c===c.id) delete t.m;});
+      if(inp.dataset.prop==='rest') tubes.forEach(t=>{if(t.a.c===c.id||t.b.c===c.id) delete t.m;});
+      initState(c);
+      changed();
+    };
+    inp.addEventListener('change',commit);
+  });
+  el.querySelector('[data-del]').onclick=delSel;
+  el.querySelector('[data-rot]').onclick=()=>rotateSel(90);
+}
+function updCylStatus(){
+  const ul=$('#cylst');if(!ul) return;
+  ul.querySelectorAll('li').forEach(li=>{
+    const c=byId(Number(li.dataset.c));if(!c) return;
+    const s=c.state.s,st=Number(c.props.stroke)||100,txt=s<=0.0005?'ingetrokken':s>=0.9995?'uitgeschoven':`onderweg (${Math.round(s*st)} mm, ${Math.round(s*100)} %)`;
+    li.textContent=`${c.props.label}: ${txt}`;
+  });
+}
+
+/* ---------- modes ---------- */
+function setMode(m){
+  if(m===mode) return;
+  mode=m;sel=null;drag=null;hoverPort=null;
+  document.body.classList.toggle('sim',m==='sim');
+  $('#bEdit').classList.toggle('on',m==='edit');$('#bSim').classList.toggle('on',m==='sim');
+  $('#bPause').hidden=m!=='sim';$('#bReset').hidden=m!=='sim';
+  $('#fileGrp').style.display=m==='sim'?'none':'';
+  resetSim();
+  if(m==='sim'){running=true;$('#bPause').textContent='⏸ Pauze';requestAnimationFrame(loop);}
+  else running=false;
+  setStatus();render();renderProps();
+}
+function setStatus(){
+  const sh=mode==='sim'&&EL.short,lk=mode==='sim'&&LEAK;
+  $('#status').classList.toggle('warn',sh||lk);
+  $('#status').textContent=sh?'⚠ Kortsluiting: +24V is rechtstreeks met 0V verbonden. Controleer je relaisschakeling.'
+    :lk?'⚠ Lek: perslucht blaast rechtstreeks naar buiten via een uitlaat of een open aansluiting. Daardoor valt de druk weg. Controleer je schakeling.'
+    :mode==='sim'
+    ?(running?'Simulatie loopt. Klik op een drukknop; Shift + klik zet hem vast.':'Simulatie gepauzeerd.')
+    :'Bewerken: sleep componenten naar het raster en verbind aansluitingen met leidingen. Selecteer een onderdeel en druk op R om het te draaien (Shift + R draait terug).';
+}
+function updButtons(){$('#bUndo').disabled=!undoStack.length;}
+setInterval(()=>{if(mode==='sim') updCylStatus();},200);
+
+/* ---------- pointer handling ---------- */
+function startPan(e){drag={k:'pan',sx:e.clientX,sy:e.clientY,vx:view.x,vy:view.y};svg.classList.add('panning');}
+svg.addEventListener('contextmenu',e=>e.preventDefault());
+svg.addEventListener('pointerdown',e=>{
+  if(e.pointerType==='mouse'&&e.button!==0){startPan(e);return;}
+  const t=e.target,w=toWorld(e);
+  if(mode==='sim'){
+    const a=t.closest('[data-act]');
+    if(a){
+      e.preventDefault();const key=a.dataset.act;
+      if(e.shiftKey||e.ctrlKey||e.metaKey) latched[key]=!latched[key];
+      else{pressed[key]=true;drag={k:'press',key};}
+      return;
+    }
+    const ce=t.closest('[data-comp]'),tc=ce&&byId(Number(ce.dataset.comp));
+    if(tc&&isThr(tc)){sel={k:'comp',id:tc.id};renderProps();return;}
+    if(sel){sel=null;renderProps();}
+    startPan(e);return;
+  }
+  const rz=t.closest('[data-resize]');
+  if(rz){const id=Number(rz.dataset.resize);sel={k:'comp',id};drag={k:'resize',id,moved:false};render();renderProps();return;}
+  const pe=t.closest('[data-port]');
+  if(pe){const i=pe.dataset.port.indexOf(':');drag={k:'wire',from:{c:Number(pe.dataset.port.slice(0,i)),p:pe.dataset.port.slice(i+1)},cur:w};render();return;}
+  const te=t.closest('[data-tube]');
+  if(te){
+    const id=Number(te.dataset.tube),tb=tubes.find(x=>x.id===id),a=portOf(tb.a);
+    sel={k:'tube',id};drag={k:'tube',id,axis:a&&a.ny!==0?'y':'x',moved:false};
+    render();renderProps();return;
+  }
+  const ce=t.closest('[data-comp]');
+  if(ce){
+    const id=Number(ce.dataset.comp),c=byId(id);
+    sel={k:'comp',id};drag={k:'move',id,ox:w.x-c.x,oy:w.y-c.y,moved:false};
+    render();renderProps();return;
+  }
+  if(sel){sel=null;render();renderProps();}
+  startPan(e);
+});
+window.addEventListener('pointermove',e=>{
+  if(!drag) return;
+  const w=toWorld(e);
+  switch(drag.k){
+    case 'pan':view.x=drag.vx+(e.clientX-drag.sx);view.y=drag.vy+(e.clientY-drag.sy);applyView();break;
+    case 'move':{
+      const c=byId(drag.id);if(!c) break;
+      const nx=Math.round(w.x-drag.ox),ny=Math.round(w.y-drag.oy);
+      if(nx!==c.x||ny!==c.y){
+        if(!drag.moved){pushUndo();drag.moved=true;}
+        c.x=nx;c.y=ny;
+        tubes.forEach(t=>{if(t.a.c===c.id||t.b.c===c.id) delete t.m;});
+        render();
+      }
+      break;
+    }
+    case 'resize':{
+      const c=byId(drag.id);if(!c) break;
+      const nl=Math.max(6,Math.min(120,Math.round(invRotX(w.x-c.x,w.y-c.y,c)/2)*2));
+      if(nl!==Number(c.props.len)){if(!drag.moved){pushUndo();drag.moved=true;}c.props.len=nl;render();}
+      break;
+    }
+    case 'wire':drag.cur=w;hoverPort=nearestPort(w,drag.from);render();break;
+    case 'tube':{
+      const t=tubes.find(x=>x.id===drag.id);if(!t) break;
+      const a=portOf(t.a),b=portOf(t.b);if(!a||!b) break;
+      const v=drag.axis==='y'?Math.round(w.y):Math.round(w.x);
+      if(v!==tubeM(t,a,b)){if(!drag.moved){pushUndo();drag.moved=true;}t.m=v;render();}
+      break;
+    }
+    case 'new':{
+      if(!drag.moved&&Math.hypot(e.clientX-drag.sx,e.clientY-drag.sy)>5){
+        drag.moved=true;const gh=document.createElement('div');gh.className='ghost';
+        const c=tmpComp(drag.it),b=compBox(c);
+        gh.innerHTML=palSvg(drag.it,(b.h+1)*G*view.z);document.body.appendChild(gh);drag.ghost=gh;
+      }
+      if(drag.ghost){drag.ghost.style.left=e.clientX+'px';drag.ghost.style.top=e.clientY+'px';}
+      break;
+    }
+  }
+});
+function endDrag(e){
+  if(!drag) return;
+  const d=drag;drag=null;svg.classList.remove('panning');
+  if(d.k==='wire'){const p=nearestPort(toWorld(e),d.from);hoverPort=null;if(p) addTube(d.from,p);render();renderProps();}
+  else if(d.k==='press'){delete pressed[d.key];}
+  else if(d.k==='new'){
+    if(d.ghost) d.ghost.remove();
+    if(!d.moved){addComp(d.it,null);return;}
+    const r=wrap.getBoundingClientRect();
+    if(e.clientX>=r.left&&e.clientX<=r.right&&e.clientY>=r.top&&e.clientY<=r.bottom) addComp(d.it,toWorld(e));
+  }
+  else if((d.k==='move'||d.k==='tube')&&d.moved){save();}
+  else if(d.k==='resize'&&d.moved){cleanup();render();renderProps();save();}
+}
+window.addEventListener('pointerup',endDrag);
+window.addEventListener('pointercancel',endDrag);
+svg.addEventListener('wheel',e=>{
+  e.preventDefault();
+  const r=svg.getBoundingClientRect(),mx=e.clientX-r.left,my=e.clientY-r.top;
+  zoomAt(mx,my,view.z*Math.exp(-e.deltaY*0.0015));
+},{passive:false});
+function zoomAt(mx,my,z){
+  z=Math.min(3,Math.max(0.3,z));
+  view.x=mx-(mx-view.x)*z/view.z;view.y=my-(my-view.y)*z/view.z;view.z=z;applyView();
+}
+function fit(){
+  if(!comps.length){view={x:60,y:60,z:1};applyView();return;}
+  let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;
+  for(const c of comps){const b=compBoxAbs(c);x0=Math.min(x0,b.x);y0=Math.min(y0,b.y);x1=Math.max(x1,b.x+b.w);y1=Math.max(y1,b.y+b.h);}
+  const r=svg.getBoundingClientRect(),pad=40,w=(x1-x0)*G,h=(y1-y0)*G;
+  const z=Math.min(1.6,Math.max(0.3,Math.min((r.width-2*pad)/w,(r.height-2*pad)/h)));
+  view.z=z;view.x=(r.width-w*z)/2-x0*G*z;view.y=(r.height-h*z)/2-y0*G*z;applyView();
+}
+window.addEventListener('keydown',e=>{
+  if(e.target&&e.target.closest&&e.target.closest('input,textarea,select')) return;
+  if(!$('#modal').hidden){if(e.key==='Escape') closeModal();return;}
+  if((e.key==='Delete'||e.key==='Backspace')&&mode==='edit'&&sel){e.preventDefault();delSel();}
+  else if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'){e.preventDefault();undo();}
+  else if(e.key==='Escape'&&sel){sel=null;render();renderProps();}
+  else if(e.key.toLowerCase()==='r'&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&mode==='edit'&&sel&&sel.k==='comp'){e.preventDefault();rotateSel(e.shiftKey?-90:90);}
+});
+
+/* ---------- modal & files ---------- */
+function closeModal(){$('#modal').hidden=true;$('#modal').innerHTML='';}
+function modal(title,body,mount){
+  const m=$('#modal');
+  m.innerHTML=`<div class="dlg" role="dialog" aria-modal="true" aria-label="${esc(title)}"><div class="dh"><b>${esc(title)}</b><button data-x aria-label="Sluiten">✕</button></div><div class="db">${body}</div></div>`;
+  m.hidden=false;m.querySelector('[data-x]').onclick=closeModal;
+  m.onclick=e=>{if(e.target===m) closeModal();};
+  if(mount) mount(m);
+}
+function openCircuit(json){
+  if(mode!=='edit') setMode('edit');
+  const d=typeof json==='string'?JSON.parse(json):json;
+  if(!d||!Array.isArray(d.comps)) throw new Error('ongeldig');
+  pushUndo();
+  try{load(d);}catch(e){undoStack.pop();throw e;}
+  if(comps.some(isEl)&&appMode!=='elek'){appMode='elek';buildPalette();}
+  render();renderProps();save();updButtons();fit();
+}
+$('#bNew').onclick=()=>modal('Nieuwe schakeling','<p>Het raster wordt leeggemaakt. Met Ongedaan haal je de huidige schakeling terug.</p><div class="acts"><button data-x2>Annuleren</button><button class="primary" data-ok>Raster leegmaken</button></div>',m=>{
+  m.querySelector('[data-x2]').onclick=closeModal;
+  m.querySelector('[data-ok]').onclick=()=>{pushUndo();comps=[];tubes=[];sel=null;curName='schakeling';changed();fit();closeModal();};
+});
+$('#bOpen').onclick=()=>modal('Schakeling openen',
+  `<p>Open een schakeling die je eerder als .json-bestand exporteerde.</p><input type="file" id="fileIn" accept=".json,application/json" hidden><button class="primary" data-file>Bestand kiezen (.json)</button><div class="err" id="opErr"></div>`+
+  `<p style="margin-top:18px"><b style="color:var(--ink)">Of open een voorbeeld</b></p>`+
+  EX.map((x,i)=>`<div class="row"><div class="t">${esc(x.n)}${x.e?' <span class="lvl">elektropneumatisch</span>':''}<small>${esc(x.d)}</small></div><button data-ex="${i}">Openen</button></div>`).join(''),m=>{
+  const fi=m.querySelector('#fileIn'),err=m.querySelector('#opErr');
+  m.querySelector('[data-file]').onclick=()=>fi.click();
+  fi.onchange=()=>{
+    const f=fi.files&&fi.files[0];if(!f) return;
+    const r=new FileReader();
+    r.onload=()=>{try{openCircuit(String(r.result));curName=f.name.replace(/\.json$/i,'')||'schakeling';closeModal();}catch(e){err.textContent='Dit bestand is geen geldige PneumaLab-schakeling.';}};
+    r.onerror=()=>{err.textContent='Het bestand kon niet gelezen worden.';};
+    r.readAsText(f);
+  };
+  m.querySelectorAll('[data-ex]').forEach(b=>b.onclick=()=>{const x=EX[Number(b.dataset.ex)];openCircuit(x.j);curName=x.n;closeModal();});
+});
+
+/* ---------- export ---------- */
+let DL=null;
+(async()=>{
+  for(let i=0;i<60&&!window.claude;i++) await new Promise(r=>setTimeout(r,100));
+  try{DL=window.claude&&window.claude.use?await window.claude.use('downloads'):null;}catch(e){DL=null;}
+})();
+async function saveFile(filename,data){
+  if(DL){
+    try{await DL.save({filename,data});return 'ok';}
+    catch(e){return e&&e.code==='declined'?'declined':'err';}
+  }
+  try{
+    const blob=data instanceof Blob?data:new Blob([data],{type:'application/octet-stream'});
+    const u=URL.createObjectURL(blob),a=document.createElement('a');
+    a.href=u;a.download=filename;document.body.appendChild(a);a.click();a.remove();
+    setTimeout(()=>URL.revokeObjectURL(u),5000);return 'ok';
+  }catch(e){return 'err';}
+}
+function loadScript(src){return new Promise((res,rej)=>{const sc=document.createElement('script');sc.src=src;sc.onload=res;sc.onerror=rej;document.head.appendChild(sc);});}
+function exportCss(){
+  const cs=getComputedStyle(document.documentElement);let out='';
+  for(const sh of document.styleSheets){
+    let rules;try{rules=sh.cssRules;}catch(e){continue;}
+    for(const r of rules) if(r.selectorText&&/^(\.sym|#cv)\b/.test(r.selectorText)) out+=r.cssText+'\n';
+  }
+  return out.replace(/var\((--[\w-]+)\)/g,(_,v)=>cs.getPropertyValue(v).trim()||'#000');
+}
+function circuitSVG(){
+  const cnt=connCount();conn=cnt;
+  let s='',x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;
+  const ext=(x,y)=>{x0=Math.min(x0,x);y0=Math.min(y0,y);x1=Math.max(x1,x);y1=Math.max(y1,y);};
+  for(const t of tubes){
+    const pts=route(t);if(!pts) continue;
+    pts.forEach(p=>ext(p.x,p.y));
+    const pa=portOf(t.a);
+    s+=`<polyline points="${pts.map(p=>`${p.x*G},${p.y*G}`).join(' ')}" class="tube${pa&&pa.r==='el'?' el':''}"/>`;
+  }
+  for(const c of comps){
+    const b=compBoxAbs(c);ext(b.x,b.y);ext(b.x+b.w,b.y+b.h);
+    s+=`<g transform="translate(${c.x*G},${c.y*G})">${rotWrap(c,sym(c,false))}</g>`;
+  }
+  for(const c of comps) for(const p of compPorts(c)){
+    const n=cnt[c.id+':'+p.n]||0;
+    if(n>=2||(n>=1&&c.type==='e_rail')) s+=`<circle cx="${p.x*G}" cy="${p.y*G}" r="3.4" class="jn"/>`;
+  }
+  const pad=1.6,X=(x0-pad)*G,Y=(y0-pad)*G,W=(x1-x0+2*pad)*G,H=(y1-y0+2*pad)*G;
+  const svgS=`<svg xmlns="http://www.w3.org/2000/svg" id="cv" class="sym" viewBox="${X} ${Y} ${W} ${H}" width="${W}" height="${H}"><style>${exportCss()}</style><rect x="${X}" y="${Y}" width="${W}" height="${H}" fill="#ffffff"/>${s}</svg>`;
+  return {svg:svgS,w:W,h:H};
+}
+async function makePdf(title){
+  if(mode!=='edit') setMode('edit');
+  if(!window.jspdf) await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
+  const {svg:str,w,h}=circuitSVG();
+  const sc=Math.max(1,Math.min(4,5000/Math.max(w,h)));
+  const img=new Image();
+  await new Promise((res,rej)=>{img.onload=res;img.onerror=rej;img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(str);});
+  const cv=document.createElement('canvas');cv.width=Math.round(w*sc);cv.height=Math.round(h*sc);
+  const ctx=cv.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,cv.width,cv.height);ctx.drawImage(img,0,0,cv.width,cv.height);
+  const png=cv.toDataURL('image/png');
+  const doc=new window.jspdf.jsPDF({orientation:w>=h?'landscape':'portrait',unit:'mm',format:'a4'});
+  const PW=doc.internal.pageSize.getWidth(),PH=doc.internal.pageSize.getHeight(),m=12,top=22,bot=12;
+  const clean=t=>t.replace(/[−–—]/g,'-').replace(/[^\x20-\x7E\u00A0-\u00FF]/g,'');
+  doc.setFontSize(16);doc.text(clean(title),m,15);
+  doc.setFontSize(9);doc.setTextColor(110);doc.text('Schakeling in rusttoestand',PW-m,15,{align:'right'});
+  const aw=PW-2*m,ah=PH-top-bot,f=Math.min(aw/w,ah/h,0.35),iw=w*f,ih=h*f;
+  doc.addImage(png,'PNG',m+(aw-iw)/2,top+(ah-ih)/2,iw,ih);
+  doc.setFontSize(8);doc.text('PneumaLab - VDSTH',PW-m,PH-6,{align:'right'});
+  return doc.output('blob');
+}
+$('#bExport').onclick=()=>{
+  if(!comps.length){modal('Exporteren','<p>Er staat nog niets op het raster om te exporteren.</p>');return;}
+  modal('Exporteren',`<label style="display:block;margin-bottom:12px;color:var(--muted);font-size:14px">Naam van de schakeling<input id="exName" value="${esc(curName)}" maxlength="60" style="margin-top:4px"></label>
+    <div class="acts" style="justify-content:flex-start"><button class="primary" data-json>JSON-bestand</button><button class="primary" data-pdf>PDF (rusttoestand)</button></div>
+    <div class="err" id="exErr"></div>
+    <p style="margin-top:8px">Een .json-bestand open je later opnieuw via Openen. De PDF toont de schakeling in rusttoestand, klaar om af te drukken.</p>`,m=>{
+    const nmIn=m.querySelector('#exName'),err=m.querySelector('#exErr');
+    const fname=()=>{curName=nmIn.value.trim()||'schakeling';return curName.replace(/[\\/:*?"<>|]+/g,'_');};
+    m.querySelector('[data-json]').onclick=async()=>{
+      err.textContent='';const r=await saveFile(fname()+'.json',snapshot());
+      if(r==='ok') closeModal(); else if(r!=='declined') err.textContent='Het bestand kon niet bewaard worden.';
+    };
+    m.querySelector('[data-pdf]').onclick=async e=>{
+      const b=e.currentTarget;err.textContent='';b.disabled=true;b.textContent='PDF maken…';
+      try{
+        const blob=await makePdf(nmIn.value.trim()||'Schakeling');
+        const r=await saveFile(fname()+'.pdf',blob);
+        if(r==='ok'){closeModal();return;}
+        if(r!=='declined') err.textContent='Het bestand kon niet bewaard worden.';
+      }catch(x){err.textContent='De PDF kon niet gemaakt worden. Controleer je internetverbinding en probeer opnieuw.';}
+      b.disabled=false;b.textContent='PDF (rusttoestand)';
+    };
+  });
+};
+
+/* ---------- start screen ---------- */
+const ICON_P=`<svg viewBox="0 0 220 92" class="sym"><rect x="20" y="20" width="110" height="32" class="body"/><rect x="34" y="24" width="6" height="24" class="piston"/><rect x="40" y="33" width="150" height="6" class="rod"/><line x1="36" y1="52" x2="36" y2="72" class="ln air"/><line x1="114" y1="52" x2="114" y2="72" class="ln"/><line x1="36" y1="72" x2="36" y2="84" class="ln air"/></svg>`;
+const ICON_E=`<svg viewBox="0 0 220 92" class="sym"><line x1="10" y1="12" x2="120" y2="12" class="rail ep"/><line x1="10" y1="84" x2="120" y2="84" class="rail"/><line x1="40" y1="12" x2="40" y2="34" class="eln ep"/><line x1="40" y1="56" x2="40" y2="84" class="eln"/><line x1="40" y1="56" x2="30" y2="36" class="eln" style="stroke-width:2"/><line x1="90" y1="12" x2="90" y2="40" class="eln ep"/><rect x="77" y="40" width="26" height="16" class="coil on"/><line x1="77" y1="56" x2="103" y2="40" class="eln"/><line x1="90" y1="56" x2="90" y2="84" class="eln"/><rect x="140" y="30" width="62" height="32" class="box"/><line x1="148" y1="56" x2="160" y2="36" class="fl"/><line x1="186" y1="36" x2="186" y2="56" class="fl"/></svg>`;
+const ICON_L=`<svg viewBox="0 0 220 92" class="sym"><path d="M20,80 H70 V60 H120 V40 H170 V20 H205" class="ln" style="stroke-width:3"/><circle cx="45" cy="80" r="6" class="coil on"/><circle cx="95" cy="60" r="6" class="coil on"/><circle cx="145" cy="40" r="6" class="coil"/><circle cx="188" cy="20" r="6" class="coil"/></svg>`;
+function showStart(view){
+  const st=$('#start');
+  if(view==='paths'){
+    st.innerHTML=`<div class="sc"><button class="back" data-back>← Terug</button><h2>Leerpaden</h2><div class="cards"><button class="card" data-path="3EMT">${ICON_L}<b>3EMT · Pneumatica</b><span>${EXS.length} oefeningen met opbouwende moeilijkheid: van een enkelwerkende cilinder tot een automatische cyclus.</span></button></div></div>`;
+    st.querySelector('[data-back]').onclick=()=>showStart('home');
+    st.querySelector('[data-path]').onclick=()=>{st.hidden=true;if(!lp&&appMode!=='pneu'){appMode='pneu';buildPalette();renderProps();}lpModal();};
+  } else {
+    st.innerHTML=`<div class="sc"><div class="st-h"><svg viewBox="0 0 26 26" aria-hidden="true"><rect x="2" y="8" width="16" height="10" fill="none" stroke="currentColor" stroke-width="2"/><rect x="9" y="9.5" width="2.5" height="7" fill="currentColor"/><rect x="11.5" y="12" width="13" height="2" fill="var(--air)"/></svg><h1>PneumaLab</h1><p>Teken en simuleer pneumatische en elektropneumatische schakelingen.</p></div>
+      <div class="cards">
+        <button class="card" data-m="pneu">${ICON_P}<b>Pneumatica</b><span>Cilinders, ventielen met drukknop, stuurlucht of rolhendel, logische ventielen en smoorventielen.</span></button>
+        <button class="card" data-m="elek">${ICON_E}<b>Elektropneumatica</b><span>Alles van pneumatica, plus voedingsrails, drukknoppen, relais, sensoren en elektrisch gestuurde ventielen.</span></button>
+        <button class="card" data-m="lp">${ICON_L}<b>Leerpaden</b><span>Oefeningen met opbouwende moeilijkheid en een machine die meebeweegt met je simulatie.</span></button>
+      </div><div class="who2">VDSTH</div></div>`;
+    st.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{
+      const m=b.dataset.m;
+      if(m==='lp'){showStart('paths');return;}
+      st.hidden=true;
+      if(lp) lpExit();
+      appMode=m;buildPalette();renderProps();render();
+    });
+  }
+  st.hidden=false;
+}
+$('#bHome').onclick=()=>{if(mode!=='edit') setMode('edit');showStart('home');};
+
+/* ---------- examples ---------- */
+const EX=[
+  {n:'Directe sturing enkelwerkende cilinder',d:'Een 3/2-drukknopventiel (normaal gesloten) stuurt cilinder A rechtstreeks.',j:{nid:6,comps:[
+    {id:1,type:'cyl_ew',x:10,y:4,props:{label:'A',time:1.5}},
+    {id:2,type:'v32',x:6,y:12,props:{name:'1S1',left:'knop',right:'veer',normal:'NC'}},
+    {id:3,type:'source',x:11,y:19,props:{}}],
+    tubes:[{id:4,a:{c:3,p:'P'},b:{c:2,p:'1'}},{id:5,a:{c:2,p:'2'},b:{c:1,p:'A'}}]}},
+  {n:'Indirecte sturing met geheugenventiel',d:'S1 laat cilinder A uitgaan, S2 laat hem terugkeren. Het 5/2-ventiel is bistabiel en onthoudt de laatste stand.',j:{nid:13,comps:[
+    {id:1,type:'cyl_dw',x:14,y:2,props:{label:'A',time:1.5}},
+    {id:2,type:'v52',x:10,y:9,props:{name:'1V1',left:'piloot',right:'piloot',init:'1'}},
+    {id:3,type:'v32',x:0,y:16,props:{name:'S1',left:'knop',right:'veer'}},
+    {id:4,type:'v32',x:22,y:16,props:{name:'S2',left:'knop',right:'veer'}},
+    {id:5,type:'source',x:17,y:22,props:{}}],
+    tubes:[{id:6,a:{c:5,p:'P'},b:{c:2,p:'1'}},{id:7,a:{c:5,p:'P'},b:{c:3,p:'1'}},{id:8,a:{c:5,p:'P'},b:{c:4,p:'1'}},
+      {id:9,a:{c:3,p:'2'},b:{c:2,p:'pL'}},{id:10,a:{c:4,p:'2'},b:{c:2,p:'pR'}},{id:11,a:{c:2,p:'4'},b:{c:1,p:'A'}},{id:12,a:{c:2,p:'2'},b:{c:1,p:'B'}}]}},
+  {n:'Automatisch heen en weer: A+ A−',d:'Rolhendels a0 en a1 sturen het geheugenventiel. Zet Start vast met Shift + klik om de cilinder blijvend te laten pendelen.',j:{nid:15,comps:[
+    {id:1,type:'cyl_dw',x:14,y:1,props:{label:'A',time:1.2}},
+    {id:2,type:'v52',x:10,y:8,props:{name:'1V1',left:'piloot',right:'piloot',init:'1'}},
+    {id:3,type:'v32',x:0,y:15,props:{name:'a0',left:'rol',leftMark:'a0',right:'veer'}},
+    {id:4,type:'v32',x:22,y:15,props:{name:'a1',left:'rol',leftMark:'a1',right:'veer'}},
+    {id:5,type:'v32',x:0,y:23,props:{name:'Start',left:'knop',right:'veer'}},
+    {id:6,type:'source',x:17,y:29,props:{}}],
+    tubes:[{id:7,a:{c:6,p:'P'},b:{c:2,p:'1'}},{id:8,a:{c:6,p:'P'},b:{c:4,p:'1'}},{id:9,a:{c:6,p:'P'},b:{c:5,p:'1'}},
+      {id:10,a:{c:5,p:'2'},b:{c:3,p:'1'}},{id:11,a:{c:3,p:'2'},b:{c:2,p:'pL'}},{id:12,a:{c:4,p:'2'},b:{c:2,p:'pR'}},
+      {id:13,a:{c:2,p:'4'},b:{c:1,p:'A'}},{id:14,a:{c:2,p:'2'},b:{c:1,p:'B'}}]}},
+  {n:'Cilinder stoppen met een 5/3-ventiel',d:'Laat de knop los terwijl de cilinder beweegt: in de gesloten middenstand blijft hij staan.',j:{nid:7,comps:[
+    {id:1,type:'cyl_dw',x:6,y:2,props:{label:'A',time:3}},
+    {id:2,type:'v53',x:0,y:9,props:{name:'1V1',left:'knop',right:'knop',mid:'gesloten'}},
+    {id:3,type:'source',x:11,y:16,props:{}}],
+    tubes:[{id:4,a:{c:3,p:'P'},b:{c:2,p:'1'}},{id:5,a:{c:2,p:'4'},b:{c:1,p:'A'}},{id:6,a:{c:2,p:'2'},b:{c:1,p:'B'}}]}},
+  {n:'Snelheidsregeling met smoorterugslagventielen',d:'Afvoersmoring: de lucht die uit de cilinder komt, wordt gesmoord. 1V3 bepaalt de snelheid van de uitgaande slag, 1V2 die van de terugslag. Klik tijdens de simulatie op een smoorventiel om de opening te wijzigen.',j:{nid:11,comps:[
+    {id:1,type:'cyl_dw',x:10,y:1,props:{label:'A',time:1}},
+    {id:2,type:'thr_chk',x:9,y:6,props:{name:'1V2',open:70,rot:'v',dir:'12'}},
+    {id:3,type:'thr_chk',x:17,y:6,props:{name:'1V3',open:25,rot:'v',dir:'12'}},
+    {id:4,type:'v52',x:5,y:13,props:{name:'1V1',left:'knop',right:'veer'}},
+    {id:5,type:'source',x:12,y:20,props:{}}],
+    tubes:[{id:6,a:{c:1,p:'A'},b:{c:2,p:'2'}},{id:7,a:{c:1,p:'B'},b:{c:3,p:'2'}},{id:8,a:{c:2,p:'1'},b:{c:4,p:'4'}},{id:9,a:{c:3,p:'1'},b:{c:4,p:'2'}},{id:10,a:{c:5,p:'P'},b:{c:4,p:'1'}}]}},
+  {n:'Elektropneumatisch: A+ B+ A− B−',e:1,d:'Relaisschakeling met naderingsschakelaars a0, a1, b0 en b1 en twee bistabiele 5/2-ventielen met spoelen. Druk op Detectie, of zet hem vast met Shift + klik voor een doorlopende cyclus.',j:(()=>{
+    const C=[
+      {id:1,type:'cyl_dw',x:2,y:0,props:{label:'A',time:1.5}},
+      {id:2,type:'cyl_dw',x:34,y:0,props:{label:'B',time:1.5}},
+      {id:3,type:'v52',x:-2,y:8,props:{name:'1V1',left:'elek',right:'elek',leftSol:'A+',rightSol:'A-',init:'1'}},
+      {id:4,type:'v52',x:30,y:8,props:{name:'2V1',left:'elek',right:'elek',leftSol:'B+',rightSol:'B-',init:'1'}},
+      {id:5,type:'source',x:21,y:16,props:{}},
+      {id:6,type:'e_rail',x:0,y:30,props:{pol:'+',len:70}},
+      {id:7,type:'e_rail',x:0,y:46,props:{pol:'0',len:70}},
+      {id:8,type:'e_sensor',x:2,y:34,props:{mark:'a0'}},{id:9,type:'e_sensor',x:12,y:34,props:{mark:'a1'}},
+      {id:10,type:'e_sensor',x:22,y:34,props:{mark:'b0'}},{id:11,type:'e_sensor',x:32,y:34,props:{mark:'b1'}},
+      {id:12,type:'e_relay',x:6,y:38,props:{name:'K1'}},{id:13,type:'e_relay',x:16,y:38,props:{name:'K2'}},
+      {id:14,type:'e_relay',x:26,y:38,props:{name:'K3'}},{id:15,type:'e_relay',x:36,y:38,props:{name:'K4'}},
+      {id:16,type:'e_contact',x:42,y:32,props:{kind:'knop',contact:'NO',name:'Detectie'}},
+      {id:17,type:'e_contact',x:42,y:37,props:{kind:'relais',contact:'NO',name:'K3'}},
+      {id:18,type:'e_contact',x:50,y:32,props:{kind:'relais',contact:'NO',name:'K4'}},
+      {id:19,type:'e_contact',x:58,y:32,props:{kind:'relais',contact:'NO',name:'K2'}},
+      {id:20,type:'e_contact',x:66,y:32,props:{kind:'relais',contact:'NO',name:'K1'}},
+      {id:21,type:'e_sol',x:42,y:42,props:{name:'A+'}},{id:22,type:'e_sol',x:50,y:42,props:{name:'A-'}},
+      {id:23,type:'e_sol',x:58,y:42,props:{name:'B+'}},{id:24,type:'e_sol',x:66,y:42,props:{name:'B-'}}];
+    const W=[[3,'4',1,'A'],[3,'2',1,'B'],[4,'4',2,'A'],[4,'2',2,'B'],[5,'P',3,'1'],[5,'P',4,'1']];
+    [[8,12,4,8],[9,13,14,18],[10,14,24,28],[11,15,34,38]].forEach(([sn,k,px,kx])=>{W.push([6,'p'+px,sn,'+'],[sn,'-',7,'p'+px],[sn,'out',k,'a'],[k,'b',7,'p'+kx]);});
+    W.push([6,'p44',16,'a'],[16,'b',17,'a'],[17,'b',21,'a'],[21,'b',7,'p44']);
+    [[18,22,52],[19,23,60],[20,24,68]].forEach(([ct,so,x])=>{W.push([6,'p'+x,ct,'a'],[ct,'b',so,'a'],[so,'b',7,'p'+x]);});
+    return {nid:200,comps:C,tubes:W.map((w,i)=>({id:100+i,a:{c:w[0],p:w[1]},b:{c:w[2],p:w[3]}}))};
+  })()}
+
+];
+
+/* ---------- leerpaden ---------- */
+const KEY_LP='pneumalab.lp';
+const lpKey=i=>'pneumalab.lp.3EMT.'+i;
+const isRun=()=>mode==='sim'&&running;
+function scCyl(x,y,L,stroke,cy,dir,vert,name){
+  const s=cy.s;
+  const R=(a1,a2,b1,b2,cls)=>{
+    const p1=vert?[x+b1,y+dir*a1]:[x+dir*a1,y+b1],p2=vert?[x+b2,y+dir*a2]:[x+dir*a2,y+b2];
+    return `<rect x="${Math.min(p1[0],p2[0])}" y="${Math.min(p1[1],p2[1])}" width="${Math.abs(p2[0]-p1[0])}" height="${Math.abs(p2[1]-p1[1])}" class="${cls}"/>`;
+  };
+  const b0=Math.min(0,L-stroke-12),pist=b0+5+s*stroke,tip=L+14+s*stroke;
+  let g=R(b0,L,-9,9,'sc-cylf');
+  if(cy.pA) g+=R(b0+1,pist,-8,8,'sc-air');
+  if(cy.pB) g+=R(pist+3,L-1,-8,8,'sc-air');
+  g+=R(pist+3,tip,-2.5,2.5,'sc-rod')+R(b0,L,-9,9,'sc-cylo')+R(pist,pist+3,-8,8,'sc-pis');
+  if(name){const q=vert?[x+13,y+dir*L/2+4]:[x+dir*L/2,y-13];g+=`<text x="${q[0]}" y="${q[1]}" text-anchor="${vert?'start':'middle'}" class="sc-t sc-b">${name}</text>`;}
+  return {g,x:vert?x:x+dir*tip,y:vert?y+dir*tip:y};
+}
+function scSw(x,y,mk){
+  const on=mode==='sim'&&markOn(mk);
+  return `<rect x="${x-7}" y="${y-22}" width="14" height="11" class="sc-m"/><line x1="${x}" y1="${y-11}" x2="${x}" y2="${y-5}" class="sc-ln"/><circle cx="${x}" cy="${y}" r="5" class="sc-rl${on?' on':''}"/><text x="${x+10}" y="${y-13}" class="sc-t sc-b">${mk}</text>`;
+}
+const GR=`<rect x="0" y="155" width="300" height="15" class="sc-gr"/>`;
+const col=(x,y1,y2)=>`<rect x="${x}" y="${y1}" width="12" height="${y2-y1}" class="sc-fr"/>`;
+const beam=(x1,x2,y,h=12)=>`<rect x="${x1}" y="${y}" width="${x2-x1}" height="${h}" class="sc-fr"/>`;
+const btn=(x,y,lab)=>`<rect x="${x-9}" y="${y-10}" width="18" height="22" rx="2" class="sc-m"/><circle cx="${x}" cy="${y-1}" r="5" class="sc-btn"/><text x="${x}" y="${y+24}" text-anchor="middle" class="sc-t">${lab}</text>`;
+const T_=(o)=>o.map(([id,a,ap,b,bp])=>({id,a:{c:a,p:ap},b:{c:b,p:bp}}));
+const SRC=(id,x,y)=>({id,type:'source',x,y,props:{}});
+
+const SC_KLEM=(A)=>{
+  const c=scCyl(150,30,40,26,A,1,true,'A');
+  let g=GR+`<rect x="80" y="14" width="140" height="141" class="sc-fr"/><rect x="95" y="30" width="110" height="110" class="sc-hole"/>`;
+  g+=`<rect x="116" y="116" width="68" height="24" class="sc-bx"/>`;
+  g+=c.g+`<rect x="134" y="${c.y}" width="32" height="6" class="sc-m"/>`;
+  if(A.s>0.97) g+=`<text x="296" y="30" text-anchor="end" class="sc-t sc-b">geklemd</text>`;
+  return g;
+};
+const SC_STEMPEL=(A,M)=>{
+  if(A.s>0.97){M.done=true;if(!M.hi){M.hi=true;M.n=(M.n||0)+1;}}
+  if(A.s<0.1) M.hi=false;
+  const c=scCyl(150,30,50,27,A,1,true,'A');
+  let g=GR+col(40,18,155)+beam(40,190,18)+`<rect x="95" y="140" width="130" height="15" class="sc-fr"/><rect x="110" y="134" width="85" height="6" class="sc-wp"/>`;
+  if(M.done) g+=`<ellipse cx="150" cy="135.5" rx="14" ry="1.8" class="sc-ink"/>`;
+  g+=c.g+`<rect x="128" y="${c.y}" width="44" height="10" class="sc-m"/><rect x="131" y="${c.y+10}" width="38" height="3" class="sc-ink"/>`;
+  return g+`<text x="292" y="30" text-anchor="end" class="sc-t sc-b">gestempeld: ${M.n||0}</text>`;
+};
+const EXS=[
+{t:'Klemmen van werkstukken',k:'Enkelwerkende cilinder · handbediend ventiel',lvl:1,
+ sit:'Een werkstuk moet geklemd worden met een enkelwerkende cilinder. De sturing gebeurt door een handbediend ventiel te schakelen.',
+ opd:'Zolang de operator de drukknop indrukt, blijft het werkstuk geklemd.',
+ req:[[1,'cyl_ew',{},'1 x enkelwerkende cilinder'],[1,'v32',{left:'knop',right:'veer'},'1 x 3/2-ventiel monostabiel met drukknop'],[1,'source',{},'1 x drukbron']],
+ sc:SC_KLEM},
+{t:'Klemmen met een vermogenventiel',k:'Enkelwerkende cilinder · luchtgestuurd vermogenventiel',lvl:1,
+ sit:'Een werkstuk moet geklemd worden met een enkelwerkende cilinder. De sturing gebeurt door een handbediend ventiel te schakelen. Omdat de toepassing een cilinder met een grote diameter vraagt, wordt de cilinder gevoed via een luchtgestuurd vermogenventiel.',
+ opd:'',
+ req:[[1,'cyl_ew',{},'1 x enkelwerkende cilinder'],[1,'v32',{left:'piloot',right:'veer'},'1 x 3/2-ventiel monostabiel met lucht (vermogenventiel)'],[1,'v32',{left:'knop',right:'veer'},'1 x 3/2-ventiel monostabiel met drukknop'],[1,'source',{},'1 x drukbron']],
+ sc:SC_KLEM},
+{t:'Stoppen van dozen',k:'Enkelwerkende cilinder · in rust uitgeschoven',lvl:2,
+ sit:'Een enkelwerkende cilinder moet in ruststand dozen tegenhouden op een transportband. Om een doos vrij te geven, moet een machineoperator een drukknop bedienen.',
+ opd:'',
+ req:[[1,'cyl_ew',{},'1 x enkelwerkende cilinder'],[1,'v32',{left:'knop',right:'veer'},'1 x 3/2-ventiel monostabiel met drukknop'],[1,'source',{},'1 x drukbron']],
+ sc:(A,M,t)=>{
+   const c=scCyl(170,160,38,26,A,-1,true,'A'),up=c.y<100;
+   const dt=M.lt==null?0:Math.min(0.05,Math.max(0,t-M.lt));M.lt=t;
+   if(M.bx==null) M.bx=40;
+   if(isRun()){M.bx+=dt*45;if(up&&M.bx+46>164&&M.bx<120) M.bx=118;if(M.bx>310) M.bx=-60;}
+   let g=GR+`<rect x="0" y="100" width="300" height="7" class="sc-fr"/>`;
+   for(let x=10;x<300;x+=20) g+=`<circle cx="${x}" cy="103.5" r="3" class="sc-rl"/>`;
+   g+=`<rect x="${M.bx}" y="66" width="46" height="34" class="sc-bx"/><text x="${M.bx+23}" y="88" text-anchor="middle" class="sc-t">→</text>`;
+   g+=c.g+`<rect x="165" y="${c.y}" width="10" height="6" class="sc-m"/>`;
+   return g+`<text x="292" y="30" text-anchor="end" class="sc-t sc-b">${up?'doos wordt tegengehouden':'doorgang vrij'}</text>`;
+ }},
+{t:'Optillen van lasten',k:'Dubbelwerkende cilinder · in rust uitgeschoven',lvl:2,
+ sit:'Een dubbelwerkende cilinder met externe belasting staat verticaal gemonteerd, met de zuigerstang naar boven, en moet in rust uitgeschoven staan. Omdat de toepassing een cilinder met een grote diameter vraagt, wordt de cilinder gevoed via een luchtgestuurd vermogenventiel.',
+ opd:'Met een drukknop laat de operator de last zakken.',
+ req:[[1,'cyl_dw',{},'1 x dubbelwerkende cilinder'],[1,'v52',{left:'piloot',right:'veer'},'1 x 5/2-ventiel monostabiel met lucht (vermogenventiel)'],[1,'v32',{left:'knop',right:'veer'},'1 x 3/2-ventiel monostabiel met drukknop'],[1,'source',{},'1 x drukbron']],
+ sc:(A)=>{
+   const c=scCyl(150,155,52,40,A,-1,true,'A');
+   let g=GR+`<rect x="120" y="150" width="60" height="5" class="sc-fr"/>`;
+   g+=`<rect x="105" y="${c.y-40}" width="90" height="40" class="sc-bx"/><path d="M105,${c.y-40}L195,${c.y}M195,${c.y-40}L105,${c.y}" class="sc-ln"/>`;
+   return g+c.g+`<text x="292" y="30" text-anchor="end" class="sc-t sc-b">${A.s>0.97?'last omhoog':A.s<0.03?'last omlaag':''}</text>`;
+ }},
+{t:'Pneumatische pers',k:'Dubbelwerkende cilinder · schakelaar',lvl:2,
+ sit:'Te lijmen stukken moeten samengeperst worden met een dubbelwerkende cilinder. Om de cilinder te laten uitschuiven, moet de machineoperator een schakelaar bedienen. Wordt de schakelaar ontgrendeld, dan schuift de cilinder terug naar zijn rustpositie.',
+ opd:'Een schakelaar zet je in de simulatie vast met Shift + klik.',
+ req:[[1,'cyl_dw',{},'1 x dubbelwerkende cilinder'],[1,'v52',{left:'knop',right:'veer'},'1 x 5/2-ventiel monostabiel met drukknop'],[1,'source',{},'1 x drukbron']],
+ sc:(A)=>{
+   const c=scCyl(199,90,42,30,A,-1,false,'A');
+   let g=GR+`<rect x="20" y="120" width="270" height="12" class="sc-fr"/><rect x="40" y="55" width="14" height="65" class="sc-fr"/>`;
+   g+=`<rect x="56" y="70" width="22" height="50" class="sc-m"/><rect x="78" y="70" width="5" height="50" class="sc-ink"/><rect x="83" y="70" width="22" height="50" class="sc-wp"/>`;
+   g+=c.g+`<rect x="${c.x-8}" y="65" width="8" height="55" class="sc-m"/>`;
+   return g+(A.s>0.97?`<text x="80" y="50" text-anchor="middle" class="sc-t sc-b">geperst</text>`:'');
+ }},
+{t:'Automatiseren van een gravitatiemagazijn',k:'Geheugenventiel · rolhendels a0 en a1 · detectie',lvl:3,
+ sit:'Een gravitatiemagazijn voorziet een machine van werkstukken. Om de aanvoer te automatiseren, krijgt het magazijn een dubbelwerkende cilinder. De machineoperator start de machine op met een schakelaar. De cilinder mag pas uitgaan als hij volledig in zijn beginpositie staat en er onderaan het magazijn een werkstuk gedetecteerd wordt. Zodra de cilinder volledig uit is, mag hij terug inschuiven. De machine staat in een beveiligde zone, dus extra veiligheidsvoorzieningen zijn niet nodig.',
+ opd:'Gebruik voor de detectie van het werkstuk een rolhendelventiel zonder merkteken: klik erop om een werkstuk te melden.',
+ req:[[1,'cyl_dw',{},'1 x dubbelwerkende cilinder'],[1,'v52',{left:'piloot',right:'piloot'},'1 x 5/2-ventiel bistabiel met lucht'],[3,'v32',{left:'rol',right:'veer'},'3 x 3/2-ventiel monostabiel met rolhendel (a0, a1 en detectie)'],[1,'v32',{left:'knop',right:'veer'},'1 x 3/2-ventiel monostabiel met drukknop (start)'],[1,'source',{},'1 x drukbron']],
+ sc:(A,M)=>{
+   if(A.s>0.98&&!M.hi){M.hi=true;M.n=(M.n||0)+1;}
+   if(A.s<0.05) M.hi=false;
+   const c=scCyl(44,140,72,60,A,1,false,'A');
+   let g=`<rect x="0" y="151" width="300" height="19" class="sc-fr"/><rect x="126" y="14" width="4" height="114" class="sc-fr"/><rect x="168" y="14" width="4" height="114" class="sc-fr"/>`;
+   for(const y of [107,86,65,44]) g+=`<rect x="132" y="${y}" width="34" height="21" class="sc-bx"/>`;
+   g+=`<rect x="${Math.max(132,c.x+2)}" y="129" width="34" height="22" class="sc-bx"/>`;
+   g+=c.g+`<rect x="${c.x-4}" y="130" width="4" height="20" class="sc-m"/>`;
+   return g+`<text x="292" y="30" text-anchor="end" class="sc-t sc-b">uitgestoten: ${M.n||0}</text><text x="148" y="10" text-anchor="middle" class="sc-t">magazijn</text>`;
+ }},
+{t:'Automatisch openen van een schuifdeur',k:'Geheugenventiel · OF-functie · snelheidsregeling',lvl:3,
+ sit:'Een schuifdeur moet pneumatisch aangedreven worden. Aan elke zijde van de deur is er een drukknop om de deur te openen en een drukknop om ze te sluiten. Beide cilindersnelheden moeten geregeld kunnen worden. Alleen bevoegd personeel bedient de deur, dus extra veiligheidsvoorzieningen zijn niet nodig.',
+ opd:'',
+ req:[[1,'cyl_dw',{},'1 x dubbelwerkende cilinder'],[1,'v52',{left:'piloot',right:'piloot'},'1 x 5/2-ventiel bistabiel met lucht'],[2,'or',{},'2 x OF-ventiel'],[4,'v32',{left:'knop',right:'veer'},'4 x 3/2-ventiel monostabiel met drukknop'],[2,'thr_chk',{},'2 x smoorterugslagventiel'],[1,'source',{},'1 x drukbron']],
+ sc:(A)=>{
+   const c=scCyl(-6,58,112,100,A,1,false,'A'),px=c.x-100;
+   let g=GR+`<rect x="${px}" y="70" width="100" height="85" class="sc-gate"/>`;
+   for(let i=1;i<5;i++) g+=`<line x1="${px+i*20}" y1="74" x2="${px+i*20}" y2="151" class="sc-ln"/>`;
+   g+=`<rect x="10" y="40" width="110" height="115" class="sc-wall"/><rect x="220" y="40" width="70" height="115" class="sc-wall"/>`+beam(5,295,28);
+   if(A.s<0.05) g+=`<text x="170" y="112" text-anchor="middle" class="sc-t sc-b">deur open</text>`;
+   return g+c.g+`<rect x="${c.x-2}" y="58" width="4" height="14" class="sc-m"/>`;
+ }},
+{t:'Sluiten van deksels',k:'EN-functie · tweehandenbediening',lvl:3,
+ sit:'Een pneumatische cilinder levert de kracht om deksels te sluiten. Om te vermijden dat de operator per ongeluk met een hand geklemd raakt, mag de cilinder alleen uitgaan als twee drukknoppen bediend worden. Zodra de operator een drukknop loslaat, moet de cilinder inschuiven.',
+ opd:'In de simulatie zet je één knop vast met Shift + klik en druk je daarna op de andere.',
+ req:[[1,'cyl_dw',{},'1 x dubbelwerkende cilinder'],[1,'v52',{left:'piloot',right:'veer'},'1 x 5/2-ventiel monostabiel met lucht'],[1,'and',{},'1 x EN-ventiel'],[2,'v32',{left:'knop',right:'veer'},'2 x 3/2-ventiel monostabiel met drukknop'],[1,'source',{},'1 x drukbron']],
+ sc:(A)=>{
+   const c=scCyl(150,10,40,22,A,1,true,'A');
+   let g=GR+col(196,0,130)+beam(140,208,0,10)+`<rect x="40" y="130" width="220" height="10" class="sc-fr"/>`+col(50,140,155)+col(238,140,155);
+   g+=`<rect x="128" y="92" width="44" height="38" class="sc-cylf" style="stroke:var(--ink);stroke-width:1"/><rect x="128" y="102" width="44" height="14" class="sc-air"/>`;
+   g+=c.g+`<rect x="124" y="${c.y}" width="52" height="6" class="sc-bx"/>`;
+   return g+btn(28,110,'links')+btn(272,110,'rechts')+(A.s>0.97?`<text x="150" y="160" text-anchor="middle" class="sc-t sc-b">deksel gesloten</text>`:'');
+ }},
+{t:'Stempelen van stukken',k:'Drukschakelventiel · automatische terugloop',lvl:4,
+ sit:'Werkstukken worden aangevoerd onder een stempel die pneumatisch aangedreven wordt. De cilinder mag pas uitgaan als hij in zijn beginstand staat en de operator een startsignaal geeft. De cilinder keert automatisch terug zodra een vooraf ingestelde druk bereikt is. De ingaande cilindersnelheid moet ingesteld kunnen worden. De machine staat in een beveiligde zone, dus extra veiligheidsvoorzieningen zijn niet nodig.',
+ opd:'Een drukschakelventiel schakelt pas om als de druk volledig opgebouwd is, dus wanneer de cilinder niet meer verder kan.',
+ req:[[1,'cyl_dw',{},'1 x dubbelwerkende cilinder'],[1,'v52',{left:'piloot',right:'piloot'},'1 x 5/2-ventiel bistabiel met lucht'],[1,'v32',{left:'rol',leftMark:'a0',right:'veer'},'1 x 3/2-ventiel monostabiel met rolhendel (a0)'],[1,'v32',{left:'knop',right:'veer'},'1 x 3/2-ventiel monostabiel met drukknop (start)'],[1,'v32',{left:'druk'},'1 x drukschakelventiel'],[1,'thr_chk',{},'1 x smoorterugslagventiel'],[1,'source',{},'1 x drukbron']],
+ sc:SC_STEMPEL},
+{t:'Ontvetten van werkstukken',k:'Tijdvertragingsventiel · magneetbediening',lvl:5,
+ sit:'Een cilinder dompelt werkstukken onder in een spoelbak om ze te ontvetten. Na het indrukken van een drukknop schuift de cilinder uit. De werkstukken moeten een instelbare tijd in de spoelbak blijven. De eindposities van de cilinder worden gedetecteerd met magneetgestuurde 3/2-ventielen. Beide cilindersnelheden moeten geregeld kunnen worden. De machine staat in een beveiligde zone, dus extra veiligheidsvoorzieningen zijn niet nodig.',
+ opd:'Geef de magneetgestuurde ventielen de merktekens a0 en a1. Gebruik een tijdvertragingsventiel voor de wachttijd in de spoelbak.',
+ req:[[1,'cyl_dw',{},'1 x dubbelwerkende cilinder'],[1,'v52',{left:'piloot',right:'piloot'},'1 x 5/2-ventiel bistabiel met lucht'],[1,'v32',{left:'knop',right:'veer'},'1 x 3/2-ventiel monostabiel met drukknop'],[2,'v32',{left:'mag',right:'veer'},'2 x 3/2-ventiel monostabiel met magneetbediening (a0 en a1)'],[1,'v32',{left:'tijd'},'1 x tijdvertragingsventiel'],[2,'thr_chk',{},'2 x smoorterugslagventiel'],[1,'source',{},'1 x drukbron']],
+ sc:(A,M,t)=>{
+   if(A.s>0.97){if(M.st==null) M.st=t;}else M.st=null;
+   const c=scCyl(150,-10,57,45,A,1,true,'A');
+   let g=GR+`<rect x="70" y="0" width="10" height="155" class="sc-fr"/><rect x="70" y="0" width="100" height="6" class="sc-fr"/>`;
+   g+=`<rect x="100" y="95" width="100" height="60" class="sc-hole"/>`;
+   g+=c.g+`<path d="M150,${c.y}L126,${c.y+6}M150,${c.y}L174,${c.y+6}" class="sc-ln"/><rect x="122" y="${c.y+6}" width="56" height="26" class="sc-m"/>`;
+   for(let x=130;x<178;x+=8) g+=`<line x1="${x}" y1="${c.y+6}" x2="${x}" y2="${c.y+32}" class="sc-ln" style="opacity:.5"/>`;
+   g+=`<rect x="101" y="110" width="98" height="44" class="sc-air"/><path d="M100,95V155H200V95" class="sc-ln" style="stroke-width:2"/>`;
+   return g+`<text x="296" y="80" text-anchor="end" class="sc-t sc-b">${M.st!=null?'in de spoelbak: '+(t-M.st).toFixed(1).replace('.',',')+' s':''}</text>`;
+ }},
+{t:'Stempelen: één keer per druk',k:'Drukschakelventiel · slechts één cyclus per startsignaal',lvl:5,
+ sit:'Werkstukken worden aangevoerd onder een stempel die pneumatisch aangedreven wordt. De cilinder mag pas uitgaan als hij in zijn beginstand staat en de operator een startsignaal geeft. De cilinder keert automatisch terug zodra een vooraf ingestelde druk bereikt is. De ingaande cilindersnelheid moet ingesteld kunnen worden. Bij de vorige oplossing stempelt de cilinder meermaals als de drukknop te lang ingedrukt blijft. Om fouten te vermijden, mag de cilinder maar één keer uitgaan per keer dat de drukknop ingedrukt wordt.',
+ opd:'Test het door de startknop vast te zetten met Shift + klik: de teller mag maar met één stijgen.',
+ req:[[1,'cyl_dw',{},'1 x dubbelwerkende cilinder'],[1,'v52',{left:'piloot',right:'piloot'},'1 x 5/2-ventiel bistabiel met lucht'],[1,'v32',{left:'rol',leftMark:'a0',right:'veer'},'1 x 3/2-ventiel monostabiel met rolhendel (a0)'],[1,'v32',{left:'knop',right:'veer'},'1 x 3/2-ventiel monostabiel met drukknop (start)'],[1,'v32',{left:'druk'},'1 x drukschakelventiel'],[1,'thr_chk',{},'1 x smoorterugslagventiel'],[1,'source',{},'1 x drukbron']],
+ sc:SC_STEMPEL}
+];
+
+function scCy(label){
+  const c=comps.find(k=>isCyl(k)&&String(k.props.label).toUpperCase()===label),sim=mode==='sim';
+  if(!c) return {s:0,ok:false,pA:false,pB:false};
+  return {s:c.state.s,ok:true,pA:sim&&!!P[c.id+':A'],pB:sim&&!!P[c.id+':B']};
+}
+function drawScene(){
+  const el=$('#scene');if(!el||!lp) return;
+  const ex=EXS[lp.idx],A=scCy('A');
+  let s=`<rect x="0" y="0" width="300" height="170" class="sc-bg"/>`+ex.sc(A,scMem,performance.now()/1000);
+  if(!A.ok) s+=`<rect x="0" y="150" width="300" height="20" class="sc-wbg"/><text x="150" y="164" text-anchor="middle" class="sc-warn">Noem je cilinder A om hem hier te zien bewegen</text>`;
+  el.innerHTML=s;
+}
+function lpReqs(ex){
+  return ex.req.map(([n,t,p,txt])=>{
+    const have=comps.filter(c=>c.type===t&&Object.entries(p||{}).every(([k,v])=>String(c.props[k])===String(v))).length;
+    return {ok:have>=n,txt};
+  });
+}
+function lpCard(){
+  const ex=EXS[lp.idx],rq=lpReqs(ex);
+  return `<div class="lpc"><div class="lph"><small>Leerpad 3EMT · oefening ${lp.idx+1} van ${EXS.length}</small><b>${esc(ex.t)}</b></div>
+  <svg id="scene" class="sym scene" viewBox="0 0 300 170" role="img" aria-label="Illustratie: ${esc(ex.t)}"></svg>
+  <p class="opd"><b>Opdracht:</b> ${ex.sit} ${ex.opd}</p>
+  <div class="req"><b>Nodig</b>${rq.map(r=>`<div class="${r.ok?'ok':''}"><span>${r.ok?'✓':'○'}</span>${r.txt}</div>`).join('')}</div>
+  
+  <div class="lpn"><button data-lp="prev"${lp.idx===0?' disabled':''}>◀ Vorige</button><button data-lp="next"${lp.idx===EXS.length-1?' disabled':''}>Volgende ▶</button></div>
+  <button data-lp="list" class="lpl">Alle oefeningen</button><button data-lp="close" class="lpl">Leerpad verlaten</button></div>`;
+}
+function renderProps(){
+  renderPropsInner();
+  if(!lp) return;
+  const el=$('#props');
+  el.insertAdjacentHTML('afterbegin',lpCard());
+  el.querySelectorAll('[data-lp]').forEach(b=>b.onclick=()=>lpAction(b.dataset.lp));
+  const d=el.querySelector('.lpc details');
+  if(d){d.open=lpTip;d.ontoggle=()=>{lpTip=d.open;};}
+  drawScene();
+}
+function lpAction(a){
+  if(a==='prev') lpGo(lp.idx-1);
+  else if(a==='next') lpGo(lp.idx+1);
+  else if(a==='list') lpModal();
+  else if(a==='close'){lpExit();showStart('home');}
+  else if(a==='sol') modal('Oplossing tonen','<p>Je eigen schakeling wordt vervangen door een mogelijke oplossing. Met <b>Ongedaan</b> haal je je eigen schakeling terug.</p><div class="acts"><button data-x2>Annuleren</button><button class="primary" data-ok>Oplossing tonen</button></div>',m=>{
+    m.querySelector('[data-x2]').onclick=closeModal;
+    m.querySelector('[data-ok]').onclick=()=>{closeModal();openCircuit(EXS[lp.idx].sol);};
+  });
+}
+function lpGo(i){
+  if(i<0||i>=EXS.length) return;
+  if(mode!=='edit') setMode('edit');
+  if(lp) lpWork[lp.idx]=snapshot(); else freeWork=snapshot();
+  lp={idx:i};
+  if(appMode!=='pneu'){appMode='pneu';buildPalette();}
+  document.body.classList.add('lpmode');
+  try{if(lpWork[i]) load(lpWork[i]); else {comps=[];tubes=[];nid=1;}}catch(e){comps=[];tubes=[];nid=1;}
+  sel=null;undoStack=[];scMem={};lpTip=false;
+  render();renderProps();updButtons();setStatus();requestAnimationFrame(fit);
+}
+function lpExit(){
+  if(mode!=='edit') setMode('edit');
+  if(lp) lpWork[lp.idx]=snapshot();
+  lp=null;document.body.classList.remove('lpmode');
+  try{if(freeWork) load(freeWork); else {comps=[];tubes=[];nid=1;}}catch(e){comps=[];tubes=[];nid=1;}
+  sel=null;undoStack=[];render();renderProps();updButtons();setStatus();requestAnimationFrame(fit);
+}
+function lpModal(){
+  const has=i=>{try{return !!(lpWork[i]&&JSON.parse(lpWork[i]).comps.length);}catch(e){return false;}};
+  modal('Leerpaden',`<p><b style="color:var(--ink)">3EMT · Pneumatica</b><br>Van een enkelwerkende cilinder tot een automatische cyclus. Bij elke oefening hoort een machine die meebeweegt met je simulatie. Je werk blijft per oefening bewaard zolang dit venster open is. Wil je het bijhouden, exporteer het dan als .json-bestand.</p>`+
+    EXS.map((x,i)=>`<div class="row"><div class="t"><span class="lvl" aria-label="niveau ${x.lvl} van 5">${'●'.repeat(x.lvl)}${'○'.repeat(5-x.lvl)}</span><br>${i+1}. ${esc(x.t)}<small>${esc(x.k)}</small></div><button class="primary" data-go="${i}">${lp&&lp.idx===i?'Bezig':has(i)?'Verder':'Start'}</button></div>`).join(''),m=>{
+    m.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{closeModal();if(!(lp&&lp.idx===Number(b.dataset.go))) lpGo(Number(b.dataset.go));});
+  });
+}
+
+/* ---------- toolbar ---------- */
+$('#bEdit').onclick=()=>setMode('edit');
+$('#bSim').onclick=()=>setMode('sim');
+$('#bPause').onclick=()=>{running=!running;$('#bPause').textContent=running?'⏸ Pauze':'▶ Verder';setStatus();};
+$('#bReset').onclick=()=>{resetSim();render();};
+$('#bUndo').onclick=undo;
+$('#zIn').onclick=()=>{const r=svg.getBoundingClientRect();zoomAt(r.width/2,r.height/2,view.z*1.2);};
+$('#zOut').onclick=()=>{const r=svg.getBoundingClientRect();zoomAt(r.width/2,r.height/2,view.z/1.2);};
+$('#zFit').onclick=fit;
+
+/* ---------- start ---------- */
+buildPalette();
+render();renderProps();setStatus();updButtons();
+showStart('home');
+requestAnimationFrame(fit);
+})();
+</script>
+</body>
+</html>
