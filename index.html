@@ -783,6 +783,21 @@ const APPLETS = [
     render: renderTrek
   },
   {
+    id: 'pneumalab',
+    titel: 'PneumaLab – pneumatische schakelingen',
+    vak: 'Pneumatica',
+    klassen: ['Engineering'],
+    link: 'pneumalab.html',
+    beschrijving: 'Teken en simuleer pneumatische en elektropneumatische schakelingen met cilinders, ventielen, relais en sensoren. Met leerpaden waarin een machine meebeweegt met je schakeling.',
+    thumb: `<svg viewBox="0 0 240 70" aria-hidden="true">
+      <rect x="132" y="14" width="80" height="20" fill="none" stroke="var(--fg)" stroke-width="2"/>
+      <rect x="160" y="16" width="5" height="16" fill="var(--fg)"/><rect x="165" y="22" width="62" height="4" fill="var(--b)"/>
+      <path d="M140 34 V46 H96 M204 34 V52 H112" fill="none" stroke="var(--b)" stroke-width="2"/>
+      <rect x="64" y="42" width="32" height="20" fill="none" stroke="var(--fg)" stroke-width="2"/><rect x="96" y="42" width="32" height="20" fill="none" stroke="var(--fg)" stroke-width="2"/>
+      <path d="M72 58 L88 46 M104 46 V58 M120 58 V46" stroke="var(--fg)" stroke-width="1.5"/>
+      <path d="M64 52 H54 M54 46 V58 M48 46 V58" stroke="var(--fg)" stroke-width="1.5"/></svg>`
+  },
+  {
     id: 'parachute',
     titel: 'Ontwerp van een hemisferische parachute',
     vak: 'CanSat',
@@ -852,6 +867,7 @@ function route() {
   const klas = KLASSEN.find(k => k.id.toLowerCase() === h.toLowerCase());
   const applet = APPLETS.find(a => a.id === h && !a.verborgen);
 
+  if (applet && applet.link) { location.href = applet.link; return; }
   if (applet) {
     const k = (laatsteKlas && applet.klassen.includes(laatsteKlas)) ? laatsteKlas : applet.klassen[0];
     tekenNav(k, true);
@@ -871,7 +887,7 @@ function route() {
     inhoud.innerHTML = `
       <h1>${klas.naam}</h1>
       ${lijst.length ? `<div class="lijst">${lijst.map(a => `
-        <a class="kaart" href="#${a.id}">
+        <a class="kaart" href="${a.link || '#' + a.id}">
           ${a.thumb || ''}
           <span class="chip">${a.vak}</span>
           <h2>${a.titel}</h2>
