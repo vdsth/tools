@@ -6,11 +6,12 @@
 <meta name="description" content="Tools voor mechanica, elektriciteit en fysica, per klas. Tools door VDSTH.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%276%27 fill=%27%230c0e12%27/%3E%3Cpath d=%27M6 24 L13 14 L19 19 L26 8%27 fill=%27none%27 stroke=%27%23f2b544%27 stroke-width=%273%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27/%3E%3C/svg%3E">
 <title>Tools voor mechanica, elektriciteit en fysica</title>
+<script>try { if (localStorage.getItem('tools-thema') === 'licht') document.documentElement.dataset.theme = 'light'; } catch (e) { }</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Atkinson+Hyperlegible:wght@400;700&family=IBM+Plex+Mono:wght@400;500&family=STIX+Two+Text:ital,wght@1,500&display=swap">
 <style>
-/* Layout: smalle kop, rij van zes even grote klastegels als navigatie, daaronder de inhoud (lijst of applet). Bewust één donkere look. */
+/* Layout: smalle kop, rij klastegels als navigatie, daaronder de inhoud (lijst of applet). Standaard donker, met een knop voor de lichte opmaak. */
 :root {
   color-scheme: dark;
   --bg: #0c0e12;
@@ -27,17 +28,47 @@
   --druk: #5fcf86;   /* drukspanning */
   --trek: #ff6b6b;   /* trekspanning */
   --focus: #9fb8ff;
+  --geel: #ffd166;    /* waarschuwing (knik, overbelast) */
+  --vw-trek: #ff6b6b;
+  --vw-druk: #5b9bff;
+  --ok: #3fb37f;
   --f-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
   --f-body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
   --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
 }
+/* lichte opmaak */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #e3e8e6;
+  --panel: #f6f8f7;
+  --panel-2: #edf1ef;
+  --line: #c9d2cf;
+  --grid: #dde3e1;
+  --axis: #7c8a93;
+  --fg: #1e2a32;
+  --muted: #5a6972;
+  --a: #c27c0e;
+  --b: #0b7fb0;
+  --meet: #d9480f;
+  --druk: #2b8a3e;
+  --trek: #d63939;
+  --focus: #1c6fe0;
+  --geel: #b7791f;
+  --vw-trek: #e03131;
+  --vw-druk: #1c6fe0;
+  --ok: #2b8a3e;
+}
+.thema-knop { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel); color: var(--fg); font: 600 .85rem var(--f-body); cursor: pointer; }
+.thema-knop:hover { border-color: var(--axis); background: var(--panel-2); }
+.thema-knop svg { width: 16px; height: 16px; }
+.kop-rechts { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
 [hidden] { display: none !important; }
 body { background: var(--bg); color: var(--fg); font: 16px/1.5 var(--f-body); }
 .wrap { max-width: none; margin: 0 auto; padding-inline: clamp(16px, 2vw, 32px); padding-block: 28px 64px; display: flex; flex-direction: column; gap: 28px; }
 a { color: inherit; }
 :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 
-header.top { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+header.top { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
 .brand { font: 700 1.5rem/1.1 var(--f-display); letter-spacing: -0.01em; text-decoration: none; }
 .hint { color: var(--muted); font-size: .95rem; }
 
@@ -470,8 +501,8 @@ button.pa-pdf:disabled { opacity: .5; cursor: default; }
 .vw-soort.trek, .vw-trek { color: var(--trek); } .vw-soort.druk, .vw-druk { color: var(--druk); }
 .vw-ber .pa-f b { color: var(--a); }
 .vw-getal .rij input[type=number] { width: 6.5em; }
-.vw-lt { color: #ff6b6b; } .vw-ld { color: #5b9bff; }
-.vw-ok { color: var(--druk); font-weight: 600; } .vw-nok { color: #ffd166; font-weight: 700; }
+.vw-lt { color: var(--vw-trek); } .vw-ld { color: var(--vw-druk); }
+.vw-ok { color: var(--druk); font-weight: 600; } .vw-nok { color: var(--geel); font-weight: 700; }
 .last.vw-nieuw { border-color: var(--a); box-shadow: 0 0 0 2px rgba(242,181,68,.25); }
 .vw-fout.klein { font-size: .85rem; margin: 0; }
 .vw .lasten { grid-template-columns: repeat(auto-fill, minmax(min(100%, 270px), 1fr)); gap: 10px; }
@@ -595,21 +626,39 @@ button.vv-go:disabled { opacity: .45; cursor: default; }
 .vv-export{display:flex;flex-direction:column;gap:14px;max-width:720px}
 .vv-overzicht{display:flex;flex-direction:column;gap:6px}
 .vv-ovrij{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 12px;border:1px solid var(--line);border-radius:8px}
-.vv-ovrij.klaar{border-color:#3fb37f}
-.vv-ok{color:#3fb37f;font-weight:600}
+.vv-ovrij.klaar{border-color:var(--ok)}
+.vv-ok{color:var(--ok);font-weight:600}
 button.vv-groot{font-size:1.05rem;padding:12px 20px}
 .vv-instr{margin:4px 0 12px;padding-left:22px;line-height:1.6}
 .vv-instr li{margin:3px 0}
 .vv-vast input:disabled{opacity:1;cursor:default}
 .vv-vast button.vv-check{display:none}
 .vv-rin:disabled,.vv-in:disabled{opacity:1}
-#vv-startmeld.vv-dicht{color:#ff6b6b;font-size:.95rem;font-weight:600}
+#vv-startmeld.vv-dicht{color:var(--trek);font-size:.95rem;font-weight:600}
 .vv-terug{margin-right:8px}
 .vv-sym{font-family:"STIX Two Text","Times New Roman",serif;font-style:italic;font-size:1.1rem;white-space:nowrap;margin-right:2px}
 .vv-recht{font-style:normal;font-family:'Atkinson Hyperlegible',sans-serif;font-size:1rem}
 .vv-sym sub{font-style:normal;font-size:.7em}
 .vv-rv .vv-sym{margin-left:14px}
 #vv-lk[hidden]{display:none!important}
+.doek.sk-doek { touch-action: none; }
+.sk-meld { color: var(--trek); font-weight: 600; margin: 0 0 8px; }
+.sk-ber p { margin: 0 0 10px; max-width: 80ch; }
+.sk-f { font-family: var(--f-mono); font-size: .9rem; white-space: pre-wrap; }
+.sk-tu, .sk-lu { color: var(--a); } .sk-ti, .sk-li { color: var(--b); } .sk-tp, .sk-lp { color: var(--meet); }
+.sk-tot td { font-weight: 600; border-top: 2px solid var(--axis); }
+button.knop.sk-simknop { width: 100%; padding: 9px 12px; font-weight: 600; }
+button.knop.sk-simknop.aan { border-color: var(--b); color: var(--b); }
+#sk-sel .knoppen { margin-top: 8px; }
+.sk-edit { position: absolute; z-index: 3; display: flex; align-items: center; gap: 4px; padding: 5px 6px; background: var(--panel-2); border: 1px solid var(--a); border-radius: 8px; box-shadow: 0 6px 18px rgba(0,0,0,.25); font: 500 .9rem var(--f-mono); white-space: nowrap; }
+.sk-edit label { display: flex; align-items: center; gap: 5px; }
+.sk-edit input { width: 5.6em; padding: 3px 6px; background: var(--bg); color: var(--fg); border: 1px solid var(--line); border-radius: 5px; font: inherit; }
+.sk-edit .sk-eb { width: 28px; height: 28px; padding: 0; border: 1px solid var(--line); border-radius: 6px; background: var(--panel); color: var(--fg); cursor: pointer; font-size: .95rem; }
+.sk-edit .sk-eb:hover { border-color: var(--axis); }
+.sk-ed { padding: 0 4px; }
+.sk-vbrij { display: flex; align-items: center; gap: 10px; }
+.sk-vbrij > span { width: 5.2em; font-size: .88rem; color: var(--muted); }
+.sk-vbrij button.sit { min-width: 34px; padding: 4px 10px; font-size: .86rem; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
@@ -618,7 +667,7 @@ button.vv-groot{font-size:1.05rem;padding:12px 20px}
 <div class="wrap">
   <header class="top">
     <a class="brand" href="#">Tools voor mechanica, elektriciteit en fysica</a>
-    <span class="hint">Kies je klas en open een tool.</span>
+    <div class="kop-rechts"><span class="hint">Kies je klas en open een tool.</span><button type="button" class="thema-knop" id="thema-knop"></button></div>
   </header>
 
   <nav class="klassen" id="nav" aria-label="Klassen"></nav>
@@ -755,7 +804,7 @@ const APPLETS = [
   },
   {
     id: 'joule',
-    titel: 'Het joule-effect',
+    titel: 'Joule-effect',
     vak: 'Fysica',
     klassen: ['5BCT'],
     beschrijving: 'Sluit de kring, regel de bron en de weerstand, en zie in de weerstand hoe elektronen tegen ionen botsen. De ionen gaan trillen en de weerstand warmt op.',
@@ -766,6 +815,21 @@ const APPLETS = [
       <g fill="rgb(150,40,30)"><circle cx="150" cy="20" r="8"/><circle cx="185" cy="22" r="8"/><circle cx="220" cy="18" r="8"/><circle cx="165" cy="50" r="8"/><circle cx="200" cy="52" r="8"/></g>
       <g fill="var(--b)"><circle cx="134" cy="36" r="3"/><circle cx="176" cy="36" r="3"/><circle cx="212" cy="38" r="3"/><circle cx="148" cy="62" r="3"/></g></svg>`,
     render: renderJoule
+  },
+  {
+    id: 'schakeling',
+    titel: 'Gemengde schakelingen',
+    vak: 'Fysica',
+    klassen: ['5BCT'],
+    beschrijving: 'Teken een schakeling met één bron en zoveel weerstanden als je wilt, in serie, parallel of gemengd. Start de simulatie en lees de spanning over elke weerstand, de stroom in elke tak en eventueel het vermogen af.',
+    thumb: `<svg viewBox="0 0 240 70" aria-hidden="true">
+      <path d="M40 30 V10 H70 M110 10 H200 V24 M200 46 V60 H40 V40" fill="none" stroke="var(--fg)" stroke-width="2"/>
+      <path d="M150 10 V24 M150 46 V60" fill="none" stroke="var(--fg)" stroke-width="2"/>
+      <rect x="70" y="4" width="40" height="12" fill="var(--panel)" stroke="var(--fg)" stroke-width="2"/>
+      <rect x="144" y="24" width="12" height="22" fill="var(--panel)" stroke="var(--fg)" stroke-width="2"/><rect x="194" y="24" width="12" height="22" fill="var(--panel)" stroke="var(--fg)" stroke-width="2"/>
+      <path d="M28 30 H52" stroke="var(--fg)" stroke-width="2"/><path d="M33 40 H47" stroke="var(--fg)" stroke-width="5"/>
+      <g fill="var(--b)"><circle cx="128" cy="10" r="3"/><circle cx="176" cy="10" r="3"/><circle cx="100" cy="60" r="3"/><circle cx="60" cy="60" r="3"/><circle cx="40" cy="20" r="3"/></g></svg>`,
+    render: renderSchakeling
   },
   {
     id: 'trek',
@@ -784,7 +848,7 @@ const APPLETS = [
   },
   {
     id: 'pneumalab',
-    titel: 'PneumaLab – pneumatische schakelingen',
+    titel: '(Elektro)pneumatica',
     vak: 'Pneumatica',
     klassen: ['Engineering'],
     link: 'pneumalab.html',
@@ -799,6 +863,7 @@ const APPLETS = [
   },
   {
     id: 'parachute',
+    verborgen: true,
     titel: 'Ontwerp van een hemisferische parachute',
     vak: 'CanSat',
     klassen: ['Engineering'],
@@ -813,6 +878,7 @@ const APPLETS = [
   },
   {
     id: 'yagi',
+    verborgen: true,
     titel: 'Ontwerp van een Yagi-Uda-antenne',
     vak: 'CanSat',
     klassen: ['Engineering'],
@@ -5824,7 +5890,8 @@ function renderVak(root) {
     ur: { t: '↗ schuin rechts omhoog', u: a => [Math.cos(a), Math.sin(a)], schuin: true },
     ul: { t: '↖ schuin links omhoog', u: a => [-Math.cos(a), Math.sin(a)], schuin: true }
   };
-  const TREK = '#ff6b6b', DRUK = '#5b9bff';
+  let TREK = css('--vw-trek'), DRUK = css('--vw-druk');
+  window.addEventListener('thema', () => { TREK = css('--vw-trek'); DRUK = css('--vw-druk'); });
   const lastVec = l => { const u = RICHT[l.dir].u(l.a * Math.PI / 180); return { fx: u[0] * l.F, fy: u[1] * l.F }; };
   const f2 = (x, d = 1) => (Object.is(x, -0) ? 0 : x).toLocaleString('nl-BE', { minimumFractionDigits: d, maximumFractionDigits: d }).replace('-', '−');
   const geschiedenis = [];
@@ -5848,7 +5915,7 @@ function renderVak(root) {
   <div class="lay2 vw">
     <div class="hoofd2">
       <div class="paneel graf">
-        <div class="kop"><h2>Vakwerk</h2><span class="legende vw-leg"><span class="vw-lt"><i class="ln" style="border-color:#ff6b6b"></i>trek (uitgerekt)</span><span class="vw-ld"><i class="ln" style="border-color:#5b9bff"></i>druk (ingedrukt)</span><span><i class="ln" style="border-color:var(--axis)"></i>nulstaaf</span><span><i class="ln" style="border-color:var(--a)"></i>kracht</span></span></div>
+        <div class="kop"><h2>Vakwerk</h2><span class="legende vw-leg"><span class="vw-lt"><i class="ln" style="border-color:var(--vw-trek)"></i>trek (uitgerekt)</span><span class="vw-ld"><i class="ln" style="border-color:var(--vw-druk)"></i>druk (ingedrukt)</span><span><i class="ln" style="border-color:var(--axis)"></i>nulstaaf</span><span><i class="ln" style="border-color:var(--a)"></i>kracht</span></span></div>
         <div class="vw-balk">
           <div class="chips" id="vw-tools">
             <button type="button" class="sit" data-tool="staaf">╱ Staaf</button>
@@ -6184,7 +6251,7 @@ function renderVak(root) {
       ctx.beginPath(); ctx.moveTo(X(p.x), Y(p.y)); ctx.lineTo(X(q.x), Y(q.y)); ctx.stroke();
       if (r && !r.knikOk) {   // knikt: golvend lijntje erlangs
         const x1 = X(p.x), y1 = Y(p.y), x2 = X(q.x), y2 = Y(q.y), Lp = Math.hypot(x2 - x1, y2 - y1), ux = (x2 - x1) / Lp, uy = (y2 - y1) / Lp;
-        ctx.strokeStyle = '#ffd166'; ctx.lineWidth = 1.6; ctx.beginPath();
+        ctx.strokeStyle = css('--geel'); ctx.lineWidth = 1.6; ctx.beginPath();
         for (let t = 0; t <= 1.0001; t += 0.02) { const a = Math.sin(Math.PI * t) * (dik / 2 + 7); const px2 = x1 + (x2 - x1) * t - uy * a, py2 = y1 + (y2 - y1) * t + ux * a; t ? ctx.lineTo(px2, py2) : ctx.moveTo(px2, py2); }
         ctx.stroke();
       }
@@ -6208,7 +6275,7 @@ function renderVak(root) {
         if (geplaatst.some(q2 => rect[0] < q2[2] && rect[2] > q2[0] && rect[1] < q2[3] && rect[3] > q2[1])) return;
         geplaatst.push(rect);
         ctx.fillStyle = css('--panel'); ctx.globalAlpha = 0.88; ctx.fillRect(mx - tw / 2 - 3, my - 8, tw + 6, 16); ctx.globalAlpha = 1;
-        ctx.fillStyle = r && (st.toon === 'knik' ? !r.knikOk : r.ben > 1) ? '#ffd166' : r ? (r.trek ? TREK : r.druk ? DRUK : css('--fg')) : css('--fg'); ctx.fillText(t, mx, my);
+        ctx.fillStyle = r && (st.toon === 'knik' ? !r.knikOk : r.ben > 1) ? css('--geel') : r ? (r.trek ? TREK : r.druk ? DRUK : css('--fg')) : css('--fg'); ctx.fillText(t, mx, my);
       });
     }
     // knopen, steunen, krachten
@@ -6490,7 +6557,7 @@ function renderVak(root) {
       const r = ok ? res.staaf[i] : null;
       const kl = r ? (r.trek ? TREK : r.druk ? DRUK : '#8b95a5') : hout;
       const yA = kant * (B / 2 + l * t), yB = kant * (B / 2 + (l + 1) * t);
-      voegPrisma(stadion(p, q, b), Math.min(yA, yB), Math.max(yA, yB), r && !r.knikOk ? '#ffd166' : kl);
+      voegPrisma(stadion(p, q, b), Math.min(yA, yB), Math.max(yA, yB), r && !r.knikOk ? css('--geel') : kl);
     }));
     // draadstangen M3 door de knopen
     const staven3 = [];
@@ -7315,6 +7382,610 @@ function renderVrijeVal(root) {
   return () => { ro.disconnect(); if (raf) cancelAnimationFrame(raf); delete window.__vvPdf; };
 }
 
+/* ============================================================
+   APPLET: Gemengde schakelingen (5BCT, Fysica)
+   Tekenen op een raster: draden, weerstanden en één spanningsbron.
+   Oplossen met knooppuntanalyse (MNA); spanning, stroom en vermogen per weerstand.
+   ============================================================ */
+function renderSchakeling(root) {
+  const COLS = 18, ROWS = 11;
+  const st = {
+    tool: 'draad', el: [], volg: 1, sel: null,
+    sim: false, toonP: false, lading: true,
+    start: null, cur: null, slepen: false, hover: null, muis: null, melding: ''
+  };
+  const geschiedenis = [];
+  const $ = id => root.querySelector('#sk-' + id);
+  const sleutel = (p, q) => { const [a, b] = (p.c < q.c || (p.c === q.c && p.r < q.r)) ? [p, q] : [q, p]; return `${a.c},${a.r}|${b.c},${b.r}`; };
+  const pk = p => `${p.c},${p.r}`;
+  const zelfde = (p, q) => p && q && p.c === q.c && p.r === q.r;
+  const eenheden = (p, q) => {   // lijst van eenheidssegmenten van p naar q (horizontaal of verticaal)
+    const L = [], dc = Math.sign(q.c - p.c), dr = Math.sign(q.r - p.r), n = Math.abs(q.c - p.c) + Math.abs(q.r - p.r);
+    for (let k = 0; k < n; k++) L.push([{ c: p.c + dc * k, r: p.r + dr * k }, { c: p.c + dc * (k + 1), r: p.r + dr * (k + 1) }]);
+    return L;
+  };
+  const fR = R => R >= 1e6 ? fmtS(R / 1e6) + ' MΩ' : R >= 1000 ? fmtS(R / 1000) + ' kΩ' : fmtS(R) + ' Ω';
+  const fU = U => fmtS(Math.abs(U) < 1e-9 ? 0 : U) + ' V';
+  const fI = I => fmtS(Math.abs(I) < 1e-9 ? 0 : I) + ' A';
+  const fP = P => fmtS(Math.abs(P) < 1e-9 ? 0 : P) + ' W';
+  const bron = () => st.el.find(e => e.type === 'bron');
+  const nieuweNaam = () => { const n = new Set(st.el.filter(e => e.type === 'R').map(e => e.naam)); let k = 1; while (n.has('R' + k)) k++; return 'R' + k; };
+
+  root.innerHTML = `
+  <div class="lay2 sk">
+    <div class="hoofd2">
+      <div class="paneel graf">
+        <div class="kop"><h2>Schakeling</h2><span class="legende sk-leg"><span class="sk-lu">U spanning</span><span class="sk-li">I stroom</span><span class="sk-lp" id="sk-legp" hidden>P vermogen</span></span></div>
+        <div class="vw-balk">
+          <div class="chips" id="sk-tools">
+            <button type="button" class="sit" data-tool="kies">⬚ Selecteren</button>
+            <button type="button" class="sit" data-tool="draad">╱ Draad</button>
+            <button type="button" class="sit" data-tool="R">▭ Weerstand</button>
+            <button type="button" class="sit" data-tool="bron">⊣⊢ Bron</button>
+            <button type="button" class="sit" data-tool="wis">✕ Wissen</button>
+          </div>
+          <div class="chips">
+            <button type="button" class="knop" id="sk-undo">↶ Ongedaan maken</button>
+            <button type="button" class="knop" id="sk-leeg">Alles wissen</button>
+          </div>
+        </div>
+        <p class="uitleg klein" id="sk-hint"></p>
+        <div class="doek sk-doek" id="sk-doek" style="aspect-ratio:${COLS + 1} / ${ROWS + 1}"><canvas id="sk-c" role="img" aria-label="Tekenvlak met raster voor de elektrische schakeling"></canvas>
+        <div class="sk-edit" id="sk-edit" hidden></div></div>
+      </div>
+      <div class="paneel">
+        <h2 class="vw-h2">Resultaten</h2>
+        <div id="sk-status"></div>
+        <div class="vw-tabwrap"><table class="vw-tab" id="sk-tab"></table></div>
+      </div>
+    </div>
+    <div class="zij2">
+      <div class="paneel bediening">
+        <div class="groep">
+          <div class="gkop">Simulatie</div>
+          <button type="button" class="knop sk-simknop" id="sk-sim">▶ Simulatie starten</button>
+          <label class="vink"><input type="checkbox" id="sk-p">Vermogen tonen</label>
+          <label class="vink"><input type="checkbox" id="sk-lad" checked>Stroom tonen met bewegende ladingen</label>
+        </div>
+        <div class="groep">
+          <div class="gkop">Voorbeelden</div>
+          <div class="sk-vbrij"><span>Serie</span><div class="chips">${[1, 2, 3].map(k => `<button type="button" class="sit" data-vb="s${k}">${k}</button>`).join('')}</div></div>
+          <div class="sk-vbrij"><span>Parallel</span><div class="chips">${[1, 2, 3].map(k => `<button type="button" class="sit" data-vb="p${k}">${k}</button>`).join('')}</div></div>
+          <div class="sk-vbrij"><span>Gemengd</span><div class="chips">${[1, 2, 3, 4, 5].map(k => `<button type="button" class="sit" data-vb="g${k}">${k}</button>`).join('')}</div></div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+
+  const cv = $('c');
+  let cel = 40, ox = 20, oy = 20;
+  const xy = p => [ox + p.c * cel, oy + p.r * cel];
+  const raster = (mx, my) => {
+    const c = Math.round((mx - ox) / cel), r = Math.round((my - oy) / cel);
+    if (c < 0 || c > COLS || r < 0 || r > ROWS) return null;
+    return { c, r };
+  };
+  const snap = (a, p) => (Math.abs(p.c - a.c) >= Math.abs(p.r - a.r) ? { c: p.c, r: a.r } : { c: a.c, r: p.r });
+  const LEN = 2;   // weerstand en bron hebben een vaste lengte van twee vakjes
+  const past = q => q.c >= 0 && q.c <= COLS && q.r >= 0 && q.r <= ROWS;
+  const vastEind = (a, mx, my) => {   // eindpunt van een onderdeel met vaste lengte, in de richting van de muis
+    let dx = 1, dy = 0;
+    if (mx != null) { const [x, y] = xy(a), ddx = mx - x, ddy = my - y; if (Math.hypot(ddx, ddy) > cel * 0.3) { if (Math.abs(ddx) >= Math.abs(ddy)) { dx = Math.sign(ddx); dy = 0; } else { dx = 0; dy = Math.sign(ddy); } } }
+    let b = { c: a.c + dx * LEN, r: a.r + dy * LEN };
+    if (!past(b)) b = { c: a.c - dx * LEN, r: a.r - dy * LEN };
+    return past(b) ? b : null;
+  };
+
+  /* ---------- bewerken ---------- */
+  const bewaar = () => { geschiedenis.push(JSON.stringify({ el: st.el, volg: st.volg })); if (geschiedenis.length > 80) geschiedenis.shift(); $('undo').disabled = false; };
+  const bezetDoorComp = (k, behalve) => st.el.some(e => e !== behalve && e.type !== 'draad' && eenheden(e.a, e.b).some(([p, q]) => sleutel(p, q) === k));
+  function voegToe(type, a, b) {
+    if (zelfde(a, b)) return;
+    if (type === 'draad') {
+      const nieuw = eenheden(a, b).filter(([p, q]) => { const k = sleutel(p, q); return !bezetDoorComp(k) && !st.el.some(e => e.type === 'draad' && sleutel(e.a, e.b) === k); });
+      if (!nieuw.length) return;
+      bewaar();
+      nieuw.forEach(([p, q]) => st.el.push({ id: st.volg++, type: 'draad', a: p, b: q }));
+      st.melding = '';
+      return;
+    }
+    const ks = eenheden(a, b).map(([p, q]) => sleutel(p, q));
+    if (ks.some(k => bezetDoorComp(k))) { st.melding = 'Daar staat al een weerstand of een bron. Kies een andere plaats.'; return; }
+    bewaar();
+    st.el = st.el.filter(e => !(e.type === 'draad' && ks.includes(sleutel(e.a, e.b))));   // draad onder het onderdeel vervalt
+    st.melding = '';
+    if (type === 'bron') {
+      const oud = bron();
+      if (oud) { st.el = st.el.filter(e => e !== oud); st.melding = 'Er kan maar één bron zijn: de vorige bron is verwijderd.'; }
+      const e = { id: st.volg++, type: 'bron', a, b, U: oud ? oud.U : 12 };
+      st.el.push(e); open(e);
+    } else {
+      const e = { id: st.volg++, type: 'R', a, b, R: 100, naam: nieuweNaam() };
+      st.el.push(e); open(e);
+    }
+  }
+  const afstSeg = (mx, my, e) => {
+    const [x1, y1] = xy(e.a), [x2, y2] = xy(e.b), dx = x2 - x1, dy = y2 - y1, L2 = dx * dx + dy * dy || 1;
+    const t = Math.max(0, Math.min(1, ((mx - x1) * dx + (my - y1) * dy) / L2));
+    return Math.hypot(mx - x1 - t * dx, my - y1 - t * dy);
+  };
+  const raak = (mx, my) => {
+    let best = null, bd = Math.max(8, cel * 0.22);
+    // onderdelen gaan voor draden
+    st.el.forEach(e => { const d = afstSeg(mx, my, e) - (e.type === 'draad' ? 0 : 4); if (d < bd) { bd = d; best = e; } });
+    return best;
+  };
+  const verwijder = e => { if (!e) return; bewaar(); st.el = st.el.filter(x => x !== e); if (st.sel === e.id) sluit(); };
+  // onderdeel aangeklikt (niet op een aansluitpunt)?
+  const raakComp = (mx, my) => {
+    const e = raak(mx, my); if (!e || e.type === 'draad') return null;
+    const [x1, y1] = xy(e.a), [x2, y2] = xy(e.b);
+    return Math.hypot(mx - x1, my - y1) < cel * 0.35 || Math.hypot(mx - x2, my - y2) < cel * 0.35 ? null : e;
+  };
+  function draai(e) {   // 90° draaien rond het midden
+    const m = { c: (e.a.c + e.b.c) / 2, r: (e.a.r + e.b.r) / 2 }, rot = p => ({ c: m.c - (p.r - m.r), r: m.r + (p.c - m.c) });
+    const a = rot(e.a), b = rot(e.b);
+    if (!past(a) || !past(b)) { st.melding = 'Draaien lukt hier niet: het onderdeel zou buiten het raster komen.'; return; }
+    const ks = eenheden(a, b).map(([p, q]) => sleutel(p, q));
+    if (ks.some(k => bezetDoorComp(k, e))) { st.melding = 'Draaien lukt hier niet: daar staat al een onderdeel.'; return; }
+    bewaar(); st.el = st.el.filter(x => !(x.type === 'draad' && ks.includes(sleutel(x.a, x.b)))); e.a = a; e.b = b; st.melding = '';
+  }
+
+  /* ---------- oplossen (knooppuntanalyse) ---------- */
+  function losStelsel(A, z) {   // Gauss met pivotering
+    const N = z.length;
+    for (let k = 0; k < N; k++) {
+      let m = k; for (let i = k + 1; i < N; i++) if (Math.abs(A[i][k]) > Math.abs(A[m][k])) m = i;
+      if (Math.abs(A[m][k]) < 1e-30) continue;
+      [A[k], A[m]] = [A[m], A[k]]; [z[k], z[m]] = [z[m], z[k]];
+      for (let i = k + 1; i < N; i++) { const fct = A[i][k] / A[k][k]; if (!fct) continue; for (let j = k; j < N; j++) A[i][j] -= fct * A[k][j]; z[i] -= fct * z[k]; }
+    }
+    const x = new Float64Array(N);
+    for (let i = N - 1; i >= 0; i--) { let t = z[i]; for (let j = i + 1; j < N; j++) t -= A[i][j] * x[j]; x[i] = Math.abs(A[i][i]) < 1e-30 ? 0 : t / A[i][i]; }
+    return x;
+  }
+  let res = null;
+  function los() {
+    const b = bron();
+    const uit = { ok: false, fout: '', V: {}, I: {}, Ib: 0, kort: false };
+    if (!b) { uit.fout = 'Plaats eerst een bron.'; return uit; }
+    // kortsluiting: + en − verbonden via enkel draden?
+    const ouder = {}, f = x => { while (ouder[x] !== undefined && ouder[x] !== x) x = ouder[x]; return x; };
+    const un = (p, q) => { const a = f(p), c = f(q); if (a !== c) ouder[a] = c; };
+    st.el.forEach(e => { ouder[pk(e.a)] ??= pk(e.a); ouder[pk(e.b)] ??= pk(e.b); });
+    st.el.filter(e => e.type === 'draad').forEach(e => un(pk(e.a), pk(e.b)));
+    if (f(pk(b.a)) === f(pk(b.b))) { uit.kort = true; uit.fout = 'Kortsluiting! De + en de − van de bron zijn rechtstreeks verbonden met een draad zonder weerstand.'; return uit; }
+    // draden verbinden punten tot één knoop (ideale draad: geen weerstand)
+    const knoop = pt => f(pk(pt)), gnd = knoop(b.a), idx = {}; let n = 0;
+    st.el.forEach(e => [e.a, e.b].forEach(pt => { const k = knoop(pt); if (k !== gnd && idx[k] === undefined) idx[k] = n++; }));
+    const N = n + 1, A = Array.from({ length: N }, () => new Float64Array(N)), z = new Float64Array(N);
+    const ix = pt => { const k = knoop(pt); return k === gnd ? -1 : idx[k]; };
+    const stamp = (i, j, g) => { if (i >= 0) A[i][i] += g; if (j >= 0) A[j][j] += g; if (i >= 0 && j >= 0) { A[i][j] -= g; A[j][i] -= g; } };
+    st.el.forEach(e => { if (e.type === 'R') stamp(ix(e.a), ix(e.b), 1 / e.R); });
+    for (let i = 0; i < n; i++) A[i][i] += 1e-12;   // zwevende knopen
+    const p = ix(b.b), q = ix(b.a);
+    if (p >= 0) { A[p][n] += 1; A[n][p] += 1; }
+    if (q >= 0) { A[q][n] -= 1; A[n][q] -= 1; }
+    z[n] = b.U;
+    const x = losStelsel(A, z);
+    const V = pt => { const i = ix(pt); return i < 0 ? 0 : x[i]; };
+    st.el.forEach(e => {
+      uit.V[e.id] = V(e.a) - V(e.b);
+      if (e.type === 'R') uit.I[e.id] = (V(e.a) - V(e.b)) / e.R;
+    });
+    uit.Ib = -x[n];                       // stroom die de bron aan de +klem levert
+    uit.I[b.id] = uit.Ib;                 // binnen de bron van − (a) naar + (b)
+    // stroom in de draden: per knoop verdeelt de stroom zich over de draadstukjes (alle stukjes even 'goed')
+    const inj = {};
+    st.el.forEach(e => { if (e.type === 'draad') return; const I = uit.I[e.id] || 0; inj[pk(e.a)] = (inj[pk(e.a)] || 0) - I; inj[pk(e.b)] = (inj[pk(e.b)] || 0) + I; });
+    const groepen = {};
+    st.el.filter(e => e.type === 'draad').forEach(e => (groepen[knoop(e.a)] ||= []).push(e));
+    Object.values(groepen).forEach(dr => {
+      const pts = [...new Set(dr.flatMap(e => [pk(e.a), pk(e.b)]))], id = {}; pts.forEach((k, i) => { id[k] = i; });
+      const M = pts.length - 1; if (M < 1) return;
+      const L = Array.from({ length: M }, () => new Float64Array(M)), r = new Float64Array(M);
+      const g = k => id[k] - 1;   // eerste punt is referentie
+      dr.forEach(e => { const i = g(pk(e.a)), j = g(pk(e.b)); if (i >= 0) L[i][i] += 1; if (j >= 0) L[j][j] += 1; if (i >= 0 && j >= 0) { L[i][j] -= 1; L[j][i] -= 1; } });
+      pts.forEach(k => { if (g(k) >= 0) r[g(k)] = inj[k] || 0; });
+      const phi = losStelsel(L, r), F = k => g(k) < 0 ? 0 : phi[g(k)];
+      dr.forEach(e => { uit.I[e.id] = F(pk(e.a)) - F(pk(e.b)); });
+    });
+    uit.ok = true;
+    if (Math.abs(uit.Ib) < 1e-9) uit.fout = 'Er loopt geen stroom: de kring is niet gesloten. Verbind de + en de − van de bron via weerstanden.';
+    // afrondingsruis bij draden wegwerken
+    const Imax = Math.max(1e-12, ...Object.values(uit.I).map(Math.abs));
+    Object.keys(uit.I).forEach(k => { if (Math.abs(uit.I[k]) < Math.max(Imax * 1e-7, 1e-9)) uit.I[k] = 0; });
+    if (Math.abs(uit.Ib) < 1e-9) { uit.Ib = 0; Object.keys(uit.V).forEach(k => { if (Math.abs(uit.V[k]) < 1e-6) uit.V[k] = 0; }); }
+    return uit;
+  }
+
+  /* ---------- tekenen ---------- */
+  const fase = {};
+  function tekenSymbool(ctx, e, kleur) {
+    const [x1, y1] = xy(e.a), [x2, y2] = xy(e.b), L = Math.hypot(x2 - x1, y2 - y1), ux = (x2 - x1) / L, uy = (y2 - y1) / L, nx = -uy, ny = ux;
+    const mx = (x1 + x2) / 2, my = (y1 + y2) / 2;
+    ctx.strokeStyle = kleur; ctx.lineWidth = 2; ctx.lineCap = 'round';
+    if (e.type === 'draad') { ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke(); return; }
+    if (e.type === 'R') {
+      const lr = Math.min(L - 8, cel * 1.1) / 2, br = Math.max(6, cel * 0.17);
+      ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(mx - ux * lr, my - uy * lr); ctx.moveTo(mx + ux * lr, my + uy * lr); ctx.lineTo(x2, y2); ctx.stroke();
+      ctx.fillStyle = css('--panel');
+      ctx.beginPath();
+      ctx.moveTo(mx - ux * lr + nx * br, my - uy * lr + ny * br); ctx.lineTo(mx + ux * lr + nx * br, my + uy * lr + ny * br);
+      ctx.lineTo(mx + ux * lr - nx * br, my + uy * lr - ny * br); ctx.lineTo(mx - ux * lr - nx * br, my - uy * lr - ny * br); ctx.closePath();
+      ctx.fill(); ctx.stroke();
+      return;
+    }
+    // bron: lange plaat = +, korte dikke plaat = −  (b is de +klem)
+    const g = Math.max(5, cel * 0.13), hl = Math.max(14, cel * 0.42), hk = hl * 0.5;
+    const pm = [mx - ux * g, my - uy * g], pp = [mx + ux * g, my + uy * g];
+    ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(pm[0], pm[1]); ctx.moveTo(pp[0], pp[1]); ctx.lineTo(x2, y2); ctx.stroke();
+    ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(pp[0] + nx * hl, pp[1] + ny * hl); ctx.lineTo(pp[0] - nx * hl, pp[1] - ny * hl); ctx.stroke();
+    ctx.lineWidth = 5; ctx.lineCap = 'butt'; ctx.beginPath(); ctx.moveTo(pm[0] + nx * hk, pm[1] + ny * hk); ctx.lineTo(pm[0] - nx * hk, pm[1] - ny * hk); ctx.stroke();
+    ctx.lineCap = 'round';
+    ctx.fillStyle = kleur; ctx.font = `700 ${Math.round(Math.max(13, cel * 0.32))}px ${css('--f-mono')}`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    const o = hl * 0.75;
+    ctx.fillText('+', pp[0] + ux * o * 0.9 + nx * o, pp[1] + uy * o * 0.9 + ny * o);
+    ctx.fillText('−', pm[0] - ux * o * 0.9 + nx * o, pm[1] - uy * o * 0.9 + ny * o);
+  }
+  function labels(ctx, e) {
+    const [x1, y1] = xy(e.a), [x2, y2] = xy(e.b), hor = y1 === y2, mx = (x1 + x2) / 2, my = (y1 + y2) / 2;
+    const rijen = [];
+    if (e.type === 'R') rijen.push([`${e.naam} = ${fR(e.R)}`, css('--fg'), 600]);
+    if (e.type === 'bron') rijen.push([`U = ${fU(e.U)}`, css('--fg'), 600]);
+    if (st.sim && res && res.ok && !res.kort) {
+      const I = res.I[e.id] || 0;
+      if (e.type === 'R') rijen.push([`U = ${fU(Math.abs(res.V[e.id]))}`, css('--a'), 400]);
+      rijen.push([`I = ${fI(Math.abs(I))}`, css('--b'), 400]);
+      if (st.toonP) rijen.push([`P = ${fP(e.type === 'R' ? I * I * e.R : Math.abs(I) * e.U)}`, css('--meet'), 400]);
+    }
+    const fs = Math.round(Math.max(11, Math.min(13.5, cel * 0.28))), lh = fs + 3;
+    ctx.textBaseline = 'middle';
+    const off = (e.type === 'bron' ? Math.max(14, cel * 0.42) : Math.max(6, cel * 0.17)) + 8;
+    const bg = css('--panel');
+    const schrijf = (t, x, y, k) => {
+      const tw = ctx.measureText(t).width, x0 = ctx.textAlign === 'center' ? x - tw / 2 : x;
+      ctx.fillStyle = bg; ctx.globalAlpha = 0.85; ctx.fillRect(x0 - 3, y - lh / 2, tw + 6, lh); ctx.globalAlpha = 1;
+      ctx.fillStyle = k; ctx.fillText(t, x, y);
+    };
+    rijen.forEach(([t, k, w], i) => {
+      ctx.font = `${w} ${fs}px ${css('--f-mono')}`;
+      if (hor) {
+        // naam boven, waarden onder het symbool
+        ctx.textAlign = 'center';
+        if (i === 0) schrijf(t, mx, my - off - lh / 2 + 2, k);
+        else schrijf(t, mx, my + off + lh * (i - 0.5), k);
+      } else {
+        ctx.textAlign = 'left';
+        schrijf(t, mx + off, my + (i - (rijen.length - 1) / 2) * lh, k);
+      }
+    });
+    // stroomzin op de weerstand
+    if (st.sim && res && res.ok && !res.kort && e.type === 'R') {
+      const I = res.I[e.id] || 0; if (Math.abs(I) < 1e-12) return;
+      const s = I > 0 ? 1 : -1, ux = Math.sign(x2 - x1), uy = Math.sign(y2 - y1);
+      const d = Math.min(Math.hypot(x2 - x1, y2 - y1) / 2 - 4, Math.max(cel * 0.62, Math.min(cel * 0.8, Math.hypot(x2 - x1, y2 - y1) * 0.33)));
+      const ax = mx - s * ux * d, ay = my - s * uy * d, a2 = 9;
+      ctx.fillStyle = css('--b'); ctx.beginPath();
+      ctx.moveTo(ax + s * ux * a2, ay + s * uy * a2);
+      ctx.lineTo(ax - s * ux * 2 + uy * 5, ay - s * uy * 2 + ux * 5);
+      ctx.lineTo(ax - s * ux * 2 - uy * 5, ay - s * uy * 2 - ux * 5);
+      ctx.closePath(); ctx.fill();
+    }
+  }
+  function teken() {
+    const { ctx, w, h } = prepCanvas(cv);
+    cel = Math.min(w / (COLS + 1), h / (ROWS + 1)); ox = (w - COLS * cel) / 2; oy = (h - ROWS * cel) / 2;
+    // raster
+    ctx.fillStyle = css('--axis');
+    for (let c = 0; c <= COLS; c++) for (let r = 0; r <= ROWS; r++) { const [x, y] = xy({ c, r }); ctx.globalAlpha = 0.55; ctx.beginPath(); ctx.arc(x, y, 1.6, 0, 7); ctx.fill(); }
+    ctx.globalAlpha = 1;
+    if (!st.el.length && !st.start) {
+      ctx.fillStyle = css('--muted'); ctx.font = `${14}px ${css('--f-body')}`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText('Teken een kring met draden, plaats een bron en weerstanden, of laad een voorbeeld hieronder.', w / 2, h / 2);
+    }
+    const fg = css('--fg'), sel = css('--a');
+    // selectie-markering
+    const s = st.el.find(e => e.id === st.sel);
+    if (s) {
+      const [x1, y1] = xy(s.a), [x2, y2] = xy(s.b);
+      ctx.strokeStyle = sel; ctx.globalAlpha = 0.28; ctx.lineWidth = 12; ctx.lineCap = 'round';
+      ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke(); ctx.globalAlpha = 1;
+    }
+    const doof = st.sim && res && res.ok && !res.kort;
+    st.el.filter(e => e.type === 'draad').forEach(e => tekenSymbool(ctx, e, doof && !res.I[e.id] ? css('--muted') : fg));
+    st.el.filter(e => e.type !== 'draad').forEach(e => tekenSymbool(ctx, e, doof && !res.I[e.id] ? css('--muted') : fg));
+    // knooppunten (3 of meer verbindingen)
+    const tel = {}; st.el.forEach(e => { tel[pk(e.a)] = (tel[pk(e.a)] || 0) + 1; tel[pk(e.b)] = (tel[pk(e.b)] || 0) + 1; });
+    ctx.fillStyle = fg;
+    Object.entries(tel).forEach(([k, n]) => { if (n >= 3) { const [c, r] = k.split(',').map(Number), [x, y] = xy({ c, r }); ctx.beginPath(); ctx.arc(x, y, 4.5, 0, 7); ctx.fill(); } });
+    // bewegende ladingen
+    if (st.sim && st.lading && res && res.ok && !res.kort) {
+      ctx.fillStyle = css('--b');
+      const sp = Math.max(14, cel * 0.42);
+      st.el.forEach(e => {
+        const I = res.I[e.id] || 0; if (!I) return;
+        const [x1, y1] = xy(e.a), [x2, y2] = xy(e.b), L = Math.hypot(x2 - x1, y2 - y1);
+        const ph = ((fase[e.id] || 0) % sp + sp) % sp;
+        for (let d = ph; d < L; d += sp) {
+          if (e.type !== 'draad' && Math.abs(d - L / 2) < (e.type === 'bron' ? Math.max(5, cel * 0.13) + 3 : 0)) continue;
+          const t = d / L; ctx.beginPath(); ctx.arc(x1 + (x2 - x1) * t, y1 + (y2 - y1) * t, 2.6, 0, 7); ctx.fill();
+        }
+      });
+    }
+    st.el.filter(e => e.type !== 'draad').forEach(e => labels(ctx, e));
+    // voorlopige lijn tijdens het tekenen
+    if (st.voorb && !st.start && ['R', 'bron'].includes(st.tool)) {
+      ctx.globalAlpha = 0.45; tekenSymbool(ctx, { type: st.tool, a: st.voorb.a, b: st.voorb.b }, sel); ctx.globalAlpha = 1;
+    }
+    if (st.start && st.cur && ['R', 'bron'].includes(st.tool)) {
+      ctx.globalAlpha = 0.7; tekenSymbool(ctx, { type: st.tool, a: st.start, b: st.cur }, sel); ctx.globalAlpha = 1;
+    }
+    if (st.start && st.tool === 'draad') {
+      const [x, y] = xy(st.start);
+      ctx.fillStyle = sel; ctx.beginPath(); ctx.arc(x, y, 5, 0, 7); ctx.fill();
+      if (st.cur && !zelfde(st.cur, st.start)) {
+        ctx.globalAlpha = 0.7; tekenSymbool(ctx, { type: st.tool, a: st.start, b: st.cur }, sel); ctx.globalAlpha = 1;
+      }
+    }
+    // stroom in een draad bij aanwijzen
+    if (st.sim && res && res.ok && !res.kort && st.hover && st.muis) {
+      const e = st.el.find(x => x.id === st.hover);
+      if (e) {
+        const t = e.type === 'draad' ? `I = ${fI(Math.abs(res.I[e.id] || 0))}` : e.type === 'R' ? `${e.naam}: U = ${fU(Math.abs(res.V[e.id]))}, I = ${fI(Math.abs(res.I[e.id] || 0))}` : `Bron: I = ${fI(Math.abs(res.Ib))}`;
+        ctx.font = `500 12.5px ${css('--f-mono')}`; const tw = ctx.measureText(t).width + 14;
+        let bx = st.muis[0] + 14, by = st.muis[1] - 30; if (bx + tw > w - 4) bx = st.muis[0] - tw - 10; if (by < 4) by = st.muis[1] + 14;
+        ctx.fillStyle = css('--panel-2'); ctx.strokeStyle = css('--line'); ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.roundRect ? ctx.roundRect(bx, by, tw, 22, 5) : ctx.rect(bx, by, tw, 22); ctx.fill(); ctx.stroke();
+        ctx.fillStyle = css('--fg'); ctx.textAlign = 'left'; ctx.textBaseline = 'middle'; ctx.fillText(t, bx + 7, by + 11);
+      }
+    }
+  }
+
+  /* ---------- panelen ---------- */
+  const HINT = {
+    kies: 'Klik op een weerstand of op de bron: in het veldje ernaast stel je de waarde in, draai je het onderdeel of verwijder je het. Tijdens de simulatie toont een draad zijn stroom als je erover beweegt.',
+    draad: 'Klik op een rasterpunt en daarna op een tweede rasterpunt (of sleep) om een draad te tekenen. Draden die elkaar raken, zijn verbonden.',
+    R: 'Klik op een rasterpunt om een weerstand te plaatsen (twee vakjes lang). Sleep in een richting om hem verticaal of naar links te leggen. Je mag een weerstand ook op een bestaande draad zetten. Klik op een weerstand om de waarde in te stellen.',
+    bron: 'Klik op een rasterpunt om de bron te plaatsen en sleep in de richting van de +. Er is maar één bron. Klik op de bron om de spanning in te stellen.',
+    wis: 'Klik op een draad, weerstand of bron om hem te verwijderen. Je kunt ook over meerdere draadstukjes slepen.'
+  };
+  function toonHint() { $('hint').innerHTML = st.melding ? `<span class="sk-meld">${st.melding}</span>` : HINT[st.tool]; }
+  function toonTools() { root.querySelectorAll('#sk-tools [data-tool]').forEach(b => b.setAttribute('aria-pressed', b.dataset.tool === st.tool)); cv.style.cursor = st.tool === 'kies' ? 'default' : st.tool === 'wis' ? 'not-allowed' : 'crosshair'; }
+  /* ---------- veldje bij het onderdeel ---------- */
+  const edit = $('edit');
+  function open(e) { st.sel = e.id; st.editBewaard = false; }
+  function sluit() { st.sel = null; edit.hidden = true; edit.innerHTML = ''; }
+  function toonEdit() {
+    const e = st.el.find(x => x.id === st.sel);
+    if (!e) { edit.hidden = true; edit.innerHTML = ''; return; }
+    const vorige = edit.dataset.id;
+    if (vorige !== String(e.id) || edit.hidden) {
+      edit.dataset.id = e.id;
+      if (e.type === 'R') edit.innerHTML = `<label><b>${e.naam}</b> =<input type="number" id="sk-ev" min="0.1" max="1000000" step="any" inputmode="decimal"><span>Ω</span></label>
+        <button type="button" class="sk-eb" data-a="draai" title="Draaien" aria-label="Draaien">⟳</button><button type="button" class="sk-eb" data-a="wis" title="Verwijderen" aria-label="Verwijderen">✕</button>`;
+      else if (e.type === 'bron') edit.innerHTML = `<label><b>U</b> =<input type="number" id="sk-ev" min="0" max="1000" step="any" inputmode="decimal"><span>V</span></label>
+        <button type="button" class="sk-eb" data-a="pol" title="Polariteit omdraaien" aria-label="Polariteit omdraaien">⇅</button><button type="button" class="sk-eb" data-a="draai" title="Draaien" aria-label="Draaien">⟳</button><button type="button" class="sk-eb" data-a="wis" title="Verwijderen" aria-label="Verwijderen">✕</button>`;
+      else edit.innerHTML = `<span class="sk-ed" id="sk-ed"></span><button type="button" class="sk-eb" data-a="wis" title="Draad verwijderen" aria-label="Draad verwijderen">✕</button>`;
+      const inp = $('ev');
+      if (inp) { inp.value = rondAf(e.type === 'R' ? e.R : e.U); }
+      edit.hidden = false;
+    }
+    if (e.type === 'draad') $('ed').textContent = st.sim && res && res.ok && !res.kort ? `Draad: I = ${fI(Math.abs(res.I[e.id] || 0))}` : 'Draad';
+    // plaats: onder (horizontaal) of rechts (verticaal) van het onderdeel
+    const [x1, y1] = xy(e.a), [x2, y2] = xy(e.b), hor = y1 === y2, W = cv.clientWidth, H = cv.clientHeight;
+    const ew = edit.offsetWidth, eh = edit.offsetHeight;
+    let x = hor ? (x1 + x2) / 2 - ew / 2 : Math.max(x1, x2) + 0 + cel * 0.45, y = hor ? Math.max(y1, y2) + cel * 0.45 : (y1 + y2) / 2 - eh / 2;
+    if (!hor && x + ew > W - 4) x = Math.min(x1, x2) - cel * 0.45 - ew;
+    if (hor && y + eh > H - 4) y = Math.min(y1, y2) - cel * 0.45 - eh;
+    edit.style.left = Math.max(4, Math.min(W - ew - 4, x)) + 'px';
+    edit.style.top = Math.max(4, Math.min(H - eh - 4, y)) + 'px';
+  }
+  edit.addEventListener('input', ev => {
+    const e = st.el.find(x => x.id === st.sel); if (!e || ev.target.id !== 'sk-ev') return;
+    const v = parseFloat(String(ev.target.value).replace(',', '.'));
+    if (!(v >= 0) || (e.type === 'R' && !(v > 0))) return;
+    if (!st.editBewaard) { bewaar(); st.editBewaard = true; }
+    if (e.type === 'R') e.R = Math.min(1e6, Math.max(0.1, v)); else e.U = Math.min(1000, v);
+    herreken();
+  });
+  edit.addEventListener('keydown', ev => { if (ev.key === 'Enter' || ev.key === 'Escape') { ev.preventDefault(); sluit(); update(); } });
+  edit.addEventListener('focusout', ev => {
+    const e = st.el.find(x => x.id === st.sel); if (!e || ev.target.id !== 'sk-ev') return;
+    ev.target.value = rondAf(e.type === 'R' ? e.R : e.U);
+  });
+  edit.addEventListener('click', ev => {
+    const b = ev.target.closest('[data-a]'); if (!b) return;
+    const e = st.el.find(x => x.id === st.sel); if (!e) return;
+    if (b.dataset.a === 'wis') { verwijder(e); sluit(); }
+    if (b.dataset.a === 'draai') { draai(e); }
+    if (b.dataset.a === 'pol') { bewaar(); [e.a, e.b] = [e.b, e.a]; }
+    update();
+  });
+  function toonRes() {
+    const stat = $('status'), tab = $('tab');
+    $('legp').hidden = !st.toonP;
+    if (!st.sim) { stat.innerHTML = `<p class="uitleg">Start de simulatie om de spanning over elke weerstand en de stroom in elke tak te zien.</p>`; tab.innerHTML = ''; return; }
+    if (!res.ok || res.kort || res.fout) {
+      stat.innerHTML = `<p class="sk-meld">${res.fout}</p>`;
+      if (!res.ok || res.kort) { tab.innerHTML = ''; return; }
+    } else stat.innerHTML = '';
+    const b = bron(), Rs = st.el.filter(e => e.type === 'R').sort((p, q) => parseInt(p.naam.slice(1)) - parseInt(q.naam.slice(1)));
+    const P = e => (res.I[e.id] || 0) ** 2 * e.R;
+    let html = `<tr><th></th><th>R</th><th>U</th><th>I</th>${st.toonP ? '<th>P</th>' : ''}</tr>`;
+    Rs.forEach(e => { html += `<tr><td>${e.naam}</td><td>${fR(e.R)}</td><td class="sk-tu">${fU(Math.abs(res.V[e.id]))}</td><td class="sk-ti">${fI(Math.abs(res.I[e.id] || 0))}</td>${st.toonP ? `<td class="sk-tp">${fP(P(e))}</td>` : ''}</tr>`; });
+    const Ib = Math.abs(res.Ib), Rv = Ib > 1e-12 ? b.U / Ib : Infinity;
+    html += `<tr class="sk-tot"><td>Bron</td><td>${isFinite(Rv) ? 'R<sub>v</sub> = ' + fR(Rv) : '–'}</td><td class="sk-tu">${fU(b.U)}</td><td class="sk-ti">${fI(Ib)}</td>${st.toonP ? `<td class="sk-tp">${fP(b.U * Ib)}</td>` : ''}</tr>`;
+    tab.innerHTML = html;
+    if (!res.fout) {
+      const som = Rs.reduce((s, e) => s + P(e), 0);
+      stat.innerHTML = `<p class="uitleg klein">De bron levert <b>${fI(Ib)}</b> bij <b>${fU(b.U)}</b>. De vervangingsweerstand van de hele schakeling is R<sub>v</sub> = U / I = ${fU(b.U)} / ${fI(Ib)} = <b>${fR(Rv)}</b>.${st.toonP ? ` Vermogen van de bron: P = U · I = <b>${fP(b.U * Ib)}</b> = som van de vermogens van de weerstanden (${fP(som)}).` : ''}</p>`;
+    }
+  }
+  function herreken() { res = los(); toonRes(); $('undo').disabled = !geschiedenis.length; teken(); if (st.sel) toonEdit(); lus(); }
+  function update() {
+    res = los();
+    toonHint(); toonTools(); toonRes(); teken(); toonEdit();
+    $('sim').textContent = st.sim ? '■ Simulatie stoppen' : '▶ Simulatie starten';
+    $('sim').classList.toggle('aan', st.sim);
+    $('undo').disabled = !geschiedenis.length;
+    teken();
+    lus();
+  }
+
+  /* ---------- animatie ---------- */
+  let raf = 0, vorige = 0;
+  function lus() {
+    if (raf || !(st.sim && st.lading && res && res.ok && !res.kort)) return;
+    vorige = performance.now();
+    const stap = nu => {
+      raf = 0;
+      if (!(st.sim && st.lading && res && res.ok && !res.kort) || !document.body.contains(cv)) return;
+      const dt = Math.min(0.05, (nu - vorige) / 1000); vorige = nu;
+      const Imax = Math.max(1e-12, ...Object.values(res.I).map(Math.abs));
+      Object.entries(res.I).forEach(([id, I]) => { fase[id] = (fase[id] || 0) + dt * cel * 1.6 * (I / Imax); });
+      teken();
+      raf = requestAnimationFrame(stap);
+    };
+    raf = requestAnimationFrame(stap);
+  }
+
+  /* ---------- muis ---------- */
+  const pos = ev => { const r = cv.getBoundingClientRect(); return [ev.clientX - r.left, ev.clientY - r.top]; };
+  cv.addEventListener('pointerdown', ev => {
+    const [mx, my] = pos(ev);
+    if (st.tool !== 'wis') {
+      const c = raakComp(mx, my);
+      if (c) { st.start = null; st.cur = null; if (st.sel !== c.id) open(c); st.melding = ''; update(); return; }
+    }
+    if (st.sel) { sluit(); }
+    if (st.tool === 'kies') { const e = raak(mx, my); if (e) open(e); st.melding = ''; update(); return; }
+    if (st.tool === 'wis') { st.slepen = true; cv.setPointerCapture(ev.pointerId); verwijder(raak(mx, my)); update(); return; }
+    const p = raster(mx, my); if (!p) { update(); return; }
+    if (st.tool === 'R' || st.tool === 'bron') { st.start = p; st.slepen = true; st.voorb = null; cv.setPointerCapture(ev.pointerId); const b = vastEind(p); if (b) st.cur = b; teken(); return; }
+    if (st.start) { const q = snap(st.start, p); voegToe(st.tool, st.start, q); st.start = null; st.cur = null; update(); return; }
+    st.start = p; st.cur = p; st.slepen = true; cv.setPointerCapture(ev.pointerId); teken();
+  });
+  cv.addEventListener('pointermove', ev => {
+    const [mx, my] = pos(ev);
+    st.muis = [mx, my];
+    if (st.tool === 'wis' && st.slepen) { const e = raak(mx, my); if (e) { verwijder(e); update(); } return; }
+    if (st.start && (st.tool === 'R' || st.tool === 'bron')) { const b = vastEind(st.start, mx, my); if (b) st.cur = b; tekenVoorb(); return; }
+    if (st.start) { const p = raster(mx, my); if (p) st.cur = snap(st.start, p); teken(); return; }
+    if (st.tool === 'R' || st.tool === 'bron') {
+      const p = raster(mx, my), b = p && !raakComp(mx, my) ? vastEind(p) : null;
+      st.voorb = b ? { a: p, b } : null;
+      if (!raf) teken();
+    }
+    if (st.sim) { const e = raak(mx, my), h = e ? e.id : null; if (h !== st.hover || h) { st.hover = h; if (!raf) teken(); } }
+  });
+  const tekenVoorb = () => { st.voorb = null; if (!raf) teken(); };
+  cv.addEventListener('pointerup', () => {
+    if (st.tool === 'wis') { st.slepen = false; return; }
+    if ((st.tool === 'R' || st.tool === 'bron') && st.start) { if (st.cur) voegToe(st.tool, st.start, st.cur); st.start = null; st.cur = null; st.slepen = false; update(); return; }
+    if (st.start && st.slepen && st.cur && !zelfde(st.cur, st.start)) { voegToe(st.tool, st.start, st.cur); st.start = null; st.cur = null; st.slepen = false; update(); return; }
+    st.slepen = false;
+  });
+  cv.addEventListener('pointerleave', () => { st.hover = null; st.muis = null; st.voorb = null; if (!raf) teken(); });
+  const toets = ev => {
+    if (!document.body.contains(cv)) return;
+    if ((ev.ctrlKey || ev.metaKey) && !ev.shiftKey && !ev.altKey && (ev.key === 'z' || ev.key === 'Z') && !/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)) { ev.preventDefault(); ongedaan(); return; }
+    if (ev.key === 'Escape') { st.start = null; st.cur = null; if (st.sel) sluit(); update(); }
+    if ((ev.key === 'Delete' || ev.key === 'Backspace') && st.sel && !/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)) { verwijder(st.el.find(e => e.id === st.sel)); sluit(); update(); }
+  };
+  document.addEventListener('keydown', toets);
+
+  /* ---------- knoppen ---------- */
+  root.querySelector('#sk-tools').addEventListener('click', ev => { const b = ev.target.closest('[data-tool]'); if (!b) return; st.tool = b.dataset.tool; st.start = null; st.cur = null; st.voorb = null; st.melding = ''; sluit(); update(); });
+  function ongedaan() { const s = geschiedenis.pop(); if (!s) return; const o = JSON.parse(s); st.el = o.el; st.volg = o.volg; sluit(); st.melding = ''; update(); }
+  $('undo').addEventListener('click', ongedaan);
+  $('leeg').addEventListener('click', () => { if (!st.el.length) return; bewaar(); st.el = []; sluit(); st.melding = ''; update(); });
+  $('sim').addEventListener('click', () => { st.sim = !st.sim; update(); });
+  $('p').addEventListener('change', () => { st.toonP = $('p').checked; update(); });
+  $('lad').addEventListener('change', () => { st.lading = $('lad').checked; update(); });
+
+  /* ---------- voorbeelden ---------- */
+  const P = (c, r) => ({ c, r });
+  function laad(vb) {
+    bewaar(); st.el = []; st.volg = 1; sluit(); st.melding = '';
+    let nr = 1;
+    const R = (c1, r1, c2, r2, w) => ({ t: 'R', a: P(c1, r1), b: P(c2, r2), w });
+    const B = (c1, r1, c2, r2, U) => ({ t: 'B', a: P(c1, r1), b: P(c2, r2), U });
+    // tak: polylijn met draden; de onderdelen liggen op de polylijn en vervangen daar de draad
+    const tak = (pts, ond = []) => {
+      const bezet = new Set();
+      ond.forEach(o => {
+        eenheden(o.a, o.b).forEach(([p, q]) => bezet.add(sleutel(p, q)));
+        if (o.t === 'R') st.el.push({ id: st.volg++, type: 'R', a: o.a, b: o.b, R: o.w, naam: 'R' + nr++ });
+        else st.el.push({ id: st.volg++, type: 'bron', a: o.a, b: o.b, U: o.U });
+      });
+      for (let i = 0; i + 1 < pts.length; i++) eenheden(P(...pts[i]), P(...pts[i + 1])).forEach(([p, q]) => {
+        const k = sleutel(p, q);
+        if (!bezet.has(k) && !bezetDoorComp(k) && !st.el.some(e => sleutel(e.a, e.b) === k)) st.el.push({ id: st.volg++, type: 'draad', a: p, b: q });
+      });
+    };
+    // bron links (− onder, + boven), bovenrail y=3 en onderrail y=7
+    const bronLinks = (U, boven = 3, onder = 7) => { tak([[3, 6], [3, onder]]); tak([[3, 4], [3, boven]]); tak([], [B(3, 6, 3, 4, U)]); };
+    // bron horizontaal op de onderrail (+ links): linkerzijde is dan een gewone draad
+    const bronOnder = (U, x = 5, boven = 3, onder = 7) => { tak([], [B(x + 2, onder, x, onder, U)]); tak([[3, boven], [3, onder]]); };
+    const vert = (x, w, boven = 3, onder = 7) => tak([[x, boven], [x, onder]], [R(x, 4, x, 6, w)]);
+    switch (vb) {
+      case 's1':   // 12 V, 100 Ω + 200 Ω → I = 40 mA
+        bronLinks(12); tak([[3, 3], [14, 3], [14, 7], [3, 7]], [R(6, 3, 8, 3, 100), R(14, 4, 14, 6, 200)]); break;
+      case 's2':   // 9 V, 100 + 150 + 200 = 450 Ω → I = 20 mA
+        bronOnder(9); tak([[3, 3], [14, 3], [14, 7], [3, 7]], [R(6, 3, 8, 3, 100), R(10, 3, 12, 3, 150), R(14, 4, 14, 6, 200)]); break;
+      case 's3':   // 24 V, 220 + 330 + 470 + 180 = 1200 Ω → I = 20 mA
+        bronLinks(24); tak([[3, 3], [14, 3], [14, 7], [3, 7]], [R(6, 3, 8, 3, 220), R(10, 3, 12, 3, 330), R(14, 4, 14, 6, 470), R(10, 7, 8, 7, 180)]); break;
+      case 'p1':   // 12 V, 100 // 300 = 75 Ω → I = 160 mA
+        bronLinks(12); tak([[3, 3], [12, 3]]); tak([[3, 7], [12, 7]]); vert(8, 100); vert(12, 300); break;
+      case 'p2':   // 12 V, 120 // 240 // 80 = 40 Ω → I = 300 mA
+        bronOnder(12, 4); tak([[3, 3], [14, 3]]); tak([[3, 7], [14, 7]]); vert(8, 120); vert(11, 240); vert(14, 80); break;
+      case 'p3':   // 6 V, 100 // 100 // 50 // 25 = 12,5 Ω → I = 480 mA
+        bronLinks(6); tak([[3, 3], [15, 3]]); tak([[3, 7], [15, 7]]); vert(6, 100); vert(9, 100); vert(12, 50); vert(15, 25); break;
+      case 'g1':   // 12 V, 40 + (60 // 30) = 60 Ω → I = 200 mA
+        bronLinks(12); tak([[3, 3], [14, 3]], [R(5, 3, 7, 3, 40)]); tak([[3, 7], [14, 7]]); vert(10, 60); vert(14, 30); break;
+      case 'g2':   // 12 V, (60 // 60 // 60) + 40 = 60 Ω → I = 200 mA
+        bronLinks(12); tak([[3, 3], [15, 3]]); vert(9, 60); vert(12, 60); vert(15, 60); tak([[3, 7], [15, 7]], [R(5, 7, 7, 7, 40)]); break;
+      case 'g3':   // 12 V, 10 + ((10 + 50) // 60) = 40 Ω → I = 300 mA
+        bronOnder(12, 5, 2, 9); tak([[3, 2], [14, 2]], [R(5, 2, 7, 2, 10)]); tak([[3, 9], [14, 9]]);
+        tak([[10, 2], [10, 9]], [R(10, 3, 10, 5, 10), R(10, 6, 10, 8, 50)]); tak([[14, 2], [14, 9]], [R(14, 4, 14, 6, 60)]); break;
+      case 'g4':   // 24 V, 50 + (100 // 100) + 20 = 120 Ω → I = 200 mA
+        bronLinks(24); tak([[3, 3], [14, 3]], [R(5, 3, 7, 3, 50)]); vert(10, 100); vert(14, 100); tak([[3, 7], [14, 7]], [R(7, 7, 5, 7, 20)]); break;
+      default:     // 20 V, ((40 + 20) // (30 + 30)) + 20 = 50 Ω → I = 400 mA
+        bronOnder(20, 5, 2, 9); tak([[3, 2], [14, 2]], [R(5, 2, 7, 2, 20)]); tak([[3, 9], [14, 9]]);
+        tak([[10, 2], [10, 9]], [R(10, 3, 10, 5, 40), R(10, 6, 10, 8, 20)]); tak([[14, 2], [14, 9]], [R(14, 3, 14, 5, 30), R(14, 6, 14, 8, 30)]);
+    }
+    root.querySelectorAll('[data-vb]').forEach(b => b.setAttribute('aria-pressed', b.dataset.vb === vb));
+    update();
+  }
+  root.querySelectorAll('[data-vb]').forEach(b => b.addEventListener('click', () => laad(b.dataset.vb)));
+
+  const ro = new ResizeObserver(() => teken()); ro.observe(cv);
+  laad('g1'); geschiedenis.length = 0; st.tool = 'kies'; update();
+  return () => { ro.disconnect(); if (raf) cancelAnimationFrame(raf); document.removeEventListener('keydown', toets); };
+}
+
+/* ---------- licht / donker ---------- */
+(function () {
+  const knop = document.getElementById('thema-knop');
+  const ZON = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+  const MAAN = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>';
+  const isLicht = () => document.documentElement.dataset.theme === 'light';
+  const toonKnop = () => {
+    knop.innerHTML = isLicht() ? MAAN + 'Donkere modus' : ZON + 'Lichte modus';
+    knop.setAttribute('aria-label', isLicht() ? 'Schakel over naar de donkere modus' : 'Schakel over naar de lichte modus');
+  };
+  knop.addEventListener('click', () => {
+    if (isLicht()) delete document.documentElement.dataset.theme; else document.documentElement.dataset.theme = 'light';
+    try { localStorage.setItem('tools-thema', isLicht() ? 'licht' : 'donker'); } catch (e) { }
+    toonKnop();
+    window.dispatchEvent(new Event('thema'));
+    // tekeningen opnieuw laten tekenen in de nieuwe kleuren
+    inhoud.style.marginRight = '1px';
+    requestAnimationFrame(() => requestAnimationFrame(() => { inhoud.style.marginRight = ''; window.dispatchEvent(new Event('resize')); }));
+  });
+  toonKnop();
+})();
 route();
 </script>
 
