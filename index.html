@@ -659,6 +659,29 @@ button.knop.sk-simknop.aan { border-color: var(--b); color: var(--b); }
 .sk-vbrij { display: flex; align-items: center; gap: 10px; }
 .sk-vbrij > span { width: 5.2em; font-size: .88rem; color: var(--muted); }
 .sk-vbrij button.sit { min-width: 34px; padding: 4px 10px; font-size: .86rem; }
+/* lichte modus: eigen schuifregelaars, vinkjes en keuzerondjes */
+:root[data-theme="light"] input[type=range] { --kl: var(--focus); -webkit-appearance: none; appearance: none; background: transparent; height: 22px; cursor: pointer; accent-color: auto; }
+:root[data-theme="light"] .groep.ga input[type=range] { --kl: var(--a); }
+:root[data-theme="light"] .groep.gb input[type=range] { --kl: var(--b); }
+:root[data-theme="light"] .groep.gt input[type=range] { --kl: var(--fg); }
+:root[data-theme="light"] input[type=range]::-webkit-slider-runnable-track { height: 4px; border-radius: 2px; background: #c3cdca; }
+:root[data-theme="light"] input[type=range]::-moz-range-track { height: 4px; border-radius: 2px; background: #c3cdca; }
+:root[data-theme="light"] input[type=range]::-moz-range-progress { height: 4px; border-radius: 2px; background: var(--kl); }
+:root[data-theme="light"] input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; margin-top: -6px; border-radius: 50%; background: var(--kl); border: 2px solid #fff; box-shadow: 0 1px 3px rgba(20, 30, 40, .35); }
+:root[data-theme="light"] input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 50%; background: var(--kl); border: 2px solid #fff; box-shadow: 0 1px 3px rgba(20, 30, 40, .35); }
+:root[data-theme="light"] input[type=range]:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+:root[data-theme="light"] input[type=checkbox] { -webkit-appearance: none; appearance: none; flex: none; width: 18px; height: 18px; margin: 0; border: 1.5px solid #8a979f; border-radius: 4px; background: #fff center / 13px 13px no-repeat; cursor: pointer; }
+:root[data-theme="light"] input[type=checkbox]:hover { border-color: var(--fg); }
+:root[data-theme="light"] input[type=checkbox]:checked { border-color: var(--fg); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5l3.2 3.2L13 4.8' fill='none' stroke='%231e2a32' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+:root[data-theme="light"] input[type=checkbox]:disabled { opacity: .45; cursor: default; }
+:root[data-theme="light"] input[type=radio] { -webkit-appearance: none; appearance: none; flex: none; width: 18px; height: 18px; margin: 0; border: 1.5px solid #8a979f; border-radius: 50%; background: #fff; cursor: pointer; display: inline-grid; place-content: center; }
+:root[data-theme="light"] input[type=radio]:hover { border-color: var(--fg); }
+:root[data-theme="light"] input[type=radio]::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--fg); transform: scale(0); transition: transform .1s; }
+:root[data-theme="light"] input[type=radio]:checked { border-color: var(--fg); }
+:root[data-theme="light"] input[type=radio]:checked::before { transform: scale(1); }
+:root[data-theme="light"] input[type=radio]:disabled { opacity: .55; cursor: default; }
+:root[data-theme="light"] input[type=radio]:disabled:checked, :root[data-theme="light"] input[type=checkbox]:disabled:checked { opacity: 1; }
+:root[data-theme="light"] input[type=checkbox]:focus-visible, :root[data-theme="light"] input[type=radio]:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
@@ -696,9 +719,10 @@ const KLASSEN = [
 const APPLETS = [
   {
     id: 'erb',
+    volgorde: { '3TEW': 2 },   // bij 3TEW rechts van de oefeningen op coördinaten
     titel: 'Eenparig rechtlijnige beweging',
     vak: 'Mechanica',
-    klassen: ['4EMT'],
+    klassen: ['3TEW', '4EMT'],
     beschrijving: 'Bekijk de (s,t)- en (v,t)-grafiek van één of twee bewegingen, met voorbeelden zoals kruisende treinen en een inhaalmanoeuvre. Arceer de oppervlakte om de verplaatsing te zien.',
     thumb: `<svg viewBox="0 0 240 70" aria-hidden="true">
       <line x1="10" y1="60" x2="110" y2="60" stroke="var(--axis)"/><line x1="10" y1="8" x2="10" y2="60" stroke="var(--axis)"/>
@@ -775,6 +799,7 @@ const APPLETS = [
   },
   {
     id: 'coord',
+    volgorde: { '3TEW': 1 },
     titel: 'Oefeningen op coördinaten en positievectoren',
     vak: 'Mechanica',
     klassen: ['3TEW'],
@@ -949,7 +974,9 @@ function route() {
   if (klas) {
     laatsteKlas = klas.id;
     tekenNav(klas.id);
-    const lijst = APPLETS.filter(a => a.klassen.includes(klas.id) && !a.verborgen);
+    // volgorde per klas: optioneel 'volgorde: { klas: nr }', anders de volgorde van de lijst
+    const lijst = APPLETS.filter(a => a.klassen.includes(klas.id) && !a.verborgen)
+      .map((a, i) => [a, a.volgorde && a.volgorde[klas.id] != null ? a.volgorde[klas.id] : 100 + i]).sort((p, q) => p[1] - q[1]).map(x => x[0]);
     inhoud.innerHTML = `
       <h1>${klas.naam}</h1>
       ${lijst.length ? `<div class="lijst">${lijst.map(a => `
@@ -6902,13 +6929,12 @@ function renderVrijeVal(root) {
   /* ---------- start: eerst de naam ---------- */
   const tijd = ms => new Date(ms).toLocaleString('nl-BE', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
   const duur = ms => { if (!(ms >= 0)) return '–'; const m = Math.round(ms / 60000); return m < 60 ? `${m} min` : `${Math.floor(m / 60)} u ${String(m % 60).padStart(2, '0')} min`; };
-  // het leerpad is enkel open op dinsdag 20 oktober 2026 van 8.00 tot 12.00 uur (behalve voor LEERKRACHT)
-  const OPEN = new Date(2026, 9, 20, 8, 0).getTime(), DICHT = new Date(2026, 9, 20, 12, 0).getTime();
+  // het leerpad gaat open op dinsdag 20 oktober 2026 om 8.00 uur (LEERKRACHT kan er altijd in); er is geen einduur
+  const OPEN = new Date(2026, 9, 20, 8, 0).getTime();
   const LK = 'LEERKRACHT';
   const isLk = n => String(n || '').trim() === LK;
-  const venster = () => { const n = Date.now(); return n < OPEN ? 'voor' : n >= DICHT ? 'na' : 'open'; };
-  const vensterMeld = () => venster() === 'voor' ? 'Het leerpad is nog niet open. Je kunt pas starten op dinsdag 20 oktober om 8.00 uur.'
-    : venster() === 'na' ? 'Het leerpad is gesloten. Je kon het leerpad maken op dinsdag 20 oktober tot 12.00 uur.' : '';
+  const venster = () => Date.now() < OPEN ? 'voor' : 'open';
+  const vensterMeld = () => venster() === 'voor' ? 'Het leerpad is nog niet open. Je kunt pas starten op dinsdag 20 oktober om 8.00 uur.' : '';
   $('naam').value = isLk(A.naam) ? '' : (A.naam || '');
   const naamOk = () => isLk($('naam').value) || (venster() === 'open' && $('naam').value.trim().length >= 2);
   const startStatus = () => { $('go').disabled = !naamOk(); $('startmeld').textContent = isLk($('naam').value) ? '' : vensterMeld(); $('startmeld').classList.toggle('vv-dicht', !!$('startmeld').textContent); };
