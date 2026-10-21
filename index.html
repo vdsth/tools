@@ -682,6 +682,16 @@ button.knop.sk-simknop.aan { border-color: var(--b); color: var(--b); }
 :root[data-theme="light"] input[type=radio]:disabled { opacity: .55; cursor: default; }
 :root[data-theme="light"] input[type=radio]:disabled:checked, :root[data-theme="light"] input[type=checkbox]:disabled:checked { opacity: 1; }
 :root[data-theme="light"] input[type=checkbox]:focus-visible, :root[data-theme="light"] input[type=radio]:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.gv { display: flex; flex-direction: column; gap: 16px; max-width: 1100px; }
+.doek.gv-doek { aspect-ratio: auto; height: 230px; }
+.gv-balk { display: flex; flex-wrap: wrap; gap: 14px 28px; align-items: flex-end; justify-content: space-between; margin-top: 12px; }
+.gv-v { min-width: 260px; flex: 1; max-width: 420px; }
+.gv-v input[type=number] { width: 4.6em; }
+button.knop.gv-meet { border-color: var(--b); color: var(--b); font-weight: 700; }
+button.knop:disabled { opacity: .45; cursor: default; }
+.gv-tab { max-width: 420px; }
+.gv-tab td, .gv-tab th { text-align: right; }
+.gv-mkop { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; max-width: 420px; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
@@ -719,7 +729,7 @@ const KLASSEN = [
 const APPLETS = [
   {
     id: 'erb',
-    volgorde: { '3TEW': 2 },   // bij 3TEW rechts van de oefeningen op coördinaten
+    volgorde: { '3TEW': 3 },   // bij 3TEW na de oefeningen op coördinaten en de positiemetingen
     titel: 'Eenparig rechtlijnige beweging',
     vak: 'Mechanica',
     klassen: ['3TEW', '4EMT'],
@@ -855,6 +865,22 @@ const APPLETS = [
       <path d="M28 30 H52" stroke="var(--fg)" stroke-width="2"/><path d="M33 40 H47" stroke="var(--fg)" stroke-width="5"/>
       <g fill="var(--b)"><circle cx="128" cy="10" r="3"/><circle cx="176" cy="10" r="3"/><circle cx="100" cy="60" r="3"/><circle cx="60" cy="60" r="3"/><circle cx="40" cy="20" r="3"/></g></svg>`,
     render: renderSchakeling
+  },
+  {
+    id: 'grafisch',
+    volgorde: { '3TEW': 2 },
+    titel: 'Positiemetingen',
+    vak: 'Mechanica',
+    klassen: ['3TEW'],
+    beschrijving: 'Een autootje rijdt met een vaste snelheid langs een baan. Neem metingen van de tijd en de positie en verzamel ze in een tabel die je naar Excel kunt exporteren: de basis voor een (s,t)-grafiek.',
+    thumb: `<svg viewBox="0 0 240 70" aria-hidden="true">
+      <line x1="16" y1="48" x2="224" y2="48" stroke="var(--axis)" stroke-width="2"/>
+      <g stroke="var(--line)" stroke-width="1.5">${[0,1,2,3,4,5,6,7,8,9,10].map(i => `<line x1="${20 + i * 20}" y1="52" x2="${20 + i * 20}" y2="${i % 2 ? 56 : 60}"/>`).join('')}</g>
+      <g stroke="var(--b)" stroke-width="1.5"><line x1="60" y1="46" x2="60" y2="22"/><line x1="100" y1="46" x2="100" y2="22"/></g>
+      <path d="M128 46 v-8 q0-3 4-3 h8 l6-8 h18 l7 8 h8 q4 0 4 4 v7 z" fill="var(--a)"/>
+      <circle cx="140" cy="46" r="5" fill="var(--bg)" stroke="var(--a)" stroke-width="2"/><circle cx="168" cy="46" r="5" fill="var(--bg)" stroke="var(--a)" stroke-width="2"/>
+      <rect x="176" y="6" width="56" height="18" rx="4" fill="none" stroke="var(--fg)" stroke-width="1.5"/><text x="204" y="19" text-anchor="middle" font-family="monospace" font-size="10" fill="var(--fg)">1,234 s</text></svg>`,
+    render: renderGrafisch
   },
   {
     id: 'trek',
@@ -7989,6 +8015,180 @@ function renderSchakeling(root) {
   const ro = new ResizeObserver(() => teken()); ro.observe(cv);
   laad('g1'); geschiedenis.length = 0; st.tool = 'kies'; update();
   return () => { ro.disconnect(); if (raf) cancelAnimationFrame(raf); document.removeEventListener('keydown', toets); };
+}
+
+/* ============================================================
+   APPLET: Positiemetingen (3TEW, Mechanica)
+   Een autootje rijdt met constante snelheid langs een baan.
+   Met "Neem meting" noteer je de tijd t (s, op 1 ms) en de positie s (m) in een tabel; export als xlsx.
+   ============================================================ */
+function renderGrafisch(root) {
+  const LENGTE = 100;                  // lengte van de baan in m
+  const st = { v: 5, loopt: false, t0: 0, t: 0, metingen: [] };
+  const $ = id => root.querySelector('#gv-' + id);
+  const f2 = (x, d) => (Object.is(x, -0) ? 0 : x).toLocaleString('nl-BE', { minimumFractionDigits: d, maximumFractionDigits: d });
+  const ms = t => Math.round(t * 1000);
+  const fs = t => f2(ms(t) / 1000, 3);   // seconden, tot op 1 ms: 1,359
+  const sVan = t => Math.min(LENGTE, st.v * t);
+  const tEind = () => LENGTE / st.v;
+
+  root.innerHTML = `
+  <div class="gv">
+    <div class="paneel graf">
+      <div class="kop"><h2>De baan</h2><span class="legende">positie s langs de baan</span></div>
+      <div class="doek gv-doek"><canvas id="gv-c" role="img" aria-label="Autootje dat langs een baan rijdt, met een klok"></canvas></div>
+      <div class="gv-balk">
+        <div class="ctrl gv-v"><label for="gv-vr">Snelheid van het autootje</label>
+          <div class="rij"><input type="range" id="gv-vr" min="1" max="10" step="0.5"><input type="number" id="gv-vn" min="1" max="10" step="0.5" aria-label="Snelheid in m/s"><span class="eenh">m/s</span></div></div>
+        <div class="knoppen">
+          <button class="knop" type="button" id="gv-start">▶ Start</button>
+          <button class="knop gv-meet" type="button" id="gv-meet" disabled>⏱ Neem meting</button>
+          <button class="knop" type="button" id="gv-reset">↺ Opnieuw</button>
+        </div>
+      </div>
+      <p class="uitleg klein" id="gv-hint"></p>
+    </div>
+    <div class="paneel">
+      <div class="gv-mkop"><h2 class="vw-h2" style="margin:0">Metingen</h2><button class="knop" type="button" id="gv-xlsx" disabled>⤓ Exporteer naar Excel</button></div>
+      <p class="uitleg" id="gv-leeg">Nog geen metingen. Klik op <b>Start</b> en daarna een paar keer op <b>Neem meting</b>.</p>
+      <div class="vw-tabwrap"><table class="vw-tab gv-tab" id="gv-tab"></table></div>
+    </div>
+  </div>`;
+
+  const cv = $('c');
+  function teken() {
+    const { ctx, w, h } = prepCanvas(cv);
+    const mL = 34, mR = 34, x0 = mL, x1 = w - mR, yB = h * 0.62;
+    const X = s => x0 + (s / LENGTE) * (x1 - x0);
+    const fg = css('--fg'), mu = css('--muted'), ax = css('--axis'), a = css('--a'), b = css('--b'), bg = css('--bg');
+    // weg
+    ctx.fillStyle = css('--panel-2'); ctx.fillRect(x0 - 14, yB - 4, x1 - x0 + 28, 10);
+    ctx.strokeStyle = ax; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(x0 - 14, yB); ctx.lineTo(x1 + 14, yB); ctx.stroke();
+    // meetlat
+    ctx.font = `12px ${css('--f-mono')}`; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+    for (let s = 0; s <= LENGTE; s += 5) {
+      const x = X(s), groot = s % 10 === 0;
+      ctx.strokeStyle = groot ? ax : css('--line'); ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(x, yB + 8); ctx.lineTo(x, yB + (groot ? 18 : 13)); ctx.stroke();
+      if (groot) { ctx.fillStyle = mu; ctx.fillText(String(s), x, yB + 22); }
+    }
+    ctx.fillStyle = mu; ctx.textAlign = 'right'; ctx.fillText('s (m)', x1 + 30, yB + 40);
+    // metingen als vlaggetjes
+    st.metingen.forEach((m, i) => {
+      const x = X(m.s);
+      ctx.strokeStyle = b; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(x, yB - 2); ctx.lineTo(x, yB - 52); ctx.stroke();
+      ctx.fillStyle = b; ctx.beginPath(); ctx.arc(x, yB, 3.5, 0, 7); ctx.fill();
+      ctx.font = `600 11px ${css('--f-mono')}`; ctx.textAlign = 'center'; ctx.textBaseline = 'bottom'; ctx.fillText(String(i + 1), x, yB - 54);
+    });
+    // autootje
+    const s = sVan(st.t);
+    ctx.save(); ctx.translate(X(s), yB - 1); ctx.scale(1.7, 1.7); auto(ctx, 0, 0, a, 1, bg); ctx.restore();
+    // klok
+    const tk = `t = ${fs(st.t)} s`;
+    ctx.font = `600 ${Math.max(20, Math.min(30, w * 0.035))}px ${css('--f-mono')}`; ctx.textAlign = 'right'; ctx.textBaseline = 'top';
+    const tw = ctx.measureText(tk).width;
+    ctx.fillStyle = css('--bg'); ctx.strokeStyle = css('--line'); ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.roundRect ? ctx.roundRect(x1 - tw - 18, 12, tw + 26, 44, 8) : ctx.rect(x1 - tw - 18, 12, tw + 26, 44); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = fg; ctx.fillText(tk, x1 - 1, 21);
+    ctx.font = `12px ${css('--f-body')}`; ctx.fillStyle = mu; ctx.textAlign = 'right';
+    ctx.fillText('verstreken tijd', x1 + 7, 62);
+  }
+
+  function tabel() {
+    $('leeg').hidden = st.metingen.length > 0;
+    $('tab').innerHTML = st.metingen.length ? `<tr><th>Meting</th><th>t (s)</th><th>s (m)</th></tr>` +
+      st.metingen.map((m, i) => `<tr><td>${i + 1}</td><td>${fs(m.t)}</td><td>${f2(m.s, 2)}</td></tr>`).join('') : '';
+    $('xlsx').disabled = !st.metingen.length;
+  }
+  function knoppen() {
+    const einde = st.t >= tEind() - 1e-9;
+    $('start').textContent = st.loopt ? '⏸ Pauze' : st.t > 0 && !einde ? '▶ Verder' : '▶ Start';
+    $('start').disabled = einde;
+    $('meet').disabled = !st.loopt;
+    $('vr').disabled = $('vn').disabled = st.loopt || st.t > 0;
+    $('hint').innerHTML = einde ? 'Het autootje is aan het einde van de baan. Klik op <b>Opnieuw</b> om opnieuw te beginnen.'
+      : st.loopt ? 'Klik op <b>Neem meting</b> (of druk op de spatiebalk) om de tijd en de positie te noteren.'
+      : st.t > 0 ? 'Gepauzeerd. De snelheid kun je pas veranderen na <b>Opnieuw</b>.' : 'Stel de snelheid in en klik op <b>Start</b>.';
+  }
+
+  // animatie
+  let raf = 0, vorig = 0;
+  function stap(nu) {
+    raf = 0; if (!st.loopt || !document.body.contains(cv)) return;
+    st.t = Math.min(tEind(), st.tBasis + (nu - st.t0) / 1000);
+    if (st.t >= tEind()) { st.loopt = false; knoppen(); }
+    teken();
+    if (st.loopt) raf = requestAnimationFrame(stap);
+  }
+  $('start').addEventListener('click', () => {
+    if (st.loopt) { st.t = Math.min(tEind(), st.tBasis + (performance.now() - st.t0) / 1000); st.loopt = false; }
+    else { st.loopt = true; st.tBasis = st.t; st.t0 = performance.now(); if (!raf) raf = requestAnimationFrame(stap); }
+    knoppen(); teken();
+    if (st.loopt) $('meet').focus();   // spatiebalk = meting
+  });
+  function meet() {
+    if (!st.loopt) return;
+    const t = Math.min(tEind(), st.tBasis + (performance.now() - st.t0) / 1000);
+    st.metingen.push({ t, s: sVan(t) });
+    tabel(); teken();
+  }
+  $('meet').addEventListener('click', meet);
+
+  /* ---------- export naar Excel (.xlsx, zelf opgebouwd) ---------- */
+  function zipStore(bestanden) {
+    const enc = new TextEncoder(), delen = [], cd = []; let off = 0;
+    const crc32 = d => { let c = -1; for (let i = 0; i < d.length; i++) { c ^= d[i]; for (let k = 0; k < 8; k++) c = (c >>> 1) ^ (0xEDB88320 & -(c & 1)); } return (c ^ -1) >>> 0; };
+    bestanden.forEach(([naam, tekst]) => {
+      const nm = enc.encode(naam), data = enc.encode(tekst), crc = crc32(data);
+      const lh = new DataView(new ArrayBuffer(30));
+      lh.setUint32(0, 0x04034b50, true); lh.setUint16(4, 20, true); lh.setUint32(14, crc, true); lh.setUint32(18, data.length, true); lh.setUint32(22, data.length, true); lh.setUint16(26, nm.length, true);
+      const ch = new DataView(new ArrayBuffer(46));
+      ch.setUint32(0, 0x02014b50, true); ch.setUint16(4, 20, true); ch.setUint16(6, 20, true); ch.setUint32(16, crc, true); ch.setUint32(20, data.length, true); ch.setUint32(24, data.length, true); ch.setUint16(28, nm.length, true); ch.setUint32(42, off, true);
+      delen.push(lh.buffer, nm, data); cd.push(ch.buffer, nm); off += 30 + nm.length + data.length;
+    });
+    const cdLen = cd.reduce((t, x) => t + (x.byteLength ?? x.length), 0), eind = new DataView(new ArrayBuffer(22));
+    eind.setUint32(0, 0x06054b50, true); eind.setUint16(8, bestanden.length, true); eind.setUint16(10, bestanden.length, true); eind.setUint32(12, cdLen, true); eind.setUint32(16, off, true);
+    return new Blob([...delen, ...cd, eind.buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+  }
+  function maakXlsx() {
+    const c = (ref, v, stijl) => `<c r="${ref}"${stijl ? ` s="${stijl}"` : ''}><v>${v}</v></c>`;
+    const tx = (ref, t) => `<c r="${ref}" t="inlineStr" s="1"><is><t>${t}</t></is></c>`;
+    let rijen = `<row r="1">${tx('A1', 'Meting')}${tx('B1', 't (s)')}${tx('C1', 's (m)')}</row>`;
+    st.metingen.forEach((m, i) => { const r = i + 2; rijen += `<row r="${r}">${c('A' + r, i + 1)}${c('B' + r, ms(m.t) / 1000, 2)}${c('C' + r, Math.round(m.s * 100) / 100, 3)}</row>`; });
+    const blad = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><cols><col min="1" max="3" width="12" customWidth="1"/></cols><sheetData>${rijen}</sheetData></worksheet>`;
+    const stijlen = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><numFmts count="2"><numFmt numFmtId="164" formatCode="0.000"/><numFmt numFmtId="165" formatCode="0.00"/></numFmts><fonts count="2"><font><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="11"/><name val="Calibri"/></font></fonts><fills count="2"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill></fills><borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="4"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="1" fillId="0" borderId="0" xfId="0" applyFont="1"/><xf numFmtId="164" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/><xf numFmtId="165" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>`;
+    return zipStore([
+      ['[Content_Types].xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/></Types>`],
+      ['_rels/.rels', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>`],
+      ['xl/workbook.xml', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets><sheet name="Metingen" sheetId="1" r:id="rId1"/></sheets></workbook>`],
+      ['xl/_rels/workbook.xml.rels', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>`],
+      ['xl/worksheets/sheet1.xml', blad],
+      ['xl/styles.xml', stijlen]
+    ]);
+  }
+  $('xlsx').addEventListener('click', async () => {
+    if (!st.metingen.length) return;
+    const blob = maakXlsx(), naam = 'positiemetingen.xlsx';
+    let dl = null;
+    try { dl = window.claude && window.claude.use ? await window.claude.use('downloads') : null; } catch (e) { dl = null; }
+    if (dl) { try { await dl.save({ filename: naam, data: blob }); } catch (e) { } return; }
+    const url = URL.createObjectURL(blob), a = document.createElement('a');
+    a.href = url; a.download = naam; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 4000);
+  });
+  const toets = e => {
+    if (!document.body.contains(cv)) return;
+    if (e.code === 'Space' && st.loopt && !/INPUT|TEXTAREA|SELECT|BUTTON/.test(document.activeElement.tagName)) { e.preventDefault(); meet(); }
+  };
+  document.addEventListener('keydown', toets);
+  $('reset').addEventListener('click', () => { st.loopt = false; st.t = 0; st.metingen = []; tabel(); knoppen(); teken(); });
+  const zetV = v => { st.v = Math.min(10, Math.max(1, Math.round((+v || 5) * 2) / 2)); $('vr').value = st.v; $('vn').value = st.v; teken(); };
+  $('vr').addEventListener('input', () => zetV($('vr').value));
+  $('vn').addEventListener('change', () => zetV($('vn').value));
+
+  zetV(5); tabel(); knoppen();
+  const ro = new ResizeObserver(() => teken()); ro.observe(cv);
+  window.addEventListener('thema', teken);
+  return () => { ro.disconnect(); if (raf) cancelAnimationFrame(raf); document.removeEventListener('keydown', toets); window.removeEventListener('thema', teken); st.loopt = false; };
 }
 
 /* ---------- licht / donker ---------- */
