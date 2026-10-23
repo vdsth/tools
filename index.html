@@ -692,6 +692,78 @@ button.knop:disabled { opacity: .45; cursor: default; }
 .gv-tab { max-width: 420px; }
 .gv-tab td, .gv-tab th { text-align: right; }
 .gv-mkop { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; max-width: 420px; }
+.gc-titels { display: flex; flex-wrap: wrap; gap: 10px 20px; margin: 8px 0 12px; }
+.gc-titels label { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: .9rem; }
+.gc input[type=text], .gc input[type=number] { background: var(--bg); color: var(--fg); border: 1px solid var(--line); border-radius: 6px; padding: 5px 8px; font: 400 .95rem var(--f-body); min-width: 0; }
+.gc input[type=number] { width: 4.2em; font-family: var(--f-mono); }
+.gc-titels input { width: 15em; }
+.gc-doekwrap { overflow: auto; max-height: 78vh; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); }
+.gc-doekwrap canvas { display: block; }
+.gc-meld { font-size: .9rem; color: var(--muted); margin-top: 10px; }
+.gc-meld ul { margin: 4px 0 0; padding-left: 20px; color: var(--a); }
+.gc-meld b { color: var(--fg); }
+.gc-ok { color: var(--druk); }
+.gc-exp { margin-top: 10px; }
+.gc-kop { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 4px; }
+.gc-lijst { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+.gc-stap { border: 1px solid var(--line); border-radius: 8px; padding: 10px; background: var(--bg); display: flex; flex-direction: column; gap: 8px; }
+.gc-srij, .gc-tr { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; }
+.gc-srij label, .gc-tr label { display: flex; align-items: center; gap: 6px; color: var(--muted); font-size: .88rem; }
+.gc-sn input { width: 12em; }
+.gc-tr { border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; background: var(--bg); }
+.gc-cond { flex: 1; min-width: 240px; }
+.gc-cond input { flex: 1; font-family: var(--f-mono) !important; }
+.gc-acties { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.gc-actie { display: inline-flex; align-items: center; gap: 6px; padding: 3px 4px 3px 10px; border: 1px solid var(--b); color: var(--b); border-radius: 6px; font: 500 .85rem var(--f-mono); }
+.gc-actie input { width: 5em; padding: 2px 6px !important; font-size: .82rem !important; }
+.gc-actie button { border: 0; background: none; color: var(--muted); cursor: pointer; padding: 0 4px; font-size: .9rem; }
+.gc-acties select { font-size: .85rem; padding: 3px 6px; }
+.gc-x { border: 1px solid var(--line); background: var(--panel); color: var(--muted); border-radius: 6px; width: 28px; height: 28px; cursor: pointer; margin-left: auto; }
+.gc-x:hover { color: var(--trek); border-color: var(--trek); }
+.gc-io { display: flex; flex-direction: column; gap: 6px; }
+.gc-iorij { display: grid; grid-template-columns: minmax(0, 1fr) auto 28px; gap: 6px; align-items: center; }
+.gc-iorij .gc-x { margin-left: 0; }
+.gc-iorij select { font-size: .85rem; padding: 4px 6px; }
+.gc-palet { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 8px; }
+.gc-palet button.sit { padding: 3px 10px; font: 500 .82rem var(--f-mono); }
+.gc code { font-family: var(--f-mono); font-size: .85em; }
+.doek.ecb-doek { aspect-ratio: auto; height: 520px; }
+.ecb-knop { margin: 6px 0 10px; }
+.ecb-traag { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: .9rem; }
+button.knop.ecb-knip { border-color: var(--trek); color: var(--trek); }
+.ecb .lv { color: var(--vw-druk); } .ecb .la { color: var(--druk); } .ecb .lf { color: #c3ec7a; }
+:root[data-theme="light"] .ecb .lf { color: #6aa320; }
+.ecb-vec sub { font-size: .7em; }
+.ecb-leg { gap: 16px; }
+.ecb-kols { display: grid; grid-template-columns: 1fr; gap: 18px; }
+@media (min-width: 1200px) { .ecb.metB .ecb-kols { grid-template-columns: 1fr 1fr; } }
+.ecb-kol h3 { margin: 0 0 6px; font-size: 1rem; }
+.ecb-r { display: grid; grid-template-columns: 11.5em minmax(0, 1fr); gap: 10px; padding: 5px 0; border-bottom: 1px solid var(--line); font-size: .95rem; }
+.ecb-r > span:first-child { color: var(--muted); }
+.ecb-r > span:last-child { font-family: var(--f-mono); font-size: .9rem; }
+.ecb-r i { font-family: "STIX Two Text", "Times New Roman", serif; font-size: 1.1em; }
+.ecb-vgl { margin-top: 12px; }
+.ecb-modus { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.ecb-modus button.sit { padding: 3px 12px; font: italic 600 .95rem "STIX Two Text", "Times New Roman", serif; }
+.ecb-afg { font-family: var(--f-mono); font-size: .8rem !important; }
+.ecb-vgkop { margin: 18px 0 6px; font-size: 1rem; }
+.ecb-vgtab td:nth-child(2) { font-family: "STIX Two Text", "Times New Roman", serif; font-size: 1.05rem; text-align: center; }
+.ecb-vgtab td.ecb-tk { text-align: center; font-weight: 700; color: var(--a); }
+.ecb-vgtab tr.lv td { color: var(--vw-druk); } .ecb-vgtab tr.la td { color: var(--druk); } .ecb-vgtab tr.lf td { color: #c3ec7a; }
+:root[data-theme="light"] .ecb-vgtab tr.lf td { color: #6aa320; }
+.wp-knop { margin: 6px 0 4px; }
+.wp-traag { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: .9rem; }
+.wp-tijd { margin: 6px 0 12px; max-width: 640px; }
+.wp-raster { display: grid; grid-template-columns: 1fr; gap: 14px; }
+@media (min-width: 900px) { .wp-raster { grid-template-columns: minmax(300px, 1fr) minmax(0, 1.4fr); } }
+.doek.wp-bal { aspect-ratio: auto; height: 640px; }
+.wp-graf { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.doek.wp-doek { aspect-ratio: auto; height: 255px; }
+.wp-vs { display: flex; flex-wrap: wrap; gap: 8px 28px; border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; background: var(--bg); font-size: 1.08rem; }
+.wp-vs i { font-family: "STIX Two Text", "Times New Roman", serif; font-size: 1.1em; }
+.wp-vk { font-size: .8rem; color: var(--muted); margin-right: 4px; }
+.wp-vsy { color: var(--a); font-weight: 600; } .wp-vsv { color: var(--b); font-weight: 600; }
+.wp .wp-lv { color: var(--b); } .wp .wp-la { color: var(--a); }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
@@ -763,7 +835,24 @@ const APPLETS = [
     render: renderEVB
   },
   {
+    id: 'worp',
+    titel: 'Vrije val en verticale worp',
+    vak: 'Mechanica',
+    klassen: ['4EMT'],
+    beschrijving: 'Laat een bal vallen of gooi hem verticaal omhoog of omlaag. Bekijk de vectoren, momentopnames om de 0,2 s en de (y,t)- en (v,t)-grafiek met hun voorschrift.',
+    thumb: `<svg viewBox="0 0 240 70" aria-hidden="true">
+      <line x1="30" y1="64" x2="80" y2="64" stroke="var(--axis)" stroke-width="2"/>
+      <g fill="#c8e05a"><circle cx="55" cy="58" r="4" opacity=".35"/><circle cx="55" cy="38" r="4" opacity=".45"/><circle cx="55" cy="24" r="4" opacity=".6"/><circle cx="55" cy="16" r="4.5"/></g>
+      <line x1="66" y1="16" x2="66" y2="6" stroke="var(--b)" stroke-width="2"/>
+      <path d="M100 62 V8 M100 62 H170" stroke="var(--axis)" stroke-width="1.5" fill="none"/>
+      <path d="M100 50 Q128 -10 160 62" stroke="var(--a)" stroke-width="2.5" fill="none"/>
+      <path d="M180 62 V8 M180 36 H232" stroke="var(--axis)" stroke-width="1.5" fill="none"/>
+      <path d="M180 14 L228 58" stroke="var(--b)" stroke-width="2.5"/></svg>`,
+    render: renderWorp
+  },
+  {
     id: 'vrijeval',
+    nietInLijst: true,   // leerpad niet meer in de lijst (vervangen door 'Vrije val en verticale worp'); nog bereikbaar via #vrijeval. Verwijder deze regel om het terug te tonen.
     titel: 'Leerpad: de vrije val',
     vak: 'Mechanica',
     klassen: ['4EMT'],
@@ -868,6 +957,7 @@ const APPLETS = [
   },
   {
     id: 'grafisch',
+    verborgen: true,   // eenmalig gebruikt in de les; verwijder deze regel om de tool terug te tonen
     volgorde: { '3TEW': 2 },
     titel: 'Positiemetingen',
     vak: 'Mechanica',
@@ -881,6 +971,21 @@ const APPLETS = [
       <circle cx="140" cy="46" r="5" fill="var(--bg)" stroke="var(--a)" stroke-width="2"/><circle cx="168" cy="46" r="5" fill="var(--bg)" stroke="var(--a)" stroke-width="2"/>
       <rect x="176" y="6" width="56" height="18" rx="4" fill="none" stroke="var(--fg)" stroke-width="1.5"/><text x="204" y="19" text-anchor="middle" font-family="monospace" font-size="10" fill="var(--fg)">1,234 s</text></svg>`,
     render: renderGrafisch
+  },
+  {
+    id: 'ecb',
+    titel: 'Eenparig cirkelvormige beweging',
+    vak: 'Mechanica',
+    klassen: ['5TWE'],
+    beschrijving: 'Laat een punt ronddraaien en bekijk de afgelegde weg en hoek, de snelheid, de centripetale versnelling en kracht. Stel de snelheid in via n, f of T, vergelijk twee punten en knip het touw door.',
+    thumb: `<svg viewBox="0 0 240 70" aria-hidden="true">
+      <circle cx="120" cy="36" r="28" fill="none" stroke="var(--fg)" stroke-width="1.5"/>
+      <path d="M148 36 A28 28 0 0 0 134 11.8" fill="none" stroke="var(--a)" stroke-width="4"/>
+      <line x1="120" y1="36" x2="134" y2="11.8" stroke="var(--axis)" stroke-width="2"/>
+      <line x1="134" y1="11.8" x2="160" y2="27" stroke="var(--vw-druk)" stroke-width="2.5"/><path d="M160 27 l-8 0 l4 -6z" fill="var(--vw-druk)"/>
+      <line x1="134" y1="11.8" x2="127" y2="24" stroke="var(--druk)" stroke-width="2.5"/>
+      <circle cx="134" cy="11.8" r="4.5" fill="var(--a)"/><circle cx="120" cy="36" r="2.5" fill="var(--fg)"/></svg>`,
+    render: renderECB
   },
   {
     id: 'trek',
@@ -944,6 +1049,21 @@ const APPLETS = [
     render: renderYagi
   },
   {
+    id: 'grafcet',
+    titel: 'Grafcets ontwerpen',
+    vak: 'Automatisatie',
+    klassen: ['Engineering'],
+    beschrijving: 'Som je ingangen en uitgangen op, maak stappen met acties en transities met voorwaarden. De grafcet wordt automatisch getekend en gecontroleerd. Exporteer als png of pdf.',
+    thumb: `<svg viewBox="0 0 240 70" aria-hidden="true">
+      <rect x="62" y="4" width="46" height="16" fill="none" stroke="var(--fg)" stroke-width="2"/><rect x="65" y="7" width="40" height="10" fill="none" stroke="var(--fg)" stroke-width="1"/>
+      <line x1="85" y1="20" x2="85" y2="48" stroke="var(--fg)" stroke-width="2"/><line x1="78" y1="34" x2="92" y2="34" stroke="var(--fg)" stroke-width="3"/>
+      <rect x="62" y="48" width="46" height="16" fill="none" stroke="var(--fg)" stroke-width="2"/>
+      <line x1="108" y1="56" x2="122" y2="56" stroke="var(--b)" stroke-width="1.5"/><rect x="122" y="49" width="62" height="14" fill="none" stroke="var(--b)" stroke-width="1.5"/>
+      <text x="98" y="38" font-family="sans-serif" font-size="9" fill="var(--druk)">sensor</text>
+      <path d="M85 64 v4 h-36 v-58 h36" fill="none" stroke="var(--fg)" stroke-width="1.5"/></svg>`,
+    render: renderGrafcet
+  },
+  {
     id: 'vakwerk',
     titel: 'Vakwerken tekenen en simuleren',
     vak: 'Sterkteleer',
@@ -1001,7 +1121,7 @@ function route() {
     laatsteKlas = klas.id;
     tekenNav(klas.id);
     // volgorde per klas: optioneel 'volgorde: { klas: nr }', anders de volgorde van de lijst
-    const lijst = APPLETS.filter(a => a.klassen.includes(klas.id) && !a.verborgen)
+    const lijst = APPLETS.filter(a => a.klassen.includes(klas.id) && !a.verborgen && !a.nietInLijst)
       .map((a, i) => [a, a.volgorde && a.volgorde[klas.id] != null ? a.volgorde[klas.id] : 100 + i]).sort((p, q) => p[1] - q[1]).map(x => x[0]);
     inhoud.innerHTML = `
       <h1>${klas.naam}</h1>
@@ -8189,6 +8309,951 @@ function renderGrafisch(root) {
   const ro = new ResizeObserver(() => teken()); ro.observe(cv);
   window.addEventListener('thema', teken);
   return () => { ro.disconnect(); if (raf) cancelAnimationFrame(raf); document.removeEventListener('keydown', toets); window.removeEventListener('thema', teken); st.loopt = false; };
+}
+
+/* ============================================================
+   APPLET: Grafcets ontwerpen (Engineering)
+   Ingangen (digitaal/analoog) en uitgangen (digitaal/analoog/functie) opsommen,
+   stappen met acties en transities met voorwaarden ingeven; de grafcet wordt
+   automatisch getekend. Export als png of pdf.
+   ============================================================ */
+function renderGrafcet(root) {
+  const OPSLAG = 'grafcet-v1';
+  let uid = 1;
+  const nid = () => 'g' + (uid++) + Math.random().toString(36).slice(2, 6);
+  const leeg = () => ({ titel: '', leerling: '', ingangen: [], uitgangen: [], stappen: [], trans: [] });
+  let G = leeg();
+  try { const s = localStorage.getItem(OPSLAG); if (s) G = Object.assign(leeg(), JSON.parse(s)); } catch (e) { }
+  const bewaar = () => { try { localStorage.setItem(OPSLAG, JSON.stringify(G)); } catch (e) { } };
+  const $ = id => root.querySelector('#gc-' + id);
+  const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const TYPE_IN = { digitaal: 'digitaal', analoog: 'analoog' };
+  const TYPE_UIT = { digitaal: 'digitaal', analoog: 'analoog', functie: 'functie' };
+
+  function voorbeeld() {
+    const i = n => ({ id: nid(), naam: n, type: 'digitaal' }), f = n => ({ id: nid(), naam: n, type: 'functie' });
+    const [sen, eo, eg] = [i('sensor'), i('eindeloop_open'), i('eindeloop_gesloten')];
+    const [dop, dsl, mst] = [f('deur_open()'), f('deur_sluiten()'), f('motor_stop()')];
+    const st = (nr, naam, uit) => ({ id: nid(), nr, naam, begin: nr === 0, acties: [{ uit: uit.id, waarde: '' }] });
+    const S = [st(0, 'RUST', mst), st(1, 'OPENEN', dop), st(2, 'WACHTEN', mst), st(3, 'WACHTEN', mst), st(4, 'SLUITEN', dsl)];
+    const t = (a, b, c) => ({ id: nid(), van: S[a].id, naar: S[b].id, cond: c });
+    return { titel: 'Automatische deur', leerling: '', ingangen: [sen, eo, eg], uitgangen: [dop, dsl, mst], stappen: S,
+      trans: [t(0, 1, 'sensor'), t(1, 2, 'eindeloop_open'), t(2, 3, '!sensor'), t(3, 2, 'sensor'), t(3, 4, 'T3s'), t(4, 0, 'eindeloop_gesloten'), t(4, 1, 'sensor')] };
+  }
+  if (!G.stappen.length && !G.ingangen.length && !G.uitgangen.length) G = voorbeeld();
+
+  root.innerHTML = `
+  <div class="lay2 gc">
+    <div class="hoofd2">
+      <div class="paneel graf">
+        <div class="kop"><h2>Grafcet</h2><span class="legende">wordt automatisch getekend</span></div>
+        <div class="gc-titels">
+          <label>Titel<input type="text" id="gc-titel" placeholder="bv. Automatische deur"></label>
+          <label>Naam<input type="text" id="gc-leerling" placeholder="jouw naam"></label>
+        </div>
+        <div class="gc-doekwrap" id="gc-wrap"><canvas id="gc-c" role="img" aria-label="Getekende grafcet"></canvas></div>
+        <div class="gc-meld" id="gc-meld"></div>
+        <div class="knoppen gc-exp">
+          <button class="knop" type="button" id="gc-png">⤓ Exporteer als png</button>
+          <button class="knop pa-pdf" type="button" id="gc-pdf">⤓ Exporteer als pdf</button>
+        </div>
+      </div>
+      <div class="paneel">
+        <div class="gc-kop"><h2 class="vw-h2">Stappen</h2><button class="knop" type="button" id="gc-addS">+ Stap</button></div>
+        <p class="uitleg klein">Elke stap krijgt een nummer en een naam. Kies bij elke stap welke uitgangen of functies actief zijn (de acties). De beginstap wordt dubbel omkaderd.</p>
+        <div id="gc-stappen" class="gc-lijst"></div>
+      </div>
+      <div class="paneel">
+        <div class="gc-kop"><h2 class="vw-h2">Transities</h2><button class="knop" type="button" id="gc-addT">+ Transitie</button></div>
+        <p class="uitleg klein">Een transitie gaat van een stap naar een andere stap als de voorwaarde waar is. Klik in een voorwaarde en daarna op een ingang of een teken om het in te voegen.</p>
+        <div class="gc-palet" id="gc-palet"></div>
+        <div id="gc-trans" class="gc-lijst"></div>
+      </div>
+    </div>
+    <div class="zij2">
+      <div class="paneel bediening">
+        <div class="groep">
+          <div class="gkop">Ingangen</div>
+          <p class="uitleg klein">Sensoren, drukknoppen, eindeloopschakelaars … Digitaal (0 of 1) of analoog (een waarde).</p>
+          <div id="gc-in" class="gc-io"></div>
+          <button class="knop" type="button" id="gc-addIn">+ Ingang</button>
+        </div>
+        <div class="groep">
+          <div class="gkop">Uitgangen / functies</div>
+          <p class="uitleg klein">Motoren, leds, … digitaal of analoog, of een functie in je programma, zoals <code>deur_open()</code>.</p>
+          <div id="gc-uit" class="gc-io"></div>
+          <button class="knop" type="button" id="gc-addUit">+ Uitgang</button>
+        </div>
+        <div class="groep">
+          <div class="gkop">Bestand</div>
+          <div class="knoppen">
+            <button class="knop" type="button" id="gc-vb">Voorbeeld: automatische deur</button>
+            <button class="knop" type="button" id="gc-nieuw">Nieuwe grafcet</button>
+          </div>
+          <p class="uitleg klein" id="gc-nieuwmeld">Je werk wordt automatisch bewaard in deze browser.</p>
+        </div>
+      </div>
+    </div>
+  </div>`;
+
+  /* ---------- voorwaarden: tokens en weergave ---------- */
+  function tokens(s) {
+    const T = []; let i = 0; s = String(s || '');
+    while (i < s.length) {
+      const r = s.slice(i); let m;
+      if (/^\s/.test(r)) { i++; continue; }
+      if ((m = r.match(/^(&&|\|\||<=|>=|==|!=)/))) { T.push({ t: 'op', v: m[1] }); i += m[1].length; continue; }
+      if ((m = r.match(/^[A-Za-z_][\w]*/))) { T.push({ t: 'id', v: m[0] }); i += m[0].length; continue; }
+      if ((m = r.match(/^\d+([.,]\d+)?\s*(ms|s|min)?/))) { T.push({ t: 'num', v: m[0].replace(/\s+/g, '') }); i += m[0].length; continue; }
+      T.push({ t: 'op', v: r[0] }); i++;
+    }
+    return T;
+  }
+  const OPV = { '&&': '·', '&': '·', '*': '·', '·': '·', '||': '+', '+': '+', '<=': '≤', '>=': '≥', '==': '=', '!=': '≠' };
+  // segmenten [{tekst, over}] met een streep boven alles na ! (of boven een groep !( … ))
+  function segmenten(s) {
+    const T = tokens(s), uit = [];
+    const zet = (tok, over) => {
+      if (tok.t === 'op' && tok.v !== '(' && tok.v !== ')' && tok.v !== '/') uit.push({ tekst: ` ${OPV[tok.v] || tok.v} `, over });
+      else uit.push({ tekst: tok.v, over });
+    };
+    for (let i = 0; i < T.length; i++) {
+      const tok = T[i];
+      if (tok.t === 'op' && tok.v === '!') {
+        const vlg = T[i + 1]; if (!vlg) continue;
+        if (vlg.v === '(') { let d = 0, j = i + 1; for (; j < T.length; j++) { if (T[j].v === '(') d++; if (T[j].v === ')') { d--; if (!d) break; } } for (let k = i + 2; k < j; k++) zet(T[k], true); i = j; }
+        else { zet(vlg, true); i++; }
+        continue;
+      }
+      zet(tok, false);
+    }
+    return uit;
+  }
+  const isTijd = v => /^T\d+([.,]\d+)?(ms|s|min)?$/i.test(v) || /^X\d+$/i.test(v) || v === 't';
+  function onbekend(s) { const namen = new Set(G.ingangen.map(x => x.naam.trim())); return tokens(s).filter(t => t.t === 'id' && !namen.has(t.v) && !isTijd(t.v)).map(t => t.v); }
+
+  /* ---------- tekst van acties ---------- */
+  function actieTekst(a) {
+    const u = G.uitgangen.find(x => x.id === a.uit); if (!u) return '(verwijderd)';
+    const n = u.naam.trim() || '?';
+    if (u.type === 'functie') return /\)\s*$/.test(n) ? n : n + '()';
+    if (u.type === 'analoog') return `${n} = ${String(a.waarde || '').trim() || '?'}`;
+    return String(a.waarde || '').trim() ? `${n} = ${a.waarde.trim()}` : n;
+  }
+
+  /* ---------- schikking ---------- */
+  const mctx = document.createElement('canvas').getContext('2d');
+  const FAM = () => css('--f-body') || 'sans-serif';
+  const mw = (t, f) => { mctx.font = f; return mctx.measureText(t).width; };
+  const F = { stap: () => `600 15px ${FAM()}`, act: () => `400 14px ${FAM()}`, cond: () => `400 14px ${FAM()}`, kop: () => `700 18px ${FAM()}`, sub: () => `400 13px ${FAM()}` };
+  const condW = c => segmenten(c).reduce((s, g) => s + mw(g.tekst, F.cond()), 0);
+  function schik() {
+    const S = [...G.stappen].sort((a, b) => a.nr - b.nr), idx = {}; S.forEach((s, i) => { idx[s.id] = i; });
+    const H = 44, ROW = H + 112, TOP = 92;
+    const W = Math.max(110, ...S.map(s => mw(`${s.nr}: ${s.naam}`, F.stap()) + 30));
+    const actW = s => s.acties.reduce((t, a) => t + mw(actieTekst(a), F.act()) + 22, 0);
+    const maxAct = Math.max(0, ...S.map(actW));
+    const begin = S.find(s => s.begin) || S[0];
+    const T = G.trans.filter(t => idx[t.van] != null && idx[t.naar] != null && t.van !== t.naar).map(t => {
+      const i = idx[t.van], j = idx[t.naar];
+      return { ...t, i, j, soort: j === i + 1 ? 'seq' : (begin && t.naar === begin.id && j < i ? 'L' : 'R'), lw: condW(t.cond) };
+    });
+    // takken onder elke stap
+    const takken = S.map(() => []);
+    T.forEach(t => takken[t.i].push(t));
+    let maxR = 0, maxL = 0;
+    takken.forEach(L => {
+      const seq = L.filter(t => t.soort === 'seq'), R = L.filter(t => t.soort === 'R').sort((a, b) => a.j - b.j), Lf = L.filter(t => t.soort === 'L');
+      let x = 0, vorige = null;
+      seq.forEach(t => { t.bx = 0; vorige = t; });
+      if (!seq.length && R.length && !Lf.length) { R[0].bx = 0; vorige = R[0]; R.shift(); }
+      R.forEach(t => { x = vorige ? Math.max(x + 70, (vorige.bx || 0) + vorige.lw + 34) : 0; if (!vorige) x = 0; t.bx = x; vorige = t; maxR = Math.max(maxR, x + t.lw + 20); });
+      if (seq[0]) maxR = Math.max(maxR, seq[0].lw + 20);
+      let xl = 0; Lf.forEach((t, k) => { xl = k === 0 && !seq.length && !R.length && !L.some(q => q.bx === 0 && q !== t) ? 0 : xl - Math.max(70, t.lw + 34); t.bx = xl; maxL = Math.max(maxL, -xl + t.lw + 20); });
+    });
+    // banen (verticale lijnen) rechts en links
+    const R = T.filter(t => t.soort === 'R').sort((a, b) => Math.abs(a.i - a.j) - Math.abs(b.i - b.j)), Lb = T.filter(t => t.soort === 'L').sort((a, b) => Math.abs(a.i - a.j) - Math.abs(b.i - b.j));
+    const laneR0 = Math.max(W / 2 + 24 + maxAct + 34, maxR + 26), laneL0 = Math.max(W / 2 + 34, maxL + 26);
+    R.forEach((t, k) => { t.lane = laneR0 + 28 * k; });
+    Lb.forEach((t, k) => { t.lane = -(laneL0 + 28 * k); });
+    const rechts = Math.max(W / 2 + 24 + maxAct, R.length ? laneR0 + 28 * (R.length - 1) : 0, maxR) + 40;
+    const links = Math.max(W / 2, Lb.length ? laneL0 + 28 * (Lb.length - 1) : 0, maxL) + 40;
+    const kopW = Math.max(mw(G.titel || 'Grafcet', F.kop()), mw(G.leerling || '', F.sub())) + 40;
+    const CX = Math.max(links, kopW - rechts, 0) + 10;
+    const Wt = Math.max(CX + rechts, kopW + 20), Ht = TOP + Math.max(1, S.length) * ROW - 10;
+    return { S, T, idx, H, ROW, TOP, W, CX, Wt, Ht, begin, takken };
+  }
+
+  /* ---------- tekenen ---------- */
+  function tekenOp(ctx, L, kl) {
+    const { S, T, H, ROW, TOP, W, CX, begin, takken } = L;
+    const yS = i => TOP + i * ROW;
+    ctx.lineCap = 'butt'; ctx.lineJoin = 'miter';
+    // titel
+    ctx.fillStyle = kl.fg; ctx.textBaseline = 'alphabetic'; ctx.textAlign = 'left';
+    ctx.font = F.kop(); ctx.fillText(G.titel || 'Grafcet', 20, 34);
+    if (G.leerling) { ctx.font = F.sub(); ctx.fillStyle = kl.mu; ctx.fillText(G.leerling, 20, 54); }
+    if (!S.length) { ctx.font = F.sub(); ctx.fillStyle = kl.mu; ctx.fillText('Voeg een stap toe om te beginnen.', 20, TOP + 10); return; }
+    const lijn = (pts, kleur = kl.fg, w = 2) => { ctx.strokeStyle = kleur; ctx.lineWidth = w; ctx.beginPath(); pts.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)); ctx.stroke(); };
+    const pijlOp = (x, y) => { ctx.fillStyle = kl.fg; ctx.beginPath(); ctx.moveTo(x, y - 6); ctx.lineTo(x - 5, y + 5); ctx.lineTo(x + 5, y + 5); ctx.closePath(); ctx.fill(); };
+    const pijlNeer = (x, y) => { ctx.fillStyle = kl.fg; ctx.beginPath(); ctx.moveTo(x, y + 6); ctx.lineTo(x - 5, y - 5); ctx.lineTo(x + 5, y - 5); ctx.closePath(); ctx.fill(); };
+    const voorwaarde = (cond, x, y, rechts) => {
+      const seg = segmenten(cond); ctx.font = F.cond(); ctx.textBaseline = 'middle';
+      const tw = seg.reduce((s, g) => s + ctx.measureText(g.tekst).width, 0);
+      let xx = rechts ? x : x - tw;
+      seg.forEach(g => {
+        const w = ctx.measureText(g.tekst).width;
+        ctx.fillStyle = kl.cond; ctx.textAlign = 'left'; ctx.fillText(g.tekst, xx, y);
+        if (g.over && g.tekst.trim()) { const a = g.tekst.match(/^\s*/)[0], b = g.tekst.trimEnd(); const x0 = xx + ctx.measureText(a).width, x1 = xx + ctx.measureText(b).width; ctx.strokeStyle = kl.cond; ctx.lineWidth = 1.3; ctx.beginPath(); ctx.moveTo(x0, y - 10); ctx.lineTo(x1, y - 10); ctx.stroke(); }
+        xx += w;
+      });
+      if (!seg.length) { ctx.fillStyle = kl.mu; ctx.textAlign = rechts ? 'left' : 'right'; ctx.fillText('(voorwaarde?)', x, y); }
+    };
+    const balk = (x, y) => lijn([[x - 13, y], [x + 13, y]], kl.fg, 3);
+    // verbindingen per stap
+    takken.forEach((tk, i) => {
+      if (!tk.length) return;
+      const yb = yS(i) + H, ydiv = yb + 14, ybar = yb + 44, yr = yb + 68;
+      const xs = tk.map(t => CX + t.bx);
+      if (tk.length > 1) { lijn([[CX, yb], [CX, ydiv]]); lijn([[Math.min(CX, ...xs), ydiv], [Math.max(CX, ...xs), ydiv]]); }
+      tk.forEach(t => {
+        const x = CX + t.bx, y0 = tk.length > 1 ? ydiv : yb;
+        if (t.soort === 'seq') { lijn([[x, y0], [x, yS(t.j)]]); }
+        else {
+          const lx = CX + t.lane, ye = yS(t.j) - 22;
+          lijn([[x, y0], [x, yr], [lx, yr], [lx, ye], [CX, ye], [CX, yS(t.j)]]);
+          if (t.j < t.i) pijlOp(lx, (yr + ye) / 2); else pijlNeer(lx, (yr + ye) / 2);
+        }
+        balk(x, ybar);
+        voorwaarde(t.cond, t.soort === 'L' && t.bx < 0 ? x - 20 : x + 20, ybar, !(t.soort === 'L' && t.bx < 0));
+      });
+    });
+    // stappen en acties
+    S.forEach((s, i) => {
+      const y = yS(i), x = CX - W / 2;
+      ctx.fillStyle = kl.bg; ctx.fillRect(x, y, W, H);
+      ctx.strokeStyle = kl.fg; ctx.lineWidth = 2; ctx.strokeRect(x, y, W, H);
+      if (begin && s.id === begin.id) { ctx.lineWidth = 1.5; ctx.strokeRect(x + 5, y + 5, W - 10, H - 10); }
+      ctx.fillStyle = kl.fg; ctx.font = F.stap(); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText(`${s.nr}: ${s.naam}`, CX, y + H / 2 + 1);
+      if (s.acties.length) {
+        let ax = CX + W / 2 + 24; lijn([[CX + W / 2, y + H / 2], [ax, y + H / 2]], kl.act, 1.6);
+        ctx.font = F.act();
+        s.acties.forEach(a => {
+          const t = actieTekst(a), w = ctx.measureText(t).width + 22;
+          ctx.fillStyle = kl.bg; ctx.fillRect(ax, y + 4, w, H - 8);
+          ctx.strokeStyle = kl.act; ctx.lineWidth = 1.6; ctx.strokeRect(ax, y + 4, w, H - 8);
+          ctx.fillStyle = kl.act; ctx.textAlign = 'center'; ctx.fillText(t, ax + w / 2, y + H / 2 + 1);
+          ax += w;
+        });
+      }
+    });
+  }
+  const kleurenScherm = () => ({ fg: css('--fg'), mu: css('--muted'), bg: css('--panel'), act: css('--b'), cond: css('--druk') });
+  const kleurenPapier = { fg: '#111', mu: '#666', bg: '#fff', act: '#1b3a8a', cond: '#1a6b34' };
+  function teken() {
+    const L = schik(), cv = $('c'), dpr = window.devicePixelRatio || 1;
+    cv.style.width = L.Wt + 'px'; cv.style.height = L.Ht + 'px';
+    cv.width = Math.round(L.Wt * dpr); cv.height = Math.round(L.Ht * dpr);
+    const ctx = cv.getContext('2d'); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, L.Wt, L.Ht);
+    tekenOp(ctx, L, kleurenScherm());
+    meldingen(L);
+  }
+  function meldingen(L) {
+    const m = [];
+    const nrs = {}; G.stappen.forEach(s => { nrs[s.nr] = (nrs[s.nr] || 0) + 1; });
+    Object.entries(nrs).forEach(([n, k]) => { if (k > 1) m.push(`Stapnummer ${n} komt ${k} keer voor.`); });
+    G.stappen.forEach(s => { if (!G.trans.some(t => t.van === s.id)) m.push(`Stap ${s.nr} heeft geen transitie naar een volgende stap.`); });
+    G.stappen.forEach(s => { if (L.begin && s.id !== L.begin.id && !G.trans.some(t => t.naar === s.id)) m.push(`Stap ${s.nr} kan nooit actief worden: er komt geen transitie naartoe.`); });
+    G.trans.forEach(t => {
+      const a = G.stappen.find(s => s.id === t.van), b = G.stappen.find(s => s.id === t.naar);
+      if (!a || !b) return;
+      if (!String(t.cond || '').trim()) m.push(`De transitie van stap ${a.nr} naar stap ${b.nr} heeft nog geen voorwaarde.`);
+      const o = [...new Set(onbekend(t.cond))]; if (o.length) m.push(`In de voorwaarde van stap ${a.nr} naar ${b.nr} staat ${o.map(x => `<b>${esc(x)}</b>`).join(', ')}: dat is geen ingang uit je lijst.`);
+    });
+    G.stappen.forEach(s => s.acties.forEach(a => { const u = G.uitgangen.find(x => x.id === a.uit); if (u && u.type === 'analoog' && !String(a.waarde || '').trim()) m.push(`Stap ${s.nr}: geef een waarde voor de analoge uitgang ${esc(u.naam)}.`); }));
+    $('meld').innerHTML = m.length ? `<b>Controle</b><ul>${m.map(x => `<li>${x}</li>`).join('')}</ul>` : `<span class="gc-ok">✓ De grafcet is volledig: elke stap heeft een transitie en alle voorwaarden gebruiken je ingangen.</span>`;
+  }
+
+  /* ---------- formulieren ---------- */
+  function ioLijst(sleutel, types) {
+    const el = $(sleutel === 'ingangen' ? 'in' : 'uit');
+    el.innerHTML = G[sleutel].map(x => `<div class="gc-iorij" data-id="${x.id}">
+      <input type="text" data-veld="naam" value="${esc(x.naam)}" placeholder="${sleutel === 'ingangen' ? 'bv. sensor' : 'bv. motor of deur_open()'}" aria-label="Naam">
+      <select data-veld="type" aria-label="Soort">${Object.keys(types).map(t => `<option value="${t}" ${x.type === t ? 'selected' : ''}>${types[t]}</option>`).join('')}</select>
+      <button type="button" class="gc-x" data-wis="1" aria-label="Verwijderen" title="Verwijderen">✕</button></div>`).join('') || `<p class="uitleg klein">Nog geen ${sleutel === 'ingangen' ? 'ingangen' : 'uitgangen'}.</p>`;
+  }
+  function stapOpties(sel) { return [...G.stappen].sort((a, b) => a.nr - b.nr).map(s => `<option value="${s.id}" ${s.id === sel ? 'selected' : ''}>${s.nr}: ${esc(s.naam)}</option>`).join(''); }
+  function stappenLijst() {
+    const S = [...G.stappen].sort((a, b) => a.nr - b.nr);
+    $('stappen').innerHTML = S.map(s => `<div class="gc-stap" data-id="${s.id}">
+      <div class="gc-srij">
+        <label class="gc-nr">Nr<input type="number" min="0" max="99" step="1" data-veld="nr" value="${s.nr}"></label>
+        <label class="gc-sn">Naam<input type="text" data-veld="naam" value="${esc(s.naam)}" placeholder="bv. OPENEN"></label>
+        <label class="vink"><input type="checkbox" data-veld="begin" ${s.begin ? 'checked' : ''}>beginstap</label>
+        <button type="button" class="gc-x" data-wis="1" title="Stap verwijderen" aria-label="Stap verwijderen">✕</button>
+      </div>
+      <div class="gc-acties">${s.acties.map((a, k) => { const u = G.uitgangen.find(x => x.id === a.uit); return `<span class="gc-actie" data-k="${k}">${esc(actieTekst(a))}${u && u.type !== 'functie' ? `<input type="text" data-awaarde="${k}" value="${esc(a.waarde || '')}" placeholder="${u.type === 'analoog' ? 'waarde' : '(1)'}" aria-label="Waarde">` : ''}<button type="button" data-awis="${k}" aria-label="Actie verwijderen">✕</button></span>`; }).join('')}
+        <select data-anieuw="1" aria-label="Actie toevoegen"><option value="">+ actie …</option>${G.uitgangen.map(u => `<option value="${u.id}">${esc(u.naam || '?')}</option>`).join('')}</select></div>
+    </div>`).join('') || '<p class="uitleg klein">Nog geen stappen.</p>';
+  }
+  function transLijst() {
+    $('trans').innerHTML = G.trans.map(t => `<div class="gc-tr" data-id="${t.id}">
+      <label>Van<select data-veld="van">${stapOpties(t.van)}</select></label>
+      <label>Naar<select data-veld="naar">${stapOpties(t.naar)}</select></label>
+      <label class="gc-cond">Voorwaarde<input type="text" data-veld="cond" value="${esc(t.cond)}" placeholder="bv. sensor · !eindeloop_open"></label>
+      <button type="button" class="gc-x" data-wis="1" title="Transitie verwijderen" aria-label="Transitie verwijderen">✕</button></div>`).join('') || '<p class="uitleg klein">Nog geen transities.</p>';
+    $('palet').innerHTML = `<span class="uitleg klein">Invoegen:</span>${G.ingangen.filter(x => x.naam.trim()).map(x => `<button type="button" class="sit" data-ins="${esc(x.naam.trim())}">${esc(x.naam.trim())}</button>`).join('')}
+      <button type="button" class="sit" data-ins="!" title="NIET: streep boven de volgende ingang">NIET ( ‾ )</button><button type="button" class="sit" data-ins=" · " title="EN">EN ( · )</button><button type="button" class="sit" data-ins=" + " title="OF">OF ( + )</button><button type="button" class="sit" data-ins="T3s" title="Tijd sinds de stap actief werd">tijd ( T3s )</button>`;
+  }
+  function alles() { ioLijst('ingangen', TYPE_IN); ioLijst('uitgangen', TYPE_UIT); stappenLijst(); transLijst(); $('titel').value = G.titel; $('leerling').value = G.leerling; teken(); }
+  const wijzig = (herbouw) => { bewaar(); if (herbouw) alles(); else teken(); };
+
+  // ingangen / uitgangen
+  [['in', 'ingangen', 'digitaal'], ['uit', 'uitgangen', 'functie']].forEach(([el, k, std]) => {
+    $(el).addEventListener('input', e => { const r = e.target.closest('[data-id]'); if (!r) return; const x = G[k].find(q => q.id === r.dataset.id); if (e.target.dataset.veld === 'naam') { x.naam = e.target.value; bewaar(); teken(); } });
+    $(el).addEventListener('change', e => { const r = e.target.closest('[data-id]'); if (!r) return; const x = G[k].find(q => q.id === r.dataset.id); if (e.target.dataset.veld === 'type') x.type = e.target.value; wijzig(true); });
+    $(el).addEventListener('click', e => { if (!e.target.closest('[data-wis]')) return; const r = e.target.closest('[data-id]'); G[k] = G[k].filter(q => q.id !== r.dataset.id); if (k === 'uitgangen') G.stappen.forEach(s => { s.acties = s.acties.filter(a => a.uit !== r.dataset.id); }); wijzig(true); });
+    $(el === 'in' ? 'addIn' : 'addUit').addEventListener('click', () => { G[k].push({ id: nid(), naam: '', type: std }); wijzig(true); const ins = $(el).querySelectorAll('input[data-veld="naam"]'); ins[ins.length - 1]?.focus(); });
+  });
+  // stappen
+  $('addS').addEventListener('click', () => { const nr = G.stappen.length ? Math.max(...G.stappen.map(s => s.nr)) + 1 : 0; G.stappen.push({ id: nid(), nr, naam: '', begin: !G.stappen.length, acties: [] }); wijzig(true); const ins = $('stappen').querySelectorAll('input[data-veld="naam"]'); ins[ins.length - 1]?.focus(); });
+  $('stappen').addEventListener('input', e => {
+    const r = e.target.closest('.gc-stap'); if (!r) return; const s = G.stappen.find(q => q.id === r.dataset.id);
+    if (e.target.dataset.veld === 'naam') { s.naam = e.target.value; bewaar(); teken(); }
+    if (e.target.dataset.awaarde != null) { s.acties[+e.target.dataset.awaarde].waarde = e.target.value; bewaar(); teken(); }
+  });
+  $('stappen').addEventListener('change', e => {
+    const r = e.target.closest('.gc-stap'); if (!r) return; const s = G.stappen.find(q => q.id === r.dataset.id);
+    if (e.target.dataset.veld === 'nr') { const v = parseInt(e.target.value, 10); if (v >= 0) s.nr = v; wijzig(true); }
+    if (e.target.dataset.veld === 'begin') { G.stappen.forEach(q => { q.begin = false; }); s.begin = e.target.checked; wijzig(true); }
+    if (e.target.dataset.anieuw && e.target.value) { s.acties.push({ uit: e.target.value, waarde: '' }); wijzig(true); }
+    if (e.target.dataset.awaarde != null) wijzig(true);
+  });
+  $('stappen').addEventListener('click', e => {
+    const r = e.target.closest('.gc-stap'); if (!r) return; const s = G.stappen.find(q => q.id === r.dataset.id);
+    if (e.target.closest('[data-awis]')) { s.acties.splice(+e.target.closest('[data-awis]').dataset.awis, 1); wijzig(true); return; }
+    if (e.target.closest('[data-wis]')) { G.stappen = G.stappen.filter(q => q !== s); G.trans = G.trans.filter(t => t.van !== s.id && t.naar !== s.id); if (s.begin && G.stappen[0]) G.stappen[0].begin = true; wijzig(true); }
+  });
+  // transities
+  let actieveCond = null;
+  $('addT').addEventListener('click', () => {
+    const S = [...G.stappen].sort((a, b) => a.nr - b.nr); if (S.length < 2) { $('meld').innerHTML = '<b>Controle</b><ul><li>Maak eerst minstens twee stappen.</li></ul>'; return; }
+    const zonder = S.find(s => !G.trans.some(t => t.van === s.id)) || S[S.length - 1], i = S.indexOf(zonder);
+    G.trans.push({ id: nid(), van: zonder.id, naar: (S[i + 1] || S[0]).id, cond: '' }); wijzig(true);
+    const ins = $('trans').querySelectorAll('input[data-veld="cond"]'); const l = ins[ins.length - 1]; if (l) { l.focus(); actieveCond = l; }
+  });
+  $('trans').addEventListener('focusin', e => { if (e.target.dataset.veld === 'cond') actieveCond = e.target; });
+  $('trans').addEventListener('input', e => { const r = e.target.closest('.gc-tr'); if (!r) return; const t = G.trans.find(q => q.id === r.dataset.id); if (e.target.dataset.veld === 'cond') { t.cond = e.target.value; bewaar(); teken(); } });
+  $('trans').addEventListener('change', e => { const r = e.target.closest('.gc-tr'); if (!r) return; const t = G.trans.find(q => q.id === r.dataset.id); if (e.target.dataset.veld === 'van' || e.target.dataset.veld === 'naar') { t[e.target.dataset.veld] = e.target.value; wijzig(false); } });
+  $('trans').addEventListener('click', e => { if (!e.target.closest('[data-wis]')) return; const r = e.target.closest('.gc-tr'); G.trans = G.trans.filter(q => q.id !== r.dataset.id); wijzig(true); });
+  $('palet').addEventListener('mousedown', e => { if (e.target.closest('[data-ins]')) e.preventDefault(); });   // focus in het tekstvak houden
+  $('palet').addEventListener('click', e => {
+    const b = e.target.closest('[data-ins]'); if (!b) return;
+    const inp = actieveCond && document.body.contains(actieveCond) ? actieveCond : $('trans').querySelector('input[data-veld="cond"]'); if (!inp) return;
+    const a = inp.selectionStart ?? inp.value.length, z = inp.selectionEnd ?? a, ins = b.dataset.ins;
+    inp.value = inp.value.slice(0, a) + ins + inp.value.slice(z); inp.focus(); inp.setSelectionRange(a + ins.length, a + ins.length);
+    inp.dispatchEvent(new Event('input', { bubbles: true }));
+  });
+  $('titel').addEventListener('input', () => { G.titel = $('titel').value; bewaar(); teken(); });
+  $('leerling').addEventListener('input', () => { G.leerling = $('leerling').value; bewaar(); teken(); });
+  // bestand
+  let nieuwBevestig = false;
+  $('vb').addEventListener('click', () => { G = voorbeeld(); wijzig(true); });
+  $('nieuw').addEventListener('click', () => {
+    if (!nieuwBevestig) { nieuwBevestig = true; $('nieuw').textContent = 'Zeker? Klik nog eens'; $('nieuwmeld').textContent = 'Je huidige grafcet wordt gewist.'; setTimeout(() => { nieuwBevestig = false; $('nieuw').textContent = 'Nieuwe grafcet'; $('nieuwmeld').textContent = 'Je werk wordt automatisch bewaard in deze browser.'; }, 4000); return; }
+    nieuwBevestig = false; const naam = G.leerling; G = leeg(); G.leerling = naam; $('nieuw').textContent = 'Nieuwe grafcet'; $('nieuwmeld').textContent = 'Je werk wordt automatisch bewaard in deze browser.'; wijzig(true);
+  });
+
+  /* ---------- export ---------- */
+  function papier(schaal) {
+    const L = schik(), cv = document.createElement('canvas');
+    cv.width = Math.ceil(L.Wt * schaal); cv.height = Math.ceil(L.Ht * schaal);
+    const ctx = cv.getContext('2d'); ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, cv.width, cv.height); ctx.scale(schaal, schaal);
+    tekenOp(ctx, L, kleurenPapier);
+    return cv;
+  }
+  const bestandsnaam = ext => `grafcet-${(G.titel || 'ontwerp').trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'ontwerp'}.${ext}`;
+  async function bewaarBestand(naam, blob) {
+    let dl = null;
+    try { dl = window.claude && window.claude.use ? await window.claude.use('downloads') : null; } catch (e) { dl = null; }
+    if (dl) { try { await dl.save({ filename: naam, data: blob }); } catch (e) { } return; }
+    const url = URL.createObjectURL(blob), a = document.createElement('a');
+    a.href = url; a.download = naam; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 4000);
+  }
+  $('png').addEventListener('click', async () => { const cv = papier(2); bewaarBestand(bestandsnaam('png'), await new Promise(r => cv.toBlob(r, 'image/png'))); });
+  $('pdf').addEventListener('click', async () => {
+    const cv = papier(3), liggend = cv.width > cv.height * 1.15;
+    const PW = liggend ? 841.89 : 595.28, PH = liggend ? 595.28 : 841.89, M = 36;
+    const s = Math.min((PW - 2 * M) / cv.width, (PH - 2 * M) / cv.height), w = cv.width * s, h = cv.height * s, x = (PW - w) / 2, y = PH - M - h;
+    const bin = atob(cv.toDataURL('image/jpeg', 0.92).split(',')[1]);
+    const enc = str => { const u = new Uint8Array(str.length); for (let i = 0; i < str.length; i++) u[i] = str.charCodeAt(i) & 255; return u; };
+    const delen = []; let pos = 0; const offs = [];
+    const add = d => { const u = typeof d === 'string' ? enc(d) : d; delen.push(u); pos += u.length; };
+    const obj = (n, body) => { offs[n] = pos; add(`${n} 0 obj\n`); body(); add('\nendobj\n'); };
+    add('%PDF-1.4\n%\xE2\xE3\xCF\xD3\n');
+    obj(1, () => add('<< /Type /Catalog /Pages 2 0 R >>'));
+    obj(2, () => add('<< /Type /Pages /Count 1 /Kids [3 0 R] >>'));
+    obj(3, () => add(`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${PW} ${PH}] /Resources << /XObject << /Im0 5 0 R >> >> /Contents 4 0 R >>`));
+    const inh = `q ${w.toFixed(2)} 0 0 ${h.toFixed(2)} ${x.toFixed(2)} ${y.toFixed(2)} cm /Im0 Do Q`;
+    obj(4, () => add(`<< /Length ${inh.length} >>\nstream\n${inh}\nendstream`));
+    obj(5, () => { add(`<< /Type /XObject /Subtype /Image /Width ${cv.width} /Height ${cv.height} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${bin.length} >>\nstream\n`); add(enc(bin)); add('\nendstream'); });
+    const xref = pos; let xr = `xref\n0 6\n0000000000 65535 f \n`;
+    for (let i = 1; i < 6; i++) xr += String(offs[i]).padStart(10, '0') + ' 00000 n \n';
+    add(xr + `trailer\n<< /Size 6 /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF`);
+    bewaarBestand(bestandsnaam('pdf'), new Blob(delen, { type: 'application/pdf' }));
+  });
+
+  alles();
+  const opThema = () => teken();
+  window.addEventListener('thema', opThema);
+  return () => { window.removeEventListener('thema', opThema); };
+}
+
+/* ============================================================
+   APPLET: Eenparig cirkelvormige beweging – begrippen (5TWE, Mechanica)
+   Afgelegde weg en hoek, T, f, n, ω, omtreksnelheid v, centripetale
+   versnelling a_n en kracht F_n. Snelheid instellen via n, f of T.
+   Een tweede punt B met eigen straal, massa en snelheid (of met dezelfde n, f of T als A)
+   om te vergelijken; "touw doorknippen" toont de beweging zonder F_n.
+   ============================================================ */
+function renderECB(root) {
+  const RMIN = 0.2, RMAX = 1.5;   // m: de tekening staat op een vaste schaal, de cirkel wordt echt groter en kleiner
+  const P = {
+    A: { r: 0.75, m: 2, mode: 'n', f: 0.5 },
+    B: { r: 0.4, m: 2, mode: 'n', f: 0.5 }
+  };
+  const st = { zin: 1, tv: true, ta: true, tf: false, tw: true, ts: true, tB: false, mee: true, tegen: true, touw: true, traag: 1, loopt: false, t: 0, los: null };
+  const $ = id => root.querySelector('#ecb-' + id);
+  const VEC = (l, sub) => `<span class="vv-vec ecb-vec">${l}${sub ? `<sub>${sub}</sub>` : ''}</span>`;
+  const g = x => fmtS(x);
+  const f2 = (x, d) => (Object.is(x, -0) ? 0 : x).toLocaleString('nl-BE', { minimumFractionDigits: d, maximumFractionDigits: d });
+  const MODI = {
+    n: { label: 'Toerental <i>n</i>', eenh: 'min⁻¹', min: 1, max: 600, step: 1, uit: f => f * 60, in: v => v / 60 },
+    f: { label: 'Frequentie <i>f</i>', eenh: 'Hz', min: 0.05, max: 10, step: 0.05, uit: f => f, in: v => v },
+    T: { label: 'Periode <i>T</i>', eenh: 's', min: 0.1, max: 20, step: 0.1, uit: f => 1 / f, in: v => 1 / v }
+  };
+  const ctrl = (id, label, min, max, step, eenh) => `
+      <div class="ctrl"><label for="ecb-${id}">${label}</label>
+        <div class="rij"><input type="range" id="ecb-${id}" min="${min}" max="${max}" step="${step}"><input type="number" id="ecb-${id}n" min="${min}" step="any" aria-label="${label.replace(/<[^>]+>/g, '')} in ${eenh}"><span class="eenh">${eenh}</span></div></div>`;
+
+  root.innerHTML = `
+  <div class="lay2 ecb">
+    <div class="hoofd2">
+      <div class="paneel graf">
+        <div class="kop"><h2>Eenparig cirkelvormige beweging</h2>
+          <span class="legende ecb-leg"><span class="lv">${VEC('v')} snelheid</span><span class="la">${VEC('a', 'n')} versnelling</span><span class="lf" id="ecb-legf">${VEC('F', 'n')} kracht</span></span></div>
+        <div class="knoppen ecb-knop">
+          <button class="knop" type="button" id="ecb-start">▶ Start</button>
+          <button class="knop" type="button" id="ecb-reset">↺ Opnieuw</button>
+          <button class="knop ecb-knip" type="button" id="ecb-knip">✂ Touw doorknippen</button>
+          <label class="ecb-traag">Weergave<select id="ecb-traag"><option value="1">echte snelheid</option><option value="0.1">10× vertraagd</option><option value="0.01">100× vertraagd</option></select></label>
+        </div>
+        <div class="doek ecb-doek"><canvas id="ecb-c" role="img" aria-label="Punten die een eenparig cirkelvormige beweging uitvoeren, met vectoren"></canvas></div>
+        <p class="uitleg klein" id="ecb-uitleg"></p>
+      </div>
+      <div class="paneel">
+        <h2 class="vw-h2">Berekening</h2>
+        <div class="ecb-ber" id="ecb-ber"></div>
+      </div>
+    </div>
+    <div class="zij2">
+      <div class="paneel bediening">
+        <div class="groep ecb-pA" id="ecb-gA"></div>
+        <div class="groep">
+          <div class="gkop"><label class="vink"><input type="checkbox" id="ecb-tB">Tweede punt B vergelijken</label></div>
+          <div id="ecb-gB"></div>
+        </div>
+        <div class="groep">
+          <div class="gkop">Tonen</div>
+          <div class="chips" id="ecb-zin"><button type="button" class="sit" data-zin="1">↺ tegenwijzerzin</button><button type="button" class="sit" data-zin="-1">↻ wijzerzin</button></div>
+          <label class="vink"><input type="checkbox" id="ecb-ts">Afgelegde weg Δs en hoek θ</label>
+          <label class="vink"><input type="checkbox" id="ecb-tv"><span class="lv">Snelheid ${VEC('v')}</span></label>
+          <label class="vink"><input type="checkbox" id="ecb-ta"><span class="la">Centripetale versnelling ${VEC('a', 'n')}</span></label>
+          <label class="vink"><input type="checkbox" id="ecb-tf"><span class="lf">Centripetale kracht ${VEC('F', 'n')}</span></label>
+          <label class="vink"><input type="checkbox" id="ecb-tw">Hoeksnelheid ${VEC('ω')}</label>
+          <label class="vink"><input type="checkbox" id="ecb-touw">Touw naar het middelpunt</label>
+        </div>
+      </div>
+    </div>
+  </div>`;
+
+  /* ---------- grootheden ---------- */
+  const ZELFDE = { n: 'hetzelfde toerental', f: 'dezelfde frequentie', T: 'dezelfde periode' };
+  const fVan = k => (k === 'B' && st.mee ? P.A.f : P[k].f);
+  const groot = k => {
+    const p = P[k], f = fVan(k), T = 1 / f, n = 60 * f, w = 2 * Math.PI * f, v = p.r * w, an = p.r * w * w, Fn = p.m * an;
+    return { f, T, n, w, v, an, Fn, r: p.r, m: p.m };
+  };
+  const punten = () => ['A'].concat(st.tB ? ['B'] : []);
+  const naast = () => st.tB && !st.mee;   // B op een eigen schijf: twee cirkels naast elkaar
+
+  /* ---------- instellingen per punt ---------- */
+  function puntPaneel(k) {
+    const p = P[k], el = $('g' + k), meeB = k === 'B' && st.mee;
+    if (k === 'B' && !st.tB) { el.innerHTML = '<p class="uitleg klein">Zet punt B aan om twee bewegingen naast elkaar te vergelijken: een andere straal, een andere snelheid of een andere massa.</p>'; return; }
+    const M = MODI[p.mode];
+    el.innerHTML = `${k === 'A' ? '<div class="gkop">Punt A</div>' : ''}
+      ${k === 'B' ? `<label class="vink"><input type="checkbox" id="ecb-mee" ${st.mee ? 'checked' : ''}>A en B hebben ${ZELFDE[P.A.mode]}</label>
+      <label class="vink"><input type="checkbox" id="ecb-tegen" ${st.tegen ? 'checked' : ''}>B start 180° verder dan A</label>` : ''}
+      ${meeB ? '' : `<div class="ecb-modus"><span class="uitleg klein">Snelheid instellen via</span><div class="chips">${Object.keys(MODI).map(m => `<button type="button" class="sit" data-modus="${k}${m}" aria-pressed="${p.mode === m}">${m}</button>`).join('')}</div></div>
+      ${ctrl('s' + k, M.label, M.min, M.max, M.step, M.eenh)}`}
+      ${ctrl('r' + k, `Straal <i>r</i><sub>${k}</sub>`, RMIN, RMAX, 0.05, 'm')}
+      ${ctrl('m' + k, `Massa <i>m</i><sub>${k}</sub>`, 0.1, 50, 0.1, 'kg')}
+      <p class="uitleg klein ecb-afg" id="ecb-afg${k}"></p>`;
+    const koppel = (id, lees, schrijf, min) => {
+      const r = $(id), n = $(id + 'n'); if (!r) return;
+      const toon = () => { const v = lees(); r.value = Math.min(+r.max, Math.max(+r.min, v)); n.value = rondAf(+v.toPrecision(4)); };
+      const zet = v => { v = parseFloat(String(v).replace(',', '.')); if (!(v > 0)) { toon(); return; } schrijf(Math.max(min, v)); toon(); alles(); };
+      r.addEventListener('input', () => zet(r.value)); n.addEventListener('change', () => zet(n.value));
+      toon();
+    };
+    if (!meeB) koppel('s' + k, () => M.uit(p.f), v => { p.f = M.in(v); }, M.min / 100);
+    koppel('r' + k, () => p.r, v => { p.r = Math.min(RMAX, Math.max(RMIN, v)); }, RMIN);
+    koppel('m' + k, () => p.m, v => { p.m = v; }, 0.01);
+    if (k === 'B') $('tegen').addEventListener('change', () => { st.tegen = $('tegen').checked; st.los = null; knoppen(); uitleg(); teken(); });
+    if (k === 'B') $('mee').addEventListener('change', () => { st.mee = $('mee').checked; if (!st.mee) P.B.f = P.A.f; st.los = null; puntPaneel('B'); alles(); });
+    el.querySelectorAll('[data-modus]').forEach(b => b.addEventListener('click', () => { P[k].mode = b.dataset.modus.slice(1); puntPaneel(k); if (k === 'A') puntPaneel('B'); alles(); }));
+    afgeleid(k);
+  }
+  function afgeleid(k) {
+    const el = $('afg' + k); if (!el) return;
+    const q = groot(k);
+    el.innerHTML = k === 'B' && st.mee ? `Zelfde als A: <i>n</i> = ${g(q.n)} min⁻¹, <i>f</i> = ${g(q.f)} Hz, <i>T</i> = ${g(q.T)} s` : `<i>n</i> = ${g(q.n)} min⁻¹ · <i>f</i> = ${g(q.f)} Hz · <i>T</i> = ${g(q.T)} s`;
+  }
+
+  /* ---------- tekenen ---------- */
+  const cv = $('c');
+  const kleuren = () => {
+    const licht = document.documentElement.dataset.theme === 'light';
+    return { v: css('--vw-druk'), a: css('--druk'), F: licht ? '#6aa320' : '#c3ec7a', s: css('--a'), sB: css('--meet'), fg: css('--fg'), mu: css('--muted'), ax: css('--axis'), grid: css('--grid'), bg: css('--panel'), line: css('--line') };
+  };
+  function vecLabel(ctx, x, y, letter, sub, kleur) {
+    ctx.save(); ctx.fillStyle = kleur; ctx.strokeStyle = kleur;
+    ctx.font = `italic 600 15px ${css('--f-mono')}`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    const lw = ctx.measureText(letter).width; ctx.fillText(letter, x, y);
+    let w = lw;
+    if (sub) { ctx.font = `italic 600 11px ${css('--f-mono')}`; ctx.textAlign = 'left'; ctx.fillText(sub, x + lw / 2, y + 5); w += ctx.measureText(sub).width; }
+    const x0 = x - lw / 2 - 1, x1 = x0 + w + 3;
+    ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(x0, y - 11); ctx.lineTo(x1, y - 11); ctx.moveTo(x1, y - 11); ctx.lineTo(x1 - 3, y - 13.5); ctx.moveTo(x1, y - 11); ctx.lineTo(x1 - 3, y - 8.5); ctx.stroke();
+    ctx.restore();
+  }
+  function geometrie() {
+    const w = cv.clientWidth, h = cv.clientHeight;
+    if (naast()) { const S = Math.min(w / 2, h) * 0.40 / RMAX; return { S, c: { A: [w * 0.27, h * 0.52], B: [w * 0.73, h * 0.52] } }; }
+    const S = Math.min(w, h) * 0.38 / RMAX; return { S, c: { A: [w / 2, h * 0.52], B: [w / 2, h * 0.52] } };
+  }
+  const hoek = k => groot(k).w * st.t;
+  const off = k => (k === 'B' && st.tegen ? Math.PI : 0);   // beginhoek: B eventueel 180° verder
+  const plaats = (k, G) => {   // positie, eenheidsvector langs v (scherm), vrij of niet
+    const [cx, cy] = G.c[k], q = groot(k), a = st.zin * hoek(k) + off(k);
+    if (st.los && st.los[k]) {
+      const L = st.los[k], d = q.v * G.S * (st.t - L.t);
+      return { x: L.x + L.ux * d, y: L.y + L.uy * d, ux: L.ux, uy: L.uy, vrij: true };
+    }
+    return { x: cx + q.r * G.S * Math.cos(a), y: cy - q.r * G.S * Math.sin(a), ux: -Math.sin(a) * st.zin, uy: -Math.cos(a) * st.zin, vrij: false };
+  };
+  function omega(ctx, cx, cy, K) {
+    const zin = st.zin, rr = 15;
+    ctx.strokeStyle = K.fg; ctx.fillStyle = K.fg; ctx.lineWidth = 1.6;
+    ctx.beginPath(); ctx.arc(cx, cy, rr, Math.PI * 0.25, Math.PI * 1.75, false); ctx.stroke();
+    const ea = zin > 0 ? Math.PI * 0.25 : Math.PI * 1.75, ex = cx + rr * Math.cos(ea), ey = cy + rr * Math.sin(ea), tg = zin > 0 ? ea - Math.PI / 2 : ea + Math.PI / 2;
+    ctx.beginPath(); ctx.moveTo(ex + 7 * Math.cos(tg), ey + 7 * Math.sin(tg)); ctx.lineTo(ex + 4 * Math.cos(tg + 2.2), ey + 4 * Math.sin(tg + 2.2)); ctx.lineTo(ex + 4 * Math.cos(tg - 2.2), ey + 4 * Math.sin(tg - 2.2)); ctx.closePath(); ctx.fill();
+    ctx.beginPath(); ctx.arc(cx, cy, 5.5, 0, 7); ctx.fillStyle = K.bg; ctx.fill(); ctx.stroke(); ctx.fillStyle = K.fg;
+    if (zin > 0) { ctx.beginPath(); ctx.arc(cx, cy, 1.8, 0, 7); ctx.fill(); }
+    else { ctx.beginPath(); ctx.moveTo(cx - 3.5, cy - 3.5); ctx.lineTo(cx + 3.5, cy + 3.5); ctx.moveTo(cx + 3.5, cy - 3.5); ctx.lineTo(cx - 3.5, cy + 3.5); ctx.stroke(); }
+    vecLabel(ctx, cx - 26, cy + 26, 'ω', '', K.fg);
+  }
+  function teken() {
+    const { ctx, w, h } = prepCanvas(cv), K = kleuren(), G = geometrie(), ks = punten(), S = G.S, zin = st.zin;
+    const ref = ks.map(groot), vMax = Math.max(...ref.map(q => q.v)), aMax = Math.max(...ref.map(q => q.an)), rMax = Math.max(...ref.map(q => q.r));
+    const centra = naast() ? ['A', 'B'] : ['A'];
+    // assen en cirkels
+    centra.forEach(k => {
+      const [cx, cy] = G.c[k], R = (naast() ? P[k].r : rMax) * S + 30;
+      ctx.strokeStyle = K.grid; ctx.lineWidth = 1; ctx.setLineDash([4, 4]);
+      ctx.beginPath(); ctx.moveTo(cx - R, cy); ctx.lineTo(cx + R, cy); ctx.moveTo(cx, cy - R); ctx.lineTo(cx, cy + R); ctx.stroke(); ctx.setLineDash([]);
+    });
+    ks.forEach(k => { const [cx, cy] = G.c[k]; ctx.strokeStyle = K.fg; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(cx, cy, P[k].r * S, 0, 2 * Math.PI); ctx.stroke(); });
+    // afgelegde weg en hoek
+    if (st.ts) ks.forEach(k => {
+      if (st.los && st.los[k]) return;
+      const [cx, cy] = G.c[k], th = hoek(k), N = Math.floor(th / (2 * Math.PI) + 1e-9), thR = th - N * 2 * Math.PI, kl = k === 'A' ? K.s : K.sB, R = P[k].r * S, s0 = -off(k), s1 = s0 - zin * thR;
+      ctx.strokeStyle = kl; ctx.lineWidth = 5; ctx.globalAlpha = 0.85; ctx.beginPath(); ctx.arc(cx, cy, R, s0, s1, zin > 0); ctx.stroke(); ctx.globalAlpha = 1;
+      if (k === 'A' || naast() || st.tegen) {
+        const rw = Math.min(46, R * 0.45);
+        ctx.fillStyle = kl; ctx.globalAlpha = 0.12; ctx.beginPath(); ctx.moveTo(cx, cy); ctx.arc(cx, cy, rw, s0, s1, zin > 0); ctx.closePath(); ctx.fill(); ctx.globalAlpha = 1;
+        ctx.strokeStyle = kl; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(cx, cy, rw, s0, s1, zin > 0); ctx.stroke();
+        ctx.strokeStyle = K.ax; ctx.lineWidth = 1.2; ctx.setLineDash([5, 4]); ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx + R * Math.cos(s0), cy + R * Math.sin(s0)); ctx.stroke(); ctx.setLineDash([]);
+        if (thR > 0.25) { const mid = (s0 + s1) / 2; ctx.fillStyle = kl; ctx.font = `italic 600 14px ${css('--f-mono')}`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('θ', cx + (rw + 14) * Math.cos(mid), cy + (rw + 14) * Math.sin(mid)); }
+      }
+    });
+    // ω
+    centra.forEach(k => { const [cx, cy] = G.c[k]; if (st.tw) omega(ctx, cx, cy, K); else { ctx.fillStyle = K.fg; ctx.beginPath(); ctx.arc(cx, cy, 3, 0, 7); ctx.fill(); } });
+    // punten met touw en vectoren
+    ks.forEach((k, i) => {
+      const q = ref[i], [cx, cy] = G.c[k], p = plaats(k, G), L = st.los && st.los[k];
+      if (L) { ctx.strokeStyle = K.mu; ctx.setLineDash([5, 5]); ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(L.x, L.y); ctx.lineTo(L.x + L.ux * 3000, L.y + L.uy * 3000); ctx.stroke(); ctx.setLineDash([]); }
+      if (st.touw) {
+        ctx.strokeStyle = K.ax; ctx.lineWidth = 2.5; ctx.beginPath(); ctx.moveTo(cx, cy);
+        if (!p.vrij) ctx.lineTo(p.x, p.y); else ctx.lineTo(cx + (L.x - cx) * 0.55, cy + (L.y - cy) * 0.55);
+        ctx.stroke();
+      }
+      const lv = 0.55 * rMax * S * Math.max(0.2, q.v / vMax), la = 0.42 * rMax * S * Math.max(0.2, q.an / aMax);
+      const rx = cx - p.x, ry = cy - p.y, rl = Math.hypot(rx, ry) || 1, nx = rx / rl, ny = ry / rl;
+      const sub = st.tB ? k : '';
+      if (st.tv) { pijl(ctx, p.x, p.y, p.x + p.ux * lv, p.y + p.uy * lv, K.v, 3); vecLabel(ctx, p.x + p.ux * (lv + 16), p.y + p.uy * (lv + 16), 'v', sub, K.v); }
+      if (!p.vrij) {
+        const laa = Math.min(la, rl - 10);
+        // a_n en F_n grijpen allebei aan in de puntmassa; samen getekend liggen ze net naast elkaar
+        const px = -ny, py = nx, d = st.ta && st.tf ? 4.5 : 0;
+        if (st.ta) { const x0 = p.x + px * d, y0 = p.y + py * d; pijl(ctx, x0, y0, x0 + nx * laa, y0 + ny * laa, K.a, 3); vecLabel(ctx, x0 + nx * laa * 0.55 + px * 16, y0 + ny * laa * 0.55 + py * 16, 'a', 'n', K.a); }
+        if (st.tf) { const lf = st.ta ? laa * 0.9 : laa, x0 = p.x - px * d, y0 = p.y - py * d; pijl(ctx, x0, y0, x0 + nx * lf, y0 + ny * lf, K.F, 3); vecLabel(ctx, x0 + nx * lf * 0.55 - px * 18, y0 + ny * lf * 0.55 - py * 18, 'F', 'n', K.F); }
+      }
+      ctx.fillStyle = k === 'A' ? K.s : K.sB; ctx.strokeStyle = K.bg; ctx.lineWidth = 2;
+      const straal = 5 + 5 * Math.min(1, Math.sqrt(P[k].m / 50) + 0.25);
+      ctx.beginPath(); ctx.arc(p.x, p.y, straal, 0, 7); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = K.fg; ctx.font = `600 13px ${css('--f-body')}`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText(k, p.x - nx * 22 - p.ux * 12, p.y - ny * 22 - p.uy * 12);
+    });
+    // schaalstok
+    { const L = 0.5 * S, x1 = w - 16, x0 = x1 - L, y0 = h - 44;
+      ctx.strokeStyle = K.fg; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(x0, y0 - 5); ctx.lineTo(x0, y0); ctx.lineTo(x1, y0); ctx.lineTo(x1, y0 - 5); ctx.stroke();
+      ctx.fillStyle = K.mu; ctx.font = `12px ${css('--f-mono')}`; ctx.textAlign = 'center'; ctx.textBaseline = 'bottom'; ctx.fillText('0,5 m', (x0 + x1) / 2, y0 - 4); }
+    // afleesvak
+    const regels = [[`t = ${f2(st.t, 2)} s`, K.fg]];
+    ks.forEach(k => { const th = hoek(k); regels.push([`${st.tB ? k + ': ' : ''}θ = ${f2(th, 2)} rad   Δs = ${f2(P[k].r * th, 2)} m   N = ${Math.floor(th / (2 * Math.PI) + 1e-9)}`, k === 'A' ? K.s : K.sB]); });
+    ctx.font = `13px ${css('--f-mono')}`; ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+    const bw = Math.max(...regels.map(([t]) => ctx.measureText(t).width)) + 20;
+    ctx.fillStyle = K.bg; ctx.globalAlpha = 0.9; ctx.fillRect(10, 10, bw, regels.length * 19 + 12); ctx.globalAlpha = 1;
+    ctx.strokeStyle = K.line; ctx.lineWidth = 1; ctx.strokeRect(10, 10, bw, regels.length * 19 + 12);
+    regels.forEach(([t, kl], i) => { ctx.fillStyle = kl; ctx.fillText(t, 20, 17 + i * 19); });
+    ctx.fillStyle = K.mu; ctx.textAlign = 'right'; ctx.textBaseline = 'bottom'; ctx.font = `12px ${css('--f-mono')}`;
+    if (st.traag < 1) ctx.fillText(`${Math.round(1 / st.traag)}× vertraagd`, w - 10, h - 8);
+    if (Math.min(...ref.map(q => q.T)) < 0.25 && st.traag === 1) { ctx.fillStyle = css('--trek'); ctx.fillText('Te snel om te volgen: kies hierboven een vertraagde weergave.', w - 10, h - 26); }
+    if (naast()) { ctx.fillStyle = K.mu; ctx.textAlign = 'center'; ctx.font = `12px ${css('--f-body')}`; ctx.fillText('A en B draaien elk op een eigen schijf (zelfde schaal)', w / 2, h - 8); }
+  }
+
+  /* ---------- berekening ---------- */
+  function rekenregels(k) {
+    const p = P[k], q = groot(k), s = st.tB ? `<sub>${k}</sub>` : '', meeB = k === 'B' && st.mee, mode = meeB ? P.A.mode : p.mode;
+    const R = (naam, form, cls = '') => `<div class="ecb-r ${cls}"><span>${naam}</span><span>${form}</span></div>`;
+    let r = '';
+    if (meeB) r += mode === 'n' ? R('Toerental', `zelfde als A: <i>n</i>${s} = <i>n</i><sub>A</sub> = <b>${g(q.n)} min⁻¹</b>`)
+      : mode === 'f' ? R('Frequentie', `zelfde als A: <i>f</i>${s} = <i>f</i><sub>A</sub> = <b>${g(q.f)} Hz</b>`)
+      : R('Periode', `zelfde als A: <i>T</i>${s} = <i>T</i><sub>A</sub> = <b>${g(q.T)} s</b>`);
+    if (mode === 'n') r += (meeB ? '' : R('Toerental', `gegeven: <b><i>n</i>${s} = ${g(q.n)} min⁻¹</b>`)) + R('Frequentie', `<i>f</i>${s} = <i>n</i> / 60 = ${g(q.n)} / 60 = <b>${g(q.f)} Hz</b>`) + R('Periode', `<i>T</i>${s} = 1 / <i>f</i> = 1 / ${g(q.f)} = <b>${g(q.T)} s</b>`) + R('Hoeksnelheid', `<i>ω</i>${s} = 2π · <i>n</i> / 60 = 2π · ${g(q.n)} / 60 = <b>${g(q.w)} rad/s</b>`);
+    if (mode === 'f') r += (meeB ? '' : R('Frequentie', `gegeven: <b><i>f</i>${s} = ${g(q.f)} Hz</b>`)) + R('Periode', `<i>T</i>${s} = 1 / <i>f</i> = 1 / ${g(q.f)} = <b>${g(q.T)} s</b>`) + R('Toerental', `<i>n</i>${s} = 60 · <i>f</i> = 60 · ${g(q.f)} = <b>${g(q.n)} min⁻¹</b>`) + R('Hoeksnelheid', `<i>ω</i>${s} = 2π · <i>f</i> = 2π · ${g(q.f)} = <b>${g(q.w)} rad/s</b>`);
+    if (mode === 'T') r += (meeB ? '' : R('Periode', `gegeven: <b><i>T</i>${s} = ${g(q.T)} s</b>`)) + R('Frequentie', `<i>f</i>${s} = 1 / <i>T</i> = 1 / ${g(q.T)} = <b>${g(q.f)} Hz</b>`) + R('Toerental', `<i>n</i>${s} = 60 · <i>f</i> = 60 · ${g(q.f)} = <b>${g(q.n)} min⁻¹</b>`) + R('Hoeksnelheid', `<i>ω</i>${s} = 2π / <i>T</i> = 2π / ${g(q.T)} = <b>${g(q.w)} rad/s</b>`);
+    r += R('Omtreksnelheid', `<i>v</i>${s} = <i>r</i>${s} · <i>ω</i>${s} = ${g(q.r)} · ${g(q.w)} = <b>${g(q.v)} m/s</b>`, 'lv');
+    r += R('Centripetale versnelling', `<i>a</i><sub>n${st.tB ? ',' + k : ''}</sub> = <i>r</i>${s} · <i>ω</i>${s}² = ${g(q.r)} · ${g(q.w)}² = <b>${g(q.an)} m/s²</b>`, 'la');
+    r += R('Centripetale kracht', `<i>F</i><sub>n${st.tB ? ',' + k : ''}</sub> = <i>m</i>${s} · <i>a</i><sub>n</sub> = ${g(q.m)} · ${g(q.an)} = <b>${g(q.Fn)} N</b>`, 'lf');
+    return `<div class="ecb-kol"><h3>Punt ${k} <span class="uitleg klein">(<i>r</i>${s} = ${g(q.r)} m, <i>m</i>${s} = ${g(q.m)} kg)</span></h3>${r}</div>`;
+  }
+  function vergelijking() {
+    const A = groot('A'), B = groot('B'), gelijk = (x, y) => Math.abs(x - y) <= 1e-9 * Math.max(1, Math.abs(x), Math.abs(y));
+    const c = (x, y) => gelijk(x, y) ? '=' : x > y ? '>' : '<';
+    const rij = (naam, sym, x, y, eenh, cls = '') => `<tr class="${cls}"><td>${naam}</td><td><i>${sym}</i></td><td>${g(x)} ${eenh}</td><td class="ecb-tk">${c(x, y)}</td><td>${g(y)} ${eenh}</td><td>${gelijk(x, y) ? '1' : g(x / y)}</td></tr>`;
+    let html = `<h3 class="ecb-vgkop">Vergelijking A en B</h3><div class="vw-tabwrap"><table class="vw-tab ecb-vgtab"><tr><th>Grootheid</th><th></th><th>A</th><th></th><th>B</th><th>A / B</th></tr>
+      ${rij('Straal', 'r', A.r, B.r, 'm')}${rij('Toerental', 'n', A.n, B.n, 'min⁻¹')}${rij('Frequentie', 'f', A.f, B.f, 'Hz')}${rij('Periode', 'T', A.T, B.T, 's')}${rij('Hoeksnelheid', 'ω', A.w, B.w, 'rad/s')}
+      ${rij('Omtreksnelheid', 'v', A.v, B.v, 'm/s', 'lv')}${rij('Centripetale versnelling', 'a<sub>n</sub>', A.an, B.an, 'm/s²', 'la')}${rij('Massa', 'm', A.m, B.m, 'kg')}${rij('Centripetale kracht', 'F<sub>n</sub>', A.Fn, B.Fn, 'N', 'lf')}</table></div>`;
+    // uitleg op maat
+    const zf = gelijk(A.f, B.f), zr = gelijk(A.r, B.r), zm = gelijk(A.m, B.m), uit = [];
+    if (zf && !zr) uit.push(`A en B hebben <b>dezelfde frequentie</b>, dus ook dezelfde <i>T</i>, <i>n</i> en <i>ω</i>. De straal verschilt: <i>r</i><sub>A</sub> / <i>r</i><sub>B</sub> = ${g(A.r / B.r)}. Omdat <i>v</i> = <i>r</i> · <i>ω</i>, is de snelheid recht evenredig met de straal: <i>v</i><sub>A</sub> / <i>v</i><sub>B</sub> = ${g(A.v / B.v)}. Ook <i>a</i><sub>n</sub> = <i>r</i> · <i>ω</i>² is evenredig met <i>r</i>.`);
+    if (!zf && zr) uit.push(`A en B hebben <b>dezelfde straal</b>, maar een andere frequentie: <i>f</i><sub>A</sub> / <i>f</i><sub>B</sub> = ${g(A.f / B.f)}. De snelheid is evenredig met de frequentie (<i>v</i><sub>A</sub> / <i>v</i><sub>B</sub> = ${g(A.v / B.v)}), maar de centripetale versnelling met het <b>kwadraat</b> ervan: <i>a</i><sub>n,A</sub> / <i>a</i><sub>n,B</sub> = ${g(A.f / B.f)}² = ${g(A.an / B.an)}.`);
+    if (!zf && !zr) {
+      uit.push(`Straal én frequentie verschillen. <i>v</i> = <i>r</i> · <i>ω</i>: ${g(A.r / B.r)} × ${g(A.f / B.f)} = ${g(A.v / B.v)} keer zo groot voor A. <i>a</i><sub>n</sub> = <i>r</i> · <i>ω</i>²: ${g(A.r / B.r)} × ${g(A.f / B.f)}² = ${g(A.an / B.an)} keer zo groot voor A.`);
+      if (gelijk(A.v, B.v)) uit.push('Opvallend: A en B hebben <b>dezelfde omtreksnelheid</b>, zoals twee riemschijven die door dezelfde riem worden aangedreven. Het punt op de kleinste straal heeft dan de grootste hoeksnelheid en de grootste centripetale versnelling (<i>a</i><sub>n</sub> = <i>v</i>² / <i>r</i>).');
+    }
+    if (zf && zr) uit.push('A en B hebben dezelfde straal en dezelfde frequentie: ze bewegen identiek' + (zm ? '.' : `, maar de massa verschilt: <i>F</i><sub>n</sub> = <i>m</i> · <i>a</i><sub>n</sub> is evenredig met de massa (${g(A.Fn / B.Fn)} keer zo groot voor A).`));
+    else if (!zm) uit.push(`De massa verschilt ook: <i>F</i><sub>n,A</sub> / <i>F</i><sub>n,B</sub> = (<i>m</i><sub>A</sub> / <i>m</i><sub>B</sub>) · (<i>a</i><sub>n,A</sub> / <i>a</i><sub>n,B</sub>) = ${g(A.m / B.m)} · ${g(A.an / B.an)} = ${g(A.Fn / B.Fn)}.`);
+    return html + uit.map(t => `<p class="uitleg ecb-vgl">${t}</p>`).join('');
+  }
+  function berekening() {
+    const ks = punten();
+    $('ber').innerHTML = `<div class="ecb-kols">${ks.map(rekenregels).join('')}</div>${st.tB ? vergelijking() : ''}`;
+  }
+  function uitleg() {
+    $('uitleg').innerHTML = st.los
+      ? 'Het touw is doorgeknipt: er is geen middelpuntzoekende kracht meer. Door zijn <b>traagheid</b> (1e wet van Newton) beweegt het voorwerp in een rechte lijn verder, <b>rakend aan de cirkel</b>, in de richting van de snelheid op het moment van doorknippen.'
+      : `De grootte van de snelheid blijft gelijk, maar de <b>richting</b> verandert voortdurend: ${VEC('v')} staat altijd rakend aan de cirkel. De centripetale versnelling ${VEC('a', 'n')} staat loodrecht op ${VEC('v')} en wijst naar het middelpunt.`;
+  }
+  function alles() { afgeleid('A'); afgeleid('B'); berekening(); teken(); }
+
+  /* ---------- bediening ---------- */
+  ['tv', 'ta', 'tf', 'tw', 'ts', 'touw', 'tB'].forEach(k => {
+    $(k).checked = st[k];
+    $(k).addEventListener('change', () => { st[k] = $(k).checked; if (k === 'tB') { st.los = null; puntPaneel('B'); root.querySelector('.ecb').classList.toggle('metB', st.tB); uitleg(); knoppen(); } $('legf').hidden = !st.tf; alles(); });
+  });
+  $('legf').hidden = !st.tf;
+  const zinKnoppen = () => root.querySelectorAll('#ecb-zin [data-zin]').forEach(b => b.setAttribute('aria-pressed', +b.dataset.zin === st.zin));
+  $('zin').addEventListener('click', e => { const b = e.target.closest('[data-zin]'); if (!b) return; st.zin = +b.dataset.zin; st.los = null; zinKnoppen(); uitleg(); knoppen(); teken(); });
+  $('traag').addEventListener('change', () => { st.traag = +$('traag').value; teken(); });
+  let raf = 0, vorig = 0;
+  const lus = nu => {
+    raf = 0; if (!st.loopt || !document.body.contains(cv)) return;
+    const dt = Math.min(0.05, (nu - vorig) / 1000); vorig = nu; st.t += dt * st.traag;
+    if (st.los) { const G = geometrie(), w = cv.clientWidth, h = cv.clientHeight; if (punten().every(k => { const p = plaats(k, G); return p.x < -50 || p.y < -50 || p.x > w + 50 || p.y > h + 50; })) { st.loopt = false; knoppen(); } }
+    teken(); if (st.loopt) raf = requestAnimationFrame(lus);
+  };
+  const knoppen = () => { $('start').textContent = st.loopt ? '⏸ Pauze' : st.t > 0 ? '▶ Verder' : '▶ Start'; $('knip').disabled = !!st.los; };
+  $('start').addEventListener('click', () => { st.loopt = !st.loopt; if (st.loopt) { vorig = performance.now(); raf = requestAnimationFrame(lus); } knoppen(); });
+  $('reset').addEventListener('click', () => { st.t = 0; st.los = null; st.loopt = false; knoppen(); uitleg(); teken(); });
+  $('knip').addEventListener('click', () => {
+    const G = geometrie(); st.los = {};
+    punten().forEach(k => { const p = plaats(k, G); st.los[k] = { t: st.t, x: p.x, y: p.y, ux: p.ux, uy: p.uy }; });
+    if (!st.loopt) { st.loopt = true; vorig = performance.now(); raf = requestAnimationFrame(lus); }
+    knoppen(); uitleg(); teken();
+  });
+  puntPaneel('A'); puntPaneel('B'); zinKnoppen(); knoppen(); uitleg(); berekening();
+  const ro = new ResizeObserver(() => teken()); ro.observe(cv);
+  window.addEventListener('thema', teken);
+  return () => { ro.disconnect(); if (raf) cancelAnimationFrame(raf); window.removeEventListener('thema', teken); st.loopt = false; };
+}
+
+/* ============================================================
+   APPLET: Vrije val en verticale worp (4EMT, Mechanica)
+   Bal in een hoogteschaal met optionele vectoren en momentopnames,
+   (y,t)- en (v,t)-grafiek met hun voorschrift. Zin naar boven positief.
+   ============================================================ */
+function renderWorp(root) {
+  const G = 9.81;
+  const st = { soort: 'val', y0: 20, v0: 15, t: 0, loopt: false, tv: true, ta: true, strobo: false, top: true, traag: 1, hover: null };
+  const $ = id => root.querySelector('#wp-' + id);
+  const f2 = (x, d = 2) => (Object.is(x, -0) || Math.abs(x) < 0.5 * 10 ** -d ? 0 : x).toLocaleString('nl-BE', { minimumFractionDigits: d, maximumFractionDigits: d }).replace('-', '−');
+  const kort = x => fmt(x, 2);
+  const VEC = l => `<span class="vv-vec">${l}</span>`;
+  const ctrl = (id, label, min, max, step, eenh) => `
+      <div class="ctrl"><label for="wp-${id}">${label}</label>
+        <div class="rij"><input type="range" id="wp-${id}" min="${min}" max="${max}" step="${step}"><input type="number" id="wp-${id}n" min="${min}" max="${max}" step="${step}" aria-label="${label.replace(/<[^>]+>/g, '')} in ${eenh}"><span class="eenh">${eenh}</span></div></div>`;
+
+  root.innerHTML = `
+  <div class="lay2 wp">
+    <div class="hoofd2">
+      <div class="paneel graf">
+        <div class="kop"><h2 id="wp-titel">Vrije val</h2><span class="legende"><span class="wp-lv">${VEC('v')} snelheid</span><span class="wp-la">${VEC('a')} versnelling</span></span></div>
+        <div class="knoppen wp-knop">
+          <button class="knop" type="button" id="wp-start">▶ Start</button>
+          <button class="knop" type="button" id="wp-reset">↺ Opnieuw</button>
+          <label class="wp-traag">Weergave<select id="wp-traag"><option value="1">echte snelheid</option><option value="0.5">2× vertraagd</option><option value="0.2">5× vertraagd</option></select></label>
+        </div>
+        <div class="ctrl wp-tijd"><label for="wp-t">Tijdstip <i>t</i> (sleep om de tijd zelf in te stellen)</label><div class="rij"><input type="range" id="wp-t" min="0" max="2" step="0.01" value="0"><input type="number" id="wp-tn" min="0" step="0.1" value="0" aria-label="Tijdstip in s"><span class="eenh">s</span></div></div>
+        <div class="wp-raster">
+          <div class="doek wp-bal"><canvas id="wp-cb" role="img" aria-label="Bal in een hoogteschaal met snelheids- en versnellingsvector"></canvas></div>
+          <div class="wp-graf">
+            <div class="doek wp-doek"><canvas id="wp-cy" role="img" aria-label="(y,t)-grafiek"></canvas></div>
+            <div class="doek wp-doek"><canvas id="wp-cv" role="img" aria-label="(v,t)-grafiek"></canvas></div>
+            <div class="wp-vs"><div class="wp-vsy" id="wp-vsy"></div><div class="wp-vsv" id="wp-vsv"></div></div>
+          </div>
+        </div>
+        <p class="uitleg klein" id="wp-uitleg"></p>
+      </div>
+    </div>
+    <div class="zij2">
+      <div class="paneel bediening">
+        <div class="groep">
+          <div class="gkop">Beweging</div>
+          <div class="chips" id="wp-soort"><button type="button" class="sit" data-s="val">Vrije val</button><button type="button" class="sit" data-s="worp">Verticale worp</button></div>
+          ${ctrl('y0', 'Beginhoogte <i>y</i><sub>begin</sub>', 0, 100, 1, 'm')}
+          <div id="wp-v0g">${ctrl('v0', 'Beginsnelheid <i>v</i><sub>begin</sub>', -30, 30, 0.5, 'm/s')}
+          <p class="uitleg klein">Positief = omhoog gooien, negatief = omlaag gooien.</p></div>
+        </div>
+        <div class="groep">
+          <div class="gkop">Tonen</div>
+          <label class="vink"><input type="checkbox" id="wp-tv"><span class="wp-lv">Snelheidsvector ${VEC('v')}</span></label>
+          <label class="vink"><input type="checkbox" id="wp-ta"><span class="wp-la">Versnellingsvector ${VEC('a')}</span></label>
+          <label class="vink"><input type="checkbox" id="wp-strobo">Momentopnames (elke 0,2 s)</label>
+          <label class="vink" id="wp-topl"><input type="checkbox" id="wp-top">Hoogste punt aanduiden</label>
+        </div>
+      </div>
+    </div>
+  </div>`;
+
+  /* ---------- beweging ---------- */
+  const v0 = () => (st.soort === 'val' ? 0 : st.v0);
+  const y = t => st.y0 + v0() * t - 0.5 * G * t * t;
+  const v = t => v0() - G * t;
+  const tEind = () => { const b = v0(), d = b * b + 2 * G * st.y0; return d <= 0 ? 0 : (b + Math.sqrt(d)) / G; };
+  const tTop = () => (v0() > 0 ? v0() / G : null);
+  const yMax = () => (tTop() != null ? y(tTop()) : st.y0);
+
+  /* ---------- tekenhulp ---------- */
+  function vecLabel(ctx, x, yy, letter, kleur) {
+    ctx.fillStyle = kleur; ctx.font = 'italic 600 15px ' + css('--f-body'); ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+    ctx.fillText(letter, x, yy);
+    const w = ctx.measureText(letter).width;
+    ctx.strokeStyle = kleur; ctx.lineWidth = 1.3; ctx.beginPath(); ctx.moveTo(x, yy - 11); ctx.lineTo(x + w + 1, yy - 11); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(x + w + 1, yy - 11); ctx.lineTo(x + w - 2, yy - 13.5); ctx.moveTo(x + w + 1, yy - 11); ctx.lineTo(x + w - 2, yy - 8.5); ctx.stroke();
+  }
+  function bal(ctx, x, yy, r, alfa = 1) {
+    ctx.globalAlpha = alfa;
+    const gr = ctx.createRadialGradient(x - r * 0.35, yy - r * 0.35, r * 0.1, x, yy, r);
+    gr.addColorStop(0, '#f4ffb0'); gr.addColorStop(1, '#b8d12a');
+    ctx.fillStyle = gr; ctx.beginPath(); ctx.arc(x, yy, r, 0, 7); ctx.fill();
+    ctx.globalAlpha = 1;
+  }
+
+  /* ---------- bal met hoogteschaal ---------- */
+  function tekenBal() {
+    const cv = $('cb'), { ctx, w, h } = prepCanvas(cv);
+    const top = 26, bodem = h - 34, R = niceRange(0, Math.max(5, yMax())), k = (bodem - top) / R.max, Y = yy => bodem - yy * k;
+    ctx.fillStyle = css('--panel-2'); ctx.fillRect(0, bodem, w, h - bodem);
+    ctx.strokeStyle = css('--axis'); ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(0, bodem); ctx.lineTo(w, bodem); ctx.stroke();
+    ctx.font = '11px ' + css('--f-mono'); ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+    for (let yy = 0; yy <= R.max + 1e-9; yy += R.step) { ctx.strokeStyle = css('--grid'); ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(0, Y(yy)); ctx.lineTo(w, Y(yy)); ctx.stroke(); ctx.fillStyle = css('--muted'); ctx.fillText(`${fmt(yy)} m`, 4, Y(yy) - 7); }
+    const xb = Math.round(w * 0.28), r = 9, te = tEind(), t = Math.min(st.t, te);
+    // vertrekpunt
+    ctx.fillStyle = css('--axis'); if (st.y0 > 0) ctx.fillRect(xb - 42, Y(st.y0) + r + 1, 30, 4);
+    // hoogste punt
+    if (st.top && tTop() != null) { ctx.setLineDash([4, 4]); ctx.strokeStyle = css('--meet'); ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(0, Y(yMax())); ctx.lineTo(w, Y(yMax())); ctx.stroke(); ctx.setLineDash([]); ctx.fillStyle = css('--meet'); ctx.textAlign = 'right'; ctx.textBaseline = 'bottom'; ctx.font = '11px ' + css('--f-mono'); ctx.fillText(`hoogste punt: ${kort(yMax())} m`, w - 4, Y(yMax()) - 2); }
+    // momentopnames
+    if (st.strobo) {
+      const pos = [];
+      // op de terugweg (na het hoogste punt) iets naar rechts, zodat heen en terug niet overlappen
+      const tp = tTop(), xg = ti => (tp != null && ti > tp + 1e-9 ? xb + 22 : xb);
+      for (let i = 0; i * 0.2 <= t + 1e-9; i++) pos.push([i * 0.2, Y(y(i * 0.2))]);
+      pos.forEach(([ti, yy]) => bal(ctx, xg(ti), yy, r, 0.35));
+      // tijdstippen: opgaand links van de bal, neergaand rechts; per kant geen overlappende labels
+      const bezet = { L: [], R: [] };
+      ctx.fillStyle = css('--muted'); ctx.font = '10px ' + css('--f-mono'); ctx.textBaseline = 'middle';
+      pos.forEach(([ti, yy]) => {
+        const neer = tp != null && ti > tp + 1e-9, kant = neer ? 'R' : 'L';
+        if (bezet[kant].some(b => Math.abs(b - yy) < 12)) return; bezet[kant].push(yy);
+        ctx.textAlign = neer ? 'left' : 'right';
+        ctx.fillText(`${f2(ti, 1)} s`, neer ? xb + 22 + r + 5 : xb - r - 5, yy);
+      });
+    }
+    // bal en vectoren
+    const yb = Y(y(t)), vv = v(t), kv = Math.min(3, k * 0.5), xv = xb + (st.strobo && tTop() != null ? 72 : 0);
+    bal(ctx, xb, yb, r);
+    if (st.tv && Math.abs(vv) > 0.05) { pijl(ctx, xv + r + 10, yb, xv + r + 10, yb - vv * kv, css('--b'), 3.5); vecLabel(ctx, xv + r + 18, yb - vv * kv / 2, 'v', css('--b')); }
+    if (st.ta) { pijl(ctx, xv + r + 40, yb, xv + r + 40, yb + G * kv, css('--a'), 3.5); vecLabel(ctx, xv + r + 48, yb + G * kv / 2, 'a', css('--a')); }
+    // waarden
+    const regels = [['t', `${f2(t)} s`, css('--fg')], ['y', `${f2(y(t))} m`, css('--fg')], ['v', `${f2(vv)} m/s`, css('--b')], ['a', `−9,81 m/s²`, css('--a')]];
+    const bw = 140, bh = regels.length * 21 + 12, bx = w - bw - 8, by = Math.abs(yb - (bodem - 8 - bh / 2)) < bh / 2 + 70 ? (st.top && tTop() != null ? Math.min(Math.max(8, Y(yMax()) + 8), bodem - bh - 8) : 8) : bodem - bh - 8;   // vak onderaan, of bovenaan (onder het hoogste punt) als de bal onderaan is
+    ctx.fillStyle = css('--panel-2'); ctx.strokeStyle = css('--line'); ctx.lineWidth = 1; ctx.beginPath(); ctx.roundRect ? ctx.roundRect(bx, by, bw, bh, 8) : ctx.rect(bx, by, bw, bh); ctx.fill(); ctx.stroke();
+    regels.forEach(([n, val, kl], i) => {
+      const yy = by + 16 + i * 21;
+      ctx.font = 'italic 600 15px ' + css('--f-body'); ctx.fillStyle = kl; ctx.textAlign = 'left'; ctx.textBaseline = 'middle'; ctx.fillText(n, bx + 10, yy);
+      ctx.font = '600 13px ' + css('--f-mono'); ctx.fillText('= ' + val, bx + 26, yy);
+    });
+  }
+
+  /* ---------- grafieken ---------- */
+  function grafiek(cv, soort) {
+    const { ctx, w, h } = prepCanvas(cv);
+    const te = tEind(), tmax = Math.max(1, Math.ceil(te * 2) / 2), ML = 48, MR = 16, MT = 26, MB = 32;
+    const X = t => ML + t / tmax * (w - ML - MR);
+    let R, f, kleur, naam, eenh;
+    if (soort === 'y') { R = niceRange(0, Math.max(5, yMax())); R.min = 0; f = y; kleur = css('--a'); naam = 'y'; eenh = 'm'; }
+    else { const lo = Math.min(0, v(te)), hi = Math.max(0, v0()); R = niceRange(lo, hi); if (hi <= 0) R.max = 0; if (lo >= 0) R.min = 0; f = v; kleur = css('--b'); naam = 'v'; eenh = 'm/s'; }
+    const Y = val => MT + (R.max - val) / (R.max - R.min) * (h - MT - MB);
+    ctx.font = '11px ' + css('--f-mono'); ctx.lineWidth = 1;
+    for (let val = R.min; val <= R.max + 1e-9; val += R.step) { ctx.strokeStyle = css('--grid'); ctx.beginPath(); ctx.moveTo(ML, Y(val)); ctx.lineTo(w - MR, Y(val)); ctx.stroke(); ctx.fillStyle = css('--muted'); ctx.textAlign = 'right'; ctx.textBaseline = 'middle'; ctx.fillText(fmt(val), ML - 6, Y(val)); }
+    const ts = tmax > 6 ? 1 : 0.5;
+    for (let t = 0; t <= tmax + 1e-9; t += ts) { ctx.strokeStyle = css('--grid'); ctx.beginPath(); ctx.moveTo(X(t), MT); ctx.lineTo(X(t), h - MB); ctx.stroke(); ctx.fillStyle = css('--muted'); ctx.textAlign = 'center'; ctx.textBaseline = 'top'; ctx.fillText(fmt(t), X(t), h - MB + 6); }
+    ctx.strokeStyle = css('--axis'); ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(ML, MT - 6); ctx.lineTo(ML, h - MB); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(ML, Y(0)); ctx.lineTo(w - MR + 4, Y(0)); ctx.stroke();
+    ctx.fillStyle = css('--fg'); ctx.font = '600 13px ' + css('--f-mono'); ctx.textAlign = 'left'; ctx.textBaseline = 'bottom'; ctx.fillText(`${naam} (${eenh})`, ML + 6, MT - 8);
+    ctx.textAlign = 'right'; ctx.textBaseline = Y(0) > h - MB - 20 ? 'bottom' : 'top'; ctx.fillText('t (s)', w - MR, Y(0) + (Y(0) > h - MB - 20 ? -4 : 4));
+    const tn = Math.min(st.t, te);
+    // hoogste punt
+    if (st.top && tTop() != null && tn >= tTop() - 1e-9) {
+      const tp = tTop(); ctx.setLineDash([4, 4]); ctx.strokeStyle = css('--meet'); ctx.lineWidth = 1.2;
+      ctx.beginPath(); ctx.moveTo(X(tp), MT); ctx.lineTo(X(tp), h - MB); ctx.stroke(); ctx.setLineDash([]);
+      ctx.fillStyle = css('--meet'); ctx.font = '11px ' + css('--f-mono'); ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+      ctx.fillText(soort === 'y' ? `hoogste punt (${kort(tp)} s ; ${kort(yMax())} m)` : `v = 0 bij t = ${kort(tp)} s`, X(tp) + 5, MT + 2);
+    }
+    // kromme
+    ctx.strokeStyle = kleur; ctx.lineWidth = 2.6; ctx.beginPath();
+    for (let i = 0; i <= 160; i++) { const t = tn * i / 160; i ? ctx.lineTo(X(t), Y(f(t))) : ctx.moveTo(X(t), Y(f(t))); }
+    ctx.stroke();
+    { ctx.fillStyle = kleur; ctx.beginPath(); ctx.arc(X(tn), Y(f(tn)), 5, 0, 7); ctx.fill(); }
+    if (st.strobo) { ctx.fillStyle = css('--fg'); for (let i = 0; i * 0.2 <= tn + 1e-9; i++) { ctx.beginPath(); ctx.arc(X(i * 0.2), Y(f(i * 0.2)), 3, 0, 7); ctx.fill(); } }
+    // aflezen
+    if (st.hover != null && st.hover <= tn + 1e-9) {
+      const t = st.hover, px = X(t), py = Y(f(t));
+      ctx.setLineDash([4, 4]); ctx.strokeStyle = css('--fg'); ctx.globalAlpha = 0.6; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(px, MT); ctx.lineTo(px, h - MB); ctx.moveTo(ML, py); ctx.lineTo(px, py); ctx.stroke(); ctx.setLineDash([]); ctx.globalAlpha = 1;
+      const t1 = `t = ${f2(t)} s`, t2 = `${naam} = ${f2(f(t))} ${eenh}`;
+      ctx.font = '600 12px ' + css('--f-mono'); const bw = Math.max(ctx.measureText(t1).width, ctx.measureText(t2).width) + 16;
+      let bx = px + 10; if (bx + bw > w - 4) bx = px - bw - 10; const by = Math.min(Math.max(py - 44, 4), h - 44);
+      ctx.fillStyle = css('--panel-2'); ctx.fillRect(bx, by, bw, 38); ctx.strokeStyle = kleur; ctx.strokeRect(bx + 0.5, by + 0.5, bw - 1, 37);
+      ctx.fillStyle = css('--muted'); ctx.textAlign = 'left'; ctx.textBaseline = 'middle'; ctx.fillText(t1, bx + 8, by + 12); ctx.fillStyle = kleur; ctx.fillText(t2, bx + 8, by + 27);
+    }
+    cv._X = { ML, MR, tmax };
+  }
+
+  /* ---------- voorschriften ---------- */
+  const getal = x => fmt(x, 2);
+  const term = (x, achter) => { if (Math.abs(x) < 1e-9) return ''; return ` ${x < 0 ? '−' : '+'} ${getal(Math.abs(x))}${achter}`; };
+  function voorschriften() {
+    const b = v0(), worp = st.soort === 'worp';
+    const yIn = (Math.abs(st.y0) < 1e-9 ? '' : getal(st.y0)) + (Math.abs(b) < 1e-9 ? '' : (Math.abs(st.y0) < 1e-9 ? (b < 0 ? '−' : '') + getal(Math.abs(b)) + ' · <i>t</i>' : term(b, ' · <i>t</i>'))) + ' − 4,905 · <i>t</i>²';
+    const vIn = Math.abs(b) < 1e-9 ? '−9,81 · <i>t</i>' : `${b < 0 ? '−' : ''}${getal(Math.abs(b))} − 9,81 · <i>t</i>`;
+    $('vsy').innerHTML = `<span class="wp-vk">(<i>y</i>,<i>t</i>)</span> <i>y</i>(<i>t</i>) = ${yIn.replace(/^ /, '')}`;
+    $('vsv').innerHTML = `<span class="wp-vk">(<i>v</i>,<i>t</i>)</span> <i>v</i>(<i>t</i>) = ${vIn}`;
+    $('titel').textContent = worp ? 'Verticale worp' : 'Vrije val';
+    const te = tEind();
+    $('uitleg').innerHTML = te <= 0 ? 'Met deze waarden ligt de bal al op de grond: kies een beginhoogte of gooi de bal omhoog.' : !worp
+      ? `De bal valt vanaf ${getal(st.y0)} m hoogte en raakt de grond na <b>${f2(te)} s</b> met een snelheid van <b>${f2(v(te))} m/s</b>.`
+      : b > 0 ? `De bal gaat eerst omhoog en vertraagt, tot de snelheid nul is in het <b>hoogste punt</b> (na ${f2(tTop())} s, op ${f2(yMax())} m). Daarna valt hij terug en raakt de grond na <b>${f2(te)} s</b> met <b>${f2(v(te))} m/s</b>. De versnelling blijft de hele tijd −9,81 m/s².`
+        : `De bal wordt omlaag gegooid en raakt de grond na <b>${f2(te)} s</b> met <b>${f2(v(te))} m/s</b>.`;
+  }
+
+  function alles() { tekenBal(); grafiek($('cy'), 'y'); grafiek($('cv'), 'v'); }
+  function tijdUI() { const te = tEind(); $('t').max = rondAf(te); $('tn').max = rondAf(te); $('t').value = Math.min(st.t, te); $('tn').value = Math.round(Math.min(st.t, te) * 100) / 100; }
+  function knoppen() {
+    const te = tEind();
+    $('start').textContent = st.loopt ? '⏸ Pauze' : st.t > 0 && st.t < te - 1e-9 ? '▶ Verder' : '▶ Start';
+    root.querySelectorAll('#wp-soort [data-s]').forEach(b => b.setAttribute('aria-pressed', b.dataset.s === st.soort));
+    $('v0g').hidden = st.soort !== 'worp';
+    $('topl').hidden = st.soort !== 'worp';
+  }
+  const herstart = () => { st.t = 0; st.loopt = false; knoppen(); tijdUI(); voorschriften(); alles(); };
+
+  /* ---------- bediening ---------- */
+  const koppel = (id, k, min, max) => {
+    const r = $(id), n = $(id + 'n');
+    const zet = val => { let x = parseFloat(String(val).replace(',', '.')); if (!isFinite(x)) x = st[k]; x = Math.min(max, Math.max(k === 'y0' && st.soort === 'val' ? 1 : min, x)); st[k] = x; r.value = x; n.value = x; herstart(); };
+    r.addEventListener('input', () => zet(r.value)); n.addEventListener('change', () => zet(n.value));
+    r.value = n.value = st[k];
+  };
+  koppel('y0', 'y0', 0, 100); koppel('v0', 'v0', -30, 30);
+  $('soort').addEventListener('click', e => {
+    const b = e.target.closest('[data-s]'); if (!b) return; st.soort = b.dataset.s;
+    if (st.soort === 'val' && st.y0 < 1) { st.y0 = 20; $('y0').value = $('y0n').value = 20; }
+    herstart();
+  });
+  ['tv', 'ta', 'strobo', 'top'].forEach(k => { $(k).checked = st[k]; $(k).addEventListener('change', () => { st[k] = $(k).checked; alles(); }); });
+  $('traag').addEventListener('change', () => { st.traag = +$('traag').value; });
+  const zetT = val => { let x = parseFloat(String(val).replace(',', '.')); if (!isFinite(x)) return; st.t = Math.min(tEind(), Math.max(0, x)); st.loopt = false; knoppen(); alles(); };
+  $('t').addEventListener('input', () => { zetT($('t').value); $('tn').value = Math.round(st.t * 100) / 100; });
+  $('tn').addEventListener('change', () => { zetT($('tn').value); $('t').value = st.t; });
+  let raf = 0, vorig = 0;
+  const lus = nu => {
+    raf = 0; if (!st.loopt || !document.body.contains($('cb'))) return;
+    const dt = Math.min(0.05, (nu - vorig) / 1000); vorig = nu;
+    st.t += dt * st.traag; if (st.t >= tEind()) { st.t = tEind(); st.loopt = false; }
+    tijdUI(); knoppen(); alles(); if (st.loopt) raf = requestAnimationFrame(lus);
+  };
+  $('start').addEventListener('click', () => {
+    if (st.t >= tEind() - 1e-9) st.t = 0;
+    st.loopt = !st.loopt; if (st.loopt) { vorig = performance.now(); if (!raf) raf = requestAnimationFrame(lus); }
+    knoppen();
+  });
+  $('reset').addEventListener('click', herstart);
+  [$('cy'), $('cv')].forEach(cv => {
+    const zet = e => { const r = cv.getBoundingClientRect(), m = cv._X; if (!m) return; const t = (e.clientX - r.left - m.ML) / (r.width - m.ML - m.MR) * m.tmax; st.hover = t >= 0 && t <= m.tmax ? t : null; grafiek($('cy'), 'y'); grafiek($('cv'), 'v'); };
+    cv.addEventListener('pointermove', zet); cv.addEventListener('pointerdown', zet);
+    cv.addEventListener('pointerleave', () => { st.hover = null; grafiek($('cy'), 'y'); grafiek($('cv'), 'v'); });
+  });
+
+  herstart();
+  const ro = new ResizeObserver(() => alles()); [$('cb'), $('cy'), $('cv')].forEach(c => ro.observe(c));
+  window.addEventListener('thema', alles);
+  return () => { ro.disconnect(); if (raf) cancelAnimationFrame(raf); window.removeEventListener('thema', alles); st.loopt = false; };
 }
 
 /* ---------- licht / donker ---------- */
