@@ -1,10 +1,4 @@
-<!doctype html>
-<html lang="nl">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Tools voor mechanica, elektriciteit en fysica, per klas. Tools door VDSTH.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%276%27 fill=%27%230c0e12%27/%3E%3Cpath d=%27M6 24 L13 14 L19 19 L26 8%27 fill=%27none%27 stroke=%27%23f2b544%27 stroke-width=%273%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27/%3E%3C/svg%3E">
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>Tools voor mechanica, elektriciteit en fysica</title>
 <script>try { if (localStorage.getItem('tools-thema') === 'licht') document.documentElement.dataset.theme = 'light'; } catch (e) { }</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -766,8 +760,6 @@ button.knop.ecb-knip { border-color: var(--trek); color: var(--trek); }
 .wp .wp-lv { color: var(--b); } .wp .wp-la { color: var(--a); }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
-</head>
-<body>
 
 <div class="wrap">
   <header class="top">
@@ -7916,14 +7908,15 @@ function renderSchakeling(root) {
 
   /* ---------- panelen ---------- */
   const HINT = {
-    kies: 'Klik op een weerstand of op de bron: in het veldje ernaast stel je de waarde in, draai je het onderdeel of verwijder je het. Tijdens de simulatie toont een draad zijn stroom als je erover beweegt.',
-    draad: 'Klik op een rasterpunt en daarna op een tweede rasterpunt (of sleep) om een draad te tekenen. Draden die elkaar raken, zijn verbonden.',
-    R: 'Klik op een rasterpunt om een weerstand te plaatsen (twee vakjes lang). Sleep in een richting om hem verticaal of naar links te leggen. Je mag een weerstand ook op een bestaande draad zetten. Klik op een weerstand om de waarde in te stellen.',
-    bron: 'Klik op een rasterpunt om de bron te plaatsen en sleep in de richting van de +. Er is maar één bron. Klik op de bron om de spanning in te stellen.',
+    kies: 'Klik op een weerstand of op de bron: in het veldje ernaast stel je de waarde in, draai je het onderdeel of verwijder je het. Tijdens de simulatie toont een draad zijn stroom als je erover beweegt. Sleep een geplaatste weerstand of bron om hem te verplaatsen; druk op R om hem te draaien.',
+    draad: 'Klik op een rasterpunt en daarna op een tweede rasterpunt (of sleep) om een draad te tekenen. Draden die elkaar raken, zijn verbonden. Sleep een geplaatste weerstand of bron om hem te verplaatsen; druk op R om hem te draaien.',
+    R: 'Klik op een rasterpunt om een weerstand te plaatsen (twee vakjes lang). Sleep in een richting om hem verticaal of naar links te leggen. Je mag een weerstand ook op een bestaande draad zetten. Klik op een weerstand om de waarde in te stellen. Sleep een geplaatste weerstand of bron om hem te verplaatsen; druk op R om hem te draaien.',
+    bron: 'Klik op een rasterpunt om de bron te plaatsen en sleep in de richting van de +. Er is maar één bron. Klik op de bron om de spanning in te stellen. Sleep een geplaatste weerstand of bron om hem te verplaatsen; druk op R om hem te draaien.',
     wis: 'Klik op een draad, weerstand of bron om hem te verwijderen. Je kunt ook over meerdere draadstukjes slepen.'
   };
   function toonHint() { $('hint').innerHTML = st.melding ? `<span class="sk-meld">${st.melding}</span>` : HINT[st.tool]; }
-  function toonTools() { root.querySelectorAll('#sk-tools [data-tool]').forEach(b => b.setAttribute('aria-pressed', b.dataset.tool === st.tool)); cv.style.cursor = st.tool === 'kies' ? 'default' : st.tool === 'wis' ? 'not-allowed' : 'crosshair'; }
+  const standaardCursor = () => st.tool === 'kies' ? 'default' : st.tool === 'wis' ? 'not-allowed' : 'crosshair';
+  function toonTools() { root.querySelectorAll('#sk-tools [data-tool]').forEach(b => b.setAttribute('aria-pressed', b.dataset.tool === st.tool)); if (!st.sleep) cv.style.cursor = standaardCursor(); }
   /* ---------- veldje bij het onderdeel ---------- */
   const edit = $('edit');
   function open(e) { st.sel = e.id; st.editBewaard = false; }
@@ -7935,9 +7928,9 @@ function renderSchakeling(root) {
     if (vorige !== String(e.id) || edit.hidden) {
       edit.dataset.id = e.id;
       if (e.type === 'R') edit.innerHTML = `<label><b>${e.naam}</b> =<input type="number" id="sk-ev" min="0.1" max="1000000" step="any" inputmode="decimal"><span>Ω</span></label>
-        <button type="button" class="sk-eb" data-a="draai" title="Draaien" aria-label="Draaien">⟳</button><button type="button" class="sk-eb" data-a="wis" title="Verwijderen" aria-label="Verwijderen">✕</button>`;
+        <button type="button" class="sk-eb" data-a="draai" title="Draaien (R)" aria-label="Draaien (toets R)">⟳</button><button type="button" class="sk-eb" data-a="wis" title="Verwijderen" aria-label="Verwijderen">✕</button>`;
       else if (e.type === 'bron') edit.innerHTML = `<label><b>U</b> =<input type="number" id="sk-ev" min="0" max="1000" step="any" inputmode="decimal"><span>V</span></label>
-        <button type="button" class="sk-eb" data-a="pol" title="Polariteit omdraaien" aria-label="Polariteit omdraaien">⇅</button><button type="button" class="sk-eb" data-a="draai" title="Draaien" aria-label="Draaien">⟳</button><button type="button" class="sk-eb" data-a="wis" title="Verwijderen" aria-label="Verwijderen">✕</button>`;
+        <button type="button" class="sk-eb" data-a="pol" title="Polariteit omdraaien" aria-label="Polariteit omdraaien">⇅</button><button type="button" class="sk-eb" data-a="draai" title="Draaien (R)" aria-label="Draaien (toets R)">⟳</button><button type="button" class="sk-eb" data-a="wis" title="Verwijderen" aria-label="Verwijderen">✕</button>`;
       else edit.innerHTML = `<span class="sk-ed" id="sk-ed"></span><button type="button" class="sk-eb" data-a="wis" title="Draad verwijderen" aria-label="Draad verwijderen">✕</button>`;
       const inp = $('ev');
       if (inp) { inp.value = rondAf(e.type === 'R' ? e.R : e.U); }
@@ -8028,7 +8021,11 @@ function renderSchakeling(root) {
     const [mx, my] = pos(ev);
     if (st.tool !== 'wis') {
       const c = raakComp(mx, my);
-      if (c) { st.start = null; st.cur = null; if (st.sel !== c.id) open(c); st.melding = ''; update(); return; }
+      if (c) {
+        st.start = null; st.cur = null; st.voorb = null; if (st.sel !== c.id) open(c); st.melding = '';
+        st.sleep = { e: c, x0: mx, y0: my, ia: { ...c.a }, ib: { ...c.b }, oa: { ...c.a }, ob: { ...c.b }, dc: 0, dr: 0, bewaard: false };
+        cv.setPointerCapture(ev.pointerId); cv.style.cursor = 'grabbing'; update(); return;
+      }
     }
     if (st.sel) { sluit(); }
     if (st.tool === 'kies') { const e = raak(mx, my); if (e) open(e); st.melding = ''; update(); return; }
@@ -8041,6 +8038,8 @@ function renderSchakeling(root) {
   cv.addEventListener('pointermove', ev => {
     const [mx, my] = pos(ev);
     st.muis = [mx, my];
+    if (st.sleep) { sleepNaar(mx, my); return; }
+    if (!st.start && !st.slepen) cv.style.cursor = st.tool !== 'wis' && raakComp(mx, my) ? 'grab' : standaardCursor();
     if (st.tool === 'wis' && st.slepen) { const e = raak(mx, my); if (e) { verwijder(e); update(); } return; }
     if (st.start && (st.tool === 'R' || st.tool === 'bron')) { const b = vastEind(st.start, mx, my); if (b) st.cur = b; tekenVoorb(); return; }
     if (st.start) { const p = raster(mx, my); if (p) st.cur = snap(st.start, p); teken(); return; }
@@ -8052,7 +8051,39 @@ function renderSchakeling(root) {
     if (st.sim) { const e = raak(mx, my), h = e ? e.id : null; if (h !== st.hover || h) { st.hover = h; if (!raf) teken(); } }
   });
   const tekenVoorb = () => { st.voorb = null; if (!raf) teken(); };
+  /* ---------- geplaatste onderdelen verslepen en draaien ---------- */
+  const sleepBotsing = s => eenheden(s.e.a, s.e.b).map(([p, q]) => sleutel(p, q)).some(k => bezetDoorComp(k, s.e));
+  const sleepMelding = s => { st.melding = sleepBotsing(s) ? 'Hier kan het onderdeel niet staan: daar staat al een weerstand of een bron.' : ''; };
+  function sleepNaar(mx, my) {
+    const s = st.sleep, dc = Math.round((mx - s.x0) / cel), dr = Math.round((my - s.y0) / cel);
+    if (dc === s.dc && dr === s.dr) return;
+    const a = { c: s.oa.c + dc, r: s.oa.r + dr }, b = { c: s.ob.c + dc, r: s.ob.r + dr };
+    if (!past(a) || !past(b)) return;
+    if (!s.bewaard) { bewaar(); s.bewaard = true; }
+    s.dc = dc; s.dr = dr; s.e.a = a; s.e.b = b; sleepMelding(s); update();
+  }
+  function draaiSleep() {   // 90° draaien tijdens het verslepen
+    const s = st.sleep, m = { c: (s.oa.c + s.ob.c) / 2, r: (s.oa.r + s.ob.r) / 2 }, rot = p => ({ c: m.c - (p.r - m.r), r: m.r + (p.c - m.c) });
+    const oa = rot(s.oa), ob = rot(s.ob), a = { c: oa.c + s.dc, r: oa.r + s.dr }, b = { c: ob.c + s.dc, r: ob.r + s.dr };
+    if (!past(a) || !past(b)) { st.melding = 'Draaien lukt hier niet: het onderdeel zou buiten het raster komen.'; update(); return; }
+    if (!s.bewaard) { bewaar(); s.bewaard = true; }
+    s.oa = oa; s.ob = ob; s.e.a = a; s.e.b = b; sleepMelding(s); update();
+  }
+  function laatLos() {
+    const s = st.sleep; st.sleep = null; cv.style.cursor = standaardCursor();
+    if (!s.bewaard) { update(); return; }   // gewoon aangeklikt
+    if (zelfde(s.e.a, s.ia) && zelfde(s.e.b, s.ib)) { geschiedenis.pop(); st.melding = ''; update(); return; }
+    if (sleepBotsing(s)) {   // terug naar de oorspronkelijke plaats
+      const o = JSON.parse(geschiedenis.pop()); st.el = o.el; st.volg = o.volg;
+      st.melding = 'Daar staat al een weerstand of een bron: het onderdeel staat terug op zijn plaats.'; update(); return;
+    }
+    const ks = eenheden(s.e.a, s.e.b).map(([p, q]) => sleutel(p, q));
+    st.el = st.el.filter(x => !(x.type === 'draad' && ks.includes(sleutel(x.a, x.b))));   // draad onder het onderdeel vervalt
+    st.melding = ''; update();
+  }
+  cv.addEventListener('pointercancel', () => { if (st.sleep) laatLos(); });
   cv.addEventListener('pointerup', () => {
+    if (st.sleep) { laatLos(); return; }
     if (st.tool === 'wis') { st.slepen = false; return; }
     if ((st.tool === 'R' || st.tool === 'bron') && st.start) { if (st.cur) voegToe(st.tool, st.start, st.cur); st.start = null; st.cur = null; st.slepen = false; update(); return; }
     if (st.start && st.slepen && st.cur && !zelfde(st.cur, st.start)) { voegToe(st.tool, st.start, st.cur); st.start = null; st.cur = null; st.slepen = false; update(); return; }
@@ -8062,6 +8093,13 @@ function renderSchakeling(root) {
   const toets = ev => {
     if (!document.body.contains(cv)) return;
     if ((ev.ctrlKey || ev.metaKey) && !ev.shiftKey && !ev.altKey && (ev.key === 'z' || ev.key === 'Z') && !/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)) { ev.preventDefault(); ongedaan(); return; }
+    if ((ev.key === 'r' || ev.key === 'R') && !ev.ctrlKey && !ev.metaKey && !ev.altKey && !/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)) {
+      if (st.sleep) { ev.preventDefault(); draaiSleep(); return; }
+      let e = st.muis ? raakComp(st.muis[0], st.muis[1]) : null;   // onderdeel onder de muis, anders het geselecteerde
+      if (!e) e = st.el.find(x => x.id === st.sel && x.type !== 'draad');
+      if (e) { ev.preventDefault(); draai(e); if (st.sel !== e.id) open(e); update(); }
+      return;
+    }
     if (ev.key === 'Escape') { st.start = null; st.cur = null; if (st.sel) sluit(); update(); }
     if ((ev.key === 'Delete' || ev.key === 'Backspace') && st.sel && !/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)) { verwijder(st.el.find(e => e.id === st.sel)); sluit(); update(); }
   };
@@ -9280,5 +9318,4 @@ function renderWorp(root) {
 route();
 </script>
 
-</body>
-</html>
+</body></html>
