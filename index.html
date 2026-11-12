@@ -889,6 +889,22 @@ const APPLETS = [
     render: renderDM
   },
   {
+    id: 'wringing',
+    titel: 'Wringing',
+    vak: 'Sterkteleer',
+    klassen: ['6TWE'],
+    beschrijving: 'Stel de diameter van een massieve of holle as en het wringend moment in. Bekijk de vervorming van het rooster, het lineaire verloop van de schuifspanning en de berekening van W<sub>p</sub> en τ<sub>w</sub>.',
+    thumb: `<svg viewBox="0 0 240 70" aria-hidden="true">
+      <circle cx="56" cy="35" r="28" fill="var(--panel-2)" stroke="var(--fg)" stroke-width="1.5"/>
+      <line x1="56" y1="35" x2="84" y2="35" stroke="var(--axis)"/>
+      <g stroke="var(--vw-druk)" stroke-width="2"><line x1="64" y1="35" x2="64" y2="31"/><line x1="72" y1="35" x2="72" y2="27"/><line x1="80" y1="35" x2="80" y2="22"/></g>
+      <line x1="84" y1="35" x2="84" y2="14" stroke="var(--trek)" stroke-width="2.5"/>
+      <path d="M130 14 H214 L214 58 H130 Z" fill="none" stroke="var(--fg)" stroke-width="1.5"/>
+      <g stroke="var(--b)" stroke-width="1.5" fill="none"><path d="M130 14 Q160 22 172 36 T214 58"/><path d="M130 36 Q160 40 172 46 T214 58" opacity=".6"/></g>
+      <ellipse cx="130" cy="36" rx="7" ry="22" fill="none" stroke="var(--fg)" stroke-width="1.5"/></svg>`,
+    render: renderWringing
+  },
+  {
     id: 'coord',
     volgorde: { '3TEW': 1 },
     titel: 'Oefeningen op coördinaten en positievectoren',
@@ -1307,14 +1323,16 @@ function renderERB(root) {
   const T = 10;
   const SMAX = 100, VMAX = 20;
   const SITUATIES = [
+    { id: 'vooruit', naam: 'Auto rijdt vooruit', A: { s0: 10, v: 8 }, B: { s0: 0, v: 0 }, aanB: false,
+      uitleg: 'Auto <b>A</b> rijdt met een constante snelheid van 8 m/s vooruit. De snelheid is positief, dus de positie neemt toe en de oppervlakte ligt boven de t-as.' },
+    { id: 'achteruit', naam: 'Auto rijdt achteruit', A: { s0: 15, v: -2.5 }, B: { s0: 0, v: 0 }, aanB: false,
+      uitleg: 'Auto <b>A</b> rijdt achteruit een parkeerplaats uit. De snelheid is negatief, dus de positie neemt af en de oppervlakte ligt onder de t-as.' },
+    { id: 'stil', naam: 'Auto staat stil', A: { s0: 30, v: 0 }, B: { s0: 0, v: 0 }, aanB: false,
+      uitleg: 'Auto <b>A</b> staat stil (v = 0). Hoe ziet stilstand eruit in de (s,t)- en de (v,t)-grafiek? Is er een verplaatsing?' },
     { id: 'treinen', naam: 'Twee treinen kruisen elkaar', A: { s0: 0, v: 12 }, B: { s0: 100, v: -10 }, aanB: true,
       uitleg: '<b>A</b> is een trein die naar rechts rijdt, <b>B</b> een trein die op het spoor ernaast naar links rijdt. Waar en wanneer kruisen ze elkaar?' },
     { id: 'inhalen', naam: 'Een auto wordt ingehaald', A: { s0: 20, v: 10 }, B: { s0: 0, v: 20 }, aanB: true,
       uitleg: 'Auto <b>A</b> rijdt 10 m/s (36 km/h) en heeft 20 m voorsprong. Auto <b>B</b> rijdt 20 m/s (72 km/h). Wanneer en waar haalt B auto A in?' },
-    { id: 'achteruit', naam: 'Een auto rijdt achteruit', A: { s0: 15, v: -2.5 }, B: { s0: 0, v: 0 }, aanB: false,
-      uitleg: 'Auto <b>A</b> rijdt achteruit een parkeerplaats uit. De snelheid is negatief, dus de positie neemt af en de oppervlakte ligt onder de t-as.' },
-    { id: 'fietser', naam: 'Fietser passeert een geparkeerde auto', A: { s0: 30, v: 0 }, B: { s0: 0, v: 6 }, aanB: true,
-      uitleg: 'Auto <b>A</b> staat geparkeerd (v = 0), fietser <b>B</b> rijdt 6 m/s. Hoe ziet stilstand eruit in de (s,t)- en de (v,t)-grafiek?' },
     { id: 'evensnel', naam: 'Twee auto’s rijden even snel', A: { s0: 0, v: 15 }, B: { s0: 15, v: 15 }, aanB: true,
       uitleg: 'Beide auto’s rijden 15 m/s, maar <b>B</b> start 15 m vóór <b>A</b>. Haalt A auto B ooit in? Let op de richting van de twee rechten.' }
   ];
@@ -2724,6 +2742,294 @@ function renderBuig(root) {
   [cvBalk, cvD].forEach(c => ro.observe(c));
   teken();
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(teken);
+  return () => ro.disconnect();
+}
+
+/* ============================================================
+   APPLET: Wringing van een ronde as (6TWE)
+   W_p = π·d³/16 (massief) of π·(D⁴ − d⁴)/(16·D) (hol); τ_w = M_w / W_p; τ(r) = τ_w·r/(buitenstraal)
+   ============================================================ */
+function renderWringing(root) {
+  const S = { d: 40, db: 20, M: 500, hollow: false, hov: null, hovR: null };
+  const $ = id => root.querySelector('#wr-' + id);
+  const ctrl = (id, label, min, max, step, eenh) => `
+      <div class="ctrl">
+        <label for="wr-${id}" id="wr-${id}l">${label}</label>
+        <div class="rij">
+          <input type="range" id="wr-${id}" min="${min}" max="${max}" step="${step}">
+          <input type="number" id="wr-${id}n" min="${min}" max="${max}" step="${step}" aria-label="${label.replace(/<[^>]+>/g, '')} in ${eenh}">
+          <span class="eenh">${eenh}</span>
+        </div>
+      </div>`;
+
+  root.innerHTML = `
+  <style>
+    .wr-onder { display: grid; grid-template-columns: 1fr; gap: 16px; align-items: start; }
+    @media (min-width: 900px) { .wr-onder { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+    .wr .doek.wr-def { aspect-ratio: auto; height: 300px; }
+    .wr .doek.wr-sec { aspect-ratio: auto; height: 400px; }
+    .wr .doek.wr-sec canvas { cursor: crosshair; touch-action: pan-y; }
+    .wr-stap { background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; margin-top: 10px; }
+    .wr-stap h3 { margin: 0 0 6px; font: 500 .72rem var(--f-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+    .wr-eq { font-size: 1.05rem; line-height: 2.1; overflow-x: auto; white-space: nowrap; }
+    .wr-eq .res { font-weight: 700; }
+    .wr-frac { display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; margin: 0 .15em; }
+    .wr-frac > span:first-child { border-bottom: 1.5px solid currentColor; padding: 0 .35em; }
+    .wr-frac > span:last-child { padding: 0 .35em; }
+    .wr-r { color: var(--trek); } .wr-h { color: var(--geel); }
+  </style>
+  <div class="erb wr">
+    <div class="paneel bediening">
+      <div class="groep">
+        <div class="gkop">Type as</div>
+        <div class="chips"><button type="button" class="sit" id="wr-bS" aria-pressed="true">Massief</button><button type="button" class="sit" id="wr-bH" aria-pressed="false">Hol</button></div>
+      </div>
+      <div class="groep">
+        ${ctrl('d', 'Asdiameter <i>d</i>', 10, 50, 1, 'mm')}
+        <div id="wr-dbw" hidden>${ctrl('db', 'Binnendiameter <i>d</i>', 2, 48, 1, 'mm')}</div>
+      </div>
+      <div class="groep">${ctrl('M', 'Wringend moment <i>M<sub>w</sub></i>', 0, 5000, 10, 'N·m')}</div>
+    </div>
+    <div class="paneel graf">
+      <div class="kop"><h2>Vervorming</h2></div>
+      <div class="doek wr-def"><canvas id="wr-cvB" role="img" aria-label="Ronde as met rooster, verdraaid door een wringend moment"></canvas></div>
+    </div>
+    <div class="wr-onder">
+      <div class="paneel graf">
+        <div class="kop"><h2>Schuifspanning in de doorsnede</h2></div>
+        <div class="doek wr-sec"><canvas id="wr-cvS" role="img" aria-label="Doorsnede met lineair verloop van de schuifspanning"></canvas></div>
+      </div>
+      <div class="paneel">
+        <h2>Berekening</h2>
+        <div class="wr-stap"><h3>1. Polair weerstandsmoment</h3><div class="wr-eq" id="wr-eqWp"></div></div>
+        <div class="wr-stap"><h3>2. Maximale schuifspanning (buitenrand)</h3><div class="wr-eq" id="wr-eqTau"></div></div>
+        <div class="wr-stap"><h3>3. Schuifspanning op de plaats van de muis</h3><div class="wr-eq" id="wr-eqTi"></div></div>
+      </div>
+    </div>
+  </div>`;
+
+  const cvB = $('cvB'), cvS = $('cvS');
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  function calc() {
+    const r = S.d / 2, rb = S.hollow ? S.db / 2 : 0;
+    const Ip = Math.PI * (S.d ** 4 - (S.hollow ? S.db ** 4 : 0)) / 32;
+    const Wp = Ip / r, Mmm = S.M * 1000;
+    return { r, rb, Wp, Mmm, tw: Wp > 0 ? Mmm / Wp : 0 };
+  }
+  const kleuren = () => ({ fg: css('--fg'), muted: css('--muted'), axis: css('--axis'), panel: css('--panel'), panel2: css('--panel-2'), trek: css('--trek'), blauw: css('--vw-druk'), geel: css('--geel'), b: css('--b'), licht: document.documentElement.dataset.theme === 'light' });
+
+  /* ---------- 3D-tekening van de as ---------- */
+  const PSI = 0.95, PITCH = 0.38, LEN = 5.2;
+  let RK = 1;
+  function proj(x, y, z) {
+    const X = x * Math.cos(PSI) + z * Math.sin(PSI);
+    const Z = -x * Math.sin(PSI) + z * Math.cos(PSI);
+    return { X, Y: y * Math.cos(PITCH) - Z * Math.sin(PITCH), Z: y * Math.sin(PITCH) + Z * Math.cos(PITCH) };
+  }
+  const P = (x, rho, th) => proj(x, rho * RK * Math.cos(th), rho * RK * Math.sin(th));
+
+  function tekenAs() {
+    const K = kleuren(), { ctx: g, w, h } = prepCanvas(cvB), c = calc();
+    const phiEnd = Math.min(2.4, 0.25 * (c.r > 0 ? c.tw / c.r : 0));
+    RK = 1;
+    const pts = [];
+    [-1.6, LEN + 1.6].forEach(x => { for (let a = 0; a < 6.3; a += 0.5) pts.push(P(x, 1.5, a)); });
+    for (let a = 0; a < 6.3; a += 0.5) { pts.push(P(0, 1.5, a)); pts.push(P(LEN, 1.5, a)); }
+    let minX = 1e9, maxX = -1e9, minY = 1e9, maxY = -1e9;
+    pts.forEach(p => { minX = Math.min(minX, p.X); maxX = Math.max(maxX, p.X); minY = Math.min(minY, p.Y); maxY = Math.max(maxY, p.Y); });
+    const sc = Math.min((w - 30) / (maxX - minX), (h - 30) / (maxY - minY));
+    const ox = w / 2 - sc * (minX + maxX) / 2, oy = h / 2 + sc * (minY + maxY) / 2;
+    RK = Math.max(S.d / 50, 0.22);
+    const T = p => [ox + sc * p.X, oy - sc * p.Y];
+    const phi = x => -phiEnd * (1 - x / LEN);
+    const paars = K.licht ? '#7c3aed' : '#b97bff';
+
+    const NX = 44, NT = 56;
+    for (let i = 0; i < NX; i++) {
+      const x0 = LEN * i / NX, x1 = LEN * (i + 1) / NX;
+      for (let j = 0; j < NT; j++) {
+        const t0 = 2 * Math.PI * j / NT, t1 = 2 * Math.PI * (j + 1) / NT, tm = (t0 + t1) / 2 + phi((x0 + x1) / 2);
+        const n = proj(0, Math.cos(tm), Math.sin(tm));
+        if (n.Z <= 0) continue;
+        const a = T(P(x0, 1, t0 + phi(x0))), b = T(P(x1, 1, t0 + phi(x1))), cc = T(P(x1, 1, t1 + phi(x1))), d = T(P(x0, 1, t1 + phi(x0)));
+        const sh = 0.35 + 0.65 * Math.pow(n.Z, 0.8);
+        g.fillStyle = `rgb(${Math.round(30 + 60 * sh)},${Math.round(80 + 110 * sh)},${Math.round(95 + 110 * sh)})`;
+        g.strokeStyle = g.fillStyle; g.lineWidth = 0.6;
+        g.beginPath(); g.moveTo(a[0], a[1]); g.lineTo(b[0], b[1]); g.lineTo(cc[0], cc[1]); g.lineTo(d[0], d[1]); g.closePath(); g.fill(); g.stroke();
+      }
+    }
+    g.strokeStyle = 'rgba(8,16,24,0.85)'; g.lineWidth = 1.1;
+    for (let k = 0; k <= 12; k++) {
+      const x = LEN * k / 12; g.beginPath(); let open = false;
+      for (let j = 0; j <= 120; j++) {
+        const th = 2 * Math.PI * j / 120, nn = proj(0, Math.cos(th + phi(x)), Math.sin(th + phi(x))), q = T(P(x, 1, th + phi(x)));
+        if (nn.Z > 0) { if (!open) { g.moveTo(q[0], q[1]); open = true; } else g.lineTo(q[0], q[1]); } else open = false;
+      }
+      g.stroke();
+    }
+    for (let l = 0; l < 16; l++) {
+      const th0 = 2 * Math.PI * l / 16; g.beginPath(); let op = false;
+      for (let m = 0; m <= 60; m++) {
+        const xx = LEN * m / 60, tt = th0 + phi(xx), n2 = proj(0, Math.cos(tt), Math.sin(tt)), q2 = T(P(xx, 1, tt));
+        if (n2.Z > 0) { if (!op) { g.moveTo(q2[0], q2[1]); op = true; } else g.lineTo(q2[0], q2[1]); } else op = false;
+      }
+      g.stroke();
+    }
+    const ring = rr => { g.beginPath(); for (let e = 0; e <= 60; e++) { const q = T(P(0, rr, 2 * Math.PI * e / 60)); e ? g.lineTo(q[0], q[1]) : g.moveTo(q[0], q[1]); } g.closePath(); };
+    ring(1); g.fillStyle = 'rgba(150,205,220,0.35)'; g.fill(); g.strokeStyle = 'rgba(8,16,24,0.9)'; g.lineWidth = 1.4; g.stroke();
+    const rbr = S.hollow ? S.db / S.d : 0;
+    if (S.hollow) { ring(rbr); g.fillStyle = K.panel; g.fill(); g.strokeStyle = 'rgba(8,16,24,0.9)'; g.lineWidth = 1.4; g.stroke(); }
+    const s0 = T(P(0, rbr, 0)), rOrig = T(P(0, 1, 0)), s1 = T(P(0, rbr, phi(0))), rNew = T(P(0, 1, phi(0)));
+    g.setLineDash([4, 3]); g.strokeStyle = K.licht ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.7)'; g.lineWidth = 1.3;
+    g.beginPath(); g.moveTo(s0[0], s0[1]); g.lineTo(rOrig[0], rOrig[1]); g.stroke(); g.setLineDash([]);
+    g.strokeStyle = K.licht ? '#000' : '#fff'; g.lineWidth = 2;
+    g.beginPath(); g.moveTo(s1[0], s1[1]); g.lineTo(rNew[0], rNew[1]); g.stroke();
+    if (!S.hollow) { const c0 = T(P(0, 0, 0)); g.fillStyle = g.strokeStyle; g.beginPath(); g.arc(c0[0], c0[1], 2.5, 0, 7); g.fill(); }
+
+    g.setLineDash([8, 4, 2, 4]); g.strokeStyle = K.muted; g.lineWidth = 1;
+    const a0 = T(P(-1.0, 0, 0)), a1 = T(P(0, 0, 0)), b0 = T(P(LEN, 0, 0)), b1 = T(P(LEN + 1.0, 0, 0));
+    g.beginPath(); g.moveTo(a0[0], a0[1]); g.lineTo(a1[0], a1[1]); g.moveTo(b0[0], b0[1]); g.lineTo(b1[0], b1[1]); g.stroke(); g.setLineDash([]);
+    const nearTip = T(P(-1.6, 0, 0)), farTip = T(P(LEN + 1.6, 0, 0));
+    pijl(g, a1[0], a1[1], nearTip[0], nearTip[1], paars, 2.4);
+    pijl(g, b1[0], b1[1], farTip[0], farTip[1], paars, 2.4);
+    g.fillStyle = paars; g.font = 'italic 600 15px system-ui,sans-serif';
+    g.fillText('M', nearTip[0] - 4, nearTip[1] + 18); g.fillText('M', farTip[0] - 4, farTip[1] - 8);
+    g.font = 'italic 600 11px system-ui,sans-serif'; g.fillText('w', nearTip[0] + 9, nearTip[1] + 22); g.fillText('w', farTip[0] + 9, farTip[1] - 4);
+    const boog = (xpos, thA, thB) => {
+      g.strokeStyle = K.b; g.lineWidth = 2.2; g.beginPath(); let last, prev;
+      for (let u = 0; u <= 24; u++) { const t = thA + (thB - thA) * u / 24, q = T(P(xpos, Math.max(1.4, 0.5 / RK), t)); u ? g.lineTo(q[0], q[1]) : g.moveTo(q[0], q[1]); prev = last; last = q; }
+      g.stroke(); pijl(g, prev[0], prev[1], last[0], last[1], K.b, 2.2);
+    };
+    boog(-0.25, 0.4, -1.8); boog(LEN + 0.25, -1.4, 0.8);
+  }
+
+  /* ---------- doorsnede met schuifspanningen en hover ---------- */
+  function tekenDoorsnede() {
+    const K = kleuren(), { ctx: g, w, h } = prepCanvas(cvS), c = calc();
+    const Rmax = Math.min(w * 0.36, h * 0.40), R = Rmax * Math.max(S.d / 50, 0.22), cx = w * 0.44, cy = h * 0.52;
+    const rbp = R * c.rb / c.r, hasT = c.tw > 0;
+    const REFS = [100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000, 100000], ref = REFS.find(v => v >= c.tw / 1.7) || 100000;
+    const Lref = 0.62 * Rmax, maxLen = hasT ? c.tw / ref * Lref : 0;   // pijllengte schaalt met de spanning
+    const grad = g.createRadialGradient(cx, cy, 0, cx, cy, R);
+    grad.addColorStop(0, K.panel2); grad.addColorStop(1, '#2f6f82');
+    g.fillStyle = grad; g.beginPath(); g.arc(cx, cy, R, 0, 7); g.fill();
+    g.strokeStyle = '#58c08b'; g.lineWidth = 2.5; g.beginPath(); g.arc(cx, cy, R, 0, 7); g.stroke();
+    g.setLineDash([10, 4, 2, 4]); g.strokeStyle = K.axis; g.lineWidth = 1;
+    g.beginPath(); g.moveTo(cx - R - 14, cy); g.lineTo(cx + R + 14, cy); g.moveTo(cx, cy - R - 14); g.lineTo(cx, cy + R + 14); g.stroke(); g.setLineDash([]);
+    if (S.hollow) {
+      g.fillStyle = K.panel; g.beginPath(); g.arc(cx, cy, rbp, 0, 7); g.fill();
+      g.strokeStyle = '#58c08b'; g.lineWidth = 2; g.beginPath(); g.arc(cx, cy, rbp, 0, 7); g.stroke();
+    }
+    const veld = alpha => {
+      const dir = [Math.cos(alpha), -Math.sin(alpha)], tan = [-Math.sin(alpha), -Math.cos(alpha)];
+      g.strokeStyle = K.muted; g.lineWidth = 1; g.beginPath(); g.moveTo(cx, cy); g.lineTo(cx + dir[0] * R, cy + dir[1] * R); g.stroke();
+      if (!hasT) return;
+      const tipB = [cx + dir[0] * rbp + tan[0] * maxLen * rbp / R, cy + dir[1] * rbp + tan[1] * maxLen * rbp / R];
+      g.strokeStyle = K.blauw; g.globalAlpha = .6; g.lineWidth = 1.2;
+      if (S.hollow) { g.setLineDash([3, 4]); g.beginPath(); g.moveTo(cx, cy); g.lineTo(tipB[0], tipB[1]); g.stroke(); g.setLineDash([]); }
+      g.beginPath(); g.moveTo(tipB[0], tipB[1]); g.lineTo(cx + dir[0] * R + tan[0] * maxLen, cy + dir[1] * R + tan[1] * maxLen); g.stroke(); g.globalAlpha = 1;
+      for (let k = 0; k <= 8; k++) {
+        const rho = k === 0 ? rbp : R * k / 8;
+        if ((k === 0 && !S.hollow) || (k > 0 && rho <= rbp + 3)) continue;
+        const len = maxLen * rho / R, x = cx + dir[0] * rho, y = cy + dir[1] * rho;
+        pijl(g, x, y, x + tan[0] * len, y + tan[1] * len, K.blauw, 1.4);
+      }
+      const xo = cx + dir[0] * R, yo = cy + dir[1] * R;
+      pijl(g, xo, yo, xo + tan[0] * maxLen, yo + tan[1] * maxLen, K.trek, 3.2);
+      g.strokeStyle = K.trek; g.lineWidth = 2; g.strokeRect(xo - 5, yo - 5, 10, 10);
+    };
+    veld(0); veld(Math.PI / 4);
+    g.strokeStyle = K.muted; g.fillStyle = K.muted; g.lineWidth = 2; g.beginPath();
+    g.moveTo(14, h - 26); g.lineTo(14 + Lref, h - 26); g.moveTo(14, h - 31); g.lineTo(14, h - 21); g.moveTo(14 + Lref, h - 31); g.lineTo(14 + Lref, h - 21); g.stroke();
+    g.font = '12px system-ui,sans-serif'; g.fillText('Schaal van de pijlen: ' + fmt(ref, 0) + ' N/mm²', 14, h - 8);
+
+    g.fillStyle = K.trek; g.font = 'italic 600 15px system-ui,sans-serif';
+    if (hasT) {
+      const lx = cx + R + 8, ly = cy - Math.max(maxLen, 24) * 0.55;
+      g.fillText('τ', lx, ly); g.font = 'italic 600 11px system-ui,sans-serif'; g.fillText('w', lx + 9, ly + 4);
+      g.font = '13px system-ui,sans-serif'; g.fillText('= ' + fmt(c.tw, 1) + ' N/mm²', lx + 18, ly);
+    } else { g.fillStyle = K.muted; g.font = '13px system-ui,sans-serif'; g.fillText('M w = 0: geen schuifspanning', cx - 80, cy + R + 44); }
+    const ar = 2.35, rx = cx + Math.cos(ar) * R, ry = cy - Math.sin(ar) * R;
+    pijl(g, cx, cy, rx, ry, K.trek, 2);
+    g.fillStyle = K.trek; g.font = 'italic 600 15px system-ui,sans-serif'; g.fillText('r', rx - 100, ry - 4);
+    g.font = '12px system-ui,sans-serif'; g.fillText('= ' + fmt(c.r, 1) + ' mm', rx - 92, ry - 4);
+    g.fillStyle = K.fg; g.font = '12px system-ui,sans-serif';
+    g.fillText((S.hollow ? 'D = ' : 'd = ') + fmt(S.d, 0) + ' mm' + (S.hollow ? '   d = ' + fmt(S.db, 0) + ' mm' : ''), cx - 40, cy + R + 22);
+
+    S.hovR = null;
+    if (S.hov) {
+      const dx = S.hov.x - cx, dy = S.hov.y - cy, rho = Math.hypot(dx, dy);
+      if (rho <= R) {
+        const inHole = S.hollow && rho < rbp, rmm = rho / R * c.r, ang = Math.atan2(-dy, dx);
+        let t1 = 'r = ' + fmt(rmm, 1) + ' mm', t2;
+        if (!inHole) {
+          S.hovR = rmm;
+          const px = cx + Math.cos(-ang) * rho, py = cy + Math.sin(-ang) * rho;
+          g.setLineDash([5, 4]); g.strokeStyle = K.geel; g.lineWidth = 1.6; g.beginPath(); g.arc(cx, cy, rho, 0, 7); g.stroke(); g.setLineDash([]);
+          g.lineWidth = 1.2; g.beginPath(); g.moveTo(cx, cy); g.lineTo(px, py); g.stroke();
+          if (hasT) { const tl = maxLen * rho / R; pijl(g, px, py, px - Math.sin(ang) * tl, py - Math.cos(ang) * tl, K.geel, 3); }
+          g.fillStyle = K.geel; g.beginPath(); g.arc(px, py, 4, 0, 7); g.fill();
+          t2 = 'τ = ' + fmt(c.tw * rmm / c.r, 1) + ' N/mm²';
+        } else t2 = 'holte: geen materiaal';
+        g.font = '600 13px system-ui,sans-serif';
+        const bw = Math.max(g.measureText(t1).width, g.measureText(t2).width) + 16, bh = 44;
+        const bx = Math.min(w - bw - 4, S.hov.x + 14), by = Math.max(4, S.hov.y - bh - 10);
+        g.fillStyle = K.panel; g.strokeStyle = K.geel; g.lineWidth = 1; g.beginPath(); g.rect(bx, by, bw, bh); g.fill(); g.stroke();
+        g.fillStyle = K.fg; g.fillText(t1, bx + 8, by + 18); g.fillStyle = K.geel; g.fillText(t2, bx + 8, by + 36);
+      }
+    }
+  }
+
+  /* ---------- berekening ---------- */
+  const fr = (a, b) => `<span class="wr-frac"><span>${a}</span><span>${b}</span></span>`;
+  function stap3() {
+    const c = calc();
+    $('eqTi').innerHTML = S.hovR == null ? '<span class="hint">Beweeg je muis over de doorsnede.</span>' :
+      `τ = <span class="wr-r">τ<sub>w</sub></span> · ${fr('r<sub>x</sub>', 'r')} = ${fmt(c.tw, 1)} · ${fr(fmt(S.hovR, 1) + ' mm', fmt(c.r, 1) + ' mm')} = <span class="res wr-h">${fmt(c.tw * S.hovR / c.r, 1)} N/mm²</span>`;
+  }
+  function schrijf() {
+    const c = calc(), d = fmt(S.d, 0), db = fmt(S.db, 0);
+    $('eqWp').innerHTML = S.hollow
+      ? `W<sub>p</sub> = ${fr('π·(D<sup>4</sup> − d<sup>4</sup>)', '16·D')}<br>W<sub>p</sub> = ${fr(`π·((${d} mm)<sup>4</sup> − (${db} mm)<sup>4</sup>)`, `16·${d} mm`)} = <span class="res">${fmt(c.Wp, 0)} mm³</span>`
+      : `W<sub>p</sub> = ${fr('π·d<sup>3</sup>', '16')}<br>W<sub>p</sub> = ${fr(`π·(${d} mm)<sup>3</sup>`, '16')} = <span class="res">${fmt(c.Wp, 0)} mm³</span>`;
+    $('eqTau').innerHTML = `<span class="wr-r">τ<sub>w</sub></span> = ${fr('M<sub>w</sub>', 'W<sub>p</sub>')} = ${fr(fmt(c.Mmm, 0) + ' N·mm', fmt(c.Wp, 0) + ' mm³')} = <span class="res wr-r">${fmt(c.tw, 1)} N/mm²</span>`;
+    stap3();
+  }
+  function teken() { tekenAs(); tekenDoorsnede(); schrijf(); }
+
+  /* ---------- invoer ---------- */
+  function sync(bron) {
+    S.db = clamp(S.db, 2, S.d - 2);
+    $('bS').setAttribute('aria-pressed', !S.hollow); $('bH').setAttribute('aria-pressed', S.hollow);
+    $('dbw').hidden = !S.hollow;
+    $('dl').innerHTML = S.hollow ? 'Buitendiameter <i>D</i>' : 'Asdiameter <i>d</i>';
+    $('db').max = $('dbn').max = S.d - 2;
+    [['d', S.d], ['db', S.db], ['M', S.M]].forEach(([id, v]) => {
+      if (bron !== id) $(id).value = v;
+      if (bron !== id + 'n') $(id + 'n').value = v;
+    });
+    teken();
+  }
+  const koppel = (id, min, max, set) => {
+    $(id).addEventListener('input', () => { set(+$(id).value); sync(id); });
+    $(id + 'n').addEventListener('input', () => { const v = parseFloat($(id + 'n').value); if (isNaN(v)) return; set(clamp(v, min, max)); sync(id + 'n'); });
+    $(id + 'n').addEventListener('change', () => sync());
+  };
+  koppel('d', 10, 50, v => S.d = v);
+  koppel('db', 2, 48, v => S.db = v);
+  koppel('M', 0, 5000, v => S.M = v);
+  $('bS').addEventListener('click', () => { S.hollow = false; sync(); });
+  $('bH').addEventListener('click', () => { S.hollow = true; sync(); });
+
+  const hover = e => { const r = cvS.getBoundingClientRect(), t = e.touches ? e.touches[0] : e; S.hov = { x: t.clientX - r.left, y: t.clientY - r.top }; tekenDoorsnede(); stap3(); };
+  cvS.addEventListener('mousemove', hover);
+  cvS.addEventListener('touchstart', hover, { passive: true });
+  cvS.addEventListener('touchmove', hover, { passive: true });
+  cvS.addEventListener('mouseleave', () => { S.hov = null; tekenDoorsnede(); stap3(); });
+
+  const ro = new ResizeObserver(() => teken());
+  ro.observe(cvB); ro.observe(cvS);
+  sync();
   return () => ro.disconnect();
 }
 
